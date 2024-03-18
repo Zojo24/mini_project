@@ -1,0 +1,40 @@
+.loading {
+  animation:  fadeIn 1 .5s both;
+  svg {
+    @apply w-28 h-28 translate-x-3 ;
+    fill:#1d4ed8;
+  }
+  path:nth-child(1) {
+    animation: fly1 infinite 1s;
+    transform-box: fill-box;
+  }
+  path:nth-child(2) {
+    animation: fly1 infinite 1s;
+    transform-box: fill-box;
+  }
+  path:nth-child(3) {
+    fill:#000;
+  }
+  path:nth-child(4) {
+  }
+}
+
+@keyframes fly1 {
+  0% {
+    transform: translate(-80px, 50px);
+  }
+  80% {
+    transform: translate(0);
+  }
+  100% {
+    transform: translate(15px, -10px);
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

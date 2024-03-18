@@ -1,0 +1,6 @@
+.sns {
+  @apply flex gap-2;
+  > a {
+    @apply w-10 h-10 rounded-full flex items-center justify-center;
+  }
+}

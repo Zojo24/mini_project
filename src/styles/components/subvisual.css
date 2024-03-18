@@ -1,0 +1,16 @@
+.sub-visual {
+  @apply py-[9rem] grid justify-center bg-no-repeat bg-cover bg-center relative mt-24;
+  &::after{
+    content:'';
+    @apply left-0 right-0 top-0 bottom-0 absolute bg-blue-900/70;
+  }
+  &:has(.search){
+    > h2 {
+      @apply -translate-y-8;
+    }
+  }
+  > h2 {
+    @apply relative z-30 text-white text-5xl font-semibold;
+    font-family: var(--eng1);
+  }
+}

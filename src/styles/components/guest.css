@@ -1,0 +1,13 @@
+.guest {
+  @apply bg-gray-100 text-gray-500 px-4 py-1 rounded-md h-11 border border-gray-200 appearance-none w-auto box-border inline-flex items-center gap-1;
+  span {
+    @apply text-sm;
+  }
+
+  input {
+    @apply w-8 border-0 bg-transparent outline-none text-center ;
+  }
+  button {
+    @apply text-lg p-1;
+  }
+}

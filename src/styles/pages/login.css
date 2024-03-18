@@ -1,0 +1,36 @@
+.tab {
+  @apply min-w-[480px] flex border-b-2 border-b-gray-300 gap-5;
+  button {
+    @apply font-semibold pb-5;
+    &.--active {
+      @apply text-blue-700 relative;
+      &::after{
+        content: '';
+        @apply absolute left-0 right-0 -bottom-[2px] border-b-2 border-b-blue-700;
+      }
+    }
+  }
+}
+.login-form {
+  @apply grid gap-7 pt-8;
+  div {
+    @apply grid gap-2 text-gray-700 ;
+  }
+}
+.btn-login {
+  @apply text-blue-700 pt-2;
+}
+.birth {
+  display: grid;
+  grid-template-columns:repeat(3, 1fr min-content );
+  align-items: center;
+  input {
+    width: 100%;
+    max-width: 8.5rem;
+    margin-right: -1rem;
+    text-align: center;
+     ~ input {
+      margin-left: 0.3rem;
+     }
+  }
+}

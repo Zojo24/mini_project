@@ -1,0 +1,18 @@
+@import "../var.css";
+
+.gnb {
+  ul {
+    @apply flex gap-5;
+  }
+  a {
+    @apply text-lg font-medium text-white block py-3;
+    font-family: var(--eng1);
+    
+    .sub & {
+      @apply text-gray-700 hover:text-blue-700;
+      &.active {
+        @apply text-blue-700;
+      }
+    }
+  }
+}

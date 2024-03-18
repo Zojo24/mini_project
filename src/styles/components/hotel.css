@@ -1,0 +1,139 @@
+.hotel{
+  @apply grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6;
+  > li {
+    @apply bg-white rounded-xl p-2 relative;
+  }
+
+  /* 호텔 사진 */
+  &__picture {
+    @apply block overflow-hidden rounded-[0.5rem_0.5rem_0_0];
+    &:hover {
+      img {
+        @apply scale-110;
+      }
+    }
+    img {
+      @apply w-full h-full object-cover aspect-[4/3] transition-all duration-500;
+    }
+  }
+  
+  /* 호텔정보레이아웃 */
+  &__info {
+    @apply py-4 px-2 grid grid-cols-2 gap-y-2;
+  }
+
+  /* 호텔위치 */
+  &__location {
+    @apply bg-blue-50 inline-flex items-center h-6 rounded gap-1 px-2 text-sm text-gray-900 justify-self-start;
+    svg {
+      @apply text-blue-700
+    }
+    .hotel-detail & {
+      @apply bg-transparent h-auto text-2xl text-gray-400;
+      svg {
+        @apply text-indigo-400;
+      }
+    }
+  }
+
+  /* 즐겨찾기 */
+  &__fav {
+    @apply text-xl text-gray-400 justify-self-end;
+    .--active {
+      @apply text-pink-500;
+    }
+    .hotel-detail & {
+      @apply  bg-gray-100 p-2 rounded-full text-gray-900;
+    }
+  }
+
+  /* 호텔명 */
+  &__title {
+    @apply col-span-2 text-xl font-semibold hover:text-blue-700 transition-colors duration-300;
+    .hotel__info & {
+      @apply pb-5;
+    }
+    .room-list &{
+      grid-column: auto;
+      grid-row: auto;
+      align-self: end
+    }
+  }
+
+  /* 가격 */
+  &__price {
+    @apply flex items-end gap-0 leading-none;
+    strong {
+      @apply text-lg translate-y-[0.1rem];
+
+      .hotel-detail & {
+        @apply text-2xl text-blue-700 translate-y-[0.1rem];
+      }
+      .room-list & {
+        @apply  text-blue-700;
+      }
+    }
+    span {
+      @apply text-gray-500 text-sm;
+      .hotel-detail & {
+        @apply  text-base;
+      }
+    }
+    svg {
+      @apply text-gray-500 text-lg;
+      .hotel-detail & {
+        @apply  text-xl;
+      }
+    }
+    .room-list &{
+      @apply justify-self-end self-end;
+    }
+
+  }
+
+  /* 상세보기 */
+  &__booking {
+    @apply justify-self-end;
+  }
+}
+
+/* 호텔 상세보기 */
+.hotel-detail{
+  &__header {
+    @apply grid grid-cols-2;
+    div:first-child  {
+      @apply justify-self-start;
+    }
+    div:last-child {
+      @apply justify-self-end flex items-center gap-4;
+    }
+  }
+}
+/* 호텔 상세보기 갤러리 */
+.hotel-gallery {
+  @apply grid gap-8 h-[40rem];
+  grid-template-columns: 1fr 2fr 1fr;
+  div {
+    @apply overflow-hidden rounded-xl;
+    &:nth-child(1) {
+      @apply row-span-2;
+    }
+    &:nth-child(3) {
+      @apply row-span-2;
+    }
+  }
+  img {
+    @apply w-full h-full object-cover;
+  }
+}
+
+/* 호텔 규칙 */
+.hotel-rules {
+  @apply flex gap-6 flex-wrap;
+  li{
+    @apply flex justify-between bg-white px-8 py-4 items-center rounded gap-24;
+    span {
+      @apply text-gray-400
+    }
+  }
+}

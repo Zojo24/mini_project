@@ -1,0 +1,9 @@
+.service-list {
+  @apply grid  grid-cols-3 gap-4;
+  li {
+    @apply border border-gray-200 p-3 rounded-md flex items-center gap-2 bg-white;
+    svg {
+      @apply text-blue-700 text-2xl;
+    }
+  }
+}

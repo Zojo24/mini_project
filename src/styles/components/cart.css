@@ -1,0 +1,42 @@
+.cart {
+  @apply h-screen max-h-screen w-[22rem] m-0 p-0 rounded-none left-[inherit] right-0 top-0 bg-white transform-none;
+  &__list {
+    @apply p-5;
+    height: calc(100vh - 157px - 66px); overflow: auto;
+    .mypage-cart & {
+      height: auto;
+      max-height: 50vh;
+    }
+    &::-webkit-scrollbar {
+      @apply w-2 bg-transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      @apply w-2 bg-gray-300 rounded-xl;
+    }
+    &::-webkit-scrollbar-track {
+      @apply bg-transparent;
+    }
+    .room-list__picture {
+      @apply w-14 h-14 rounded-md;
+    }
+    li:last-child {
+      border-bottom: none
+    }
+  }
+  .dialog__close {
+    @apply top-2;
+  }
+}
+
+.cart-price {
+  @apply p-5 border-t border-t-gray-200 border-solid absolute bottom-0 w-full;
+  .mypage-cart &{
+    @apply static;
+    button {
+      @apply px-7 py-[0.63rem] text-base;
+    }
+  }
+  li {
+    @apply flex justify-between;
+  }
+}

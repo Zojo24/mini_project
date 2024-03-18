@@ -1,0 +1,21 @@
+.header {
+  @apply  transition-all duration-500 h-24 pl-24 pr-24 flex justify-between fixed left-0 right-0 top-0 items-center z-[1000];
+  &.sub {
+    @apply shadow-md;
+    background-color: #fff !important;
+    .logo {
+      svg {
+        @apply fill-blue-700;
+        path:nth-child(3) {
+          @apply fill-black;
+        }
+      }
+      b {
+        @apply text-black;
+      }
+      em {
+        @apply text-blue-700;
+      }
+    } 
+  }
+}

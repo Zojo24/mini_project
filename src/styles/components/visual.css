@@ -1,0 +1,6 @@
+.visual {
+  &::after {
+    content: "";
+    @apply absolute left-0 right-0 top-0 bottom-0 bg-blue-800 opacity-35 z-30;
+  }
+}

@@ -1,0 +1,3 @@
+.box {
+  @apply bg-slate-100 p-10 rounded-xl;
+}

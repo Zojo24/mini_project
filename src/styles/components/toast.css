@@ -1,0 +1,37 @@
+.toast {
+  @apply hidden px-4 py-1 z-[900] text-base rounded-full font-semibold fixed left-2/4 bottom-16 -translate-x-2/4  opacity-0 border border-solid shadow-md;
+  animation:fadeUp 1 both ;
+  &.blue {
+    @apply bg-blue-50 text-blue-700 border-blue-300;
+  }
+  &.red {
+    @apply bg-rose-50 text-rose-600 border-rose-300;
+  }
+  &.gray {
+    @apply bg-zinc-50 text-zinc-500 border-zinc-300;
+  }
+  &.green {
+    @apply bg-emerald-50 text-teal-500 border-teal-300;
+  }
+  &.mint {
+    @apply bg-cyan-50 text-cyan-500 border-cyan-300;
+  }
+  .guest & {
+    @apply -bottom-28;
+  }
+}
+
+@keyframes fadeUp {
+  0% {
+    @apply mb-0 opacity-0;
+  }
+  30% {
+    @apply mb-6 opacity-100;
+  }
+  80% {
+    @apply mb-6 opacity-100;
+  }
+  100% {
+    @apply mb-6 opacity-0;
+  }
+}

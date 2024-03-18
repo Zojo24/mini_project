@@ -1,0 +1,42 @@
+.room-list {
+  &__picture{
+    @apply w-52 h-48 overflow-hidden rounded-xl;
+    img {
+      @apply w-full h-full object-cover transition-transform duration-500;
+      li:hover & {
+        @apply scale-110;
+      }
+    }
+    .room-list & {
+      grid-column: 1/2;
+      grid-row: 1 / 4;
+    }
+    .reservation__hotel-info & {
+      @apply rounded-none w-full h-60;
+    }
+  }
+   > li {
+    @apply py-6;
+    > div {
+      @apply grid gap-7 items-center grid-cols-[min-content_1fr_1fr] grid-rows-[1fr_min-content_1fr];
+    }
+    + li {
+      @apply border-solid border-t-[1px] border-t-gray-300;
+    }
+  }
+  button {
+    @apply justify-self-start self-start;
+    
+  }
+}
+
+.room-option {
+  @apply flex flex-wrap gap-6 col-span-2;
+  li {
+    @apply flex items-center gap-1 text-gray-500;
+    svg {
+      @apply text-gray-700 text-lg;
+    }
+
+  }
+}

@@ -1,0 +1,16 @@
+.main {
+ @apply min-h-96 pt-24;
+}
+.container {
+  @apply  w-[90rem] mx-auto;
+}
+
+.bg-blue{
+  @apply bg-blue-50 py-20;
+}
+
+.advertisement {
+  @apply py-24 bg-blue-700 text-white text-center font-bold text-3xl leading-relaxed;
+  background-image:url('../../assets/add_bg.png');
+
+}

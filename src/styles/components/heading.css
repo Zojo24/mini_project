@@ -1,0 +1,20 @@
+.heading {
+  @apply text-gray-800  font-bold;
+  font-family: var(--eng1), 'Noto Sans KR';
+  &.sm {
+    @apply  text-2xl;
+  }
+  &.sm {
+    @apply  text-2xl;
+  }
+  &.base {
+    @apply  text-3xl;
+  }
+  &.xl {
+    @apply  text-4xl text-center relative;
+    &:after {
+      content: "";
+      @apply m-auto w-11 h-[0.4rem] bg-blue-700 block mt-4 mb-10;
+    }
+  }
+}

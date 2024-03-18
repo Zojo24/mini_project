@@ -1,0 +1,6 @@
+.mypage-account {
+  @apply gap-x-5 gap-y-5;
+  input {
+    @apply w-full bg-white;
+  }
+}
