@@ -4,7 +4,7 @@ import { useVisualStore } from "../store/visualStore";
 import { TbRotateClockwise2 } from "react-icons/tb";
 import { FaArrowDownShortWide } from "react-icons/fa6";
 import Heading from "../components/Heading";
-import SearchDetail from "../components/search/SearchDetail";
+import SearchDetail from "../components/Search/SearchDetail";
 
 const HotelAllList = () => {
   const { setTitle } = useVisualStore();

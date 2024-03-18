@@ -1,0 +1,31 @@
+.notice-list {
+  @apply grid gap-4;
+ > li {
+  @apply border border-solid border-gray-300 rounded-lg p-3;
+  > div {
+    @apply pt-2;
+  }
+  > button {
+    @apply grid grid-cols-[1fr_min-content] w-full text-left font-bold;
+    span {
+      @apply w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center text-zinc-900 ;
+    }
+  }
+  &:has(.active){
+    @apply bg-white;
+    > button span {
+      @apply bg-blue-700  text-white ;
+    }
+  }
+ } 
+}
+.notice-write {
+  @apply grid gap-5;
+  > div {
+    @apply grid gap-2;
+    textarea,
+    input {
+      @apply bg-white;
+    }
+  }
+}

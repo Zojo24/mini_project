@@ -28,7 +28,7 @@
     svg {
       @apply text-blue-700
     }
-    .hotel-detail & {
+    &.xl {
       @apply bg-transparent h-auto text-2xl text-gray-400;
       svg {
         @apply text-indigo-400;
@@ -62,12 +62,15 @@
 
   /* 가격 */
   &__price {
-    @apply flex items-end gap-0 leading-none;
+    @apply inline-flex items-end gap-0 leading-none;
     strong {
       @apply text-lg translate-y-[0.1rem];
 
       .hotel-detail & {
         @apply text-2xl text-blue-700 translate-y-[0.1rem];
+      }
+      .mypapge-cart & {
+        @apply text-sm text-blue-700 translate-y-[0.1rem];
       }
       .room-list & {
         @apply  text-blue-700;

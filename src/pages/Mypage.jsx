@@ -4,6 +4,7 @@ import MypageAccount from "../components/Mypage/MypageAccount";
 import { useVisualStore } from "../store/visualStore";
 import MypageFavorite from "../components/Mypage/MypageFavorite";
 import MypageCart from "../components/Mypage/MypageCart";
+import MypageReservation from "../components/Mypage/MypageReservation";
 
 const Mypage = () => {
   const { setTitle } = useVisualStore();
@@ -17,7 +18,7 @@ const Mypage = () => {
 
   return (
     <div className="main bg-gray-100">
-      <div className="container pt-10 pb-20">
+      <div className="container mypage pt-10 pb-20">
         <Heading tag={"h3"} text={"마이 페이지"} className={"xl"} />
         <nav>
           <ul className="tab">
@@ -47,7 +48,7 @@ const Mypage = () => {
           {isTab === "account" && <MypageAccount />}
           {isTab === "favorite" && <MypageFavorite />}
           {isTab === "cart" && <MypageCart />}
-          {isTab === "reservation" && <>4</>}
+          {isTab === "reservation" && <MypageReservation />}
         </div>
       </div>
     </div>

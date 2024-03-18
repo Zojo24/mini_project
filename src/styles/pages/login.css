@@ -24,6 +24,10 @@
   display: grid;
   grid-template-columns:repeat(3, 1fr min-content );
   align-items: center;
+  .mypage & {
+    grid-template-columns:repeat(3, 1fr min-content );
+    gap:0.5rem;
+  }
   input {
     width: 100%;
     max-width: 8.5rem;

@@ -41,23 +41,11 @@ const ReservationFirst = () => {
           </li>
           <li>
             <strong className="--title">어린이</strong>
-            <GuestCounter />
+            <GuestCounter kids />
           </li>
           <li>
             <strong className="--title">유아</strong>
-            <GuestCounter />
-          </li>
-          <li>
-            <span>
-              <Checkbox id={"chk1"} value={"마사지"} color={"blue"} />
-            </span>
-            <span className="--price">₩ 100,000</span>
-          </li>
-          <li>
-            <span>
-              <Checkbox id={"chk2"} value={"액티비티"} color={"blue"} />
-            </span>
-            <span className="--price">₩ 100,000</span>
+            <GuestCounter kids />
           </li>
           <li>
             <strong className="--title">총 금액</strong> <span className="--total">₩ 100,000</span>

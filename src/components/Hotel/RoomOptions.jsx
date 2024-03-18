@@ -9,7 +9,8 @@ const RoomOptions = () => {
     <ul className="room-option">
       <li>
         <LuBed />
-        침대 갯수 2
+        더블베드
+        {/* 트윈 + 더블베드 || 킹 || 퀸 || 싱글 x 2 || */}
       </li>
       <li>
         <GoPeople />

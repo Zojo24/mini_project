@@ -23,7 +23,7 @@ const ReservationHotelInfoItems = () => {
         </div>
         <div></div>
         <div>
-          <GuestCounter />
+          <GuestCounter className={"sm"} />
         </div>
         <div className="whitespace-nowrap">₩ 총 가격</div>
       </li>
@@ -42,7 +42,7 @@ const ReservationHotelInfoItems = () => {
         </div>
         <div></div>
         <div>
-          <GuestCounter />
+          <GuestCounter className={"sm"} />
         </div>
         <div className="whitespace-nowrap">₩ 총 가격</div>
       </li>
@@ -61,7 +61,7 @@ const ReservationHotelInfoItems = () => {
         </div>
         <div></div>
         <div>
-          <GuestCounter />
+          <GuestCounter className={"sm"} />
         </div>
         <div className="whitespace-nowrap">₩ 총 가격</div>
       </li>

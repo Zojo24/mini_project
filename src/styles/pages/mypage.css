@@ -1,6 +1,24 @@
 .mypage-account {
   @apply gap-x-5 gap-y-5;
+  > div {
+    @apply grid gap-2;
+  }
   input {
     @apply w-full bg-white;
+  }
+}
+.mypage-cart {
+  &__table {
+    @apply text-center;
+    tr {
+      @apply border-t border-solid border-t-gray-200;
+    }
+    th {
+      @apply font-normal py-2 ;
+    }
+    td {
+      @apply py-3;
+    }
+
   }
 }

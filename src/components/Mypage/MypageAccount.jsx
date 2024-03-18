@@ -6,13 +6,19 @@ import Avatar from "../Avatar";
 
 const MypageAccount = () => {
   return (
-    <div className="grid grid-cols-[25rem_1fr] gap-5">
-      <div className="bg-white rounded-xl whitespace-nowrap p-10 self-start">
-        <Heading tag={"h4"} className={"sm"} text={"개인정보"} />
-        <Avatar />
+    <div className="grid grid-cols-[20rem_1fr] gap-5">
+      <div className="bg-white rounded-xl whitespace-nowrap p-10 self-start text-center">
+        <Heading tag={"h4"} className={"sm mb-5"} text={"개인정보"} />
+        {/* <Avatar /> */}
         <Avatar add />
-        <div>하하하하 님 반갑습니다.</div>
-        잔여캐시 : 10,000원
+        <div className="mb-5 mt-1">
+          <b>하하하하</b>님
+          <br /> 반갑습니다.
+        </div>
+        잔여캐시
+        <br />
+        <strong className="text-2xl mr-1 text-blue-700 tracking-tight">1,000,000</strong>
+        <span>원</span>
       </div>
       <form className="bg-white rounded-xl  p-10">
         <Heading tag={"h4"} className={"sm"} text={"기본정보"} />

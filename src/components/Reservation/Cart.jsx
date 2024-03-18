@@ -1,5 +1,4 @@
 import React from "react";
-import Dialog from "../Dialog";
 import "../../styles/components/cart.css";
 import ReservationCartItems from "./ReservationCartItems";
 import { Link } from "react-router-dom";

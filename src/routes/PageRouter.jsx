@@ -11,6 +11,7 @@ import ReservationThird from "../components/Reservation/ReservationThird";
 import NotFound from "../pages/NotFound";
 import About from "../pages/About";
 import Blog from "../pages/Blog";
+import HotelWrite from "../pages/HotelWrite";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
         element: <HotelDetail />,
       },
       {
+        path: "/hotelwrite",
+        element: <HotelWrite />,
+      },
+      {
         path: "/reservation",
         element: <ReservationSecond />,
       },
@@ -42,13 +47,13 @@ const router = createBrowserRouter([
         element: <Mypage />,
       },
       {
-        path: "/about",
-        element: <About />,
+        path: "/hotel/:hotelcategory",
+        element: <HotelAllList />,
       },
-      {
-        path: "/blog",
-        element: <Blog />,
-      },
+      // {
+      //   path: "/blog",
+      //   element: <Blog />,
+      // },
       {
         path: "/styleguide",
         element: <Styleguide />,

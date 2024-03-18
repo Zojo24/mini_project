@@ -5,11 +5,21 @@ import { useState } from "react";
 import SearchPopup from "../../components/SearchPopup";
 import Cart from "../../components/Reservation/Cart";
 import Dialog from "../../components/Dialog";
+import { GoPencil } from "react-icons/go";
+import { Link } from "react-router-dom";
+import { IoIosLogOut } from "react-icons/io";
+import Avatar from "../../components/Avatar";
 
 const Utillity = () => {
   const [isPopup, setIsPopup] = useState(false);
   const [isPopup2, setIsPopup2] = useState(false);
   const [isPopup3, setIsPopup3] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+
+  const handleLogin = () => {
+    setIsPopup(true);
+    setIsLogin(true);
+  };
 
   return (
     <div className="flex items-center gap-2">
@@ -19,10 +29,24 @@ const Utillity = () => {
       <button className="btn-lightgray-circle" onClick={() => setIsPopup3(true)}>
         <CiShoppingCart />
       </button>
-      <button className="btn-blue" onClick={() => setIsPopup(true)}>
-        <GoPerson />
-        Log In
-      </button>
+      {isLogin ? (
+        <>
+          <Avatar className={"!w-10 !h-10"} /> <strong className="-mr-2 -ml-1">하하하</strong>님
+          <button className="btn-blue" onClick={() => setIsLogin(false)}>
+            <IoIosLogOut />
+            Log Out
+          </button>
+          <Link to="/hotelwrite" className="btn-red">
+            <GoPencil />
+            호텔 등록
+          </Link>
+        </>
+      ) : (
+        <button className="btn-blue" onClick={handleLogin}>
+          <GoPerson />
+          Log In
+        </button>
+      )}
       <Login open={isPopup} close={() => setIsPopup(false)} />
       <SearchPopup open={isPopup2} close={() => setIsPopup2(false)} />
 

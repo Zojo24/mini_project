@@ -2,9 +2,9 @@ import React from "react";
 import profile from "../assets/hotel2.jpg";
 import { IoCameraOutline } from "react-icons/io5";
 
-const Avatar = ({ add, ...props }) => {
+const Avatar = ({ className, add, ...props }) => {
   return (
-    <div className="overflow-hidden rounded-full w-20 h-20 inline-block relative">
+    <div className={`overflow-hidden rounded-full inline-block relative  w-20 h-20  ${className}`}>
       <img src={profile} alt="" className="w-full h-full object-cover" />
       {add && (
         <>

@@ -11,7 +11,7 @@ const DestinationsItems = () => {
             <img src={pili} alt="" />
           </div>
           <div className="destinations__info">
-            <strong>필리핀</strong>
+            <strong>Thailand</strong>
             <span>1 Hotel</span>
           </div>
         </Link>
@@ -22,7 +22,7 @@ const DestinationsItems = () => {
             <img src={pili} alt="" />
           </div>
           <div className="destinations__info">
-            <strong>필리핀</strong>
+            <strong>Vietnam</strong>
             <span>1 Hotel</span>
           </div>
         </Link>
@@ -33,7 +33,7 @@ const DestinationsItems = () => {
             <img src={pili} alt="" />
           </div>
           <div className="destinations__info">
-            <strong>필리핀</strong>
+            <strong>Philippines</strong>
             <span>1 Hotel</span>
           </div>
         </Link>
@@ -44,7 +44,7 @@ const DestinationsItems = () => {
             <img src={pili} alt="" />
           </div>
           <div className="destinations__info">
-            <strong>필리핀</strong>
+            <strong>Malaysia</strong>
             <span>1 Hotel</span>
           </div>
         </Link>
@@ -55,7 +55,7 @@ const DestinationsItems = () => {
             <img src={pili} alt="" />
           </div>
           <div className="destinations__info">
-            <strong>필리핀</strong>
+            <strong>Taiwan</strong>
             <span>1 Hotel</span>
           </div>
         </Link>

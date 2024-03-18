@@ -3,7 +3,7 @@
   &__list {
     @apply p-5;
     height: calc(100vh - 157px - 66px); overflow: auto;
-    .mypage-cart & {
+    .mypage & {
       height: auto;
       max-height: 50vh;
     }
@@ -30,8 +30,8 @@
 
 .cart-price {
   @apply p-5 border-t border-t-gray-200 border-solid absolute bottom-0 w-full;
-  .mypage-cart &{
-    @apply static;
+  .mypage &{
+    @apply static px-0 border-0;
     button {
       @apply px-7 py-[0.63rem] text-base;
     }

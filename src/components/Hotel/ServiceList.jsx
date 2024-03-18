@@ -13,6 +13,10 @@ import { TbAirConditioning } from "react-icons/tb";
 import { LuLampDesk } from "react-icons/lu";
 import { PiTelevisionBold } from "react-icons/pi";
 import { MdLock } from "react-icons/md";
+import { BiSolidDrink } from "react-icons/bi";
+import { LuParkingCircle } from "react-icons/lu";
+import { CgGym } from "react-icons/cg";
+import { SlCup } from "react-icons/sl";
 
 import "../../styles/components/servicelist.css";
 
@@ -74,6 +78,22 @@ const ServiceList = ({ className, ...props }) => {
       <li>
         <MdLock />
         안전금고
+      </li>
+      <li>
+        <BiSolidDrink />
+        웰컴 드링크
+      </li>
+      <li>
+        <LuParkingCircle />
+        무료 주차
+      </li>
+      <li>
+        <CgGym />
+        피트니스 시설
+      </li>
+      <li>
+        <SlCup />
+        전기주전자
       </li>
     </ul>
   );

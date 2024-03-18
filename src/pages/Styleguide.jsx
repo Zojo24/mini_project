@@ -13,6 +13,11 @@ import Loading from "../components/Loading";
 import HotelListItems from "../components/Hotel/HotelListItems";
 import RoomListItems from "../components/Hotel/RoomListItems";
 import HotelPicture from "../components/Hotel/HotelPicture";
+import Avatar from "../components/Avatar";
+import GuestCounter from "../components/GuestCounter";
+import HotelFavorite from "../components/Hotel/HotelFavorite";
+import HotelLocation from "../components/Hotel/HotelLocation";
+import HotelPrice from "../components/Hotel/HotelPrice";
 
 const select = [
   {
@@ -170,8 +175,13 @@ const Styleguide = () => {
               <Checkbox color={"gray"} id={"check3_3"} checked={true} value={"checkbox"} />
             </li>
           </ul>
+          <div className="flex gap-2 pt-5">
+            <GuestCounter />
+            <GuestCounter className={"sm"} />
+            <GuestCounter className={"sm"} defaultValue={2} />
+          </div>
 
-          {/* Form */}
+          {/* 기타UI */}
           <Heading tag={"h2"} className={"xl mt-10"} text={"Popup"} />
           <div className="text-center flex gap-3 justify-center">
             <button className="btn-blue-outline" onClick={handlePopup}>
@@ -192,8 +202,17 @@ const Styleguide = () => {
             {isLoading && <Loading />}
           </div>
 
-          {/* 썸네일 */}
-          <Heading tag={"h2"} className={"xl mt-10"} text={"Thumbnail"} />
+          {/* 기타등등 */}
+          <Heading tag={"h2"} className={"xl mt-10"} text={"Etc"} />
+          <div className="flex gap-5 items-center">
+            <Avatar />
+            <Avatar add={true} />
+            <HotelFavorite />
+            <HotelFavorite checked={true} />
+            <HotelPrice price={"5,000"} />
+            <HotelLocation location={"위치입력"} />
+            <HotelLocation location={"위치입력"} className={"xl"} />
+          </div>
         </div>
       </div>
     </>

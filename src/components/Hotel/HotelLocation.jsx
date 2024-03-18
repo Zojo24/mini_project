@@ -1,9 +1,9 @@
 import React from "react";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 
-const HotelLocation = ({ location }) => {
+const HotelLocation = ({ className, location }) => {
   return (
-    <div className="hotel__location">
+    <div className={`hotel__location ${className}`}>
       <HiOutlineLocationMarker />
       {location}
     </div>

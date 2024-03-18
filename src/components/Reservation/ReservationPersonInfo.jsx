@@ -4,6 +4,7 @@ import Input from "../Input";
 import Select from "../Select";
 import Checkbox from "../Checkbox";
 import { useNavigate, useParams } from "react-router-dom";
+import Dialog from "../Dialog";
 
 const arrivalOption = [
   { value: "select1", text: "잘모르겠습니다." },
@@ -36,24 +37,20 @@ const arrivalOption = [
 const ReservationPersonInfo = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState("thisisid");
+  const [isRule, setIsRule] = useState(false);
 
   const handleInfo = (e) => {
     e.preventDefault();
     navigate(`/reservation/done/${userData}`);
   };
+
+  const handleRule = (e) => {
+    e.preventDefault();
+    setIsRule(true);
+  };
   return (
     <div>
       <form>
-        <Heading tag={"h3"} className={"base"} text={"추가 신청 서비스"} />
-        <div className="mb-14 mt-5 flex flex-wrap gap-3">
-          <div>
-            <Checkbox color={"blue"} id={"service1"} checked={true} value={"마사지"} />
-          </div>
-          <div>
-            <Checkbox color={"blue"} id={"service2"} checked={true} value={"액티비티"} />
-          </div>
-        </div>
-
         <Heading tag={"h3"} className={"base"} text={"개인정보 입력"} />
         <div className="reservation-form mt-5">
           <div>
@@ -94,7 +91,9 @@ const ReservationPersonInfo = () => {
             <Checkbox color={"blue"} id={"agree"} value={"예약 약관동의"} />
           </div>
           <div>
-            <button className="btn-blue-outline">약관 보기</button>
+            <button className="btn-blue-outline" onClick={handleRule}>
+              약관 보기
+            </button>
           </div>
         </div>
 
@@ -104,6 +103,9 @@ const ReservationPersonInfo = () => {
           </button>
           <button className="btn-red xl">취소하기</button>
         </div>
+        <Dialog open={isRule} close={() => setIsRule(false)}>
+          약관입니다.
+        </Dialog>
       </form>
     </div>
   );
