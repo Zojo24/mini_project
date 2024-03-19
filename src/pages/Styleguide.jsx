@@ -10,14 +10,15 @@ import Checkbox from "../components/Checkbox";
 import Select from "../components/Select";
 import Dialog from "../components/Dialog";
 import Loading from "../components/Loading";
-import HotelListItems from "../components/Hotel/HotelListItems";
-import RoomListItems from "../components/Hotel/RoomListItems";
-import HotelPicture from "../components/Hotel/HotelPicture";
 import Avatar from "../components/Avatar";
 import GuestCounter from "../components/GuestCounter";
 import HotelFavorite from "../components/Hotel/HotelFavorite";
 import HotelLocation from "../components/Hotel/HotelLocation";
 import HotelPrice from "../components/Hotel/HotelPrice";
+import Noimage from "../components/Noimage";
+import img from "../assets/hotel1.jpg";
+import Box from "../components/Box";
+import Radio from "../components/Radio";
 
 const select = [
   {
@@ -35,6 +36,11 @@ const Styleguide = () => {
   const [isToast, setIsToast] = useState(false);
   const [isPopup, setIsPopup] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isRadio, setIsRadio] = useState(false);
+
+  const handleChange = () => {
+    setIsRadio(!isRadio);
+  };
 
   useEffect(() => {
     setTitle("Style Guide");
@@ -144,6 +150,7 @@ const Styleguide = () => {
             <Input type="email" defaultValue="email" />
             <Input type="search" defaultValue="search" />
             <Input type="date" defaultValue="2024-03-17" />
+            <Input type={"text"} price={true} placeholder="3자리마다 쉼표 숫자" />
             <Select options={select} />
             <Input type="file" />
           </div>
@@ -175,6 +182,12 @@ const Styleguide = () => {
               <Checkbox color={"gray"} id={"check3_3"} checked={true} value={"checkbox"} />
             </li>
           </ul>
+          <ul className="flex gap-4 mt-5">
+            <li>
+              <Radio color={"blue"} checked={!isRadio} value={"checked"} id={"hotel_reser1"} name={"rag1"} onChange={handleChange} />
+              <Radio color={"blue"} value={"unchecked"} id={"hotel_reser2"} name={"rag1"} onChange={handleChange} />
+            </li>
+          </ul>
           <div className="flex gap-2 pt-5">
             <GuestCounter />
             <GuestCounter className={"sm"} />
@@ -204,7 +217,7 @@ const Styleguide = () => {
 
           {/* 기타등등 */}
           <Heading tag={"h2"} className={"xl mt-10"} text={"Etc"} />
-          <div className="flex gap-5 items-center">
+          <div className="flex gap-5 items-center mb-5">
             <Avatar />
             <Avatar add={true} />
             <HotelFavorite />
@@ -212,7 +225,13 @@ const Styleguide = () => {
             <HotelPrice price={"5,000"} />
             <HotelLocation location={"위치입력"} />
             <HotelLocation location={"위치입력"} className={"xl"} />
+            <Noimage props={{ image: "" }} />
+            <Noimage props={{ image: img }} />
           </div>
+          <Box>
+            회색박스
+            <Box className={"white"}>흰색박스</Box>
+          </Box>
         </div>
       </div>
     </>

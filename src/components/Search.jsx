@@ -44,7 +44,7 @@ const Search = () => {
   };
 
   return (
-    <div className="search">
+    <form className="search">
       <div>
         <div className="search__title">
           <span>
@@ -85,7 +85,7 @@ const Search = () => {
         <LuSearch />
         Search
       </button>
-    </div>
+    </form>
   );
 };
 

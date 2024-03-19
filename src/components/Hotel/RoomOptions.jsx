@@ -14,7 +14,7 @@ const RoomOptions = () => {
       </li>
       <li>
         <GoPeople />
-        객실 최소인원 4
+        객실 기준인원 4
       </li>
       <li>
         <BsFillPeopleFill />

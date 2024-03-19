@@ -44,10 +44,6 @@ const ReservationFirst = () => {
             <GuestCounter kids />
           </li>
           <li>
-            <strong className="--title">유아</strong>
-            <GuestCounter kids />
-          </li>
-          <li>
             <strong className="--title">총 금액</strong> <span className="--total">₩ 100,000</span>
           </li>
         </ul>

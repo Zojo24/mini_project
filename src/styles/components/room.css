@@ -14,8 +14,8 @@
     .reservation__hotel-info & {
       @apply rounded-none w-full h-60;
     }
-    .mypage & {
-      @apply w-14 h-14;
+    &.sm {
+      @apply w-24 h-24;
     }
   }
    > li {
@@ -29,7 +29,6 @@
   }
   button {
     @apply justify-self-start self-start;
-    
   }
 }
 

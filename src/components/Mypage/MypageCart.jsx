@@ -1,11 +1,9 @@
 import React from "react";
-import Cart from "../Reservation/Cart";
 import Heading from "../Heading";
 import RoomPicture from "../Hotel/RoomPicture";
 import room from "../../assets/hotelroom3.jpeg";
 import { Link } from "react-router-dom";
 import { RiDeleteBinLine } from "react-icons/ri";
-import HotelPrice from "../Hotel/HotelPrice";
 import GuestCounter from "../GuestCounter";
 
 const MypageCart = () => {
@@ -16,90 +14,84 @@ const MypageCart = () => {
           <Heading tag={"h4"} className={"sm"} text={"장바구니"} />
           <table className="mypage-cart__table mt-5">
             <colgroup>
+              <col style={{ width: "5rem" }} />
               <col style={{ width: "" }} />
-              <col style={{ width: "4rem" }} />
-              <col style={{ width: "8rem" }} />
-              <col style={{ width: "8rem" }} />
-              <col style={{ width: "8rem" }} />
-              <col style={{ width: "13rem" }} />
-              <col style={{ width: "3rem" }} />
+              <col style={{ width: "10rem" }} />
+              <col style={{ width: "10rem" }} />
             </colgroup>
             <thead>
               <tr>
-                <th>호텔</th>
-                <th>룸</th>
-                <th>성인</th>
-                <th>어린이</th>
-                <th>유아</th>
-                <th>체크인 / 아웃</th>
                 <th>삭제</th>
+                <th>호텔 정보</th>
+                <th>방 종류</th>
+                <th>가격</th>
               </tr>
             </thead>
             <tbody>
               <tr className="group">
-                <td>
-                  <div className="grid items-center grid-cols-[min-content_1fr] gap-1 text-left">
-                    <RoomPicture image={room} />
-                    <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2">
-                      호텔명
-                    </Link>
-                  </div>
-                </td>
-                <td>디럭스</td>
-                <td>
-                  <GuestCounter className={"sm"} defaultValue={2} />
-                </td>
-                <td>
-                  <GuestCounter className={"sm"} />
-                </td>
-                <td>
-                  <GuestCounter className={"sm"} />
-                </td>
-                <td>2024-03-18 ~ 2024-03-19</td>
                 <td className="self-start justify-self-end text-lg text-gray-500">
                   <button>
                     <RiDeleteBinLine />
                   </button>
                 </td>
-              </tr>
-              <tr>
-                <td colSpan={7} className="!pb-10 text-right">
+                <td>
+                  <div className="grid items-center grid-cols-[min-content_1fr] gap-5 text-left">
+                    <Link to="/hoteldetail">
+                      <RoomPicture image={room} className="sm" />
+                    </Link>
+                    <div>
+                      <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2 font-bold">
+                        호텔명
+                      </Link>
+                      <div className="text-sm flex mt-2 leading-6">
+                        <b className="font-semibold">예약일</b>
+                        <div> : 2024-03-18 ~ 2024-03-19</div>
+                      </div>
+                      <div className="text-sm flex leading-6">
+                        <b className="font-semibold">인원수</b>
+                        <div> : 성인 1, 어린이 1</div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>디럭스</td>
+                <td className="pr-3 text-right">
                   총 <b>1,000,000</b> 원
                 </td>
               </tr>
               <tr className="group">
-                <td>
-                  <div className="grid items-center grid-cols-[min-content_1fr] gap-1 text-left">
-                    <RoomPicture image={room} />
-                    <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2">
-                      호텔명은 최대 2줄까지만 들어갑니다람쥐. 호텔명은 최대 2줄까지만 들어갑니다람쥐.
-                    </Link>
-                  </div>
-                </td>
-                <td>디럭스</td>
-                <td>
-                  <GuestCounter className={"sm"} defaultValue={2} />
-                </td>
-                <td>
-                  <GuestCounter className={"sm"} />
-                </td>
-                <td>
-                  <GuestCounter className={"sm"} />
-                </td>
-                <td>2024-03-18 ~ 2024-03-19</td>
                 <td className="self-start justify-self-end text-lg text-gray-500">
                   <button>
                     <RiDeleteBinLine />
                   </button>
                 </td>
-              </tr>
-              <tr>
-                <td colSpan={7} className="!pb-10 text-right">
+                <td>
+                  <div className="grid items-center grid-cols-[min-content_1fr] gap-5 text-left">
+                    <Link to="/hoteldetail">
+                      <RoomPicture image={room} className="sm" />
+                    </Link>
+                    <div>
+                      <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2 font-bold">
+                        호텔명은 최대 2줄까지만 지원됩니다람쥐. 호텔명은 최대 2줄까지만 지원됩니다람쥐. 호텔명은 최대 2줄까지만 지원됩니다람쥐. 호텔명은 최대 2줄까지만 지원됩니다람쥐. 호텔명은 최대 2줄까지만 지원됩니다람쥐.
+                      </Link>
+                      <div className="text-sm flex mt-2 leading-6">
+                        <b className="font-semibold">예약일</b>
+                        <div> : 2024-03-18 ~ 2024-03-19</div>
+                      </div>
+                      <div className="text-sm flex leading-6">
+                        <b className="font-semibold">인원수</b>
+                        <div> : 성인 1, 어린이 1</div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>디럭스</td>
+                <td className="pr-3 text-right">
                   총 <b>1,000,000</b> 원
                 </td>
               </tr>
               <tr>
-                <td colSpan={7} className="!py-10">
+                <td colSpan={4} className="!py-10">
                   장바구니가 비어 있습니다.
                 </td>
               </tr>

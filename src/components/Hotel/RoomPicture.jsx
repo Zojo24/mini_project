@@ -1,8 +1,8 @@
 import React from "react";
 
-const RoomPicture = ({ image, ...props }) => {
+const RoomPicture = ({ className, image, ...props }) => {
   return (
-    <div className="room-list__picture" {...props}>
+    <div className={`room-list__picture ${className}`} {...props}>
       <img src={image} alt="" />
     </div>
   );
