@@ -2,11 +2,11 @@ import { create } from "zustand";
 import { persist, devtools } from "zustand/middleware";
 
 let loginStore = (set) => ({
-  isLogined: false,
-  setIsLogined: (value) => set({ isLogined: value }),
+  login: false,
+  setLogin: (value) => set({ Login: value }),
 });
 
 loginStore = devtools(loginStore);
 loginStore = persist(loginStore, { name: "user" });
 
-export const useloginStore = create(loginStore);
+export const useLoginStore = create(loginStore);

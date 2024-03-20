@@ -4,6 +4,7 @@ import Input from "../components/Input";
 import { Link } from "react-router-dom";
 import "../styles/pages/login.css";
 import axios from "axios";
+import { useLoginStore } from "../store/loginStore";
 
 const Login = ({ ...props }) => {
   const [isTab, setIsTab] = useState("login");
@@ -12,6 +13,7 @@ const Login = ({ ...props }) => {
     setIsTab(tab);
   };
 
+  const { setLogin } = useLoginStore((state) => state.setLogin);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,6 +25,9 @@ const Login = ({ ...props }) => {
         password,
       });
       console.log(response.data);
+      if (response.data.success) {
+        setLogin(true);
+      }
     } catch (error) {
       console.log("Login failed", error);
     }
@@ -59,6 +64,7 @@ const Login = ({ ...props }) => {
                 <Input
                   type="email"
                   required
+                  value="email"
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
@@ -69,6 +75,7 @@ const Login = ({ ...props }) => {
                 <Input
                   type="password"
                   required
+                  value="password"
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
