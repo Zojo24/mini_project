@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useVisualStore } from "../store/visualStore";
-import Box from "../components/Box";
-import Heading from "../components/Heading";
-import Input from "../components/Input";
-import Noimage from "../components/Noimage";
-import Select from "../components/Select";
-import Radio from "../components/Radio";
-import Checkbox from "../components/Checkbox";
-import Badge from "../components/Badge";
-import RoomWrite from "../components/Hotel/RoomWrite";
-import RoomList from "../components/Hotel/RoomList";
-import subvisual from "../assets/subvisual3.jpg";
+import React, {
+  useEffect,
+  useState,
+} from 'react';
+
+import subvisual from '../assets/subvisual3.jpg';
+import Badge from '../components/Badge';
+import Box from '../components/Box';
+import Checkbox from '../components/Checkbox';
+import Heading from '../components/Heading';
+import RoomList from '../components/Hotel/RoomList';
+import RoomWrite from '../components/Hotel/RoomWrite';
+import Input from '../components/Input';
+import Noimage from '../components/Noimage';
+import Radio from '../components/Radio';
+import Select from '../components/Select';
+import { useVisualStore } from '../store/visualStore';
 
 const where = [
   {
@@ -83,23 +87,39 @@ const HotelWrite = () => {
       <div className="container mb-32">
         <Heading tag={"h3"} text={"호텔 등록"} className={"xl my-5"} />
         <Box>
-          <Heading tag={"h3"} text={"호텔 대표이미지"} className={"base mb-5"} />
+          <Heading
+            tag={"h3"}
+            text={"호텔 대표이미지"}
+            className={"base mb-5"}
+          />
           <Box className={"white"}>
             <ul className="grid grid-cols-4 gap-5">
               <li>
-                <Noimage props={{ image: isImage[0] }} className={"mb-3 bg-gray-50"} />
+                <Noimage
+                  props={{ image: isImage[0] }}
+                  className={"mb-3 bg-gray-50"}
+                />
                 <Input type={"file"} onChange={handleonChange} />
               </li>
               <li>
-                <Noimage props={{ image: isImage[1] }} className={"mb-3 bg-gray-50"} />
+                <Noimage
+                  props={{ image: isImage[1] }}
+                  className={"mb-3 bg-gray-50"}
+                />
                 <Input type={"file"} onChange={handleonChange} />
               </li>
               <li>
-                <Noimage props={{ image: isImage[2] }} className={"mb-3 bg-gray-50"} />
+                <Noimage
+                  props={{ image: isImage[2] }}
+                  className={"mb-3 bg-gray-50"}
+                />
                 <Input type={"file"} onChange={handleonChange} />
               </li>
               <li>
-                <Noimage props={{ image: isImage[3] }} className={"mb-3 bg-gray-50"} />
+                <Noimage
+                  props={{ image: isImage[3] }}
+                  className={"mb-3 bg-gray-50"}
+                />
                 <Input type={"file"} onChange={handleonChange} />
               </li>
             </ul>
@@ -149,29 +169,53 @@ const HotelWrite = () => {
         <Box className={"mt-10"}>
           <div className="grid grid-cols-2 gap-5">
             <div>
-              <Heading tag={"h3"} text={"호텔 편의 시설"} className={"base mb-5"} />
+              <Heading
+                tag={"h3"}
+                text={"호텔 편의 시설"}
+                className={"base mb-5"}
+              />
               <Box className={"white"}>
                 <ul className="grid grid-cols-3 gap-4">
                   <li>
                     <Checkbox color={"blue"} id={"check3_1"} value={"수영장"} />
                   </li>
                   <li>
-                    <Checkbox color={"blue"} id={"check3_2"} value={"조식뷔페"} />
+                    <Checkbox
+                      color={"blue"}
+                      id={"check3_2"}
+                      value={"조식뷔페"}
+                    />
                   </li>
                   <li>
-                    <Checkbox color={"blue"} id={"check3_3"} value={"무선인터넷"} />
+                    <Checkbox
+                      color={"blue"}
+                      id={"check3_3"}
+                      value={"무선인터넷"}
+                    />
                   </li>
                   <li>
-                    <Checkbox color={"blue"} id={"check3_4"} value={"드라이클리닝"} />
+                    <Checkbox
+                      color={"blue"}
+                      id={"check3_4"}
+                      value={"드라이클리닝"}
+                    />
                   </li>
                   <li>
-                    <Checkbox color={"blue"} id={"check3_5"} value={"여행가방 보관 서비스"} />
+                    <Checkbox
+                      color={"blue"}
+                      id={"check3_5"}
+                      value={"여행가방 보관 서비스"}
+                    />
                   </li>
                   <li>
                     <Checkbox color={"blue"} id={"check3_6"} value={"편의점"} />
                   </li>
                   <li>
-                    <Checkbox color={"blue"} id={"check3_7"} value={"다림질도구"} />
+                    <Checkbox
+                      color={"blue"}
+                      id={"check3_7"}
+                      value={"다림질도구"}
+                    />
                   </li>
                   <li>
                     <Checkbox color={"blue"} id={"check3_8"} value={"모닝콜"} />
@@ -180,10 +224,18 @@ const HotelWrite = () => {
                     <Checkbox color={"blue"} id={"check3_9"} value={"미니바"} />
                   </li>
                   <li>
-                    <Checkbox color={"blue"} id={"check3_10"} value={"샤워실"} />
+                    <Checkbox
+                      color={"blue"}
+                      id={"check3_10"}
+                      value={"샤워실"}
+                    />
                   </li>
                   <li>
-                    <Checkbox color={"blue"} id={"check3_11"} value={"에어컨"} />
+                    <Checkbox
+                      color={"blue"}
+                      id={"check3_11"}
+                      value={"에어컨"}
+                    />
                   </li>
                   <li>
                     <Checkbox color={"blue"} id={"check3_12"} value={"책상"} />
@@ -192,19 +244,39 @@ const HotelWrite = () => {
                     <Checkbox color={"blue"} id={"check3_13"} value={"TV"} />
                   </li>
                   <li>
-                    <Checkbox color={"blue"} id={"check3_14"} value={"안전금고"} />
+                    <Checkbox
+                      color={"blue"}
+                      id={"check3_14"}
+                      value={"안전금고"}
+                    />
                   </li>
                   <li>
-                    <Checkbox color={"blue"} id={"check3_15"} value={"웰컴 드링크"} />
+                    <Checkbox
+                      color={"blue"}
+                      id={"check3_15"}
+                      value={"웰컴 드링크"}
+                    />
                   </li>
                   <li>
-                    <Checkbox color={"blue"} id={"check3_16"} value={"무료 주차"} />
+                    <Checkbox
+                      color={"blue"}
+                      id={"check3_16"}
+                      value={"무료 주차"}
+                    />
                   </li>
                   <li>
-                    <Checkbox color={"blue"} id={"check3_17"} value={"피트니스 시설"} />
+                    <Checkbox
+                      color={"blue"}
+                      id={"check3_17"}
+                      value={"피트니스 시설"}
+                    />
                   </li>
                   <li>
-                    <Checkbox color={"blue"} id={"check3_18"} value={"전기주전자"} />
+                    <Checkbox
+                      color={"blue"}
+                      id={"check3_18"}
+                      value={"전기주전자"}
+                    />
                   </li>
                 </ul>
               </Box>
@@ -239,7 +311,9 @@ const HotelWrite = () => {
                         name={"rag2"}
                         onChange={() => setIsRadio2(!isRadio2)}
                       />{" "}
-                      <Badge color={"red ml-2"}>일부객실 선택시 현장에서 방을 배정합니다.</Badge>
+                      <Badge color={"red ml-2"}>
+                        일부객실 선택시 현장에서 방을 배정합니다.
+                      </Badge>
                     </div>
                   </li>
                   <li className="grid grid-cols-[8rem_1fr] items-center">
@@ -260,7 +334,9 @@ const HotelWrite = () => {
                         name={"rag3"}
                         onChange={() => setIsRadio3(!isRadio3)}
                       />{" "}
-                      <Badge color={"red ml-2"}>일부객실 선택시 현장에서 방을 배정합니다.</Badge>
+                      <Badge color={"red ml-2"}>
+                        일부객실 선택시 현장에서 방을 배정합니다.
+                      </Badge>
                     </div>
                   </li>
                   <li className="grid grid-cols-[8rem_1fr] items-center">
@@ -286,6 +362,7 @@ const HotelWrite = () => {
           </div>
           {isToggle ? <RoomWrite /> : <RoomList edit={true} />}
         </Box>
+        <button className="btn-blue">호텔등록</button>
       </div>
     </div>
   );
