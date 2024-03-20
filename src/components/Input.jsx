@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import Toast from "./Toast";
+import React, { useState } from 'react';
+
+import Toast from './Toast';
 
 const Input = ({ type, className, onChange, price, value, ...props }) => {
   const [isNumber, setIsNumber] = useState("");
@@ -49,7 +50,12 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
   return (
     <>
       {type === "textarea" ? (
-        <textarea rows={10} className="textarea" value={value} onChange={onChange}></textarea>
+        <textarea
+          rows={10}
+          className="textarea"
+          value={value}
+          onChange={onChange}
+        ></textarea>
       ) : price ? (
         <input
           type={type}
@@ -76,7 +82,11 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
           className={`input ${className}`}
         />
       )}
-      <Toast color={"red"} onOpen={isToast} onClose={() => setIsToast(!isToast)}>
+      <Toast
+        color={"red"}
+        onOpen={isToast}
+        onClose={() => setIsToast(!isToast)}
+      >
         올바른 파일 형식이 아닙니다. jpg, png, webp 등 이미지만 허용됩니다.
       </Toast>
     </>

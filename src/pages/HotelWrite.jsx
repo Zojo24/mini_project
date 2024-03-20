@@ -82,7 +82,12 @@ const HotelWrite = () => {
   const [isRadio2, setIsRadio2] = useState(false);
   const [isRadio3, setIsRadio3] = useState(false);
   const [isToggle, setIsToggle] = useState(false);
-
+  const [hotelInfo, setHotelInfo] = useState({ name: "" });
+  const [name, setName] = useState("");
+  const handleName = (e) => {
+    // setHotelInfo({ name: e.target.value });
+    setName(e.target.value);
+  };
   return (
     <div className="main">
       <div className="container mb-32">
