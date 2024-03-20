@@ -69,9 +69,8 @@ const HotelWrite = () => {
     setTitle("Hotel Registration", subvisual);
   }, [setTitle]);
 
-  const handleonChange = (e) => {
-    setIsImage(e);
-    console.log(e.name);
+  const handleonChange = (file) => {
+    setIsImage(file);
   };
 
   const [isRadio, setIsRadio] = useState(false);
@@ -88,19 +87,19 @@ const HotelWrite = () => {
           <Box className={"white"}>
             <ul className="grid grid-cols-4 gap-5">
               <li>
-                <Noimage props={{ image: isImage[0] }} className={"mb-3 bg-gray-50"} />
+                <Noimage props={{ image: isImage }} className={"mb-3 bg-gray-50"} />
                 <Input type={"file"} onChange={handleonChange} />
               </li>
               <li>
-                <Noimage props={{ image: isImage[1] }} className={"mb-3 bg-gray-50"} />
+                <Noimage props={{ image: isImage }} className={"mb-3 bg-gray-50"} />
                 <Input type={"file"} onChange={handleonChange} />
               </li>
               <li>
-                <Noimage props={{ image: isImage[2] }} className={"mb-3 bg-gray-50"} />
+                <Noimage props={{ image: isImage }} className={"mb-3 bg-gray-50"} />
                 <Input type={"file"} onChange={handleonChange} />
               </li>
               <li>
-                <Noimage props={{ image: isImage[3] }} className={"mb-3 bg-gray-50"} />
+                <Noimage props={{ image: isImage }} className={"mb-3 bg-gray-50"} />
                 <Input type={"file"} onChange={handleonChange} />
               </li>
             </ul>
@@ -117,7 +116,7 @@ const HotelWrite = () => {
               </li>
               <li className="grid gap-3">
                 호텔 이름
-                <Input type={"text"} />
+                <Input type={"text"} value={""} onChange={(e) => console.log(e.target.value)} />
               </li>
               <li className="grid gap-3">
                 호텔 가격

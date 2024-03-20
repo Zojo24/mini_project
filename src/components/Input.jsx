@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Toast from "./Toast";
 
+const cut3Digit = /\B(?=(\d{3})+(?!\d))/g;
+const allowedFileTypes = ["image/jpeg", "image/png", "image/webp"];
+
 const Input = ({ type, className, onChange, price, value, ...props }) => {
   const [isNumber, setIsNumber] = useState("");
   const [isValue, setIsValue] = useState(value || "");
@@ -8,7 +11,7 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
   const [isFile, setIsFile] = useState("");
 
   const formatPrice = (value) => {
-    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return value.replace(cut3Digit, ",");
   };
 
   // 가격
@@ -23,8 +26,6 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
   };
 
   // 첨부파일
-  const allowedFileTypes = ["image/jpeg", "image/png", "image/webp"];
-
   const handleFileChange = (e) => {
     const { files } = e.target;
     const filename = files[0].name;
@@ -38,6 +39,8 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
 
       setIsFile(filename);
       onChange(files[0]);
+      console.log(files);
+      // 스트림 or img
     }
   };
 
@@ -62,7 +65,6 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
         <input
           type={type}
           {...props}
-          value={isFile}
           onChange={handleFileChange}
           className={`input ${className}`}
           accept=".jpg,.jpeg,.png,.webp"
