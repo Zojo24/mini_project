@@ -10,6 +10,7 @@ import Checkbox from "../components/Checkbox";
 import Select from "../components/Select";
 import Dialog from "../components/Dialog";
 import Loading from "../components/Loading";
+import Loading2 from "../components/Loading2";
 import Avatar from "../components/Avatar";
 import GuestCounter from "../components/GuestCounter";
 import HotelFavorite from "../components/Hotel/HotelFavorite";
@@ -36,6 +37,7 @@ const Styleguide = () => {
   const [isToast, setIsToast] = useState(false);
   const [isPopup, setIsPopup] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
   const [isRadio, setIsRadio] = useState(false);
 
   const handleChange = () => {
@@ -57,6 +59,12 @@ const Styleguide = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
+    }, 3000);
+  };
+  const showLoading2 = () => {
+    setIsLoading2(true);
+    setTimeout(() => {
+      setIsLoading2(false);
     }, 3000);
   };
 
@@ -273,10 +281,19 @@ const Styleguide = () => {
               </div>
             </Dialog>
             <button className="btn-blue-outline" onClick={showLoading}>
-              로딩
+              페이지 로딩
             </button>
             {isLoading && <Loading />}
+            <button className="btn-blue-outline" onClick={showLoading2}>
+              일부 영역 로딩
+            </button>
           </div>
+          <Box className={"mt-5 mx-auto w-72 text-center relative"}>
+            일부영역
+            <br />
+            부모요소에 relative 필수
+            {isLoading2 && <Loading2 />}
+          </Box>
 
           {/* 기타등등 */}
           <Heading tag={"h2"} className={"xl mt-10"} text={"Etc"} />
@@ -288,8 +305,8 @@ const Styleguide = () => {
             <HotelPrice price={"5,000"} />
             <HotelLocation location={"위치입력"} />
             <HotelLocation location={"위치입력"} className={"xl"} />
-            <Noimage props={{ image: "" }} />
-            <Noimage props={{ image: img }} />
+            {/* <Noimage props={{ image: null }} />
+            <Noimage props={{ image: img }} /> */}
           </div>
           <Box>
             회색박스
