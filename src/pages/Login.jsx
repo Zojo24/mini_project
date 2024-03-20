@@ -3,6 +3,7 @@ import Dialog from "../components/Dialog";
 import Input from "../components/Input";
 import { Link } from "react-router-dom";
 import "../styles/pages/login.css";
+import axios from "axios";
 
 const Login = ({ ...props }) => {
   const [isTab, setIsTab] = useState("login");
@@ -11,18 +12,40 @@ const Login = ({ ...props }) => {
     setIsTab(tab);
   };
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/api/members/login", {
+        email,
+        password,
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.log("Login failed", error);
+    }
+  };
+
   return (
     <>
       <Dialog {...props}>
         <nav>
           <ul className="tab">
             <li>
-              <button className={isTab === "login" ? "--active" : ""} onClick={() => handleTab("login")}>
+              <button
+                className={isTab === "login" ? "--active" : ""}
+                onClick={() => handleTab("login")}
+              >
                 Login
               </button>
             </li>
             <li>
-              <button className={isTab === "register" ? "--active" : ""} onClick={() => handleTab("register")}>
+              <button
+                className={isTab === "register" ? "--active" : ""}
+                onClick={() => handleTab("register")}
+              >
                 Register
               </button>
             </li>
@@ -30,16 +53,30 @@ const Login = ({ ...props }) => {
         </nav>
         {isTab === "login" && (
           <>
-            <form className="login-form">
+            <form className="login-form" onSubmit={handleLogin}>
               <div>
                 이메일
-                <Input type="email" required />
+                <Input
+                  type="email"
+                  required
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
               </div>
               <div>
                 비밀번호
-                <Input type="password" required />
+                <Input
+                  type="password"
+                  required
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
               </div>
-              <button className="btn-blue xl2">Sign In</button>
+              <button type="submit" className="btn-blue xl2">
+                Sign In
+              </button>
             </form>
             <div className="btn-login">
               <Link to="/">비밀번호를 잊으셨나요?</Link>
