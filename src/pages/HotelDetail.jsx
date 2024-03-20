@@ -17,6 +17,7 @@ import RoomList from "../components/Hotel/RoomList";
 import ReservationFirst from "../components/Reservation/ReservationFirst";
 import Notice from "../components/Board/Notice";
 import NoticeWrite from "../components/Board/NoticeWrite";
+import subvisual from "../assets/subvisual2.jpg";
 
 const pictures = [{ src: pic1 }, { src: pic2 }, { src: pic3 }, { src: pic4 }];
 
@@ -29,7 +30,7 @@ const HotelDetail = () => {
   };
 
   useEffect(() => {
-    setTitle("호텔제목을 삽입하세요.");
+    setTitle("호텔명을 삽입하세요.", subvisual);
   }, [setTitle]);
 
   return (
@@ -56,7 +57,9 @@ const HotelDetail = () => {
             <Box>
               <Heading tag={"h3"} text={"호텔 안내"} className={"base"} />
               <Text className={"mt-5"} type={1}>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum rerum corrupti incidunt possimus harum hic quo voluptatibus ipsam fugit id illo sapiente recusandae natus numquam, quae aliquid? Pariatur, magnam odio?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum rerum corrupti
+                incidunt possimus harum hic quo voluptatibus ipsam fugit id illo sapiente recusandae
+                natus numquam, quae aliquid? Pariatur, magnam odio?
               </Text>
             </Box>
             <Box>

@@ -4,14 +4,16 @@ import { useVisualStore } from "../store/visualStore";
 import { TbRotateClockwise2 } from "react-icons/tb";
 import { FaArrowDownShortWide } from "react-icons/fa6";
 import Heading from "../components/Heading";
+import Destinations from "../components/Destinations";
 import SearchDetail from "../components/Search/SearchDetail";
+import subvisual from "../assets/subvisual1.jpg";
 
 const HotelAllList = () => {
   const { setTitle } = useVisualStore();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setTitle("Trip Hotel");
+    setTitle("Trip Hotel List", subvisual);
   }, [setTitle]);
 
   const handleMore = () => {
@@ -24,6 +26,7 @@ const HotelAllList = () => {
   return (
     <div className="main pb-20">
       <div className="container">
+        <Destinations className="sub" />
         <Heading tag={"h3"} text={"TripHotel 목록"} className={"xl mt-10"} />
         <div className="flex justify-between items-center mt-10 mb-5">
           <div className="text-2xl">

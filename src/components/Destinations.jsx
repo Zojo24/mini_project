@@ -2,10 +2,10 @@ import React from "react";
 import DestinationsItems from "./DestinationsItems";
 import "../styles/components/destinations.css";
 
-const Destinations = () => {
+const Destinations = ({ className }) => {
   return (
     <>
-      <ul className="destinations">
+      <ul className={"destinations " + className}>
         <DestinationsItems />
       </ul>
     </>

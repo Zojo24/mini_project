@@ -3,7 +3,8 @@ import { persist, devtools } from "zustand/middleware";
 
 let visualStore = (set) => ({
   title: "",
-  setTitle: (text) => set({ title: text }),
+  img: "",
+  setTitle: (text, src) => set({ title: text, img: src }),
 });
 
 visualStore = devtools(visualStore);

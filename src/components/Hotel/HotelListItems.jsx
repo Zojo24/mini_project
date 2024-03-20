@@ -6,28 +6,37 @@ import HotelPrice from "./HotelPrice";
 import HotelBooking from "./HotelBooking";
 import hotel1 from "../../assets/hotel1.jpg";
 import HotelTitle from "./HotelTitle";
+import Badge from "../Badge";
 
 const HotelListItems = ({ modify, ...props }) => {
+  const data = { state: "disabled" };
   return (
     <>
-      <li>
+      <li {...props}>
         <HotelPicture link={"/hoteldetail"} image={hotel1} />
         <div className="hotel__info">
           <HotelLocation location={"Japan"} />
           <HotelFavorite checked={modify} />
           <HotelTitle link={"/hoteldetail"} title={"Signature Hitanial Hotel"} />
           <HotelPrice price={"1,000,000"} />
-          <HotelBooking />
+          <HotelBooking text={"HotelBooking"} />
         </div>
       </li>
-      <li>
+      <li className={data.state}>
         <HotelPicture link={"/hoteldetail"} image={hotel1} />
         <div className="hotel__info">
           <HotelLocation location={"Japan"} />
           <HotelFavorite checked={modify} />
           <HotelTitle link={"/hoteldetail"} title={"Signature Hitanial Hotel"} />
           <HotelPrice price={"1,000,000"} />
-          <HotelBooking />
+          {data.state ? (
+            <>
+              <HotelBooking disabled text={"Sold Out"} />
+              <Badge color={"red"}>Sold Out</Badge>
+            </>
+          ) : (
+            <HotelBooking text={"HotelBooking"} />
+          )}
         </div>
       </li>
     </>

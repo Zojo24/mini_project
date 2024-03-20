@@ -2,6 +2,11 @@
   @apply grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6;
   > li {
     @apply bg-white rounded-xl p-2 relative;
+    &.disabled {
+      .badge {
+        @apply absolute left-6 top-6;
+      }
+    }
   }
 
   /* 호텔 사진 */
@@ -14,6 +19,9 @@
     }
     img {
       @apply w-full h-full object-cover aspect-[4/3] transition-all duration-500;
+      .disabled & {
+        @apply opacity-30 grayscale;
+      }
     }
   }
   

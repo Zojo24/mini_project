@@ -5,6 +5,7 @@ import Select from "../Select";
 import Checkbox from "../Checkbox";
 import { useNavigate, useParams } from "react-router-dom";
 import Dialog from "../Dialog";
+import ReservationRule from "../ReservationRule";
 
 const arrivalOption = [
   { value: "select1", text: "잘모르겠습니다." },
@@ -38,6 +39,9 @@ const ReservationPersonInfo = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState("thisisid");
   const [isRule, setIsRule] = useState(false);
+  const [isvalue, setIsvalue] = useState("");
+  const [isvalue2, setIsvalue2] = useState("");
+  const [isvalue3, setIsvalue3] = useState("");
 
   const handleInfo = (e) => {
     e.preventDefault();
@@ -48,6 +52,22 @@ const ReservationPersonInfo = () => {
     e.preventDefault();
     setIsRule(true);
   };
+  const handleAddress = (value) => {
+    setIsvalue(value);
+  };
+  const handleCity = (value) => {
+    setIsvalue2(value);
+  };
+  const handleArrival = (e) => {
+    const value = e.target.options[e.target.selectedIndex].text;
+    setIsvalue3(value);
+  };
+
+  // 결과값
+  console.log("주소" + isvalue);
+  console.log("도시" + isvalue2);
+  console.log("도착시간" + isvalue3);
+
   return (
     <div>
       <form>
@@ -63,11 +83,11 @@ const ReservationPersonInfo = () => {
           </div>
           <div>
             주소
-            <Input type={"text"} />
+            <Input type={"text"} value={isvalue} onChange={handleAddress} />
           </div>
           <div>
             도시
-            <Input type={"text"} />
+            <Input type={"text"} value={isvalue2} onChange={handleCity} />
           </div>
           <div>
             국가
@@ -83,7 +103,7 @@ const ReservationPersonInfo = () => {
           </div>
           <div className="col-span-2">
             예상 도착시간
-            <Select options={arrivalOption} />
+            <Select options={arrivalOption} onChange={handleArrival} />
           </div>
         </div>
         <div className="mt-10 flex justify-between items-center">
@@ -103,10 +123,10 @@ const ReservationPersonInfo = () => {
           </button>
           <button className="btn-red xl">취소하기</button>
         </div>
-        <Dialog open={isRule} close={() => setIsRule(false)}>
-          약관입니다.
-        </Dialog>
       </form>
+      <Dialog open={isRule} close={() => setIsRule(false)}>
+        <ReservationRule />
+      </Dialog>
     </div>
   );
 };

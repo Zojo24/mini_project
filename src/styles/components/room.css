@@ -6,6 +6,9 @@
       li:hover & {
         @apply scale-110;
       }
+      .disabled & {
+        @apply opacity-60
+      }
     }
     .room-list & {
       grid-column: 1/2;
@@ -26,6 +29,18 @@
     + li {
       @apply border-solid border-t-[1px] border-t-gray-300;
     }
+    &.disabled {
+      @apply relative;
+      * {
+        @apply grayscale;
+      }
+      button {
+        @apply  cursor-not-allowed pointer-events-none opacity-60;
+        .room-write & {
+          @apply  cursor-pointer pointer-events-auto opacity-100;
+        }
+      }
+    }
   }
   button {
     @apply justify-self-start self-start;
@@ -33,12 +48,21 @@
 }
 
 .room-option {
-  @apply flex flex-wrap gap-6 col-span-2;
+  @apply grid;
+  grid-column: 2 / -1;
+  ul {
+    @apply flex flex-wrap  gap-6;
+  }
   li {
     @apply flex items-center gap-1 text-gray-500;
     svg {
       @apply text-gray-700 text-lg;
     }
-
+  }
+  &__price {
+    @apply text-sm pt-1;
+    span {
+      @apply text-gray-900 font-semibold;
+    }
   }
 }

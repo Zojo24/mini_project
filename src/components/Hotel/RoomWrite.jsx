@@ -67,23 +67,32 @@ const RoomWrite = () => {
             <div className="grid grid-cols-[1fr_min-content] items-center gap-1">
               <Input type={"text"} price={true} /> 원
             </div>
-            <div className="flex gap-3 items-center"></div>
+          </li>
+          <li className="grid gap-3 self-start">
+            성인 1명당 1박 가격
+            <div className="grid grid-cols-[1fr_min-content] items-center gap-1">
+              <Input type={"text"} price={true} /> 원
+            </div>
+          </li>
+          <li className="grid gap-3 self-start">
+            어린이 1명당 1박 가격
+            <div className="grid grid-cols-[1fr_min-content] items-center gap-1">
+              <Input type={"text"} price={true} /> 원
+            </div>
           </li>
           <li className="grid gap-3 self-start">
             객실 기준인원
             <div className="grid grid-cols-[1fr_min-content] items-center gap-1">
               <Input type={"text"} price={true} /> 명
             </div>
-            <div className="flex gap-3 items-center"></div>
           </li>
           <li className="grid gap-3 self-start">
             객실 최대인원
             <div className="grid grid-cols-[1fr_min-content] items-center gap-1">
               <Input type={"text"} price={true} /> 명
             </div>
-            <div className="flex gap-3 items-center"></div>
           </li>
-          <li className="grid gap-3 col-span-3">
+          <li className="grid gap-3">
             객실 예약여부
             <div className="flex">
               <Radio color={"blue"} checked={!isRadio} value={"예약가능"} id={"room_reser1"} name={"roomrag1"} onChange={() => setIsRadio(!isRadio)} />

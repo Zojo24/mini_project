@@ -31,7 +31,9 @@ const Utillity = () => {
       </button>
       {isLogin ? (
         <>
-          <Avatar className={"!w-10 !h-10"} /> <strong className="-mr-2 -ml-1">하하하</strong>님
+          <Link to="/mypage" className="flex items-center gap-1 mr-2">
+            <Avatar className={"!w-10 !h-10"} /> <strong>하하하</strong>님
+          </Link>
           <button className="btn-blue" onClick={() => setIsLogin(false)}>
             <IoIosLogOut />
             Log Out

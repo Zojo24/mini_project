@@ -7,7 +7,7 @@ import Select from "./Select";
 import Input from "./Input";
 import Guest from "./Guest";
 import "../styles/components/search.css";
-import { Today } from "../store/todayStore";
+// import { Today } from "../store/todayStore";
 
 const where = [
   {
@@ -35,13 +35,31 @@ const where = [
     text: "캄보디아",
   },
 ];
+const Today = (nextDay = 0) => {
+  const year = new Date().getFullYear();
+  let month = new Date().getMonth() + 1;
+  let day = new Date().getDate() + nextDay;
+
+  month = month < 10 ? "0" + month : month;
+  day = day < 10 ? "0" + day : day;
+
+  return `${year}-${month}-${day}`;
+};
 
 const Search = () => {
-  const [isStart, setIsStart] = useState("");
+  const [isStart, setIsStart] = useState(Today);
+  const [isEnd, setIsEnd] = useState(Today(1));
 
-  const handleStart = (e) => {
-    setIsStart(e.target.value);
+  const handleStart = (value) => {
+    setIsStart(value);
   };
+  const handleEnd = (value) => {
+    setIsEnd(value);
+  };
+
+  // 결과값
+  console.log(`isStart ${isStart}`);
+  console.log(`isEnd ${isEnd}`);
 
   return (
     <form className="search">
@@ -61,7 +79,7 @@ const Search = () => {
           </span>
           <b>체크인</b>
         </div>
-        <Input type="date" min={Today()} defaultValue={Today()} onChange={handleStart} />
+        <Input type="date" min={Today()} value={isStart} onChange={handleStart} />
       </div>
       <div>
         <div className="search__title">
@@ -70,7 +88,7 @@ const Search = () => {
           </span>
           <b>체크아웃</b>
         </div>
-        <Input type="date" min={isStart ? isStart : Today(1)} defaultValue={Today(1)} />
+        <Input type="date" min={isStart ? isStart : Today(1)} value={isEnd} onChange={handleEnd} />
       </div>
       <div>
         <div className="search__title">

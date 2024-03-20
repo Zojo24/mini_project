@@ -10,6 +10,7 @@ import Checkbox from "../components/Checkbox";
 import Badge from "../components/Badge";
 import RoomWrite from "../components/Hotel/RoomWrite";
 import RoomList from "../components/Hotel/RoomList";
+import subvisual from "../assets/subvisual3.jpg";
 
 const where = [
   {
@@ -62,14 +63,14 @@ const checkOption = [
 ];
 const HotelWrite = () => {
   const { setTitle } = useVisualStore();
-  const [isImage, setIsImage] = useState([]);
+  const [isImage, setIsImage] = useState("");
 
   useEffect(() => {
-    setTitle("Hotel Registration");
+    setTitle("Hotel Registration", subvisual);
   }, [setTitle]);
 
   const handleonChange = (e) => {
-    setIsImage([e.target.value, ...isImage]);
+    setIsImage(e);
   };
 
   const [isRadio, setIsRadio] = useState(false);
@@ -120,8 +121,21 @@ const HotelWrite = () => {
               <li className="grid gap-3">
                 호텔 예약여부
                 <div className="flex">
-                  <Radio color={"blue"} checked={!isRadio} value={"예약가능"} id={"hotel_reser1"} name={"rag1"} onChange={() => setIsRadio(!isRadio)} />
-                  <Radio color={"red ml-5"} value={"예약 불가능"} id={"hotel_reser2"} name={"rag1"} onChange={() => setIsRadio(!isRadio)} />
+                  <Radio
+                    color={"blue"}
+                    checked={!isRadio}
+                    value={"예약가능"}
+                    id={"hotel_reser1"}
+                    name={"rag1"}
+                    onChange={() => setIsRadio(!isRadio)}
+                  />
+                  <Radio
+                    color={"red ml-5"}
+                    value={"예약 불가능"}
+                    id={"hotel_reser2"}
+                    name={"rag1"}
+                    onChange={() => setIsRadio(!isRadio)}
+                  />
                 </div>
               </li>
               <li className="grid gap-3 col-span-3">
@@ -210,15 +224,43 @@ const HotelWrite = () => {
                   <li className="grid grid-cols-[8rem_1fr] items-center">
                     <strong>흡연</strong>
                     <div className="flex">
-                      <Radio color={"red"} checked={!isRadio2} value={"전객실 불가능"} id={"hotel_reser3"} name={"rag2"} onChange={() => setIsRadio2(!isRadio2)} />
-                      <Radio color={"green ml-5"} value={"일부객실 가능"} id={"hotel_reser4"} name={"rag2"} onChange={() => setIsRadio2(!isRadio2)} /> <Badge color={"red ml-2"}>일부객실 선택시 현장에서 방을 배정합니다.</Badge>
+                      <Radio
+                        color={"red"}
+                        checked={!isRadio2}
+                        value={"전객실 불가능"}
+                        id={"hotel_reser3"}
+                        name={"rag2"}
+                        onChange={() => setIsRadio2(!isRadio2)}
+                      />
+                      <Radio
+                        color={"green ml-5"}
+                        value={"일부객실 가능"}
+                        id={"hotel_reser4"}
+                        name={"rag2"}
+                        onChange={() => setIsRadio2(!isRadio2)}
+                      />{" "}
+                      <Badge color={"red ml-2"}>일부객실 선택시 현장에서 방을 배정합니다.</Badge>
                     </div>
                   </li>
                   <li className="grid grid-cols-[8rem_1fr] items-center">
                     <strong>애완동물</strong>
                     <div className="flex">
-                      <Radio color={"red"} checked={!isRadio3} value={"전객실 불가능"} id={"hotel_reser5"} name={"rag3"} onChange={() => setIsRadio3(!isRadio3)} />
-                      <Radio color={"green ml-5"} value={"일부객실 가능"} id={"hotel_reser6"} name={"rag3"} onChange={() => setIsRadio3(!isRadio3)} /> <Badge color={"red ml-2"}>일부객실 선택시 현장에서 방을 배정합니다.</Badge>
+                      <Radio
+                        color={"red"}
+                        checked={!isRadio3}
+                        value={"전객실 불가능"}
+                        id={"hotel_reser5"}
+                        name={"rag3"}
+                        onChange={() => setIsRadio3(!isRadio3)}
+                      />
+                      <Radio
+                        color={"green ml-5"}
+                        value={"일부객실 가능"}
+                        id={"hotel_reser6"}
+                        name={"rag3"}
+                        onChange={() => setIsRadio3(!isRadio3)}
+                      />{" "}
+                      <Badge color={"red ml-2"}>일부객실 선택시 현장에서 방을 배정합니다.</Badge>
                     </div>
                   </li>
                   <li className="grid grid-cols-[8rem_1fr] items-center">

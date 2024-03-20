@@ -1,8 +1,9 @@
 @import "../var.css";
 
 .gnb {
+  @apply absolute left-2/4 -translate-x-2/4;
   ul {
-    @apply flex gap-5;
+    @apply flex gap-10;
   }
   a {
     @apply text-lg font-medium text-white block py-3;

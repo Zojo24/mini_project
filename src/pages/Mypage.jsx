@@ -5,6 +5,7 @@ import { useVisualStore } from "../store/visualStore";
 import MypageFavorite from "../components/Mypage/MypageFavorite";
 import MypageCart from "../components/Mypage/MypageCart";
 import MypageReservation from "../components/Mypage/MypageReservation";
+import subvisual from "../assets/subvisual4.jpg";
 
 const Mypage = () => {
   const { setTitle } = useVisualStore();
@@ -13,7 +14,7 @@ const Mypage = () => {
     setIsTab(tab);
   };
   useEffect(() => {
-    setTitle("My Page");
+    setTitle("My Page", subvisual);
   }, [setTitle]);
 
   return (
@@ -23,22 +24,34 @@ const Mypage = () => {
         <nav>
           <ul className="tab">
             <li>
-              <button className={isTab === "account" ? "--active" : ""} onClick={() => handleTab("account")}>
+              <button
+                className={isTab === "account" ? "--active" : ""}
+                onClick={() => handleTab("account")}
+              >
                 개인정보
               </button>
             </li>
             <li>
-              <button className={isTab === "favorite" ? "--active" : ""} onClick={() => handleTab("favorite")}>
+              <button
+                className={isTab === "favorite" ? "--active" : ""}
+                onClick={() => handleTab("favorite")}
+              >
                 즐겨찾는 숙소
               </button>
             </li>
             <li>
-              <button className={isTab === "cart" ? "--active" : ""} onClick={() => handleTab("cart")}>
+              <button
+                className={isTab === "cart" ? "--active" : ""}
+                onClick={() => handleTab("cart")}
+              >
                 장바구니
               </button>
             </li>
             <li>
-              <button className={isTab === "reservation" ? "--active" : ""} onClick={() => handleTab("reservation")}>
+              <button
+                className={isTab === "reservation" ? "--active" : ""}
+                onClick={() => handleTab("reservation")}
+              >
                 예약내역
               </button>
             </li>

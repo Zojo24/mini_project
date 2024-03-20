@@ -1,7 +1,11 @@
 import React from "react";
 
-const HotelBooking = () => {
-  return <button className="btn-blue-label hotel__booking">HotelBooking</button>;
+const HotelBooking = ({ text, disabled }) => {
+  return (
+    <button disabled={disabled} className="btn-blue-label hotel__booking">
+      {text}
+    </button>
+  );
 };
 
 export default HotelBooking;

@@ -4,13 +4,12 @@ import Main from "../pages/Main";
 import Styleguide from "../pages/Styleguide";
 import Mypage from "../pages/Mypage";
 import HotelDetail from "../pages/HotelDetail";
-import ContactUs from "../pages/Blog";
+import ContactUs from "../pages/ContactUs";
 import HotelAllList from "../pages/HotelAllList";
 import ReservationSecond from "../components/Reservation/ReservationSecond";
 import ReservationThird from "../components/Reservation/ReservationThird";
 import NotFound from "../pages/NotFound";
 import About from "../pages/About";
-import Blog from "../pages/Blog";
 import HotelWrite from "../pages/HotelWrite";
 
 const router = createBrowserRouter([
@@ -50,10 +49,14 @@ const router = createBrowserRouter([
         path: "/hotel/:hotelcategory",
         element: <HotelAllList />,
       },
-      // {
-      //   path: "/blog",
-      //   element: <Blog />,
-      // },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <ContactUs />,
+      },
       {
         path: "/styleguide",
         element: <Styleguide />,

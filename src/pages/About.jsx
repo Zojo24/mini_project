@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Heading from "../components/Heading";
 import { useVisualStore } from "../store/visualStore";
+// import subvisual from "../assets/subvisual1.jpg";
 
 const About = () => {
   const { setTitle } = useVisualStore();

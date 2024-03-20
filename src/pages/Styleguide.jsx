@@ -89,6 +89,11 @@ const Styleguide = () => {
               <button className="btn-gray-label">btn-gray-label</button>
               <button className="btn-gray-outline">btn-gray-outline</button>
             </div>
+            <div className="flex gap-4 flex-wrap">
+              <button className="btn-green">btn-green</button>
+              <button className="btn-green-label">btn-green-label</button>
+              <button className="btn-green-outline">btn-green-outline</button>
+            </div>
             <div className="flex gap-4 flex-wrap items-center col-span-2">
               <button className="btn-blue">btn-blue</button>
               <button className="btn-blue xl">btn-blue xl</button>
@@ -125,19 +130,64 @@ const Styleguide = () => {
             </Toast>
             {/* 토스트 : 아래의 코드는 디자인 예시입니다. 위의 코드를 사용하세요. */}
 
-            <Toast style={{ display: "inline-flex", position: "static", transform: "none", opacity: "1", animation: "none" }} color={"blue"}>
+            <Toast
+              style={{
+                display: "inline-flex",
+                position: "static",
+                transform: "none",
+                opacity: "1",
+                animation: "none",
+              }}
+              color={"blue"}
+            >
               blue
             </Toast>
-            <Toast style={{ display: "inline-flex", position: "static", transform: "none", opacity: "1", animation: "none" }} color={"red"}>
+            <Toast
+              style={{
+                display: "inline-flex",
+                position: "static",
+                transform: "none",
+                opacity: "1",
+                animation: "none",
+              }}
+              color={"red"}
+            >
               red
             </Toast>
-            <Toast style={{ display: "inline-flex", position: "static", transform: "none", opacity: "1", animation: "none" }} color={"gray"}>
+            <Toast
+              style={{
+                display: "inline-flex",
+                position: "static",
+                transform: "none",
+                opacity: "1",
+                animation: "none",
+              }}
+              color={"gray"}
+            >
               gray
             </Toast>
-            <Toast style={{ display: "inline-flex", position: "static", transform: "none", opacity: "1", animation: "none" }} color={"green"}>
+            <Toast
+              style={{
+                display: "inline-flex",
+                position: "static",
+                transform: "none",
+                opacity: "1",
+                animation: "none",
+              }}
+              color={"green"}
+            >
               green
             </Toast>
-            <Toast style={{ display: "inline-flex", position: "static", transform: "none", opacity: "1", animation: "none" }} color={"mint"}>
+            <Toast
+              style={{
+                display: "inline-flex",
+                position: "static",
+                transform: "none",
+                opacity: "1",
+                animation: "none",
+              }}
+              color={"mint"}
+            >
               mint
             </Toast>
           </div>
@@ -184,8 +234,21 @@ const Styleguide = () => {
           </ul>
           <ul className="flex gap-4 mt-5">
             <li>
-              <Radio color={"blue"} checked={!isRadio} value={"checked"} id={"hotel_reser1"} name={"rag1"} onChange={handleChange} />
-              <Radio color={"blue"} value={"unchecked"} id={"hotel_reser2"} name={"rag1"} onChange={handleChange} />
+              <Radio
+                color={"blue"}
+                checked={!isRadio}
+                value={"checked"}
+                id={"hotel_reser1"}
+                name={"rag1"}
+                onChange={handleChange}
+              />
+              <Radio
+                color={"blue"}
+                value={"unchecked"}
+                id={"hotel_reser2"}
+                name={"rag1"}
+                onChange={handleChange}
+              />
             </li>
           </ul>
           <div className="flex gap-2 pt-5">
