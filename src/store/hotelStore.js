@@ -2,11 +2,23 @@ import { create } from 'zustand';
 
 export const useHotelStore = create((set) => ({
   hotelLists: [],
-  addHotel: (location, price, availability, comment, facilit) =>
+  addHotel: (location, name, price, availability, comment) =>
     set((state) => ({
       todos: [
-        ...state.todos,
-        { text: todoText, id: getId(), isCompleted: false },
+        ...state.hotelLists,
+        {
+          location,
+          id: getId(),
+          name,
+          price,
+          availability,
+          comment,
+        },
       ],
     })),
 }));
+
+let id = 0;
+function getId() {
+  return id++;
+}
