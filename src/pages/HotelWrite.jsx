@@ -71,6 +71,7 @@ const HotelWrite = () => {
 
   const handleonChange = (e) => {
     setIsImage(e);
+    console.log(e.name);
   };
 
   const [isRadio, setIsRadio] = useState(false);
@@ -115,8 +116,14 @@ const HotelWrite = () => {
                 <Select options={where} />
               </li>
               <li className="grid gap-3">
+                호텔 이름
+                <Input type={"text"} />
+              </li>
+              <li className="grid gap-3">
                 호텔 가격
-                <Input type={"text"} price={true} />
+                <div className="grid grid-cols-[1fr_min-content] items-center gap-2">
+                  <Input type={"text"} price={true} /> 원
+                </div>
               </li>
               <li className="grid gap-3">
                 호텔 예약여부
