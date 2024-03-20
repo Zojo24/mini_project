@@ -8,10 +8,10 @@ const Visual = ({ children }) => {
       <div className="visual relative z-0 h-[50rem]">
         <div className="youtube">
           <iframe
-            src="https://www.youtube.com/embed/7lWf6qpHvlw?controls=0&autoplay=1&loop=1&mute=1&playlist=7lWf6qpHvlw"
+            src="https://www.youtube-nocookie.com/embed/7lWf6qpHvlw?controls=0&autoplay=1&loop=1&mute=1&playlist=7lWf6qpHvlw"
             title="BoraBora"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
+            allowFullScreen
           ></iframe>
         </div>
         {/* <video src={video} muted loop autoPlay className="object-cover w-full h-full"></video> */}
