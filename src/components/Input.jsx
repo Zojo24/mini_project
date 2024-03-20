@@ -5,7 +5,7 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
   const [isNumber, setIsNumber] = useState("");
   const [isValue, setIsValue] = useState(value || "");
   const [isToast, setIsToast] = useState(false);
-  const [isFile, setIsFile] = useState({});
+  const [isFile, setIsFile] = useState("");
 
   const formatPrice = (value) => {
     return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -27,7 +27,7 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
 
   const handleFileChange = (e) => {
     const { files } = e.target;
-    console.log(files[0]);
+    const filename = files[0].name;
     if (files[0]) {
       if (!allowedFileTypes.includes(files[0].type)) {
         console.log("error");
@@ -35,7 +35,8 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
         setIsFile("");
         return;
       }
-      setIsFile(files[0]);
+
+      setIsFile(filename);
       onChange(files[0]);
     }
   };
@@ -45,7 +46,6 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
     setIsValue(e.target.value);
     onChange(e.target.value);
   };
-  console.log(isFile.name);
   return (
     <>
       {type === "textarea" ? (
@@ -62,7 +62,7 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
         <input
           type={type}
           {...props}
-          value={isFile.name}
+          value={isFile}
           onChange={handleFileChange}
           className={`input ${className}`}
           accept=".jpg,.jpeg,.png,.webp"
@@ -71,7 +71,7 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
         <input
           type={type}
           {...props}
-          value={""}
+          value={value}
           onChange={handleonChange}
           className={`input ${className}`}
         />
