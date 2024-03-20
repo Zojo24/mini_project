@@ -47,19 +47,21 @@ const Today = (nextDay = 0) => {
 };
 
 const Search = () => {
-  const [isStart, setIsStart] = useState(Today);
+  const [isStart, setIsStart] = useState(Today());
   const [isEnd, setIsEnd] = useState(Today(1));
 
   const handleStart = (value) => {
+    console.log(value);
     setIsStart(value);
   };
   const handleEnd = (value) => {
+    console.log(value);
     setIsEnd(value);
   };
 
   // 결과값
-  console.log(`isStart ${isStart}`);
-  console.log(`isEnd ${isEnd}`);
+  // console.log(`isStart ${isStart}`);
+  // console.log(`isEnd ${isEnd}`);
 
   return (
     <form className="search">
