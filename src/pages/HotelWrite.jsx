@@ -14,6 +14,7 @@ import Input from '../components/Input';
 import Noimage from '../components/Noimage';
 import Radio from '../components/Radio';
 import Select from '../components/Select';
+import { useHotelStore } from '../store/hotelStore';
 import { useVisualStore } from '../store/visualStore';
 
 const where = [
@@ -81,7 +82,17 @@ const HotelWrite = () => {
   const [isRadio2, setIsRadio2] = useState(false);
   const [isRadio3, setIsRadio3] = useState(false);
   const [isToggle, setIsToggle] = useState(false);
-
+  const [hotelInfo, setHotelInfo] = useState({});
+  const handleName = (e) => {
+    setHotelInfo({ name: e.target.value });
+  };
+  const { addHotel, hotelLists } = useHotelStore();
+  const onSubmit = () => {
+    addHotel({ name: hotelInfo.name });
+    alert(hotelLists);
+  };
+  console.log("상태", hotelInfo);
+  console.log(hotelLists);
   return (
     <div className="main">
       <div className="container mb-32">
@@ -138,8 +149,8 @@ const HotelWrite = () => {
                 호텔 이름
                 <Input
                   type={"text"}
-                  value={""}
-                  onChange={(e) => console.log(e.target.value)}
+                  value={hotelInfo.name || ""}
+                  onChange={handleName}
                 />
               </li>
               <li className="grid gap-3">
@@ -372,7 +383,9 @@ const HotelWrite = () => {
           </div>
           {isToggle ? <RoomWrite /> : <RoomList edit={true} />}
         </Box>
-        <button className="btn-blue">호텔등록</button>
+        <button onClick={onSubmit} className="btn-blue">
+          호텔등록
+        </button>
       </div>
     </div>
   );

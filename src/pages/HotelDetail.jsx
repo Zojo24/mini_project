@@ -1,38 +1,51 @@
-import React, { useEffect, useState } from "react";
-import { useVisualStore } from "../store/visualStore";
-import HotelLocation from "../components/Hotel/HotelLocation";
-import HotelPrice from "../components/Hotel/HotelPrice";
-import HotelFavorite from "../components/Hotel/HotelFavorite";
-import HotelGallery from "../components/Hotel/HotelGallery";
-import pic1 from "../assets/img1.webp";
-import pic2 from "../assets/img2.webp";
-import pic3 from "../assets/img3.webp";
-import pic4 from "../assets/img4.jpg";
-import Box from "../components/Box";
-import Heading from "../components/Heading";
-import Text from "../components/Text";
-import ServiceList from "../components/Hotel/ServiceList";
-import HotelRules from "../components/Hotel/HotelRules";
-import RoomList from "../components/Hotel/RoomList";
-import ReservationFirst from "../components/Reservation/ReservationFirst";
-import Notice from "../components/Board/Notice";
-import NoticeWrite from "../components/Board/NoticeWrite";
-import subvisual from "../assets/subvisual2.jpg";
+import React, {
+  useEffect,
+  useState,
+} from 'react';
+
+import { useParams } from 'react-router-dom';
+
+import pic1 from '../assets/img1.webp';
+import pic2 from '../assets/img2.webp';
+import pic3 from '../assets/img3.webp';
+import pic4 from '../assets/img4.jpg';
+import subvisual from '../assets/subvisual2.jpg';
+import Notice from '../components/Board/Notice';
+import NoticeWrite from '../components/Board/NoticeWrite';
+import Box from '../components/Box';
+import Heading from '../components/Heading';
+import HotelFavorite from '../components/Hotel/HotelFavorite';
+import HotelGallery from '../components/Hotel/HotelGallery';
+import HotelLocation from '../components/Hotel/HotelLocation';
+import HotelPrice from '../components/Hotel/HotelPrice';
+import HotelRules from '../components/Hotel/HotelRules';
+import RoomList from '../components/Hotel/RoomList';
+import ServiceList from '../components/Hotel/ServiceList';
+import ReservationFirst from '../components/Reservation/ReservationFirst';
+import Text from '../components/Text';
+import { useHotelStore } from '../store/hotelStore';
+import { useVisualStore } from '../store/visualStore';
 
 const pictures = [{ src: pic1 }, { src: pic2 }, { src: pic3 }, { src: pic4 }];
 
 const HotelDetail = () => {
+  let { hotelId } = useParams();
   const { setTitle } = useVisualStore();
+  const { deleteHotel } = useHotelStore();
   const [isWrite, setIsWrite] = useState(false);
-
+  const { hotelLists } = useHotelStore();
+  const currentHotel = hotelLists.filter((it) => it.id === parseInt(hotelId));
+  const detailInfo = currentHotel[0];
   const handleWrite = () => {
     setIsWrite(!isWrite);
   };
-
+  console.log("링크", hotelId);
+  console.log("객체", hotelLists[0].id.toString());
+  console.log(currentHotel);
   useEffect(() => {
-    setTitle("호텔명을 삽입하세요.", subvisual);
+    setTitle(detailInfo, subvisual);
   }, [setTitle]);
-
+  const onDelete = () => {};
   return (
     <div className="main mb-24">
       <div className="container">
@@ -45,7 +58,9 @@ const HotelDetail = () => {
               <HotelPrice price={"500,000"} />
               <HotelFavorite />
               <button className="btn-blue -mr-2">수정</button>
-              <button className="btn-red">삭제</button>
+              <button onClick={onDelete} className="btn-red">
+                삭제
+              </button>
             </div>
           </div>
         </div>
@@ -57,9 +72,10 @@ const HotelDetail = () => {
             <Box>
               <Heading tag={"h3"} text={"호텔 안내"} className={"base"} />
               <Text className={"mt-5"} type={1}>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum rerum corrupti
-                incidunt possimus harum hic quo voluptatibus ipsam fugit id illo sapiente recusandae
-                natus numquam, quae aliquid? Pariatur, magnam odio?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum
+                rerum corrupti incidunt possimus harum hic quo voluptatibus
+                ipsam fugit id illo sapiente recusandae natus numquam, quae
+                aliquid? Pariatur, magnam odio?
               </Text>
             </Box>
             <Box>
@@ -69,10 +85,18 @@ const HotelDetail = () => {
                   공지 올리기
                 </button>
               </div>
-              {!isWrite ? <Notice className={"mt-5"} /> : <NoticeWrite className={"mt-5"} />}
+              {!isWrite ? (
+                <Notice className={"mt-5"} />
+              ) : (
+                <NoticeWrite className={"mt-5"} />
+              )}
             </Box>
             <Box>
-              <Heading tag={"h3"} text={"편의시설 및 서비스"} className={"base"} />
+              <Heading
+                tag={"h3"}
+                text={"편의시설 및 서비스"}
+                className={"base"}
+              />
               <ServiceList className={"mt-5"} />
             </Box>
             <Box>
@@ -80,7 +104,11 @@ const HotelDetail = () => {
               <HotelRules className={"mt-5"} />
             </Box>
             <Box>
-              <Heading tag={"h3"} text={"예약 가능한 객실"} className={"base"} />
+              <Heading
+                tag={"h3"}
+                text={"예약 가능한 객실"}
+                className={"base"}
+              />
               <RoomList className={"mt-5"} />
             </Box>
           </div>

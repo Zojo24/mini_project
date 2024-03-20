@@ -1,16 +1,17 @@
-import { createBrowserRouter } from "react-router-dom";
-import Layout from "../layout/Layout";
-import Main from "../pages/Main";
-import Styleguide from "../pages/Styleguide";
-import Mypage from "../pages/Mypage";
-import HotelDetail from "../pages/HotelDetail";
-import ContactUs from "../pages/ContactUs";
-import HotelAllList from "../pages/HotelAllList";
-import ReservationSecond from "../components/Reservation/ReservationSecond";
-import ReservationThird from "../components/Reservation/ReservationThird";
-import NotFound from "../pages/NotFound";
-import About from "../pages/About";
-import HotelWrite from "../pages/HotelWrite";
+import { createBrowserRouter } from 'react-router-dom';
+
+import ReservationSecond from '../components/Reservation/ReservationSecond';
+import ReservationThird from '../components/Reservation/ReservationThird';
+import Layout from '../layout/Layout';
+import About from '../pages/About';
+import ContactUs from '../pages/ContactUs';
+import HotelAllList from '../pages/HotelAllList';
+import HotelDetail from '../pages/HotelDetail';
+import HotelWrite from '../pages/HotelWrite';
+import Main from '../pages/Main';
+import Mypage from '../pages/Mypage';
+import NotFound from '../pages/NotFound';
+import Styleguide from '../pages/Styleguide';
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
         element: <HotelAllList />,
       },
       {
-        path: "/hoteldetail",
+        path: "/hoteldetail/:hotelId",
         element: <HotelDetail />,
       },
       {

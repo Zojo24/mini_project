@@ -1,15 +1,19 @@
-import React from "react";
-import HotelPicture from "./HotelPicture";
-import HotelLocation from "./HotelLocation";
-import HotelFavorite from "./HotelFavorite";
-import HotelPrice from "./HotelPrice";
-import HotelBooking from "./HotelBooking";
-import hotel1 from "../../assets/hotel1.jpg";
-import HotelTitle from "./HotelTitle";
-import Badge from "../Badge";
+import React from 'react';
+
+import hotel1 from '../../assets/hotel1.jpg';
+import { useHotelStore } from '../../store/hotelStore';
+import Badge from '../Badge';
+import HotelBooking from './HotelBooking';
+import HotelFavorite from './HotelFavorite';
+import HotelLocation from './HotelLocation';
+import HotelPicture from './HotelPicture';
+import HotelPrice from './HotelPrice';
+import HotelTitle from './HotelTitle';
 
 const HotelListItems = ({ modify, ...props }) => {
   const data = { state: "disabled" };
+  const { hotelLists } = useHotelStore();
+  console.log(hotelLists);
   return (
     <>
       <li {...props}>
@@ -17,7 +21,10 @@ const HotelListItems = ({ modify, ...props }) => {
         <div className="hotel__info">
           <HotelLocation location={"Japan"} />
           <HotelFavorite checked={modify} />
-          <HotelTitle link={"/hoteldetail"} title={"Signature Hitanial Hotel"} />
+          <HotelTitle
+            link={"/hoteldetail"}
+            title={"Signature Hitanial Hotel"}
+          />
           <HotelPrice price={"1,000,000"} />
           <HotelBooking text={"HotelBooking"} />
         </div>
@@ -27,7 +34,10 @@ const HotelListItems = ({ modify, ...props }) => {
         <div className="hotel__info">
           <HotelLocation location={"Japan"} />
           <HotelFavorite checked={modify} />
-          <HotelTitle link={"/hoteldetail"} title={"Signature Hitanial Hotel"} />
+          <HotelTitle
+            link={"/hoteldetail"}
+            title={"Signature Hitanial Hotel"}
+          />
           <HotelPrice price={"1,000,000"} />
           {data.state ? (
             <>
@@ -39,6 +49,18 @@ const HotelListItems = ({ modify, ...props }) => {
           )}
         </div>
       </li>
+      {hotelLists.map((hotel, index) => (
+        <li {...props} key={hotel.name}>
+          <HotelPicture link={`/hoteldetail/${hotel.id}`} image={hotel1} />
+          <div className="hotel__info">
+            <HotelLocation location={"Japan"} />
+            <HotelFavorite checked={modify} />
+            <HotelTitle link={"/hoteldetail"} title={hotel.name} />
+            <HotelPrice price={"1,000,000"} />
+            <HotelBooking text={"HotelBooking"} />
+          </div>
+        </li>
+      ))}
     </>
   );
 };
