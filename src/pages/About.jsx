@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import Heading from "../components/Heading";
 import { useVisualStore } from "../store/visualStore";
 // import subvisual from "../assets/subvisual1.jpg";
+import MemberItems from "../components/MemberItems";
+import { membersData } from "../store/member";
 
 const About = () => {
   const { setTitle } = useVisualStore();
@@ -13,7 +15,12 @@ const About = () => {
     <>
       <div className="main">
         <div className="container my-10">
-          <Heading tag={"h3"} text={"Trip Hotel"} className={"xl"} />
+          <Heading tag={"h3"} text={"Project Member"} className={"xl"} />
+          <ul className="grid grid-cols-4 gap-10">
+            {membersData.map((member, index) => (
+              <MemberItems key={index} member={member} />
+            ))}
+          </ul>
         </div>
       </div>
     </>

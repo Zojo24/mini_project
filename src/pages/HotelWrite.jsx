@@ -73,9 +73,8 @@ const HotelWrite = () => {
     setTitle("Hotel Registration", subvisual);
   }, [setTitle]);
 
-  const handleonChange = (e) => {
-    setIsImage(e);
-    console.log(e.name);
+  const handleonChange = (file) => {
+    setIsImage(file);
   };
 
   const [isRadio, setIsRadio] = useState(false);
@@ -142,7 +141,11 @@ const HotelWrite = () => {
               </li>
               <li className="grid gap-3">
                 호텔 이름
-                <Input type={"text"} />
+                <Input
+                  type={"text"}
+                  value={""}
+                  onChange={(e) => console.log(e.target.value)}
+                />
               </li>
               <li className="grid gap-3">
                 호텔 가격
