@@ -3,7 +3,7 @@ import { persist, devtools } from "zustand/middleware";
 
 let loginStore = (set) => ({
   login: false,
-  setLogin: (value) => set({ Login: value }),
+  setLogin: (value) => set({ login: value }),
 });
 
 loginStore = devtools(loginStore);

@@ -13,7 +13,7 @@ const Login = ({ ...props }) => {
     setIsTab(tab);
   };
 
-  const { setLogin } = useLoginStore((state) => state.setLogin);
+  const setLogin = useLoginStore((state) => state.setLogin);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -64,7 +64,7 @@ const Login = ({ ...props }) => {
                 <Input
                   type="email"
                   required
-                  value="email"
+                  value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
@@ -75,7 +75,7 @@ const Login = ({ ...props }) => {
                 <Input
                   type="password"
                   required
-                  value="password"
+                  value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
