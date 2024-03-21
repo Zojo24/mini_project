@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "../styles/pages/login.css";
 import axios from "axios";
 import { useLoginStore } from "../store/loginStore";
+import Toast from "../components/Toast";
 
 const Login = ({ ...props }) => {
   const [isTab, setIsTab] = useState("login");
@@ -16,6 +17,8 @@ const Login = ({ ...props }) => {
   const setLogin = useLoginStore((state) => state.setLogin);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [isToast, setIsToast] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -30,6 +33,10 @@ const Login = ({ ...props }) => {
       }
     } catch (error) {
       console.log("Login failed", error);
+      setLoginError(
+        "이메일 혹은 비밀번호가 일치하지 않습니다. 다시 입력해 주세요."
+      );
+      setIsToast(true);
     }
   };
 
@@ -88,6 +95,13 @@ const Login = ({ ...props }) => {
             <div className="btn-login">
               <Link to="/">비밀번호를 잊으셨나요?</Link>
             </div>
+            <Toast
+              color={"red"}
+              onOpen={isToast}
+              onClose={() => setIsToast(false)}
+            >
+              {loginError}
+            </Toast>
           </>
         )}
         {isTab === "register" && (
