@@ -5,6 +5,7 @@ import ReservationThird from '../components/Reservation/ReservationThird';
 import Layout from '../layout/Layout';
 import About from '../pages/About';
 import ContactUs from '../pages/ContactUs';
+import Findaccount from '../pages/Findaccount';
 import HotelAllList from '../pages/HotelAllList';
 import HotelDetail from '../pages/HotelDetail';
 import HotelWrite from '../pages/HotelWrite';
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: "/styleguide",
         element: <Styleguide />,
+      },
+      {
+        path: "/findaccount",
+        element: <Findaccount />,
       },
     ],
   },

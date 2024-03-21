@@ -78,10 +78,10 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
       ) : (
         <input
           type={type}
-          value={value}
-          onChange={onChange}
-          className={`input ${className}`}
           {...props}
+          value={value}
+          onChange={handleonChange}
+          className={`input ${className}`}
         />
       )}
       <Toast
@@ -90,7 +90,8 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
         onClose={() => setIsToast(!isToast)}
       >
         올바른 파일 형식이 아닙니다. jpg, png, webp 등 이미지만 허용됩니다.
-      </Toast>
+      </Toast>{" "}
+      */
     </>
   );
 };

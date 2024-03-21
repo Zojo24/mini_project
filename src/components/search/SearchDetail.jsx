@@ -10,23 +10,23 @@ const where = [
   },
   {
     value: "select2",
-    text: "필리핀",
-  },
-  {
-    value: "select3",
     text: "태국",
   },
   {
+    value: "select3",
+    text: "베트남",
+  },
+  {
     value: "select4",
-    text: "말레이시아",
+    text: "필리핀",
   },
   {
     value: "select5",
-    text: "일본",
+    text: "말레이시아",
   },
   {
     value: "select6",
-    text: "캄보디아",
+    text: "대만",
   },
 ];
 

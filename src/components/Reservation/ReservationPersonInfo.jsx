@@ -7,41 +7,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import Dialog from "../Dialog";
 import ReservationRule from "../ReservationRule";
 
-const arrivalOption = [
-  { value: "select1", text: "잘모르겠습니다." },
-  { value: "select2", text: "12:00 - 1:00 am" },
-  { value: "select3", text: "1:00 - 2:00 am" },
-  { value: "select4", text: "2:00 - 3:00 am" },
-  { value: "select5", text: "3:00 - 4:00 am" },
-  { value: "select6", text: "4:00 - 5:00 am" },
-  { value: "select7", text: "5:00 - 6:00 am" },
-  { value: "select8", text: "6:00 - 7:00 am" },
-  { value: "select9", text: "7:00 - 8:00 am" },
-  { value: "select10", text: "8:00 - 9:00 am" },
-  { value: "select11", text: "9:00 - 10:00 am" },
-  { value: "select12", text: "10:00 - 11:00 am" },
-  { value: "select13", text: "11:00 - 12:00 am" },
-  { value: "select14", text: "12:00 - 1:00 pm" },
-  { value: "select15", text: "1:00 - 2:00 pm" },
-  { value: "select16", text: "2:00 - 3:00 pm" },
-  { value: "select17", text: "3:00 - 4:00 pm" },
-  { value: "select18", text: "4:00 - 5:00 pm" },
-  { value: "select19", text: "5:00 - 6:00 pm" },
-  { value: "select20", text: "6:00 - 7:00 pm" },
-  { value: "select21", text: "7:00 - 8:00 pm" },
-  { value: "select22", text: "8:00 - 9:00 pm" },
-  { value: "select23", text: "9:00 - 10:00 pm" },
-  { value: "select24", text: "10:00 - 11:00 pm" },
-  { value: "select25", text: "11:00 - 12:00 pm" },
-];
-
 const ReservationPersonInfo = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState("thisisid");
   const [isRule, setIsRule] = useState(false);
   const [isvalue, setIsvalue] = useState("");
   const [isvalue2, setIsvalue2] = useState("");
-  const [isvalue3, setIsvalue3] = useState("");
 
   const handleInfo = (e) => {
     e.preventDefault();
@@ -58,15 +29,11 @@ const ReservationPersonInfo = () => {
   const handleCity = (value) => {
     setIsvalue2(value);
   };
-  const handleArrival = (e) => {
-    const value = e.target.options[e.target.selectedIndex].text;
-    setIsvalue3(value);
-  };
 
   // 결과값
-  console.log("주소" + isvalue);
-  console.log("도시" + isvalue2);
-  console.log("도착시간" + isvalue3);
+  // console.log("주소" + isvalue);
+  // console.log("도시" + isvalue2);
+  // console.log("도착시간" + isvalue3);
 
   return (
     <div>
@@ -101,10 +68,6 @@ const ReservationPersonInfo = () => {
             요청사항
             <Input type={"textarea"} />
           </div>
-          <div className="col-span-2">
-            예상 도착시간
-            <Select options={arrivalOption} onChange={handleArrival} />
-          </div>
         </div>
         <div className="mt-10 flex justify-between items-center">
           <div>
@@ -117,7 +80,7 @@ const ReservationPersonInfo = () => {
           </div>
         </div>
 
-        <div className="mt-10 flex gap-2">
+        <div className="mt-10 flex gap-2 justify-center">
           <button className="btn-blue xl" onClick={handleInfo}>
             숙소 예약하기
           </button>

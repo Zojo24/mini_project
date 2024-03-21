@@ -9,13 +9,14 @@ import GuestCounter from "../GuestCounter";
 const MypageCart = () => {
   return (
     <>
-      <div className="mypage-cart grid grid-cols-[1fr_25rem] gap-10">
+      <div className="mypage-cart">
         <div className="bg-white rounded-xl  p-10">
           <Heading tag={"h4"} className={"sm"} text={"장바구니"} />
           <table className="mypage-cart__table mt-5">
             <colgroup>
               <col style={{ width: "5rem" }} />
               <col style={{ width: "" }} />
+              <col style={{ width: "10rem" }} />
               <col style={{ width: "10rem" }} />
               <col style={{ width: "10rem" }} />
             </colgroup>
@@ -25,6 +26,7 @@ const MypageCart = () => {
                 <th>호텔 정보</th>
                 <th>방 종류</th>
                 <th>가격</th>
+                <th>결제</th>
               </tr>
             </thead>
             <tbody>
@@ -58,6 +60,11 @@ const MypageCart = () => {
                 <td className="pr-3 text-right">
                   총 <b>1,000,000</b> 원
                 </td>
+                <td>
+                  <Link to="/reservation" className="btn-blue">
+                    결제
+                  </Link>
+                </td>
               </tr>
               <tr className="group">
                 <td className="self-start justify-self-end text-lg text-gray-500">
@@ -72,7 +79,9 @@ const MypageCart = () => {
                     </Link>
                     <div>
                       <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2 font-bold">
-                        호텔명은 최대 2줄까지만 지원됩니다람쥐. 호텔명은 최대 2줄까지만 지원됩니다람쥐. 호텔명은 최대 2줄까지만 지원됩니다람쥐. 호텔명은 최대 2줄까지만 지원됩니다람쥐. 호텔명은 최대 2줄까지만 지원됩니다람쥐.
+                        호텔명은 최대 2줄까지만 지원됩니다람쥐. 호텔명은 최대 2줄까지만 지원됩니다람쥐. 호텔명은 최대
+                        2줄까지만 지원됩니다람쥐. 호텔명은 최대 2줄까지만 지원됩니다람쥐. 호텔명은 최대 2줄까지만
+                        지원됩니다람쥐.
                       </Link>
                       <div className="text-sm flex mt-2 leading-6">
                         <b className="font-semibold">예약일</b>
@@ -89,16 +98,21 @@ const MypageCart = () => {
                 <td className="pr-3 text-right">
                   총 <b>1,000,000</b> 원
                 </td>
+                <td>
+                  <Link to="/reservation" className="btn-blue">
+                    결제
+                  </Link>
+                </td>
               </tr>
               <tr>
-                <td colSpan={4} className="!py-10">
+                <td colSpan={5} className="!py-10">
                   장바구니가 비어 있습니다.
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        <div className="bg-white rounded-xl p-10 self-start">
+        {/* <div className="bg-white rounded-xl p-10 self-start">
           <Heading tag={"h4"} className={"sm"} text={"주문 요약"} />
           <div className="cart-price">
             <ul className="grid gap-2">
@@ -121,7 +135,7 @@ const MypageCart = () => {
               </Link>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

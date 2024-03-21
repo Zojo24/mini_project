@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { SlLocationPin } from "react-icons/sl";
-import { LuCalendarPlus } from "react-icons/lu";
 import { GoPeople } from "react-icons/go";
 import { LuSearch } from "react-icons/lu";
+import { PiBed } from "react-icons/pi";
+import { GrView } from "react-icons/gr";
+import { BiWon } from "react-icons/bi";
+
 import Select from "./Select";
-import Input from "./Input";
 import Guest from "./Guest";
 import "../styles/components/search.css";
 // import { Today } from "../store/todayStore";
@@ -16,25 +18,96 @@ const where = [
   },
   {
     value: "select2",
-    text: "필리핀",
-  },
-  {
-    value: "select3",
     text: "태국",
   },
   {
+    value: "select3",
+    text: "베트남",
+  },
+  {
     value: "select4",
-    text: "말레이시아",
+    text: "필리핀",
   },
   {
     value: "select5",
-    text: "일본",
+    text: "말레이시아",
   },
   {
     value: "select6",
-    text: "캄보디아",
+    text: "대만",
   },
 ];
+const viewKind = [
+  {
+    value: "select1",
+    text: "스탠다드 룸",
+  },
+  {
+    value: "select2",
+    text: "디럭스 룸",
+  },
+  {
+    value: "select3",
+    text: "트윈 룸",
+  },
+  {
+    value: "select4",
+    text: "스위트 룸",
+  },
+];
+const viewOption = [
+  {
+    value: "select1",
+    text: "오션뷰",
+  },
+  {
+    value: "select2",
+    text: "시티뷰",
+  },
+  {
+    value: "select3",
+    text: "가든뷰",
+  },
+  {
+    value: "select4",
+    text: "리버뷰",
+  },
+  {
+    value: "select5",
+    text: "마운틴뷰",
+  },
+  {
+    value: "select6",
+    text: "뷰없음",
+  },
+];
+const priceOption = [
+  {
+    value: "select6",
+    text: "모든 가격",
+  },
+  {
+    value: "select1",
+    text: "1만원 ~ 10만원",
+  },
+  {
+    value: "select2",
+    text: "10만원 ~ 30만원",
+  },
+  {
+    value: "select3",
+    text: "30만원 ~ 50만원",
+  },
+  {
+    value: "select4",
+    text: "50만원 ~ 100만원",
+  },
+  {
+    value: "select5",
+    text: "100만원 ~",
+  },
+];
+
 const Today = (nextDay = 0) => {
   const year = new Date().getFullYear();
   let month = new Date().getMonth() + 1;
@@ -77,27 +150,36 @@ const Search = () => {
       <div>
         <div className="search__title">
           <span>
-            <LuCalendarPlus />
+            <PiBed />
           </span>
-          <b>체크인</b>
+          <b>객실 종류</b>
         </div>
-        <Input type="date" min={Today()} value={isStart} onChange={handleStart} />
+        <Select options={viewKind} />
       </div>
       <div>
         <div className="search__title">
           <span>
-            <LuCalendarPlus />
+            <GrView />
           </span>
-          <b>체크아웃</b>
+          <b>뷰 종류</b>
         </div>
-        <Input type="date" min={isStart ? isStart : Today(1)} value={isEnd} onChange={handleEnd} />
+        <Select options={viewOption} />
+      </div>
+      <div>
+        <div className="search__title">
+          <span>
+            <BiWon />
+          </span>
+          <b>1박당 요금</b>
+        </div>
+        <Select options={priceOption} />
       </div>
       <div>
         <div className="search__title">
           <span>
             <GoPeople />
           </span>
-          <b>숙박 인원수</b>
+          <b>인원 수</b>
         </div>
         <Guest />
       </div>
