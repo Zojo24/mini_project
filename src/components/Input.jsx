@@ -48,7 +48,6 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
   const handleonChange = (e) => {
     setIsValue(e.target.value);
     onChange(e);
-    console.log(e.target.value);
   };
   return (
     <>
