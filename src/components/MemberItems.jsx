@@ -7,15 +7,18 @@ import { RiInstagramLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
 const MemberItems = ({ member }) => {
-  const { name, picture, position, sns } = member;
+  const { name, picture, position, sns, field } = member;
   return (
     <li className="group">
-      <div className="rounded-xl overflow-hidden">
+      <div className="rounded-xl overflow-hidden w-full h-[30rem] relative">
         <img
           src={picture}
           alt=""
-          className="w-full h-full group-hover:scale-110 transition-all duration-500 "
+          className="w-full h-full group-hover:scale-110 transition-all duration-500 object-cover "
         />
+        <div className="absolute left-5 top-5">
+          <Badge color={"mint"}>{field}</Badge>
+        </div>
       </div>
       <div className="flex flex-col -mt-10 mx-5 bg-white shadow-lg relative z-20 rounded-lg p-5 text-center gap-3">
         <strong className="text-xl font-black">{name}</strong>

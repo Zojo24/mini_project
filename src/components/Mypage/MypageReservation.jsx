@@ -17,7 +17,6 @@ const MypageReservation = () => {
             <col style={{ width: "5rem" }} />
             <col style={{ width: "7rem" }} />
             <col style={{ width: "7rem" }} />
-            <col style={{ width: "7rem" }} />
             <col style={{ width: "15rem" }} />
             <col style={{ width: "8rem" }} />
           </colgroup>
@@ -28,7 +27,6 @@ const MypageReservation = () => {
               <th>룸</th>
               <th>성인</th>
               <th>어린이</th>
-              <th>유아</th>
               <th>체크인 / 아웃</th>
               <th>총 금액</th>
             </tr>
@@ -38,7 +36,9 @@ const MypageReservation = () => {
               <td>2024-03-15</td>
               <td>
                 <div className="grid items-center grid-cols-[min-content_1fr] gap-1 text-left">
-                  <RoomPicture image={room} />
+                  <Link to="/hoteldetail">
+                    <RoomPicture image={room} size={"sm"} />
+                  </Link>
                   <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2">
                     호텔명
                   </Link>
@@ -46,7 +46,6 @@ const MypageReservation = () => {
               </td>
               <td>디럭스</td>
               <td>2</td>
-              <td>0</td>
               <td>0</td>
               <td>2024-03-18 ~ 2024-03-19</td>
               <td className="text-right">
@@ -57,7 +56,9 @@ const MypageReservation = () => {
               <td>2024-03-17</td>
               <td>
                 <div className="grid items-center grid-cols-[min-content_1fr] gap-1 text-left">
-                  <RoomPicture image={room} />
+                  <Link to="/hoteldetail">
+                    <RoomPicture image={room} size={"sm"} />
+                  </Link>
                   <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2">
                     호텔명
                   </Link>
@@ -66,14 +67,13 @@ const MypageReservation = () => {
               <td>디럭스</td>
               <td>4</td>
               <td>2</td>
-              <td>0</td>
               <td>2024-04-18 ~ 2024-05-19</td>
               <td className="text-right">
                 <b>5,400,000 원</b>
               </td>
             </tr>
             <tr>
-              <td colSpan={8} className="!py-10">
+              <td colSpan={7} className="!py-10">
                 예약된 내역이 없습니다.
               </td>
             </tr>

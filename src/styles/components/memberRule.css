@@ -1,0 +1,30 @@
+.member-rule{
+  @apply pr-3;
+    
+  &::-webkit-scrollbar {
+    @apply w-2 bg-transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    @apply w-2 bg-gray-300 rounded-xl;
+  }
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  > li {
+    @apply py-5 font-semibold;
+    > ul{
+        @apply pl-5;
+      > li {
+        @apply py-2 font-normal;
+      }
+    }
+  }
+  li {
+    text-indent: -1.7rem;
+    padding-left: 1.7rem;
+    li {
+      text-indent: -2.5rem;
+      padding-left: 2.5rem;
+    }
+  }
+}

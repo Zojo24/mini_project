@@ -19,6 +19,9 @@
     .room-list__picture {
       @apply w-14 h-14 rounded-md;
     }
+    li:first-child{
+      @apply pt-0;
+    }
     li:last-child {
       border-bottom: none
     }

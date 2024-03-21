@@ -17,14 +17,17 @@ const Cart = ({ mypage, close, ...props }) => {
     <>
       {!mypage && (
         <header className="border border-b-gray-200 border-solid leading-[4] px-5">
-          <h2 className="font-bold">
-            장바구니 <Badge color={"green"}>2</Badge>
+          <h2 className="font-bold flex gap-1 items-center">
+            장바구니
+            <Badge color={"green"}>
+              총 <b>2개</b>의 숙소가 등록되었습니다.
+            </Badge>
           </h2>
         </header>
       )}
       <form onSubmit={handleSubmit}>
         <ul className="cart__list">
-          <ReservationCartItems />
+          <ReservationCartItems close={handleCart} />
         </ul>
         <div className="cart-price">
           <ul className="grid gap-2">
@@ -41,13 +44,10 @@ const Cart = ({ mypage, close, ...props }) => {
               </span>
             </li>
           </ul>
-          <div className="grid grid-cols-2 gap-3 pt-5">
+          <div className="grid pt-5">
             <button onClick={handleCart} className="btn-gray !font-normal">
               계속 쇼핑하기
             </button>
-            <Link to="/reservation" onClick={handleCart} className="btn-blue !font-normal">
-              결재하기
-            </Link>
           </div>
         </div>
       </form>

@@ -18,6 +18,12 @@
   path:nth-child(4) {
   }
 }
+.loading2 {
+  svg {
+    @apply w-20 h-auto;
+  }
+
+}
 
 @keyframes fly1 {
   0% {

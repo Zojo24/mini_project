@@ -12,10 +12,14 @@ const Gnb = () => {
           </Link>
         </li>
         <li>
-          <Link to="/about">About</Link>
+          <Link to="/about" className={location.pathname === "/about" ? "active" : ""}>
+            About
+          </Link>
         </li>
         <li>
-          <Link to="/contact">Contact us</Link>
+          <Link to="/contact" className={location.pathname === "/contact" ? "active" : ""}>
+            Contact us
+          </Link>
         </li>
       </ul>
     </nav>

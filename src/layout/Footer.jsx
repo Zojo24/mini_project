@@ -6,9 +6,19 @@ import { RiTwitterXFill } from "react-icons/ri";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import "../styles/layout/footer.css";
+import Dialog from "../components/Dialog";
+import ReservationRule from "../components/ReservationRule";
+import { useState } from "react";
 
 const Footer = () => {
   const thisYear = new Date().getFullYear();
+  const [isRule, setIsRule] = useState(false);
+
+  const handleRule = (e) => {
+    e.preventDefault();
+    setIsRule(true);
+  };
+
   return (
     <>
       <div className="footer px-24 bg-gray-950 pt-24 pb-16 grid grid-cols-2">
@@ -42,6 +52,9 @@ const Footer = () => {
       <div className="px-24 py-7 text-gray-300 col-span-2 bg-black flex justify-between">
         <div>&copy; {thisYear} triphotel. All Rights Reserved by FEBE Team4</div>
         <div className="flex gap-5">
+          <button onClick={handleRule} className="w-auto h-auto text-white">
+            개인정보이용약관
+          </button>
           <Link to="/styleguide" className="w-auto h-auto text-white">
             StyleGuide
           </Link>
@@ -50,6 +63,9 @@ const Footer = () => {
           </Link>
         </div>
       </div>
+      <Dialog open={isRule} close={() => setIsRule(false)}>
+        <ReservationRule />
+      </Dialog>
     </>
   );
 };
