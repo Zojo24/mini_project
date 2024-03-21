@@ -1,6 +1,7 @@
 import React from 'react';
 
 import hotel1 from '../../assets/hotel1.jpg';
+import { HotelistsData } from '../../data/hotelLists';
 import { useHotelStore } from '../../store/hotelStore';
 import Badge from '../Badge';
 import HotelBooking from './HotelBooking';
@@ -49,7 +50,7 @@ const HotelListItems = ({ modify, ...props }) => {
           )}
         </div>
       </li>
-      {hotelLists.map((hotel, index) => (
+      {HotelistsData.map((hotel, index) => (
         <li {...props} key={hotel.name}>
           <HotelPicture link={`/hoteldetail/${hotel.id}`} image={hotel1} />
           <div className="hotel__info">
