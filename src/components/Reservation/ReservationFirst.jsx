@@ -94,6 +94,10 @@ const ReservationFirst = () => {
       setIsPopup(true);
       setErrrorMessage(`해당 객실은 ${payInfo.MaxRoomCount}명까지 수용가능한 객실입니다. 인원수를 조절해주세요.`);
       isValid = false;
+    } else if (isPayInfo.adult + isPayInfo.children === 0) {
+      setIsPopup(true);
+      setErrrorMessage(`최소 1명이상 예약해 주세요.`);
+      isValid = false;
     }
     return isValid;
   };
