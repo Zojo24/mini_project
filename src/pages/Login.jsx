@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import Dialog from "../components/Dialog";
 import Input from "../components/Input";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../styles/pages/login.css";
 import axios from "axios";
 import { useLoginStore } from "../store/loginStore";
@@ -25,7 +24,6 @@ const Login = ({ close, ...props }) => {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [isToast, setIsToast] = useState(false);
-  const [cookie, setCookie] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
