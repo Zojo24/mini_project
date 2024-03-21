@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import axios from "axios";
 
 import hotel1 from "../../assets/hotel1.jpg";
-import { HotelistsData } from "../../data/hotelLists";
-import { useHotelStore } from "../../store/hotelStore";
 import Badge from "../Badge";
 import HotelBooking from "./HotelBooking";
 import HotelFavorite from "./HotelFavorite";
@@ -13,8 +13,16 @@ import HotelTitle from "./HotelTitle";
 
 const HotelListItems = ({ modify, ...props }) => {
   const data = { state: "disabled" };
-  const { hotelLists } = useHotelStore();
-  console.log(hotelLists);
+  // const { hotelLists } = useHotelStore();
+  // console.log(hotelLists);
+  const [hotels, setHotels] = useState([]);
+  useEffect(() => {
+    axios.get("/hotels").then((response) => {
+      setHotels(response.data[0]);
+      console.log("불러온값", response.data[0]);
+    });
+  }, []);
+
   return (
     <>
       <li>
@@ -50,11 +58,11 @@ const HotelListItems = ({ modify, ...props }) => {
           )}
         </div>
       </li>
-      {HotelistsData.map((hotel, index) => (
-        <li key={hotel.name}>
+      {hotels.map((hotel) => (
+        <li key={hotel.id}>
           <HotelPicture link={`/hoteldetail/${hotel.id}`} image={hotel1} />
           <div className="hotel__info">
-            <HotelLocation location={"Japan"} />
+            <HotelLocation location={hotel.location} />
             <HotelFavorite checked={modify} />
             <HotelTitle link={"/hoteldetail"} title={hotel.name} />
             <HotelPrice price={"1,000,000"} />
