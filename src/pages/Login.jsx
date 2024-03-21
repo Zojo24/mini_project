@@ -19,16 +19,23 @@ const Login = ({ ...props }) => {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [isToast, setIsToast] = useState(false);
+  const [cookie, setCookie] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
       const response = await axios.post("/api/members/login", {
         email,
         password,
       });
-      console.log(response.data);
-      if (response.data.success) {
+
+      //header jwt 토큰 정보 받아오기
+      //TODO: 추후 헤더 이름 확인 필요
+      let jwtToken = response.headers["Authorization"];
+
+      if (response.data.success && jwtToken) {
+        localStorage.setItem("token", jwtToken);
         setLogin(true);
       }
     } catch (error) {
