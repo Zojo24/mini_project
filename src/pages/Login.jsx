@@ -20,10 +20,18 @@ const Login = ({ close, ...props }) => {
   };
 
   const setLogin = useLoginStore((state) => state.setLogin);
+  const setRegister = useRegisterStore((state) => state.setRegister);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
-  const [isToast, setIsToast] = useState(false);
+  const [registerError, setRegisterError] = useState("");
+  const [loginToast, setLoginToast] = useState(false);
+  const [registerToast, setRegisterToast] = useState(false);
+  const [name, setName] = useState("");
+  const [confirmPassword, setconfirmPassword] = useState("");
+  const [birthYear, setbirthYear] = useState("");
+  const [birthMonth, setbirthMonth] = useState("");
+  const [birthDay, setbirthDay] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -58,11 +66,42 @@ const Login = ({ close, ...props }) => {
           "서버에 접속할 수 없습니다. 네트워크 상태를 확인해 주세요."
         );
       }
-      setIsToast(true);
+      setLoginToast(true);
       console.log("Login failed", error);
     }
   };
 
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setRegisterError("비밀번호가 일치하지 않습니다.");
+      setRegisterToast(true);
+      return;
+    }
+
+    const requestData = {
+      name,
+      email,
+      dateOfBirth: `${birthYear}/${birthMonth}/${birthDay}`,
+      password,
+    };
+    try {
+      const response = await axios.post("/api/register", requestData);
+      navigate("/");
+    } catch (error) {
+      if (error.response) {
+        switch (error.response.status) {
+          default:
+            setRegisterError("회원가입 중 예기치 않은 오류가 발생했습니다.");
+        }
+      } else {
+        setRegisterError(
+          "서버에 접속할 수 없습니다. 네트워크 상태를 확인해 주세요."
+        );
+      }
+    }
+  };
   return (
     <>
       <nav>
@@ -121,41 +160,52 @@ const Login = ({ close, ...props }) => {
           </div>
           <Toast
             color={"red"}
-            onOpen={isToast}
-            onClose={() => setIsToast(false)}
+            onOpen={loginToast}
+            onClose={() => setLoginToast(false)}
           >
             {loginError}
           </Toast>
         </>
       )}
       {isTab === "register" && (
-        <form className="login-form">
-          <div>
-            이름
-            <Input type="text" required />
-          </div>
-          <div>
-            이메일
-            <Input type="email" required />
-          </div>
-          <div>
-            생년월일
-            <div className="birth">
-              <Input type="number" placeholder="YYYY" required />년
-              <Input type="number" placeholder="MM" required />월
-              <Input type="number" placeholder="DD" required />일
+        <>
+          <form className="login-form" onSubmit={handleRegister}>
+            <div>
+              이름
+              <Input type="name" required />
             </div>
-          </div>
-          <div>
-            비밀번호
-            <Input type="password" required />
-          </div>
-          <div>
-            비밀번호 확인
-            <Input type="password" required />
-          </div>
-          <button className="btn-blue xl2">Sign Up</button>
-        </form>
+            <div>
+              이메일
+              <Input type="email" required />
+            </div>
+            <div>
+              생년월일
+              <div className="birth">
+                <Input type="number" placeholder="YYYY" required />년
+                <Input type="number" placeholder="MM" required />월
+                <Input type="number" placeholder="DD" required />일
+              </div>
+            </div>
+            <div>
+              비밀번호
+              <Input type="password" required />
+            </div>
+            <div>
+              비밀번호 확인
+              <Input type="password" required />
+            </div>
+            <button type="submit" className="btn-blue xl2">
+              Sign Up
+            </button>
+          </form>
+          <Toast
+            color={"red"}
+            onOpen={registerToast}
+            onClose={() => setRegisterToast(false)}
+          >
+            {loginError}
+          </Toast>
+        </>
       )}
     </>
   );
