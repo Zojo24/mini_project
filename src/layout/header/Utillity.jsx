@@ -49,14 +49,15 @@ const Utillity = () => {
           Log In
         </button>
       )}
-      <Login open={isPopup} close={() => setIsPopup(false)} />
+
+      <Dialog open={isPopup} close={() => setIsPopup(false)}>
+        <Login close={() => setIsPopup(false)} />
+      </Dialog>
       <SearchPopup open={isPopup2} close={() => setIsPopup2(false)} />
 
       <Dialog className={"cart"} open={isPopup3} close={() => setIsPopup3(false)}>
         <Cart close={() => setIsPopup3(false)} />
       </Dialog>
-
-      {/* Cart 컴퍼넌트밖에 dialog 하고 그안에 Cart컴퍼넌트 넣어보기 */}
     </div>
   );
 };

@@ -2,13 +2,11 @@ import React from "react";
 import RoomPicture from "../Hotel/RoomPicture";
 import { Link } from "react-router-dom";
 import room from "../../assets/hotelroom3.jpeg";
-import { IoCloseOutline } from "react-icons/io5";
-import GuestCounter from "../GuestCounter";
 
-const ReservationHotelInfoItems = () => {
+const ReservationHotelInfoItems = ({ close }) => {
   return (
     <>
-      <li className="grid items-center grid-cols-[min-content_1fr] gap-3 text-left border-b border-b-gray-300 border-dashed py-3">
+      <li className="group grid items-center grid-cols-[min-content_1fr] gap-3 text-left border-b border-b-gray-300 border-dashed py-3">
         <Link to="/hoteldetail">
           <RoomPicture image={room} className="base" />
         </Link>
@@ -25,44 +23,84 @@ const ReservationHotelInfoItems = () => {
             <div> : 성인 1, 어린이 1</div>
           </div>
         </div>
+        <div className="col-span-2 justify-self-end items-center flex gap-4">
+          <div className="text-sm">소계</div>
+          <div>
+            <b>100,000</b> 원
+          </div>
+        </div>
+        <div className="col-span-2 justify-self-end flex gap-2">
+          <Link to="/reservation" onClick={close} className="btn-blue-outline sm">
+            결제
+          </Link>
+          <Link to="/reservation" className="btn-red-outline sm">
+            삭제
+          </Link>
+        </div>
       </li>
-      <li className="grid group items-center gap-[0.5rem] grid-cols-[min-content_1fr_min-content] grid-rows-[repeat(auto-fill,minmax(0,auto))] border-b border-b-gray-300 border-dashed py-3">
-        <RoomPicture image={room} />
+      <li className="group grid items-center grid-cols-[min-content_1fr] gap-3 text-left border-b border-b-gray-300 border-dashed py-3">
+        <Link to="/hoteldetail">
+          <RoomPicture image={room} className="base" />
+        </Link>
         <div>
-          <Link to="/hoteldetail" className="font-semibold group-hover:text-blue-700">
+          <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2 font-bold">
             호텔명
           </Link>
-          <div className="text-gray-500 text-sm">1박가격</div>
+          <div className="text-sm flex mt-2 leading-6">
+            <b className="font-semibold">예약일</b>
+            <div> : 2024-03-18 ~ 2024-03-19</div>
+          </div>
+          <div className="text-sm flex leading-6">
+            <b className="font-semibold">인원수</b>
+            <div> : 성인 1, 어린이 1</div>
+          </div>
         </div>
-        <div className="self-start justify-self-end text-lg text-gray-500">
-          <button>
-            <IoCloseOutline />
-          </button>
+        <div className="col-span-2 justify-self-end items-center flex gap-4">
+          <div className="text-sm">소계</div>
+          <div>
+            <b>100,000</b> 원
+          </div>
         </div>
-        <div></div>
-        <div>
-          <GuestCounter className={"sm"} />
+        <div className="col-span-2 justify-self-end flex gap-2">
+          <Link to="/reservation" onClick={close} className="btn-blue-outline sm">
+            결제
+          </Link>
+          <Link to="/reservation" className="btn-red-outline sm">
+            삭제
+          </Link>
         </div>
-        <div className="whitespace-nowrap">₩ 총 가격</div>
       </li>
-      <li className="grid group items-center gap-[0.5rem] grid-cols-[min-content_1fr_min-content] grid-rows-[repeat(auto-fill,minmax(0,auto))] border-b border-b-gray-300 border-dashed py-3">
-        <RoomPicture image={room} />
+      <li className="group grid items-center grid-cols-[min-content_1fr] gap-3 text-left border-b border-b-gray-300 border-dashed py-3">
+        <Link to="/hoteldetail">
+          <RoomPicture image={room} className="base" />
+        </Link>
         <div>
-          <Link to="/hoteldetail" className="font-semibold group-hover:text-blue-700">
+          <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2 font-bold">
             호텔명
           </Link>
-          <div className="text-gray-500 text-sm">1박가격</div>
+          <div className="text-sm flex mt-2 leading-6">
+            <b className="font-semibold">예약일</b>
+            <div> : 2024-03-18 ~ 2024-03-19</div>
+          </div>
+          <div className="text-sm flex leading-6">
+            <b className="font-semibold">인원수</b>
+            <div> : 성인 1, 어린이 1</div>
+          </div>
         </div>
-        <div className="self-start justify-self-end text-lg text-gray-500">
-          <button>
-            <IoCloseOutline />
-          </button>
+        <div className="col-span-2 justify-self-end items-center flex gap-4">
+          <div className="text-sm">소계</div>
+          <div>
+            <b>100,000</b> 원
+          </div>
         </div>
-        <div></div>
-        <div>
-          <GuestCounter className={"sm"} />
+        <div className="col-span-2 justify-self-end flex gap-2">
+          <Link to="/reservation" onClick={close} className="btn-blue-outline sm">
+            결제
+          </Link>
+          <Link to="/reservation" className="btn-red-outline sm">
+            삭제
+          </Link>
         </div>
-        <div className="whitespace-nowrap">₩ 총 가격</div>
       </li>
     </>
   );

@@ -80,7 +80,7 @@ const ReservationPersonInfo = () => {
           </div>
         </div>
 
-        <div className="mt-10 flex gap-2">
+        <div className="mt-10 flex gap-2 justify-center">
           <button className="btn-blue xl" onClick={handleInfo}>
             숙소 예약하기
           </button>
