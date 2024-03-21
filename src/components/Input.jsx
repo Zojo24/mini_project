@@ -52,12 +52,7 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
   return (
     <>
       {type === "textarea" ? (
-        <textarea
-          rows={10}
-          className="textarea"
-          value={value}
-          onChange={onChange}
-        ></textarea>
+        <textarea rows={10} className="textarea" value={value} onChange={onChange}></textarea>
       ) : price ? (
         <input
           type={type}
@@ -75,13 +70,7 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
           accept=".jpg,.jpeg,.png,.webp"
         />
       ) : (
-        <input
-          type={type}
-          {...props}
-          value={value}
-          onChange={handleonChange}
-          className={`input ${className}`}
-        />
+        <input type={type} {...props} value={value} onChange={handleonChange} className={`input ${className}`} />
       )}
       {/* <Toast color={"red"} onOpen={isToast} onClose={() => setIsToast(!isToast)}>
         올바른 파일 형식이 아닙니다. jpg, png, webp 등 이미지만 허용됩니다.
