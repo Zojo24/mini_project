@@ -32,11 +32,23 @@ const Login = ({ ...props }) => {
         setLogin(true);
       }
     } catch (error) {
-      console.log("Login failed", error);
-      setLoginError(
-        "이메일 혹은 비밀번호가 일치하지 않습니다. 다시 입력해 주세요."
-      );
+      if (error.response) {
+        switch (error.response.status) {
+          case 401:
+            setLoginError(
+              "이메일 혹은 비밀번호가 정확하지 않습니다. 다시 입력해 주세요."
+            );
+            break;
+          default:
+            setLoginError("로그인 중 예기치 않은 오류가 발생했습니다.");
+        }
+      } else {
+        setLoginError(
+          "서버에 접속할 수 없습니다. 네트워크 상태를 확인해 주세요."
+        );
+      }
       setIsToast(true);
+      console.log("Login failed", error);
     }
   };
 
