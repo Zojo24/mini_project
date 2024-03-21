@@ -1,30 +1,27 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from "react";
 
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-import pic1 from '../assets/img1.webp';
-import pic2 from '../assets/img2.webp';
-import pic3 from '../assets/img3.webp';
-import pic4 from '../assets/img4.jpg';
-import subvisual from '../assets/subvisual2.jpg';
-import Notice from '../components/Board/Notice';
-import NoticeWrite from '../components/Board/NoticeWrite';
-import Box from '../components/Box';
-import Heading from '../components/Heading';
-import HotelFavorite from '../components/Hotel/HotelFavorite';
-import HotelGallery from '../components/Hotel/HotelGallery';
-import HotelLocation from '../components/Hotel/HotelLocation';
-import HotelPrice from '../components/Hotel/HotelPrice';
-import HotelRules from '../components/Hotel/HotelRules';
-import RoomList from '../components/Hotel/RoomList';
-import ServiceList from '../components/Hotel/ServiceList';
-import ReservationFirst from '../components/Reservation/ReservationFirst';
-import Text from '../components/Text';
-import { useHotelStore } from '../store/hotelStore';
-import { useVisualStore } from '../store/visualStore';
+import pic1 from "../assets/img1.webp";
+import pic2 from "../assets/img2.webp";
+import pic3 from "../assets/img3.webp";
+import pic4 from "../assets/img4.jpg";
+import subvisual from "../assets/subvisual2.jpg";
+import Notice from "../components/Board/Notice";
+import NoticeWrite from "../components/Board/NoticeWrite";
+import Box from "../components/Box";
+import Heading from "../components/Heading";
+import HotelFavorite from "../components/Hotel/HotelFavorite";
+import HotelGallery from "../components/Hotel/HotelGallery";
+import HotelLocation from "../components/Hotel/HotelLocation";
+import HotelPrice from "../components/Hotel/HotelPrice";
+import HotelRules from "../components/Hotel/HotelRules";
+import RoomList from "../components/Hotel/RoomList";
+import ServiceList from "../components/Hotel/ServiceList";
+import ReservationFirst from "../components/Reservation/ReservationFirst";
+import Text from "../components/Text";
+import { useHotelStore } from "../store/hotelStore";
+import { useVisualStore } from "../store/visualStore";
 
 const pictures = [{ src: pic1 }, { src: pic2 }, { src: pic3 }, { src: pic4 }];
 
@@ -33,17 +30,17 @@ const HotelDetail = () => {
   const { setTitle } = useVisualStore();
   const { deleteHotel } = useHotelStore();
   const [isWrite, setIsWrite] = useState(false);
-  const { hotelLists } = useHotelStore();
-  const currentHotel = hotelLists.filter((it) => it.id === parseInt(hotelId));
-  const detailInfo = currentHotel[0];
+  // const { hotelLists } = useHotelStore();
+  // const currentHotel = hotelLists.filter((it) => it.id === parseInt(hotelId));
+  // const detailInfo = currentHotel[0];
   const handleWrite = () => {
     setIsWrite(!isWrite);
   };
-  console.log("링크", hotelId);
-  console.log("객체", hotelLists[0].id.toString());
-  console.log(currentHotel);
+  // console.log("링크", hotelId);
+  // console.log("객체", hotelLists[0].id.toString());
+  // console.log(currentHotel);
   useEffect(() => {
-    setTitle(detailInfo, subvisual);
+    setTitle("호텔명", subvisual);
   }, [setTitle]);
   const onDelete = () => {};
   return (

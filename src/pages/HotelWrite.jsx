@@ -1,21 +1,18 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from "react";
 
-import subvisual from '../assets/subvisual3.jpg';
-import Badge from '../components/Badge';
-import Box from '../components/Box';
-import Checkbox from '../components/Checkbox';
-import Heading from '../components/Heading';
-import RoomList from '../components/Hotel/RoomList';
-import RoomWrite from '../components/Hotel/RoomWrite';
-import Input from '../components/Input';
-import Noimage from '../components/Noimage';
-import Radio from '../components/Radio';
-import Select from '../components/Select';
-import { useHotelStore } from '../store/hotelStore';
-import { useVisualStore } from '../store/visualStore';
+import subvisual from "../assets/subvisual3.jpg";
+import Badge from "../components/Badge";
+import Box from "../components/Box";
+import Checkbox from "../components/Checkbox";
+import Heading from "../components/Heading";
+import RoomList from "../components/Hotel/RoomList";
+import RoomWrite from "../components/Hotel/RoomWrite";
+import Input from "../components/Input";
+import Noimage from "../components/Noimage";
+import Radio from "../components/Radio";
+import Select from "../components/Select";
+import { useHotelStore } from "../store/hotelStore";
+import { useVisualStore } from "../store/visualStore";
 
 const where = [
   {
@@ -147,11 +144,11 @@ const HotelWrite = () => {
               </li>
               <li className="grid gap-3">
                 호텔 이름
-                <Input
+                {/* <Input
                   type={"text"}
                   value={hotelInfo.name || ""}
                   onChange={handleName}
-                />
+                />  */}
               </li>
               <li className="grid gap-3">
                 호텔 가격

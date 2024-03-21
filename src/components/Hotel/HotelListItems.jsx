@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import hotel1 from '../../assets/hotel1.jpg';
-import { HotelistsData } from '../../data/hotelLists';
-import { useHotelStore } from '../../store/hotelStore';
-import Badge from '../Badge';
-import HotelBooking from './HotelBooking';
-import HotelFavorite from './HotelFavorite';
-import HotelLocation from './HotelLocation';
-import HotelPicture from './HotelPicture';
-import HotelPrice from './HotelPrice';
-import HotelTitle from './HotelTitle';
+import hotel1 from "../../assets/hotel1.jpg";
+import { HotelistsData } from "../../data/hotelLists";
+import { useHotelStore } from "../../store/hotelStore";
+import Badge from "../Badge";
+import HotelBooking from "./HotelBooking";
+import HotelFavorite from "./HotelFavorite";
+import HotelLocation from "./HotelLocation";
+import HotelPicture from "./HotelPicture";
+import HotelPrice from "./HotelPrice";
+import HotelTitle from "./HotelTitle";
 
 const HotelListItems = ({ modify, ...props }) => {
   const data = { state: "disabled" };
@@ -17,7 +17,7 @@ const HotelListItems = ({ modify, ...props }) => {
   console.log(hotelLists);
   return (
     <>
-      <li {...props}>
+      <li>
         <HotelPicture link={"/hoteldetail"} image={hotel1} />
         <div className="hotel__info">
           <HotelLocation location={"Japan"} />
@@ -51,7 +51,7 @@ const HotelListItems = ({ modify, ...props }) => {
         </div>
       </li>
       {HotelistsData.map((hotel, index) => (
-        <li {...props} key={hotel.name}>
+        <li key={hotel.name}>
           <HotelPicture link={`/hoteldetail/${hotel.id}`} image={hotel1} />
           <div className="hotel__info">
             <HotelLocation location={"Japan"} />
