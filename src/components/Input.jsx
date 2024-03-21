@@ -47,7 +47,7 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
   // 그외 모든 input
   const handleonChange = (e) => {
     setIsValue(e.target.value);
-    onChange(e);
+    onChange(e.target.value);
   };
   return (
     <>
