@@ -1,19 +1,19 @@
 import React from "react";
 import Heading from "../Heading";
-import RoomPicture from "../Hotel/RoomPicture";
 import { Link } from "react-router-dom";
+import RoomPicture from "../Hotel/RoomPicture";
 import room from "../../assets/hotelroom3.jpeg";
-import GuestCounter from "../GuestCounter";
 
-const MypageReservation = () => {
+const MypageAllReservation = () => {
   return (
     <div>
       <div className="bg-white rounded-xl p-10">
-        <Heading tag={"h4"} className={"sm"} text={"예약내역 확인"} />
+        <Heading tag={"h4"} className={"sm"} text={"회원 예약 신청내역 확인"} />
         <table className="mypage-cart__table mt-5">
           <colgroup>
             <col style={{ width: "10rem" }} />
             <col style={{ width: "" }} />
+            <col style={{ width: "7rem" }} />
             <col style={{ width: "5rem" }} />
             <col style={{ width: "7rem" }} />
             <col style={{ width: "7rem" }} />
@@ -24,6 +24,7 @@ const MypageReservation = () => {
             <tr>
               <th>예약일</th>
               <th>호텔</th>
+              <th>예약자</th>
               <th>룸</th>
               <th>성인</th>
               <th>어린이</th>
@@ -44,6 +45,7 @@ const MypageReservation = () => {
                   </Link>
                 </div>
               </td>
+              <td>홍길동</td>
               <td>디럭스</td>
               <td>2</td>
               <td>0</td>
@@ -64,6 +66,7 @@ const MypageReservation = () => {
                   </Link>
                 </div>
               </td>
+              <td>오예스</td>
               <td>디럭스</td>
               <td>4</td>
               <td>2</td>
@@ -73,7 +76,7 @@ const MypageReservation = () => {
               </td>
             </tr>
             <tr>
-              <td colSpan={7} className="!py-10">
+              <td colSpan={8} className="!py-10">
                 예약된 내역이 없습니다.
               </td>
             </tr>
@@ -84,4 +87,4 @@ const MypageReservation = () => {
   );
 };
 
-export default MypageReservation;
+export default MypageAllReservation;

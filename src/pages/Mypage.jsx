@@ -6,6 +6,7 @@ import MypageFavorite from "../components/Mypage/MypageFavorite";
 import MypageCart from "../components/Mypage/MypageCart";
 import MypageReservation from "../components/Mypage/MypageReservation";
 import subvisual from "../assets/subvisual4.jpg";
+import MypageAllReservation from "../components/Mypage/MypageAllReservation";
 
 const Mypage = () => {
   const { setTitle } = useVisualStore();
@@ -24,35 +25,31 @@ const Mypage = () => {
         <nav>
           <ul className="tab">
             <li>
-              <button
-                className={isTab === "account" ? "--active" : ""}
-                onClick={() => handleTab("account")}
-              >
+              <button className={isTab === "account" ? "--active" : ""} onClick={() => handleTab("account")}>
                 개인정보
               </button>
             </li>
             <li>
-              <button
-                className={isTab === "favorite" ? "--active" : ""}
-                onClick={() => handleTab("favorite")}
-              >
+              <button className={isTab === "favorite" ? "--active" : ""} onClick={() => handleTab("favorite")}>
                 즐겨찾는 숙소
               </button>
             </li>
             <li>
-              <button
-                className={isTab === "cart" ? "--active" : ""}
-                onClick={() => handleTab("cart")}
-              >
+              <button className={isTab === "cart" ? "--active" : ""} onClick={() => handleTab("cart")}>
                 장바구니
               </button>
             </li>
             <li>
+              <button className={isTab === "reservation" ? "--active" : ""} onClick={() => handleTab("reservation")}>
+                나의 예약내역
+              </button>
+            </li>
+            <li>
               <button
-                className={isTab === "reservation" ? "--active" : ""}
-                onClick={() => handleTab("reservation")}
+                className={isTab === "allReservation" ? "--active" : ""}
+                onClick={() => handleTab("allReservation")}
               >
-                예약내역
+                회원 예약 신청내역
               </button>
             </li>
           </ul>
@@ -62,6 +59,7 @@ const Mypage = () => {
           {isTab === "favorite" && <MypageFavorite />}
           {isTab === "cart" && <MypageCart />}
           {isTab === "reservation" && <MypageReservation />}
+          {isTab === "allReservation" && <MypageAllReservation />}
         </div>
       </div>
     </div>

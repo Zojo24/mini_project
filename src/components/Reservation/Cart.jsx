@@ -18,7 +18,10 @@ const Cart = ({ mypage, close, ...props }) => {
       {!mypage && (
         <header className="border border-b-gray-200 border-solid leading-[4] px-5">
           <h2 className="font-bold">
-            장바구니 <Badge color={"green"}>2</Badge>
+            장바구니
+            <Badge color={"green"}>
+              총 <b>2개</b>의 숙소가 등록되었습니다.
+            </Badge>
           </h2>
         </header>
       )}

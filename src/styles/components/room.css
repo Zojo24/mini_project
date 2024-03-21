@@ -20,6 +20,12 @@
     &.sm {
       @apply w-24 h-24;
     }
+    &.base {
+      @apply w-20 h-20;
+    }
+    &.md {
+      @apply !w-28 !h-28;
+    }
   }
    > li {
     @apply py-6;
