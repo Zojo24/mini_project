@@ -2,7 +2,7 @@
 
 ## 배포사이트
 
-[(https://fe-7-mini-team4.vercel.app/)
+(https://fe-7-mini-team4.vercel.app/)
 
 
 ## 프로젝트 기간
