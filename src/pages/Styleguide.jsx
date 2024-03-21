@@ -250,13 +250,7 @@ const Styleguide = () => {
                 name={"rag1"}
                 onChange={handleChange}
               />
-              <Radio
-                color={"blue"}
-                value={"unchecked"}
-                id={"hotel_reser2"}
-                name={"rag1"}
-                onChange={handleChange}
-              />
+              <Radio color={"blue"} value={"unchecked"} id={"hotel_reser2"} name={"rag1"} onChange={handleChange} />
             </li>
           </ul>
           <div className="flex gap-2 pt-5">

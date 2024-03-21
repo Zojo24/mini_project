@@ -4,6 +4,9 @@ import Input from "../Input";
 import GuestCounter from "../GuestCounter";
 import { useNavigate } from "react-router-dom";
 import Toast from "../Toast";
+import { useReservationStore } from "../../store/reservationStore";
+import Dialog from "../Dialog";
+import Loading from "../Loading";
 
 // 달력 현재날짜 고정
 const Today = (nextDay = 0) => {
@@ -32,6 +35,9 @@ const ReservationFirst = () => {
   const [isToast2, setIsToast2] = useState(false);
   const [isStart, setIsStart] = useState(Today());
   const [isEnd, setIsEnd] = useState(Today(1));
+  const [errrorMessage, setErrrorMessage] = useState("");
+  const [isPopup, setIsPopup] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isPayInfo, setIsPayInfo] = useState({
     start: "", //시작일
     end: "", //종료일
@@ -42,6 +48,7 @@ const ReservationFirst = () => {
     totalPay: "", // 총금액
   });
   const navigate = useNavigate();
+  const { addInfo, reservationInfos } = useReservationStore();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,9 +56,11 @@ const ReservationFirst = () => {
 
   // 달력 상태제어
   const handleStart = (start) => {
+    setIsStart(start);
     setIsPayInfo({ ...isPayInfo, start });
   };
   const handleEnd = (end) => {
+    setIsEnd(end);
     setIsPayInfo({ ...isPayInfo, end });
   };
   const handleAdult = (adult) => {
@@ -71,6 +80,28 @@ const ReservationFirst = () => {
     return formattedPrice;
   };
 
+  const CheckEmpty = () => {
+    let isValid = true;
+    if (!isPayInfo.start) {
+      setIsPopup(true);
+      setErrrorMessage("체크인 날짜를 선택해주세요.");
+      isValid = false;
+    } else if (!isPayInfo.end) {
+      setIsPopup(true);
+      setErrrorMessage("체크아웃 날짜를 선택해주세요.");
+      isValid = false;
+    } else if (isPayInfo.adult + isPayInfo.children > payInfo.MaxRoomCount) {
+      setIsPopup(true);
+      setErrrorMessage(`해당 객실은 ${payInfo.MaxRoomCount}명까지 수용가능한 객실입니다. 인원수를 조절해주세요.`);
+      isValid = false;
+    } else if (isPayInfo.adult + isPayInfo.children === 0) {
+      setIsPopup(true);
+      setErrrorMessage(`최소 1명이상 예약해 주세요.`);
+      isValid = false;
+    }
+    return isValid;
+  };
+
   useEffect(() => {
     const handleCalculate = () => {
       const countMember = parseInt(isPayInfo.adult) + parseInt(isPayInfo.children);
@@ -81,7 +112,7 @@ const ReservationFirst = () => {
       if (payInfo.MaxRoomCount < countMember) {
         setIsToast(true);
         setIsPayInfo({ ...isPayInfo, adultPay, childrenPay, totalPay });
-      } else if (payInfo.defaultRoomCount <= countMember && payInfo.MaxRoomCount >= countMember) {
+      } else if (payInfo.defaultRoomCount < countMember && payInfo.MaxRoomCount >= countMember) {
         setIsToast2(true);
         setIsPayInfo({ ...isPayInfo, adultPay, childrenPay, totalPay });
       } else {
@@ -95,11 +126,17 @@ const ReservationFirst = () => {
   }, [isPayInfo.adult, isPayInfo.children]);
 
   // 결제완료 넘기기
-  const handleReservation = () => {
-    navigate("/reservation");
+  const handleReservation = async () => {
+    const isValidCheck = CheckEmpty();
+    if (isValidCheck) {
+      setIsLoading(true);
+      addInfo(isPayInfo);
+      setTimeout(() => {
+        navigate("/reservation");
+        setIsLoading(false);
+      }, 1500);
+    }
   };
-
-  console.log(isPayInfo);
 
   return (
     <>
@@ -110,21 +147,21 @@ const ReservationFirst = () => {
               <label htmlFor="reser1" className="--title">
                 체크인
               </label>
-              <Input type="date" min={Today()} value={isStart} onChange={handleStart} />
+              <Input type="date" name="start" min={Today()} value={isStart} onChange={handleStart} />
             </li>
             <li>
               <label htmlFor="reser2" className="--title">
                 체크아웃
               </label>
-              <Input type="date" min={isStart ? isStart : Today(1)} value={isEnd} onChange={handleEnd} />
+              <Input type="date" name="end" min={isStart ? isStart : Today(1)} value={isEnd} onChange={handleEnd} />
             </li>
             <li>
               <strong className="--title">성인(청소년)</strong>
-              <GuestCounter iscount={handleAdult} />
+              <GuestCounter iscount={handleAdult} max={payInfo.MaxRoomCount} />
             </li>
             <li>
               <strong className="--title">어린이</strong>
-              <GuestCounter kids iscount={handleChildren} />
+              <GuestCounter kids iscount={handleChildren} max={payInfo.MaxRoomCount} />
             </li>
             <li className="!grid grid-cols-2">
               <strong className="--title">성인 ⨉ {isPayInfo.adult ? isPayInfo.adult : 0}</strong>{" "}
@@ -155,9 +192,19 @@ const ReservationFirst = () => {
       )}
       {isToast2 && (
         <Toast onOpen={isToast2} onClose={() => setIsToast(false)} color={"blue"}>
-          해당 숙소는 {payInfo.defaultRoomCount}인이상 {payInfo.MaxRoomCount}이하면 추가금액이 발생합니다.
+          해당 숙소는 {payInfo.defaultRoomCount + 1}인이상 {payInfo.MaxRoomCount}이하면 추가금액이 발생합니다.
         </Toast>
       )}
+      <Dialog open={isPopup} close={() => setIsPopup(false)}>
+        <div className="text-center">
+          <div className="text-center pb-3">{errrorMessage}</div>
+          <button className="btn-blue" onClick={() => setIsPopup(false)}>
+            확인
+          </button>
+        </div>
+      </Dialog>
+      {isLoading && <Loading />}
+      {/* .. */}
     </>
   );
 };
