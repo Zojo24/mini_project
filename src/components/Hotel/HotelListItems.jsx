@@ -39,7 +39,7 @@ const HotelListItems = ({ modify, ...props }) => {
         </div>
       </li>
       <li className={data.state}>
-        <HotelPicture link={"/hoteldetail"} image={hotel1} />
+        ㅇ <HotelPicture link={"/hoteldetail"} image={hotel1} />
         <div className="hotel__info">
           <HotelLocation location={"Japan"} />
           <HotelFavorite checked={modify} />
@@ -59,7 +59,7 @@ const HotelListItems = ({ modify, ...props }) => {
         </div>
       </li>
       {hotels.map((hotel) => (
-        <li key={hotel.id}>
+        <li key={hotel.name}>
           <HotelPicture link={`/hoteldetail/${hotel.id}`} image={hotel1} />
           <div className="hotel__info">
             <HotelLocation location={hotel.location} />
