@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import Toast from './Toast';
+import Toast from "./Toast";
 
 const cut3Digit = /\B(?=(\d{3})+(?!\d))/g;
 const allowedFileTypes = ["image/jpeg", "image/png", "image/webp"];
@@ -49,8 +49,43 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
   };
   return (
     <>
-     {type === "textarea" ? <textarea rows={10} className="textarea" value={value} onChange={handleonChange}></textarea> : price ? <input type={type} onChange={handleChange} className={`input text-right ${className}`} value={isNumber} {...props} /> : type === "file" ? <input type={type} {...props} onChange={handleFileChange} className={`input ${className}`} accept=".jpg,.jpeg,.png,.webp" /> : <input type={type} {...props} value={value} onChange={handleonChange} className={`input ${className}`} />}
-      {/* <Toast color={"red"} onOpen={isToast} onClose={() => setIsToast(!isToast)}>
+      {type === "textarea" ? (
+        <textarea
+          rows={10}
+          className="textarea"
+          value={value}
+          onChange={handleonChange}
+        ></textarea>
+      ) : price ? (
+        <input
+          type={type}
+          onChange={handleChange}
+          className={`input text-right ${className}`}
+          value={isNumber}
+          {...props}
+        />
+      ) : type === "file" ? (
+        <input
+          type={type}
+          {...props}
+          onChange={handleFileChange}
+          className={`input ${className}`}
+          accept=".jpg,.jpeg,.png,.webp"
+        />
+      ) : (
+        <input
+          type={type}
+          {...props}
+          value={value}
+          onChange={handleonChange}
+          className={`input ${className}`}
+        />
+      )}
+      <Toast
+        color={"red"}
+        onOpen={isToast}
+        onClose={() => setIsToast(!isToast)}
+      >
         올바른 파일 형식이 아닙니다. jpg, png, webp 등 이미지만 허용됩니다.
       </Toast>{" "}
     </>
