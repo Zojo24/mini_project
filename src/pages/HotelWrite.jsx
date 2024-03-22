@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import axios from "axios";
+
 import subvisual from "../assets/subvisual3.jpg";
 import Badge from "../components/Badge";
 import Box from "../components/Box";
@@ -78,7 +80,66 @@ const HotelWrite = () => {
   const [isRadio2, setIsRadio2] = useState(false);
   const [isRadio3, setIsRadio3] = useState(false);
   const [isToggle, setIsToggle] = useState(false);
+  const [locationText, setLocationText] = useState("");
+  const [price, setPrice] = useState("");
+  const [hotelInfo, setHotelInfo] = useState({
+    name: "",
+    location: "",
+    price: "",
+    available: true,
+    content: "",
+    facilities: [],
+  });
+  //호텔이름
+  const handleName = (value) => {
+    setHotelInfo({ ...hotelInfo, name: value });
+  };
+  //호텔위치
+  const handleLocationChange = (event) => {
+    const selectedValue = event.target.value;
+    const selectedText =
+      where.find((option) => option.value === selectedValue)?.text || "";
 
+    setHotelInfo((prevHotelInfo) => ({
+      ...prevHotelInfo,
+      location: selectedText,
+    }));
+  };
+  //가격
+  const handlePrice = (value) => {
+    setPrice(value);
+  };
+  console.log(hotelInfo);
+  //예약가능
+  const handleRadioChange = (value) => {
+    setHotelInfo({ ...hotelInfo, available: value === "예약가능" });
+  };
+  //호텔안내
+  const [content, setContent] = useState("");
+  const handleContent = (value) => {
+    setHotelInfo({ ...hotelInfo, content: value });
+  };
+  //편의시설
+  const [facilities, setFacilities] = useState([]);
+  const handleCheckboxChange = (checked, value) => {
+    if (checked) {
+      // 체크되면 facilities 배열에 항목 추가
+      setFacilities((prev) => [...prev, value]);
+    } else {
+      // 언체크되면 facilities 배열에서 해당 항목 제거
+      setFacilities((prev) => prev.filter((item) => item !== value));
+    }
+  };
+  console.log(facilities);
+  //호텔등록
+  const onSendClick = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/hotels", hotelInfo);
+    } catch (error) {
+      console.error("Error sending POST request:", error);
+    }
+  };
   return (
     <>
       <div className="main">
@@ -134,45 +195,60 @@ const HotelWrite = () => {
               <ul className="grid grid-cols-3 gap-5">
                 <li className="grid gap-3">
                   호텔 위치
-                  <Select options={where} />
+                  <Select
+                    options={where}
+                    value={locationText}
+                    onChange={handleLocationChange}
+                  />
                 </li>
                 <li className="grid gap-3">
                   호텔 이름
                   <Input
                     type={"text"}
-                    value={""}
-                    onChange={(e) => console.log(e.target.value)}
+                    value={hotelInfo.name}
+                    onChange={handleName}
                   />
                 </li>
                 <li className="grid gap-3">
                   호텔 가격
                   <div className="grid grid-cols-[1fr_min-content] items-center gap-2">
-                    <Input type={"text"} price={true} /> 원
+                    <Input
+                      onChange={handlePrice}
+                      value={price}
+                      type={"text"}
+                      price={true}
+                    />{" "}
+                    원
                   </div>
                 </li>
                 <li className="grid gap-3">
                   호텔 예약여부
                   <div className="flex">
                     <Radio
-                      color={"blue"}
-                      checked={!isRadio}
-                      value={"예약가능"}
-                      id={"hotel_reser1"}
-                      name={"rag1"}
-                      onChange={() => setIsRadio(!isRadio)}
+                      color="blue"
+                      checked={hotelInfo.available}
+                      value="예약가능"
+                      id="hotel_reser1"
+                      name="reservationAvailability"
+                      onChange={() => handleRadioChange("예약가능")}
                     />
                     <Radio
-                      color={"red ml-5"}
-                      value={"예약 불가능"}
-                      id={"hotel_reser2"}
-                      name={"rag1"}
-                      onChange={() => setIsRadio(!isRadio)}
+                      color="red ml-5"
+                      checked={!hotelInfo.available}
+                      value="예약불가능"
+                      id="hotel_reser2"
+                      name="reservationAvailability"
+                      onChange={() => handleRadioChange("예약불가능")}
                     />
                   </div>
                 </li>
                 <li className="grid gap-3 col-span-3">
                   호텔 안내
-                  <Input type={"textarea"} />
+                  <Input
+                    type={"textarea"}
+                    onChange={handleContent}
+                    value={hotelInfo.content}
+                  />
                 </li>
               </ul>
             </Box>
@@ -200,6 +276,9 @@ const HotelWrite = () => {
                         color={"blue"}
                         id={"check3_2"}
                         value={"조식뷔페"}
+                        onChange={(e) =>
+                          handleCheckboxChange(e.target.checked, "조식뷔페")
+                        }
                       />
                     </li>
                     <li>
@@ -207,6 +286,9 @@ const HotelWrite = () => {
                         color={"blue"}
                         id={"check3_3"}
                         value={"무선인터넷"}
+                        onChange={(e) =>
+                          handleCheckboxChange(e.target.checked, "무선인터넷")
+                        }
                       />
                     </li>
                     <li>
@@ -404,7 +486,9 @@ const HotelWrite = () => {
           <div className="flex justify-between mt-10">
             <button className="btn-gray xl">이전</button>
             <div className="flex  gap-3">
-              <button className="btn-blue xl">호텔 등록</button>
+              <button onClick={onSendClick} className="btn-blue xl">
+                호텔 등록
+              </button>
               <button className="btn-green xl">호텔 수정</button>
             </div>
           </div>

@@ -8,12 +8,15 @@ export const handlers = [
   http.get("/hotels", (resolver) => {
     return HttpResponse.json([hotelLists]);
   }),
-  http.get("/todos", (resolver) => {
-    return HttpResponse.json([todos]);
+  http.post("/hotels", async ({ request }) => {
+    const requestBody = await request.json();
+
+    console.log("request", requestBody);
+    return HttpResponse.json({
+      name: requestBody.name,
+      location: requestBody.location,
+      createdAt: new Date().toLocaleString(),
+      available: requestBody.available,
+    });
   }),
-  // 호텔 추가
-  // http.post("/todos", (req, res, ctx) => {
-  //   todos.push(req.body);
-  //   return res(ctx.status(201));
-  // }),
 ];

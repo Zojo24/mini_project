@@ -57,7 +57,7 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
           rows={10}
           className="textarea"
           value={value}
-          onChange={onChange}
+          onChange={handleonChange}
         ></textarea>
       ) : price ? (
         <input
