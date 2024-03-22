@@ -131,7 +131,7 @@ const Login = ({ close, ...props }) => {
       //TODO: 추후 URL 확인 필요
       const response = await axios.post("/api/register", requestData);
       setRegister(true);
-      navigate("/login");
+      navigate("/");
       resetRegisterForm();
     } catch (error) {
       if (error.response) {
