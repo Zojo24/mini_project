@@ -12,15 +12,20 @@
   &__close {
     @apply absolute right-0 top-0 p-3 text-xl text-gray-500 hover:text-gray-800 max-w-[600px];
   }
-  &::backdrop {
-    @apply bg-black/0;
-    transition: 
-    display 0.7s allow-discrete,
-    overlay 0.7s allow-discrete,
-    background-color 0.7s
-    ;
+  &[open]{
+    animation: goDown 1  0.5s both;
   }
   &[open]::backdrop{
-    @apply  bg-black/25;
+    animation: fadeIn 1  0.5s both;
   }
+}
+
+
+@keyframes fadeIn {
+  0% { @apply  !bg-black/0;}
+  100% { @apply  !bg-black/90;}
+}
+@keyframes goDown {
+  0% { @apply  -mt-10 opacity-0;}
+  100% { @apply -mt-0 opacity-100;}
 }
