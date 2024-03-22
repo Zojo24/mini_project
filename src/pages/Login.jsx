@@ -10,12 +10,16 @@ import Toast from "../components/Toast";
 const Login = ({ close, ...props }) => {
   const setLogin = useLoginStore((state) => state.setLogin);
   const setRegister = useRegisterStore((state) => state.setRegister);
+  const navigate = useNavigate();
 
+  // 로그인 상태
   const [isTab, setIsTab] = useState("login");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [loginToast, setLoginToast] = useState(false);
+
+  // 회원가입 상태
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerError, setRegisterError] = useState("");
@@ -25,8 +29,6 @@ const Login = ({ close, ...props }) => {
   const [birthYear, setBirthYear] = useState("");
   const [birthMonth, setBirthMonth] = useState("");
   const [birthDay, setBirthDay] = useState("");
-
-  const navigate = useNavigate();
 
   const handleTab = (tab) => {
     setIsTab(tab);
@@ -118,20 +120,21 @@ const Login = ({ close, ...props }) => {
       setRegisterToast(true);
       return;
     }
-
     const requestData = {
       name,
       email: registerEmail,
       dateOfBirth: `${birthYear}/${birthMonth}/${birthDay}`,
       password: registerPassword,
     };
+
     try {
       //TODO: 추후 URL 확인 필요
       const response = await axios.post("/api/register", requestData);
+      setRegister(true);
       navigate("/login");
+      resetRegisterForm();
     } catch (error) {
       if (error.response) {
-        setRegister(true);
         switch (error.response.status) {
           default:
             setRegisterError("회원가입 중 예기치 않은 오류가 발생했습니다.");
@@ -145,6 +148,17 @@ const Login = ({ close, ...props }) => {
       console.log("Register failed", error);
     }
   };
+
+  const resetRegisterForm = () => {
+    setName("");
+    setRegisterEmail("");
+    setBirthYear("");
+    setBirthMonth("");
+    setBirthDay("");
+    setRegisterPassword("");
+    setConfirmPassword("");
+  };
+
   return (
     <>
       <nav>
