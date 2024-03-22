@@ -7,6 +7,6 @@ let loginStore = (set) => ({
 });
 
 loginStore = devtools(loginStore);
-loginStore = persist(loginStore, { name: "user" });
+loginStore = persist(loginStore, { name: "login" });
 
 export const useLoginStore = create(loginStore);

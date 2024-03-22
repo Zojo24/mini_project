@@ -20,6 +20,8 @@ import Noimage from "../components/Noimage";
 import img from "../assets/hotel1.jpg";
 import Box from "../components/Box";
 import Radio from "../components/Radio";
+import Details from "../components/Guide/Details";
+import { codes } from "../store/codeStore";
 
 const select = [
   {
@@ -77,7 +79,27 @@ const Styleguide = () => {
           <Heading tag={"h3"} className={"base"} text={"h3 base"} />
           <Heading tag={"h4"} className={"sm"} text={"h4 sm"} />
           <Heading tag={"h5"} className={"xs"} text={"h5 xs"} />
+          <Details title={"Code View"}>{codes[0].code}</Details>
+          <ul className="guide-list">
+            <li>
+              <b>tag</b> : 원하는 태그명을 넣어야 합니다.
+            </li>
+            <li>
+              <b>className</b> : 크기를 정의합니다. (xs, sm, base, xl)
+            </li>
+            <li>
+              <b>text</b> : 제목에 들어갈 텍스트를 삽입합니다.
+            </li>
+          </ul>
+          <hr className="guide-line" />
           <Text type={"1"}>Text type1</Text>
+          <Details title={"Code View"}>{codes[1].code}</Details>
+          <ul className="guide-list">
+            <li>children을 포함하고 있어 닫힘 컴퍼넌트가 필요합니다.</li>
+            <li>
+              <b>type</b> : 첫번째 디자인
+            </li>
+          </ul>
 
           {/* 버튼 */}
           <Heading tag={"h2"} className={"xl mt-10"} text={"Buttons"} />
@@ -107,6 +129,21 @@ const Styleguide = () => {
               <button className="btn-blue xl">btn-blue xl</button>
               <button className="btn-blue xl2">btn-blue xl2</button>
             </div>
+            <div className="col-span-2">
+              <Details title={"Code View"}>{codes[2].code}</Details>
+              <ul className="guide-list">
+                <li>button, a 태그, Link 컴퍼넌트 모두 가능합니다.</li>
+                <li>닫힘태그가 반드시 존재해야 합니다.</li>
+                <li>
+                  <b>btn-색상명</b> : gray, blue, green, red
+                </li>
+                <li>
+                  <b>btn-색상명-형태</b> : label, outline
+                </li>
+              </ul>
+              <hr className="guide-line" />
+            </div>
+
             <div className="flex gap-4 flex-wrap items-center col-span-2">
               <button className="btn-lightgray-circle">
                 <RiContrast2Line />
@@ -124,6 +161,13 @@ const Styleguide = () => {
             <Badge color={"green"}>green</Badge>
             <Badge color={"mint"}>mint</Badge>
           </div>
+          <Details title={"Code View"}>{codes[3].code}</Details>
+          <ul className="guide-list">
+            <li>
+              <b>color</b> : gray, blue, green, red, mint
+            </li>
+          </ul>
+          <hr className="guide-line" />
 
           {/* 토스트팝업 */}
           <Heading tag={"h2"} className={"xl mt-10"} text={"Toast"} />
@@ -199,21 +243,119 @@ const Styleguide = () => {
               mint
             </Toast>
           </div>
+          <Details title={"Code View"} lang="javascript">
+            {codes[4].code}
+          </Details>
+          <ul className="guide-list">
+            <li>
+              <b>color</b> : gray, blue, green, red, mint
+            </li>
+            <li>
+              <b>onOpen</b> : 열기 함수로 상태저장 변수를 blooan 값으로 지정합니다.
+            </li>
+            <li>
+              <b>onClose</b> : 닫기 함수로 false값을 전달합니다.
+            </li>
+            <li>특정 상황에 true값이 전달되고, 해당 조건에 따라 Toast를 노출합니다. 애니메이션은 자동 실행됩니다.</li>
+          </ul>
+          <hr className="guide-line" />
 
           {/* Form */}
           <Heading tag={"h2"} className={"xl mt-10"} text={"Form"} />
           <div className="grid gap-2 grid-cols-5">
-            <Input type="text" defaultValue="text" />
+            <Input type="text" defaultValue="text" onChange={(value) => console.log(value)} />
             <Input type="password" defaultValue="password" />
             <Input type="email" defaultValue="email" />
             <Input type="search" defaultValue="search" />
-            <Input type="date" defaultValue="2024-03-17" />
-            <Input type={"text"} price={true} placeholder="3자리마다 쉼표 숫자" />
-            <Select options={select} />
-            <Input type="file" />
           </div>
+          <Details title={"Code View"} lang="xml">
+            {codes[5].code}
+          </Details>
+          <ul className="guide-list">
+            <li>
+              <b>type</b> : date, file, textarea을 제외한 나머지 속성을 지정합니다.
+            </li>
+            <li>
+              <b>defaultValue</b> : 초기 입력값을 설정합니다.
+            </li>
+            <li>
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면 됩니다.
+            </li>
+          </ul>
+          <hr className="guide-line" />
+
+          <div className="grid gap-2 grid-cols-5">
+            <Input type="date" defaultValue="2024-03-17" />
+          </div>
+          <Details title={"Code View"} lang="xml">
+            {codes[6].code}
+          </Details>
+          <ul className="guide-list">
+            <li>type date를 정의합니다.</li>
+            <li>
+              <b>min</b> : 특정 날짜 이하로 선택하지 못하게 합니다.
+            </li>
+            <li>
+              <b>value</b> : 임의 날짜를 지정합니다.
+            </li>
+            <li>
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면 됩니다.
+            </li>
+          </ul>
+          <hr className="guide-line" />
+
+          <div className="grid gap-2 grid-cols-5">
+            <Input type={"text"} price={true} placeholder="3자리마다 쉼표 숫자" onChange={(e) => console.log(e)} />
+          </div>
+          <Details title={"Code View"} lang="xml">
+            {codes[7].code}
+          </Details>
+          <ul className="guide-list">
+            <li>가격을 정의합니다.</li>
+            <li>
+              <b>type</b> : 반드시 text값으로 해야 합니다.
+            </li>
+            <li>
+              <b>price</b> : 가격을 정의하기 위해 true값으로 합니다.
+            </li>
+            <li>
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면 됩니다.
+            </li>
+          </ul>
+          <hr className="guide-line" />
+
+          <div className="grid gap-2 grid-cols-5">
+            <Select options={select} onChange={(e) => console.log(e.target.value)} />
+          </div>
+          <Details title={"Code View"} lang="javascript">
+            {codes[8].code}
+          </Details>
+          <ul className="guide-list">
+            <li>
+              <b>option</b> : option값은 객체로 로드합니다.
+            </li>
+            <li>
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target.value로 받아야 합니다.
+            </li>
+          </ul>
+          <hr className="guide-line" />
+
+          <div className="grid gap-2 grid-cols-5">
+            <Input type="file" onChange={(value) => console.log(value)} />
+          </div>
+          <Details title={"Code View"}>{codes[9].code}</Details>
+          <ul className="guide-list">
+            <li>
+              <b>type</b> : 반드시 file 값만 해야합니다.
+            </li>
+            <li>
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면 됩니다.
+            </li>
+          </ul>
+          <hr className="guide-line" />
+
           <div className="grid mt-5">
-            <Input type="textarea" />
+            <Input type="textarea" onChange={(value) => console.log(value)} />
           </div>
           <ul className="flex gap-4 mt-5">
             <li>
@@ -242,14 +384,7 @@ const Styleguide = () => {
           </ul>
           <ul className="flex gap-4 mt-5">
             <li>
-              <Radio
-                color={"blue"}
-                checked={!isRadio}
-                value={"checked"}
-                id={"hotel_reser1"}
-                name={"rag1"}
-                onChange={handleChange}
-              />
+              <Radio color={"blue"} checked={!isRadio} value={"checked"} id={"hotel_reser1"} name={"rag1"} onChange={handleChange} />
               <Radio color={"blue"} value={"unchecked"} id={"hotel_reser2"} name={"rag1"} onChange={handleChange} />
             </li>
           </ul>
