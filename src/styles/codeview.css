@@ -1,0 +1,19 @@
+.code-view {
+  @apply bg-zinc-800 text-white mt-3;
+  summary {
+    @apply p-3;
+  }
+}
+
+.guide-list {
+  @apply pl-6 pt-3 pb-5 leading-7;
+  li {
+    @apply list-disc py-1;
+    b {
+      @apply bg-emerald-50 text-emerald-600 inline-block px-2 rounded-sm;
+    }
+  }
+}
+.guide-line {
+  @apply my-8;
+}
