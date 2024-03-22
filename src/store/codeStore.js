@@ -53,4 +53,59 @@ setIsToast(true);
   {
     code: `<Input type="file" onChange={(value) => console.log(value)} />`,
   },
+  {
+    code: `<Input type="textarea" onChange={(value) => console.log(value)} />`,
+  },
+  {
+    code: `<Checkbox color={"blue"} id={"check2_1"} value={"checkbox"} />
+<Checkbox id="check2_2" color={"blue"} checked={true} value={"checkbox"} />
+<Checkbox id="check2_4" color={"blue"} checked={true} disabled value={"disabled"} />
+`,
+  },
+  {
+    code: `const [isRadio, setIsRadio] = useState("남자");
+
+const handleChange = (e) => {
+    setIsRadio(e);
+};
+const handleRadio = (e) => {
+    e.preventDefault();
+    console.log(isRadio);
+};
+
+<form onSubmit={handleRadio}>
+    <Radio color={"blue"} checked={isRadio === "남자"} value={"남자"} id={"hotel_reser1"} name={"rag1"} onChange={handleChange} />
+    <Radio color={"blue"} value={"여자"} checked={isRadio === "여자"} id={"hotel_reser2"} name={"rag1"} onChange={handleChange} className={"ml-2"} />
+    <button type="submit" className="btn-blue ml-2">
+    checked 확인
+    </button>
+</form>`,
+  },
+  {
+    code: ``,
+  },
+  {
+    code: ``,
+  },
+  {
+    code: ``,
+  },
+  {
+    code: ``,
+  },
+  {
+    code: ``,
+  },
+  {
+    code: ``,
+  },
+  {
+    code: ``,
+  },
+  {
+    code: ``,
+  },
+  {
+    code: ``,
+  },
 ];

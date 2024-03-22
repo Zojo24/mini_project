@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Checkbox = ({ id, value, color, checked, ...props }) => {
+const Checkbox = ({ id, children, color, checked, onChange, ...props }) => {
   const [ischecked, setIsChecked] = useState(checked || false);
 
   useEffect(() => {
@@ -9,12 +9,13 @@ const Checkbox = ({ id, value, color, checked, ...props }) => {
 
   const hadleChange = () => {
     setIsChecked(!ischecked);
+    onChange(id);
   };
 
   return (
     <>
       <input type="checkbox" id={id} className={`checkbox ${color}`} onChange={hadleChange} checked={ischecked} {...props} />
-      <label htmlFor={id}>{value}</label>
+      <label htmlFor={id}>{children}</label>
     </>
   );
 };

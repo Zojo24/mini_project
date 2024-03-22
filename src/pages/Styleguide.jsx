@@ -40,10 +40,15 @@ const Styleguide = () => {
   const [isPopup, setIsPopup] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading2, setIsLoading2] = useState(false);
-  const [isRadio, setIsRadio] = useState(false);
+  const [isRadio, setIsRadio] = useState("남자");
+  const [isCheckbox, setIsCheckbox] = useState([]);
 
-  const handleChange = () => {
-    setIsRadio(!isRadio);
+  const handleChange = (e) => {
+    setIsRadio(e);
+  };
+  const handleRadio = (e) => {
+    e.preventDefault();
+    console.log(isRadio);
   };
 
   useEffect(() => {
@@ -69,7 +74,26 @@ const Styleguide = () => {
       setIsLoading2(false);
     }, 3000);
   };
-
+  const handleCheckbox = (id) => {
+    setIsCheckbox((prev) => {
+      if (prev.includes(id)) {
+        return prev.filter((item) => item !== id);
+      } else {
+        return [...prev, id];
+      }
+    });
+  };
+  const handleSubmitCheckbox = (e) => {
+    e.preventDefault();
+    const checkedTexts = isCheckbox.map((id) => {
+      const checkbox = document.getElementById(id);
+      if (checkbox) {
+        return checkbox.nextSibling.textContent.trim();
+      }
+      return "";
+    });
+    console.log(checkedTexts);
+  };
   return (
     <>
       <div className="main pb-20">
@@ -291,7 +315,7 @@ const Styleguide = () => {
             {codes[6].code}
           </Details>
           <ul className="guide-list">
-            <li>type date를 정의합니다.</li>
+            <li>t반드시 type을 date로 정의해야합니다.</li>
             <li>
               <b>min</b> : 특정 날짜 이하로 선택하지 못하게 합니다.
             </li>
@@ -313,7 +337,7 @@ const Styleguide = () => {
           <ul className="guide-list">
             <li>가격을 정의합니다.</li>
             <li>
-              <b>type</b> : 반드시 text값으로 해야 합니다.
+              <b>type</b> : 반드시 type을 text로 정의해야합니다.
             </li>
             <li>
               <b>price</b> : 가격을 정의하기 위해 true값으로 합니다.
@@ -346,7 +370,7 @@ const Styleguide = () => {
           <Details title={"Code View"}>{codes[9].code}</Details>
           <ul className="guide-list">
             <li>
-              <b>type</b> : 반드시 file 값만 해야합니다.
+              <b>type</b> : 반드시 type을 file로 정의해야합니다.
             </li>
             <li>
               <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면 됩니다.
@@ -357,37 +381,119 @@ const Styleguide = () => {
           <div className="grid mt-5">
             <Input type="textarea" onChange={(value) => console.log(value)} />
           </div>
-          <ul className="flex gap-4 mt-5">
+          <Details title={"Code View"}>{codes[10].code}</Details>
+          <ul className="guide-list">
             <li>
-              <Checkbox color={"blue"} id={"check2_1"} value={"checkbox"} />
+              <b>type</b> : 반드시 type을 textarea로 정의해야합니다.
             </li>
             <li>
-              <Checkbox id="check2_2" color={"blue"} checked={true} value={"checkbox"} />
-            </li>
-            <li>
-              <Checkbox id="check2_4" color={"blue"} checked={true} disabled value={"disabled"} />
-            </li>
-            <li>
-              <Checkbox id="check2_3" color={"blue"} disabled value={"disabled"} />
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면 됩니다.
             </li>
           </ul>
-          <ul className="flex gap-4 mt-5">
+          <hr className="guide-line" />
+
+          <form onSubmit={handleSubmitCheckbox}>
+            <ul className="flex gap-4 mt-5">
+              <li>
+                <Checkbox color={"blue"} id={"check2_1"} onChange={handleCheckbox}>
+                  체크상자1
+                </Checkbox>
+              </li>
+              <li>
+                <Checkbox id="check2_2" color={"blue"} checked={true} onChange={handleCheckbox}>
+                  체크상자2
+                </Checkbox>
+              </li>
+              <li>
+                <Checkbox id="check2_4" color={"blue"} checked={true} disabled onChange={handleCheckbox}>
+                  체크상자3 disabled
+                </Checkbox>
+              </li>
+              <li>
+                <Checkbox id="check2_3" color={"blue"} disabled onChange={handleCheckbox}>
+                  체크상자4 disabled
+                </Checkbox>
+              </li>
+            </ul>
+            <ul className="flex gap-4 mt-5">
+              <li>
+                <Checkbox color={"blue"} id={"check3_1"} checked={true} onChange={handleCheckbox}>
+                  체크상자5
+                </Checkbox>
+              </li>
+              <li>
+                <Checkbox color={"red"} id={"check3_2"} checked={true} onChange={handleCheckbox}>
+                  체크상자6
+                </Checkbox>
+              </li>
+              <li>
+                <Checkbox color={"gray"} id={"check3_3"} checked={true} onChange={handleCheckbox}>
+                  체크상자7
+                </Checkbox>
+              </li>
+            </ul>
+            <button className="btn-blue">체크된 상자 확인</button>
+          </form>
+          <Details title={"Code View"}>{codes[11].code}</Details>
+          <ul className="guide-list">
             <li>
-              <Checkbox color={"blue"} id={"check3_1"} checked={true} value={"checkbox"} />
+              <b>color</b> : blue, red, gray
             </li>
             <li>
-              <Checkbox color={"red"} id={"check3_2"} checked={true} value={"checkbox"} />
+              <b>id</b> : label의 for속성을 연결하기위해 필수로 입력해야 합니다.
             </li>
             <li>
-              <Checkbox color={"gray"} id={"check3_3"} checked={true} value={"checkbox"} />
+              <b>checked</b> : 이미 체크된 상태를 정의합니다.
+            </li>
+            <li>
+              <b>value</b> : label요소의 텍스트를 정의합니다.
+            </li>
+            <li>
+              <b>disabled</b> : 비활성화된 상태를 정의합니다. 속성만 존재하며 값은 없습니다.
             </li>
           </ul>
+          <hr className="guide-line" />
           <ul className="flex gap-4 mt-5">
             <li>
-              <Radio color={"blue"} checked={!isRadio} value={"checked"} id={"hotel_reser1"} name={"rag1"} onChange={handleChange} />
-              <Radio color={"blue"} value={"unchecked"} id={"hotel_reser2"} name={"rag1"} onChange={handleChange} />
+              <form onSubmit={handleRadio}>
+                <Radio color={"blue"} checked={isRadio === "남자"} value={"남자"} id={"hotel_reser1"} name={"rag1"} onChange={handleChange} />
+                <Radio color={"blue"} value={"여자"} checked={isRadio === "여자"} id={"hotel_reser2"} name={"rag1"} onChange={handleChange} className={"ml-2"} />
+                <button type="submit" className="btn-blue ml-2">
+                  checked 확인
+                </button>
+              </form>
             </li>
           </ul>
+          <Details title={"Code View"} lang="javascript">
+            {codes[12].code}
+          </Details>
+          <ul className="guide-list">
+            <li>
+              <b>color</b> : blue, red, gray, green
+            </li>
+            <li>
+              <b>id</b> : label의 for속성을 연결하기위해 필수로 입력해야 합니다.
+            </li>
+            <li>
+              <b>checked</b> : useState를 통한 상태가 true일때 value값과 비교하여 true값을 반환하여 checked를 표현합니다.
+            </li>
+            <li>
+              <b>value</b> : label요소의 텍스트를 정의합니다.
+            </li>
+            <li>
+              <b>disabled</b> : 비활성화된 상태를 정의합니다. 속성만 존재하며 값은 없습니다.
+            </li>
+            <li>
+              <b>name</b> : 라디오 그룹을 정의하기 위한 값으로 관련된 그룹은 모두 name값이 동일해야 합니다.
+            </li>
+            <li>
+              <b>onChange</b> : 선택된 라디오 버튼의 value를 useState상태로 전달합니다.
+            </li>
+            <li>
+              <b>선택된상태 설정</b> :useState초깃값으로 선택된 상태의 label텍스트를 지정합니다.
+            </li>
+          </ul>
+          <hr className="guide-line" />
           <div className="flex gap-2 pt-5">
             <GuestCounter />
             <GuestCounter className={"sm"} />
