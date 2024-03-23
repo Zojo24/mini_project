@@ -11,7 +11,7 @@ import ReservationThird from "../components/Reservation/ReservationThird";
 import NotFound from "../pages/NotFound";
 import About from "../pages/About";
 import HotelWrite from "../pages/HotelWrite";
-import Findaccount from "../pages/Findaccount";
+import FindAccount from "../pages/FindAccount";
 
 const router = createBrowserRouter([
   {
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/findaccount",
-        element: <Findaccount />,
+        element: <FindAccount />,
       },
     ],
   },

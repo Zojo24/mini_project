@@ -80,7 +80,11 @@ const Styleguide = () => {
     document.querySelectorAll('.check-group input[type="checkbox"]:checked').forEach((checkbox) => {
       const label = document.querySelector(`label[for="${checkbox.id}"]`);
       if (label) {
-        checkedTexts.push(label.textContent.trim());
+        checkedTexts.push({
+          id: checkbox.id,
+          checked: checkbox.checked,
+          label: label.textContent.trim(),
+        });
       }
     });
     setIsCheckbox(checkedTexts);

@@ -1,27 +1,35 @@
 import React from "react";
 import RoomPicture from "../Hotel/RoomPicture";
 import { Link } from "react-router-dom";
-import room from "../../assets/hotelroom3.jpeg";
+import { digit3 } from "../../store/digit3";
 
-const ReservationHotelInfoItems = () => {
+const ReservationHotelInfoItems = (item) => {
+  const { adult, adultpay, children, childrenPay, end, start, totalPay, hotelName, photo } = item;
+
+  const formattedPrice = digit3(totalPay);
+
   return (
     <>
       <li className="grid group items-center gap-3 grid-cols-[min-content_1fr_min-content] grid-rows-[repeat(auto-fill,minmax(0,auto))] border-b border-b-gray-300 border-dashed py-3">
         <Link to="/hoteldetail">
-          <RoomPicture image={room} className={"md"} />
+          <RoomPicture image={photo} className={"md"} />
         </Link>
         <div>
           <div>
             <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2 font-bold">
-              호텔명
+              {hotelName}
             </Link>
             <div className="text-sm flex mt-2 leading-6">
               <b className="font-semibold">예약일</b>
-              <div> : 2024-03-18 ~ 2024-03-19</div>
+              <div>
+                : {start} ~ {end}
+              </div>
             </div>
             <div className="text-sm flex leading-6">
               <b className="font-semibold">인원수</b>
-              <div> : 성인 1, 어린이 1</div>
+              <div>
+                : 성인 {adult}, 어린이 {children}
+              </div>
             </div>
             <div className="text-sm flex leading-6">
               <b className="font-semibold">룸 정보</b>
@@ -30,7 +38,8 @@ const ReservationHotelInfoItems = () => {
           </div>
         </div>
         <div className="--price col-span-2 text-right pt-3 border-t border-solid border-gray-200 flex justify-between">
-          <strong>소계</strong>500,000 원
+          <strong>소계</strong>
+          {formattedPrice} 원
         </div>
       </li>
     </>

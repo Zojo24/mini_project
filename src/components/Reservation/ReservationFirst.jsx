@@ -7,6 +7,8 @@ import Toast from "../Toast";
 import { useReservationStore } from "../../store/reservationStore";
 import Dialog from "../Dialog";
 import Loading from "../Loading";
+import { digit3 } from "../../store/digit3";
+import pic from "../../assets/hotel2.jpg";
 
 // 달력 현재날짜 고정
 const Today = (nextDay = 0) => {
@@ -20,6 +22,14 @@ const Today = (nextDay = 0) => {
   return `${year}-${month}-${day}`;
 };
 
+// 호텔정보
+const hotelInfo = {
+  photo: pic,
+  hotelName: "호텔명이전달됩니다.",
+  room: "디럭스",
+  bed: "더블베드",
+};
+
 // 인원 가격정보
 const payInfo = {
   defaultRoomCount: 4, //가용인원
@@ -27,8 +37,6 @@ const payInfo = {
   adult: "50000", // 어른가격
   children: "30000", //어린이가격
 };
-// 3자리쉼표 처리 정규식
-const cut3Digit = /\B(?=(\d{3})+(?!\d))/g;
 
 const ReservationFirst = () => {
   const [isToast, setIsToast] = useState(false);
@@ -46,6 +54,10 @@ const ReservationFirst = () => {
     adultPay: "", //성인요금
     childrenPay: "", //어린이요금
     totalPay: "", // 총금액
+    photo: hotelInfo.photo, //호텔사진
+    hotelName: hotelInfo.hotelName, //호텔이름
+    room: hotelInfo.room, //호텔룸종류
+    bed: hotelInfo.bed, //호텔침대종류
   });
   const navigate = useNavigate();
   const { addInfo, reservationInfos } = useReservationStore();
@@ -68,16 +80,6 @@ const ReservationFirst = () => {
   };
   const handleChildren = (children) => {
     setIsPayInfo({ ...isPayInfo, children });
-  };
-  const formatPrice = (value) => {
-    return value.replace(cut3Digit, ",");
-  };
-
-  const digit3Control = (pay) => {
-    const digit = String(pay).replace(/\D/g, "");
-    const formattedPrice = formatPrice(digit);
-
-    return formattedPrice;
   };
 
   const CheckEmpty = () => {
@@ -131,13 +133,13 @@ const ReservationFirst = () => {
     if (isValidCheck) {
       setIsLoading(true);
       addInfo(isPayInfo);
+
       setTimeout(() => {
         setIsLoading(false);
         navigate("/reservation");
       }, 1500);
     }
   };
-
   return (
     <>
       <div>
@@ -165,19 +167,15 @@ const ReservationFirst = () => {
             </li>
             <li className="!grid grid-cols-2">
               <strong className="--title">성인 ⨉ {isPayInfo.adult ? isPayInfo.adult : 0}</strong>{" "}
-              <span className="--total justify-self-end">
-                ₩ {isPayInfo.adultPay ? digit3Control(isPayInfo.adultPay) : 0}
-              </span>
+              <span className="--total justify-self-end">₩ {isPayInfo.adultPay ? digit3(isPayInfo.adultPay) : 0}</span>
               <strong className="--title">어린이 ⨉ {isPayInfo.children ? isPayInfo.children : 0}</strong>{" "}
               <span className="--total justify-self-end">
-                ₩ {isPayInfo.childrenPay ? digit3Control(isPayInfo.childrenPay) : "0"}
+                ₩ {isPayInfo.childrenPay ? digit3(isPayInfo.childrenPay) : "0"}
               </span>
             </li>
             <li>
               <strong className="--title !text-lg">총 금액</strong>{" "}
-              <span className="--total justify-self-end">
-                ₩ {isPayInfo.totalPay ? digit3Control(isPayInfo.totalPay) : 0}
-              </span>
+              <span className="--total justify-self-end">₩ {isPayInfo.totalPay ? digit3(isPayInfo.totalPay) : 0}</span>
             </li>
           </ul>
           <button className="btn-blue xl2" onClick={handleReservation}>
@@ -204,7 +202,6 @@ const ReservationFirst = () => {
         </div>
       </Dialog>
       {isLoading && <Loading />}
-      {/* .. */}
     </>
   );
 };

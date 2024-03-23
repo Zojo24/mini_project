@@ -2,10 +2,19 @@ import { create } from "zustand";
 import { persist, devtools } from "zustand/middleware";
 
 let reservationStore = (set) => ({
-  reservationInfos: [],
+  reservationInfos: {},
+  totalInfos: [],
+
+  // 예약정보
   addInfo: (reservationText) =>
     set((state) => ({
-      reservationInfos: [...state.reservationInfos, reservationText],
+      reservationInfos: [reservationText],
+    })),
+
+  // 예약정보 + 개인정보
+  addAdditionalInfo: (additionalText) =>
+    set((state) => ({
+      totalInfos: [...state.totalInfos, additionalText],
     })),
 });
 

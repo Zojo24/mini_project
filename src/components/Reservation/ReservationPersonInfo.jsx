@@ -1,39 +1,136 @@
 import React, { useEffect, useState } from "react";
 import Heading from "../Heading";
 import Input from "../Input";
-import Select from "../Select";
 import Checkbox from "../Checkbox";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Dialog from "../Dialog";
 import ReservationRule from "../ReservationRule";
+import { useReservationStore } from "../../store/reservationStore";
+import Loading from "../Loading";
+
+const userInfo = {
+  name: "가나다",
+  email: "123@123.com",
+  address: "주소가 불러와집니다.",
+  city: "도시이름이 불러와집니다.",
+  country: "",
+  postcode: "우편번호가 불러와집니다.",
+};
 
 const ReservationPersonInfo = () => {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState("thisisid");
+  const { addAdditionalInfo, totalInfos, reservationInfos } = useReservationStore();
+  const [isuserInfo, setUserInfo] = useState(userInfo);
   const [isRule, setIsRule] = useState(false);
-  const [isvalue, setIsvalue] = useState("");
-  const [isvalue2, setIsvalue2] = useState("");
+  const [isAddress, setIsAddress] = useState(isuserInfo.address);
+  const [isCountry, setIsCountry] = useState(isuserInfo.country);
+  const [isCity, setIsCity] = useState(isuserInfo.city);
+  const [isPostCode, setIsPostCode] = useState(isuserInfo.postcode);
+  const [isRequestText, setIsRequestText] = useState("");
+  const [isPopup, setIsPopup] = useState(false);
+  const [errrorMessage, setErrrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [persnalInfo, setPersnalInfo] = useState({
+    name: isuserInfo.name,
+    email: isuserInfo.email,
+    address: isuserInfo.address,
+    city: isuserInfo.city,
+    country: isuserInfo.country,
+    postcode: isuserInfo.postcode,
+    text: "",
+    agreement: false,
+  });
 
-  const handleInfo = (e) => {
-    e.preventDefault();
-    navigate(`/reservation/done/${userData}`);
+  const handleAddress = (address) => {
+    setIsAddress(address);
+    setPersnalInfo({ ...persnalInfo, address });
   };
-
+  const handleCity = (city) => {
+    setIsCity(city);
+    setPersnalInfo({ ...persnalInfo, city });
+  };
+  const handleCountry = (country) => {
+    setIsCountry(country);
+    setPersnalInfo({ ...persnalInfo, country });
+  };
+  const handlePostCode = (postcode) => {
+    setIsPostCode(postcode);
+    setPersnalInfo({ ...persnalInfo, postcode });
+  };
+  const handleRequest = (text) => {
+    setIsRequestText(text);
+    setPersnalInfo({ ...persnalInfo, text });
+  };
   const handleRule = (e) => {
     e.preventDefault();
     setIsRule(true);
   };
-  const handleAddress = (value) => {
-    setIsvalue(value);
-  };
-  const handleCity = (value) => {
-    setIsvalue2(value);
+
+  useEffect(() => {
+    setUserInfo((prevUserInfo) => ({
+      ...prevUserInfo,
+      address: isAddress,
+      city: isCity,
+      country: isCountry,
+      postcode: isPostCode,
+    }));
+  }, [isAddress, isCity, isCountry, isPostCode]);
+
+  const checkEmpty = () => {
+    let isValid = true;
+    if (!persnalInfo.address) {
+      setIsPopup(true);
+      setErrrorMessage("주소를 입력해 주세요.");
+      isValid = false;
+    } else if (!persnalInfo.city) {
+      setIsPopup(true);
+      setErrrorMessage("도시를 입력해 주세요.");
+      isValid = false;
+    } else if (!persnalInfo.country) {
+      setIsPopup(true);
+      setErrrorMessage("국가를 입력해 주세요.");
+      isValid = false;
+    } else if (!persnalInfo.postcode) {
+      setIsPopup(true);
+      setErrrorMessage("우편번호를 입력해 주세요.");
+      isValid = false;
+    }
+    return isValid;
   };
 
-  // 결과값
-  // console.log("주소" + isvalue);
-  // console.log("도시" + isvalue2);
-  // console.log("도착시간" + isvalue3);
+  const handleReservation = (e) => {
+    e.preventDefault();
+    const checkedInfo = [];
+    document.querySelectorAll('.check-group input[type="checkbox"]:checked').forEach((checkbox) => {
+      const label = document.querySelector(`label[for="${checkbox.id}"]`);
+      if (label) {
+        checkedInfo.push({
+          id: checkbox.id,
+          checked: checkbox.checked,
+          label: label.textContent.trim(),
+        });
+      }
+    });
+
+    if (checkedInfo.length > 0) {
+      const agreement = checkedInfo[0].checked;
+      const isValidCheck = checkEmpty();
+
+      if (isValidCheck) {
+        const updatedPersonalInfo = { ...persnalInfo, agreement }; // 업데이트된 상태를 먼저 생성
+        setPersnalInfo(updatedPersonalInfo);
+        addAdditionalInfo({ ...persnalInfo, reservationInfos });
+        setIsLoading(true);
+        setTimeout(() => {
+          setIsLoading(false);
+          navigate(`/reservation/done/my-id`);
+        }, 1500);
+      }
+    } else {
+      setIsPopup(true);
+      setErrrorMessage("예약 약관에 동의해주세요.");
+    }
+  };
 
   return (
     <div>
@@ -42,36 +139,38 @@ const ReservationPersonInfo = () => {
         <div className="reservation-form mt-5">
           <div>
             이름
-            <Input type={"text"} disabled defaultValue="아무개" />
+            <Input type={"text"} disabled defaultValue={userInfo.name} />
           </div>
           <div>
             이메일
-            <Input type={"email"} disabled defaultValue="123@123.com" />
+            <Input type={"email"} disabled defaultValue={userInfo.email} />
           </div>
           <div>
             주소
-            <Input type={"text"} value={isvalue} onChange={handleAddress} />
+            <Input type={"text"} value={isAddress} onChange={handleAddress} />
           </div>
           <div>
             도시
-            <Input type={"text"} value={isvalue2} onChange={handleCity} />
+            <Input type={"text"} value={isCity} onChange={handleCity} />
           </div>
           <div>
             국가
-            <Input type={"text"} />
+            <Input type={"text"} value={isCountry} onChange={handleCountry} />
           </div>
           <div>
             우편번호
-            <Input type={"text"} />
+            <Input type={"text"} value={isPostCode} onChange={handlePostCode} />
           </div>
           <div className="col-span-2">
             요청사항
-            <Input type={"textarea"} />
+            <Input type={"textarea"} value={isRequestText} onChange={handleRequest} />
           </div>
         </div>
         <div className="mt-10 flex justify-between items-center">
-          <div>
-            <Checkbox color={"blue"} id={"agree"} value={"예약 약관동의"} />
+          <div className="check-group">
+            <Checkbox color={"blue"} id={"agree"}>
+              예약 약관동의
+            </Checkbox>
           </div>
           <div>
             <button className="btn-blue-outline" onClick={handleRule}>
@@ -81,15 +180,26 @@ const ReservationPersonInfo = () => {
         </div>
 
         <div className="mt-10 flex gap-2 justify-center">
-          <button className="btn-blue xl" onClick={handleInfo}>
+          <button className="btn-blue xl" onClick={handleReservation}>
             숙소 예약하기
           </button>
-          <button className="btn-red xl">취소하기</button>
+          <Link to="/" className="btn-red xl">
+            취소하기
+          </Link>
         </div>
       </form>
       <Dialog open={isRule} close={() => setIsRule(false)}>
         <ReservationRule />
       </Dialog>
+      <Dialog open={isPopup} close={() => setIsPopup(false)}>
+        <div className="text-center">
+          <div className="text-center pb-3">{errrorMessage}</div>
+          <button className="btn-blue" onClick={() => setIsPopup(false)}>
+            확인
+          </button>
+        </div>
+      </Dialog>
+      {isLoading && <Loading />}
     </div>
   );
 };
