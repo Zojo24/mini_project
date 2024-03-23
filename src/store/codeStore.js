@@ -53,4 +53,142 @@ setIsToast(true);
   {
     code: `<Input type="file" onChange={(value) => console.log(value)} />`,
   },
+  {
+    code: `<Input type="textarea" onChange={(value) => console.log(value)} />`,
+  },
+  {
+    code: `const handleSubmitCheckbox = (e) => {
+e.preventDefault();
+  const checkedTexts = [];
+  document.querySelectorAll('.check-group input[type="checkbox"]:checked').forEach((checkbox) => {
+    const label = document.querySelector(빽틱label[for=" ($){checkbox.id}"]빽틱);
+    if (label) {
+      checkedTexts.push(label.textContent.trim());
+    }
+  });
+  setIsCheckbox(checkedTexts);
+  console.log(checkedTexts);
+};
+
+<form onSubmit={handleSubmitCheckbox} className="check-group">
+  <Checkbox color={"blue"} id={"check2_1"} value={"checkbox"} />
+  <Checkbox id="check2_2" color={"blue"} checked={true} value={"checkbox"} />
+  <Checkbox id="check2_4" color={"blue"} checked={true} disabled value={"disabled"} />
+
+  <button type="submit" className="btn-blue">
+    체크된 상자 확인
+  </button>
+</form>
+`,
+  },
+  {
+    code: `const [isRadio, setIsRadio] = useState("남자");
+
+const handleChange = (e) => {
+    setIsRadio(e);
+};
+const handleRadio = (e) => {
+    e.preventDefault();
+    console.log(isRadio);
+};
+
+<form onSubmit={handleRadio}>
+    <Radio color={"blue"} checked={isRadio === "남자"} value={"남자"} id={"hotel_reser1"} name={"rag1"} onChange={handleChange} />
+    <Radio color={"blue"} value={"여자"} checked={isRadio === "여자"} id={"hotel_reser2"} name={"rag1"} onChange={handleChange} className={"ml-2"} />
+    <button type="submit" className="btn-blue ml-2">
+    checked 확인
+    </button>
+</form>`,
+  },
+  {
+    code: `const handleGuest = (value) => {
+  console.log(value);
+};
+
+<GuestCounter iscount={handleGuest} />
+<GuestCounter className={"sm"} kids iscount={handleGuest} />
+<GuestCounter className={"sm"} defaultValue={2} iscount={handleGuest} />`,
+  },
+  {
+    code: `const [isPopup, setIsPopup] = useState(false);
+
+const handlePopup = () => {
+  setIsPopup(!isPopup);
+};
+    
+<button className="btn-blue-outline" onClick={handlePopup}>
+  팝업열기
+</button>
+
+<Dialog open={isPopup} close={() => setIsPopup(false)}>
+  팝업내용
+  <div className="flex justify-center gap-2 mt-5">
+    <button className="btn-blue">확인</button>
+    <button className="btn-gray" onClick={() => setIsPopup(false)}>
+      취소
+    </button>
+  </div>
+</Dialog>`,
+  },
+  {
+    code: `const [isLoading, setIsLoading] = useState(false);
+const [isLoading2, setIsLoading2] = useState(false);
+
+const showLoading = () => {
+  setIsLoading(true);
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 3000);
+};
+
+const showLoading2 = () => {
+  setIsLoading2(true);
+  setTimeout(() => {
+    setIsLoading2(false);
+  }, 3000);
+};
+    
+<button className="btn-blue-outline" onClick={showLoading}>
+  페이지 로딩
+</button>
+{isLoading && <Loading />}
+
+<button className="btn-blue-outline ml-5" onClick={showLoading2}>
+  일부 영역 로딩
+</button>
+<Box className={"mt-5 mx-auto w-72 text-center relative"}>
+  일부영역<br />부모요소에 relative 필수
+  {isLoading2 && <Loading2 />}
+</Box>`,
+  },
+  {
+    code: `<Avatar />
+<Avatar add={true} />
+
+<HotelFavorite />
+<HotelFavorite checked={true} />
+
+<HotelPrice price={"5,000"} />
+
+<HotelLocation location={"위치입력"} />
+<HotelLocation location={"위치입력"} className={"xl"} />
+
+<Box>회색박스</Box>
+<Box className={"white"}>흰색박스</Box>`,
+  },
+  {
+    code: ``,
+  },
+  {
+    code: ``,
+  },
+  {
+    code: ``,
+  },
+  {
+    code: ``,
+  },
+  {
+    code: ``,
+  },
 ];

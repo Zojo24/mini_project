@@ -132,8 +132,8 @@ const ReservationFirst = () => {
       setIsLoading(true);
       addInfo(isPayInfo);
       setTimeout(() => {
-        navigate("/reservation");
         setIsLoading(false);
+        navigate("/reservation");
       }, 1500);
     }
   };
