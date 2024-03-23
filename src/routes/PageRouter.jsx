@@ -28,7 +28,7 @@ const router = createBrowserRouter([
         element: <HotelAllList />,
       },
       {
-        path: "/hoteldetail",
+        path: "/hoteldetail/:hotelId",
         element: <HotelDetail />,
       },
       {

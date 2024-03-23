@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import hotel1 from "../../assets/hotel1.jpg";
+import { HotelistsData } from "../../data/hotelLists";
 import Badge from "../Badge";
 import HotelBooking from "./HotelBooking";
 import HotelFavorite from "./HotelFavorite";
@@ -39,7 +40,7 @@ const HotelListItems = ({ modify, ...props }) => {
         </div>
       </li>
       <li className={data.state}>
-        ㅇ <HotelPicture link={"/hoteldetail"} image={hotel1} />
+        <HotelPicture link={"/hoteldetail"} image={hotel1} />
         <div className="hotel__info">
           <HotelLocation location={"Japan"} />
           <HotelFavorite checked={modify} />
@@ -58,7 +59,7 @@ const HotelListItems = ({ modify, ...props }) => {
           )}
         </div>
       </li>
-      {hotels.map((hotel) => (
+      {HotelistsData.map((hotel) => (
         <li key={hotel.name}>
           <HotelPicture link={`/hoteldetail/${hotel.id}`} image={hotel1} />
           <div className="hotel__info">

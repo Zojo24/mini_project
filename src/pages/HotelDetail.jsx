@@ -30,17 +30,17 @@ const HotelDetail = () => {
   const { setTitle } = useVisualStore();
   const { deleteHotel } = useHotelStore();
   const [isWrite, setIsWrite] = useState(false);
-  // const { hotelLists } = useHotelStore();
-  // const currentHotel = hotelLists.filter((it) => it.id === parseInt(hotelId));
-  // const detailInfo = currentHotel[0];
+  const [hotelInfo, setHotelInfo] = useState();
   const handleWrite = () => {
     setIsWrite(!isWrite);
   };
-  // console.log("링크", hotelId);
-  // console.log("객체", hotelLists[0].id.toString());
-  // console.log(currentHotel);
+  const { thisHotel, fetchHotel } = useHotelStore();
   useEffect(() => {
-    setTitle("호텔명", subvisual);
+    fetchHotel(hotelId);
+  }, []);
+  console.log(thisHotel);
+  useEffect(() => {
+    setTitle(thisHotel.name, subvisual);
   }, [setTitle]);
   const onDelete = () => {};
   return (
@@ -69,10 +69,7 @@ const HotelDetail = () => {
             <Box>
               <Heading tag={"h3"} text={"호텔 안내"} className={"base"} />
               <Text className={"mt-5"} type={1}>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum
-                rerum corrupti incidunt possimus harum hic quo voluptatibus
-                ipsam fugit id illo sapiente recusandae natus numquam, quae
-                aliquid? Pariatur, magnam odio?
+                {thisHotel.content}
               </Text>
             </Box>
             <Box>
