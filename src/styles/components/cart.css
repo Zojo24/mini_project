@@ -1,5 +1,7 @@
 .cart {
-  @apply h-screen max-h-screen w-[22rem] m-0 p-0 rounded-none left-[inherit] right-0 top-0 bg-white transform-none;
+  @apply h-screen max-h-screen w-[22rem] m-0 !p-0 rounded-none !left-[inherit] right-0 !top-0 bg-white !transform-none;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
   &__list {
     @apply p-5;
     height: calc(100vh - 157px - 66px); overflow: auto;

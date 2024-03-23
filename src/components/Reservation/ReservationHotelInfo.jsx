@@ -2,14 +2,23 @@ import React from "react";
 import Heading from "../Heading";
 import Box from "../Box";
 import ReservationHotelInfoItems from "./ReservationHotelInfoItems";
+import { useReservationStore } from "../../store/reservationStore";
+import { digit3 } from "../../store/digit3";
 
 const ReservationHotelInfo = () => {
+  const { reservationInfos } = useReservationStore();
+
+  const totalPayment = reservationInfos.reduce((acc, curr) => acc + curr.totalPay, 0);
+  const formattedTotalPayment = digit3(totalPayment);
+
   return (
     <Box className="reservation__hotel-info">
-      <Heading tag={"h3"} text={"호텔 예약리스트"} />
+      <Heading tag={"h3"} text={"호텔 예약정보"} />
       <div>
         <ul className="reservation__hotel-info__list">
-          <ReservationHotelInfoItems />
+          {reservationInfos.map((item, index) => (
+            <ReservationHotelInfoItems key={index} {...item} />
+          ))}
         </ul>
         <div className="flex justify-between items-baseline py-4">
           <span className="text-sm pr-2">보유 금액</span>
@@ -24,7 +33,7 @@ const ReservationHotelInfo = () => {
           <span className="text-lg pr-2">총 결재 금액</span>
           <div>
             <span className="text-3xl font-extrabold text-rose-600" style={{ fontFamily: "var(--eng1)" }}>
-              500,000
+              {formattedTotalPayment}
             </span>
             <span className="text-lg pl-1 ">원</span>
           </div>

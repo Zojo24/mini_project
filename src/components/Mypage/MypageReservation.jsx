@@ -1,11 +1,10 @@
 import React from "react";
 import Heading from "../Heading";
-import RoomPicture from "../Hotel/RoomPicture";
-import { Link } from "react-router-dom";
-import room from "../../assets/hotelroom3.jpeg";
-import GuestCounter from "../GuestCounter";
+import { useReservationStore } from "../../store/reservationStore";
+import MypageReservationItems from "./MypageReservationItems";
 
 const MypageReservation = () => {
+  const { totalInfos } = useReservationStore();
   return (
     <div>
       <div className="bg-white rounded-xl p-10">
@@ -32,51 +31,15 @@ const MypageReservation = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="group">
-              <td>2024-03-15</td>
-              <td>
-                <div className="grid items-center grid-cols-[min-content_1fr] gap-1 text-left">
-                  <Link to="/hoteldetail">
-                    <RoomPicture image={room} size={"sm"} />
-                  </Link>
-                  <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2">
-                    호텔명
-                  </Link>
-                </div>
-              </td>
-              <td>디럭스</td>
-              <td>2</td>
-              <td>0</td>
-              <td>2024-03-18 ~ 2024-03-19</td>
-              <td className="text-right">
-                <b>5,400,000 원</b>
-              </td>
-            </tr>
-            <tr className="group">
-              <td>2024-03-17</td>
-              <td>
-                <div className="grid items-center grid-cols-[min-content_1fr] gap-1 text-left">
-                  <Link to="/hoteldetail">
-                    <RoomPicture image={room} size={"sm"} />
-                  </Link>
-                  <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2">
-                    호텔명
-                  </Link>
-                </div>
-              </td>
-              <td>디럭스</td>
-              <td>4</td>
-              <td>2</td>
-              <td>2024-04-18 ~ 2024-05-19</td>
-              <td className="text-right">
-                <b>5,400,000 원</b>
-              </td>
-            </tr>
-            <tr>
-              <td colSpan={7} className="!py-10">
-                예약된 내역이 없습니다.
-              </td>
-            </tr>
+            {totalInfos.length > 0 ? (
+              totalInfos.map((item, index) => <MypageReservationItems key={index} {...item} />)
+            ) : (
+              <tr>
+                <td colSpan={7} className="!py-10">
+                  예약된 내역이 없습니다.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
