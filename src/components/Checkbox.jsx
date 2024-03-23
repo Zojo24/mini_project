@@ -9,12 +9,19 @@ const Checkbox = ({ id, children, color, checked, onChange, ...props }) => {
 
   const hadleChange = () => {
     setIsChecked(!ischecked);
-    onChange(id);
+    // onChange(id);
   };
 
   return (
     <>
-      <input type="checkbox" id={id} className={`checkbox ${color}`} onChange={hadleChange} checked={ischecked} {...props} />
+      <input
+        type="checkbox"
+        id={id}
+        className={`checkbox ${color}`}
+        onChange={hadleChange}
+        checked={ischecked}
+        {...props}
+      />
       <label htmlFor={id}>{children}</label>
     </>
   );

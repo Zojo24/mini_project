@@ -74,26 +74,22 @@ const Styleguide = () => {
       setIsLoading2(false);
     }, 3000);
   };
-  const handleCheckbox = (id) => {
-    setIsCheckbox((prev) => {
-      if (prev.includes(id)) {
-        return prev.filter((item) => item !== id);
-      } else {
-        return [...prev, id];
-      }
-    });
-  };
   const handleSubmitCheckbox = (e) => {
     e.preventDefault();
-    const checkedTexts = isCheckbox.map((id) => {
-      const checkbox = document.getElementById(id);
-      if (checkbox) {
-        return checkbox.nextSibling.textContent.trim();
+    const checkedTexts = [];
+    document.querySelectorAll('.check-group input[type="checkbox"]:checked').forEach((checkbox) => {
+      const label = document.querySelector(`label[for="${checkbox.id}"]`);
+      if (label) {
+        checkedTexts.push(label.textContent.trim());
       }
-      return "";
     });
+    setIsCheckbox(checkedTexts);
     console.log(checkedTexts);
   };
+  const handleGuest = (value) => {
+    console.log(value);
+  };
+
   return (
     <>
       <div className="main pb-20">
@@ -303,7 +299,8 @@ const Styleguide = () => {
               <b>defaultValue</b> : 초기 입력값을 설정합니다.
             </li>
             <li>
-              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면 됩니다.
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니
+              매개변수로 value값만 받으면 됩니다.
             </li>
           </ul>
           <hr className="guide-line" />
@@ -323,7 +320,8 @@ const Styleguide = () => {
               <b>value</b> : 임의 날짜를 지정합니다.
             </li>
             <li>
-              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면 됩니다.
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니
+              매개변수로 value값만 받으면 됩니다.
             </li>
           </ul>
           <hr className="guide-line" />
@@ -343,7 +341,8 @@ const Styleguide = () => {
               <b>price</b> : 가격을 정의하기 위해 true값으로 합니다.
             </li>
             <li>
-              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면 됩니다.
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니
+              매개변수로 value값만 받으면 됩니다.
             </li>
           </ul>
           <hr className="guide-line" />
@@ -373,7 +372,8 @@ const Styleguide = () => {
               <b>type</b> : 반드시 type을 file로 정의해야합니다.
             </li>
             <li>
-              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면 됩니다.
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니
+              매개변수로 value값만 받으면 됩니다.
             </li>
           </ul>
           <hr className="guide-line" />
@@ -387,55 +387,67 @@ const Styleguide = () => {
               <b>type</b> : 반드시 type을 textarea로 정의해야합니다.
             </li>
             <li>
-              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면 됩니다.
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니
+              매개변수로 value값만 받으면 됩니다.
             </li>
           </ul>
           <hr className="guide-line" />
 
-          <form onSubmit={handleSubmitCheckbox}>
+          <form onSubmit={handleSubmitCheckbox} className="check-group">
             <ul className="flex gap-4 mt-5">
               <li>
-                <Checkbox color={"blue"} id={"check2_1"} onChange={handleCheckbox}>
+                <Checkbox color={"blue"} id={"check2_1"}>
                   체크상자1
                 </Checkbox>
               </li>
               <li>
-                <Checkbox id="check2_2" color={"blue"} checked={true} onChange={handleCheckbox}>
+                <Checkbox id="check2_2" color={"blue"} checked={true}>
                   체크상자2
                 </Checkbox>
               </li>
               <li>
-                <Checkbox id="check2_4" color={"blue"} checked={true} disabled onChange={handleCheckbox}>
+                <Checkbox id="check2_4" color={"blue"} checked={true} disabled>
                   체크상자3 disabled
                 </Checkbox>
               </li>
               <li>
-                <Checkbox id="check2_3" color={"blue"} disabled onChange={handleCheckbox}>
+                <Checkbox id="check2_3" color={"blue"} disabled>
                   체크상자4 disabled
                 </Checkbox>
               </li>
             </ul>
             <ul className="flex gap-4 mt-5">
               <li>
-                <Checkbox color={"blue"} id={"check3_1"} checked={true} onChange={handleCheckbox}>
+                <Checkbox color={"blue"} id={"check3_1"} checked={true}>
                   체크상자5
                 </Checkbox>
               </li>
               <li>
-                <Checkbox color={"red"} id={"check3_2"} checked={true} onChange={handleCheckbox}>
+                <Checkbox color={"red"} id={"check3_2"} checked={true}>
                   체크상자6
                 </Checkbox>
               </li>
               <li>
-                <Checkbox color={"gray"} id={"check3_3"} checked={true} onChange={handleCheckbox}>
+                <Checkbox color={"gray"} id={"check3_3"} checked={true}>
                   체크상자7
                 </Checkbox>
               </li>
             </ul>
-            <button className="btn-blue">체크된 상자 확인</button>
+            <button type="submit" className="btn-blue mt-2">
+              체크된 상자 확인
+            </button>
           </form>
-          <Details title={"Code View"}>{codes[11].code}</Details>
+          <Details title={"Code View"} lang="javascript">
+            {codes[11].code}
+          </Details>
           <ul className="guide-list">
+            <li>체크박스는 onChange로 체크상태를 전달하지 않습니다.</li>
+            <li>
+              <b>빽틱</b> 해당부분은 ``으로 표기해야 합니다.
+            </li>
+            <li>
+              <b>($)</b> 해당부분은 $로 표기해야 합니다.
+            </li>
             <li>
               <b>color</b> : blue, red, gray
             </li>
@@ -456,8 +468,23 @@ const Styleguide = () => {
           <ul className="flex gap-4 mt-5">
             <li>
               <form onSubmit={handleRadio}>
-                <Radio color={"blue"} checked={isRadio === "남자"} value={"남자"} id={"hotel_reser1"} name={"rag1"} onChange={handleChange} />
-                <Radio color={"blue"} value={"여자"} checked={isRadio === "여자"} id={"hotel_reser2"} name={"rag1"} onChange={handleChange} className={"ml-2"} />
+                <Radio
+                  color={"blue"}
+                  checked={isRadio === "남자"}
+                  value={"남자"}
+                  id={"hotel_reser1"}
+                  name={"rag1"}
+                  onChange={handleChange}
+                />
+                <Radio
+                  color={"blue"}
+                  value={"여자"}
+                  checked={isRadio === "여자"}
+                  id={"hotel_reser2"}
+                  name={"rag1"}
+                  onChange={handleChange}
+                  className={"ml-2"}
+                />
                 <button type="submit" className="btn-blue ml-2">
                   checked 확인
                 </button>
@@ -475,7 +502,8 @@ const Styleguide = () => {
               <b>id</b> : label의 for속성을 연결하기위해 필수로 입력해야 합니다.
             </li>
             <li>
-              <b>checked</b> : useState를 통한 상태가 true일때 value값과 비교하여 true값을 반환하여 checked를 표현합니다.
+              <b>checked</b> : useState를 통한 상태가 true일때 value값과 비교하여 true값을 반환하여 checked를
+              표현합니다.
             </li>
             <li>
               <b>value</b> : label요소의 텍스트를 정의합니다.
@@ -495,40 +523,90 @@ const Styleguide = () => {
           </ul>
           <hr className="guide-line" />
           <div className="flex gap-2 pt-5">
-            <GuestCounter />
-            <GuestCounter className={"sm"} />
-            <GuestCounter className={"sm"} defaultValue={2} />
+            <GuestCounter iscount={handleGuest} />
+            <GuestCounter className={"sm"} kids iscount={handleGuest} />
+            <GuestCounter className={"sm"} defaultValue={2} iscount={handleGuest} />
           </div>
-
+          <Details title={"Code View"} lang="javascript">
+            {codes[13].code}
+          </Details>
+          <ul className="guide-list">
+            <li>인원수 체크를 위한 컴퍼넌트입니다.</li>
+            <li>
+              <b>iscount</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니
+              매개변수로 value값만 받으면 됩니다.
+            </li>
+            <li>
+              <b>className</b> : 크기를 정합니다. ( sm )
+            </li>
+            <li>
+              <b>kids</b> : 어린이용 카운터로 기본값이 0으로 값을 전달해도 경고가 없습니다.
+            </li>
+            <li>
+              <b>defaultValue</b> : 기본값을 전달합니다.
+            </li>
+          </ul>
+          <hr className="guide-line" />
           {/* 기타UI */}
           <Heading tag={"h2"} className={"xl mt-10"} text={"Popup"} />
-          <div className="text-center flex gap-3 justify-center">
-            <button className="btn-blue-outline" onClick={handlePopup}>
-              팝업열기
-            </button>
-            <Dialog open={isPopup} close={() => setIsPopup(false)}>
-              팝업내용
-              <div className="flex justify-center gap-2 mt-5">
-                <button className="btn-blue">확인</button>
-                <button className="btn-gray" onClick={() => setIsPopup(false)}>
-                  취소
-                </button>
-              </div>
-            </Dialog>
-            <button className="btn-blue-outline" onClick={showLoading}>
-              페이지 로딩
-            </button>
-            {isLoading && <Loading />}
-            <button className="btn-blue-outline" onClick={showLoading2}>
-              일부 영역 로딩
-            </button>
-          </div>
+          <button className="btn-blue-outline" onClick={handlePopup}>
+            팝업열기
+          </button>
+          <Dialog open={isPopup} close={() => setIsPopup(false)}>
+            팝업내용
+            <div className="flex justify-center gap-2 mt-5">
+              <button className="btn-blue">확인</button>
+              <button className="btn-gray" onClick={() => setIsPopup(false)}>
+                취소
+              </button>
+            </div>
+          </Dialog>
+          <Details title={"Code View"} lang="javascript">
+            {codes[14].code}
+          </Details>
+          <ul className="guide-list">
+            <li>useState를 이용한 상태변화를 통해 팝업을 제어합니다. 반드시 useState를 생성하세요.</li>
+            <li>false : 닫힘, true : 열림</li>
+            <li>팝업내용은 컴퍼넌트 열림 닫힘태그 사이에 직접 마크업합니다.</li>
+            <li>
+              <b>open</b> : 현재 상태를 전달받습니다. 기본은 false입니다.
+            </li>
+            <li>
+              <b>close</b> : false값을 useState의 set에 전달합니다.
+            </li>
+            <li>
+              <b>팝업 열기버튼</b> : 버튼에 onClick이벤트를 추가하여 상태를 변화시킵니다.
+            </li>
+          </ul>
+          <hr className="guide-line" />
+
+          <button className="btn-blue-outline" onClick={showLoading}>
+            페이지 로딩
+          </button>
+          {isLoading && <Loading />}
+          <button className="btn-blue-outline ml-5" onClick={showLoading2}>
+            일부 영역 로딩
+          </button>
           <Box className={"mt-5 mx-auto w-72 text-center relative"}>
             일부영역
             <br />
             부모요소에 relative 필수
             {isLoading2 && <Loading2 />}
           </Box>
+          <Details title={"Code View"} lang="javascript">
+            {codes[15].code}
+          </Details>
+          <ul className="guide-list">
+            <li>useState를 이용한 상태변화를 통해 로딩을 제어합니다. 반드시 useState를 생성하세요.</li>
+            <li>
+              <b>&lt;Loading /&gt;</b> : 컴퍼넌트는 페이지 이동간에 사용됩니다.
+            </li>
+            <li>
+              <b>&lt;Loading2 /&gt;</b> : 컴퍼넌트는 특정 컴퍼넌트 내의 로딩을 표현합니다. 소속된 컴퍼넌트는 반드시
+              relative 클래스명을 넣습니다.
+            </li>
+          </ul>
+          <hr className="guide-line" />
 
           {/* 기타등등 */}
           <Heading tag={"h2"} className={"xl mt-10"} text={"Etc"} />
@@ -547,6 +625,28 @@ const Styleguide = () => {
             회색박스
             <Box className={"white"}>흰색박스</Box>
           </Box>
+          <Details title={"Code View"} lang="javascript">
+            {codes[16].code}
+          </Details>
+          <ul className="guide-list">
+            <li>
+              <b>&lt;Avatar /&gt;</b> : 프로필 사진 add속성을 추가하면 편집모드로 됩니다.
+            </li>
+            <li>
+              <b>&lt;HotelFavorite /&gt;</b> : 즐겨찾기 토글버튼 checked속성을 추가하면 체크된 상태로 됩니다.
+            </li>
+            <li>
+              <b>&lt;HotelPrice /&gt;</b> : 가격 안내 컴퍼넌트 price 속성을 추가하면 숫자가 넣어집니다.
+            </li>
+            <li>
+              <b>&lt;HotelLocation /&gt;</b> : 호텔카테고리 지역 컴퍼넌트 location 속성을 추가하면 지역텍스트가
+              삽입됩니다. 크기 ( xl )
+            </li>
+            <li>
+              <b>&lt;Box /&gt;</b> : 기본 회색박으로 표현합니다. 색상종류 ( white )
+            </li>
+          </ul>
+          <hr className="guide-line" />
         </div>
       </div>
     </>
