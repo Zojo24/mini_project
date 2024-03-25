@@ -3,8 +3,11 @@ import "../../styles/components/cart.css";
 import ReservationCartItems from "./ReservationCartItems";
 import { Link } from "react-router-dom";
 import Badge from "../Badge";
+import { useReservationStore } from "../../store/reservationStore";
 
 const Cart = ({ mypage, close, ...props }) => {
+  const { cartInfos } = useReservationStore();
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -20,14 +23,16 @@ const Cart = ({ mypage, close, ...props }) => {
           <h2 className="font-bold flex gap-1 items-center">
             장바구니
             <Badge color={"green"}>
-              총 <b>2개</b>의 숙소가 등록되었습니다.
+              총 <b>{cartInfos.length}개</b>의 숙소가 등록되었습니다.
             </Badge>
           </h2>
         </header>
       )}
       <form onSubmit={handleSubmit}>
         <ul className="cart__list">
-          <ReservationCartItems close={handleCart} />
+          {cartInfos.map((items, index) => (
+            <ReservationCartItems close={handleCart} key={index} items={items} />
+          ))}
         </ul>
         <div className="cart-price">
           <ul className="grid gap-2">
