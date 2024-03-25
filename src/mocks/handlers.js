@@ -2,7 +2,7 @@ import { http, HttpResponse } from "msw";
 
 import { HotelistsData } from "../data/hotelLists";
 
-export let hotelsData = [];
+export let newHotelsData = [];
 
 export const handlers = [
   // 호텔목록
@@ -17,7 +17,7 @@ export const handlers = [
     console.log(id);
 
     const thisHotel = HotelistsData.find((it) => it.id.toString() === id);
-    console.log(thisHotel);
+    console.log("thisHotel", thisHotel);
     return HttpResponse.json(thisHotel);
   }),
 
@@ -28,7 +28,7 @@ export const handlers = [
       id: getId(), // 새 ID 할당
     };
 
-    hotelsData.push(newHotel);
+    newHotelsData.push(newHotel);
     console.log("newHotel", newHotel);
     console.log("request", requestBody);
     return HttpResponse.json(

@@ -1,39 +1,56 @@
-import "../../styles/components/servicelist.css";
+import '../../styles/components/servicelist.css';
 
-import React from "react";
+import React from 'react';
 
-import { BiSolidDrink } from "react-icons/bi";
-import { CgGym } from "react-icons/cg";
-import { FaSwimmer } from "react-icons/fa";
-import { FaShower } from "react-icons/fa6";
-import { GiBugleCall } from "react-icons/gi";
-import { ImSpoonKnife } from "react-icons/im";
-import { IoWifi } from "react-icons/io5";
+import { BiSolidDrink } from 'react-icons/bi';
+import { CgGym } from 'react-icons/cg';
+import { FaShower } from 'react-icons/fa6';
+import { GiBugleCall } from 'react-icons/gi';
+import { ImSpoonKnife } from 'react-icons/im';
+import { IoWifi } from 'react-icons/io5';
 import {
   LuBaggageClaim,
   LuLampDesk,
   LuParkingCircle,
   LuShoppingBasket,
-} from "react-icons/lu";
-import { MdLock, MdOutlineDryCleaning, MdSportsBar } from "react-icons/md";
-import { PiTelevisionBold } from "react-icons/pi";
-import { SlCup } from "react-icons/sl";
-import { TbAirConditioning, TbIroningSteam } from "react-icons/tb";
+} from 'react-icons/lu';
+import {
+  MdLock,
+  MdOutlineDryCleaning,
+  MdSportsBar,
+} from 'react-icons/md';
+import { PiTelevisionBold } from 'react-icons/pi';
+import { SlCup } from 'react-icons/sl';
+import {
+  TbAirConditioning,
+  TbIroningSteam,
+} from 'react-icons/tb';
 
-import { useHotelStore } from "../../store/hotelStore";
+import { useHotelStore } from '../../store/hotelStore';
 
 const ServiceList = ({ className, ...props }) => {
   const { thisHotel } = useHotelStore();
-  const options = thisHotel.options;
-  console.log(thisHotel.options.swimming_pool);
+  // const options = thisHotel.options;
+
+  // const [thisHotel, setThisHotel] = useState();
+  // console.log(thisHotel.options.swimming_pool);
+  // useEffect(() => {
+  //   axios.get("/hotels").then((response) => {
+  //     setThisHotel(response.data);
+  //     console.log("response", response.data);
+  //   });
+  // }, []);
+  console.log("thisHotel", thisHotel);
+  const firstHotel = thisHotel[0];
+  const options = firstHotel.options;
   return (
     <ul className={"service-list " + className}>
-      {options.swimming_pool ? (
+      {/* {options.swimming_pool ? (
         <li>
           <FaSwimmer />
           수영장
         </li>
-      ) : null}
+      ) : null} */}
       {options.break_fast ? (
         <li>
           <ImSpoonKnife />
