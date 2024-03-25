@@ -1,6 +1,6 @@
 export const codes = [
   {
-    code: `<Heading tag={"h2"} className={"xl"} text={"Heading & Text"} />;`,
+    code: `<Heading tag={"h2"} className={"xl"} text={"Heading & Text"} />`,
   },
   {
     code: `<Text type={"1"}>Text type1</Text>`,

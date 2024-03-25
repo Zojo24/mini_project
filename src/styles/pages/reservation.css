@@ -40,9 +40,6 @@
       }
     }
   }
-  .btn-blue {
-    @apply w-full mt-5;
-  }
   .--title {
     @apply font-bold text-sm;
   }

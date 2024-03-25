@@ -178,9 +178,12 @@ const ReservationFirst = () => {
               <span className="--total justify-self-end">₩ {isPayInfo.totalPay ? digit3(isPayInfo.totalPay) : 0}</span>
             </li>
           </ul>
-          <button className="btn-blue xl2" onClick={handleReservation}>
-            예약하기
-          </button>
+          <div className="grid grid-cols-[1.7fr_1fr] gap-3">
+            <button className="btn-blue xl2 justify-center" onClick={handleReservation}>
+              예약하기
+            </button>
+            <button className="btn-green-outline xl2 justify-center">장바구니</button>
+          </div>
         </form>
       </div>
       {isToast && (
