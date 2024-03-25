@@ -21,7 +21,17 @@ let reservationStore = (set) => ({
   // 장바구니
   addCartInfo: (cartState) =>
     set((state) => ({
-      cartInfos: [...state.cartInfos, cartState],
+      cartInfos: [
+        ...state.cartInfos,
+        {
+          ...cartState,
+          id: getId(),
+        },
+      ],
+    })),
+  deleteCart: (cartId) =>
+    set((state) => ({
+      cartInfos: state.cartInfos.filter((cart) => cart.id !== cartId),
     })),
 });
 
@@ -29,3 +39,8 @@ reservationStore = devtools(reservationStore);
 reservationStore = persist(reservationStore, { name: "reservation" });
 
 export const useReservationStore = create(reservationStore);
+
+let id = 0;
+function getId() {
+  return id++;
+}

@@ -3,6 +3,7 @@ import RoomPicture from "../Hotel/RoomPicture";
 import { Link } from "react-router-dom";
 import room from "../../assets/hotelroom3.jpeg";
 import { digit3 } from "../../store/digit3";
+import { useReservationStore } from "../../store/reservationStore";
 
 const ReservationHotelInfoItems = ({ close, items }) => {
   const {
@@ -18,7 +19,10 @@ const ReservationHotelInfoItems = ({ close, items }) => {
     start,
     totalPay,
     type,
+    id,
   } = items;
+
+  const { deleteCart } = useReservationStore();
 
   return (
     <>
@@ -53,7 +57,7 @@ const ReservationHotelInfoItems = ({ close, items }) => {
           <Link to="/reservation" onClick={close} className="btn-blue-outline sm">
             결제
           </Link>
-          <Link to="/reservation" className="btn-red-outline sm">
+          <Link to="/reservation" className="btn-red-outline sm" onClick={() => deleteCart(id)}>
             삭제
           </Link>
         </div>

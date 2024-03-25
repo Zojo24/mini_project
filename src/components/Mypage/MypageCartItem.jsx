@@ -3,6 +3,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import RoomPicture from "../Hotel/RoomPicture";
 import { Link } from "react-router-dom";
 import { digit3 } from "../../store/digit3";
+import { useReservationStore } from "../../store/reservationStore";
 
 const MypageCartItem = ({ items }) => {
   const {
@@ -18,12 +19,15 @@ const MypageCartItem = ({ items }) => {
     start,
     totalPay,
     type,
+    id,
   } = items;
+  const { deleteCart } = useReservationStore();
+
   return (
     <>
       <tr className="group">
         <td className="self-start justify-self-end text-lg text-gray-500">
-          <button>
+          <button onClick={() => deleteCart(id)}>
             <RiDeleteBinLine />
           </button>
         </td>
