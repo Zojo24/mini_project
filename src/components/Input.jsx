@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-
-import Toast from "./Toast";
+import React, { useState } from 'react';
 
 const cut3Digit = /\B(?=(\d{3})+(?!\d))/g;
 const allowedFileTypes = ["image/jpeg", "image/png", "image/webp"];
@@ -81,13 +79,9 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
           className={`input ${className}`}
         />
       )}
-      <Toast
-        color={"red"}
-        onOpen={isToast}
-        onClose={() => setIsToast(!isToast)}
-      >
+      {/* <Toast color={"red"} onOpen={isToast} onClose={() => setIsToast(!isToast)}>
         올바른 파일 형식이 아닙니다. jpg, png, webp 등 이미지만 허용됩니다.
-      </Toast>{" "}
+      </Toast> */}
     </>
   );
 };

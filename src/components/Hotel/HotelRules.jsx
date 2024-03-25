@@ -1,9 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import { useHotelStore } from "../../store/hotelStore";
+import { useHotelStore } from '../../store/hotelStore';
 
 const HotelRules = ({ className }) => {
   const { thisHotel } = useHotelStore();
+  console.log("rules", thisHotel);
   function getTimePeriod(time) {
     const [hours, minutes] = time.split(":").map(Number);
     const totalMinutes = hours * 60 + minutes;
@@ -23,18 +24,11 @@ const HotelRules = ({ className }) => {
       <ul className="hotel-rules">
         <li>
           <strong>체크인</strong>
-          <span>
-            {getTimePeriod(thisHotel.checkIn)}
-            {""}
-            {thisHotel.checkIn}
-          </span>
+          <span>{thisHotel.checkIn}</span>
         </li>
         <li>
           <strong>체크아웃</strong>
-          <span>
-            {getTimePeriod(thisHotel.checkOut)}
-            {thisHotel.checkOut}
-          </span>
+          <span>{thisHotel.checkOut}</span>
         </li>
         <li>
           <strong>

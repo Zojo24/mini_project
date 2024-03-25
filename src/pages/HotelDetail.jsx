@@ -1,27 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
-import pic1 from "../assets/img1.webp";
-import pic2 from "../assets/img2.webp";
-import pic3 from "../assets/img3.webp";
-import pic4 from "../assets/img4.jpg";
-import subvisual from "../assets/subvisual2.jpg";
-import Notice from "../components/Board/Notice";
-import NoticeWrite from "../components/Board/NoticeWrite";
-import Box from "../components/Box";
-import Heading from "../components/Heading";
-import HotelFavorite from "../components/Hotel/HotelFavorite";
-import HotelGallery from "../components/Hotel/HotelGallery";
-import HotelLocation from "../components/Hotel/HotelLocation";
-import HotelPrice from "../components/Hotel/HotelPrice";
-import HotelRules from "../components/Hotel/HotelRules";
-import RoomList from "../components/Hotel/RoomList";
-import ServiceList from "../components/Hotel/ServiceList";
-import ReservationFirst from "../components/Reservation/ReservationFirst";
-import Text from "../components/Text";
-import { useHotelStore } from "../store/hotelStore";
-import { useVisualStore } from "../store/visualStore";
+import pic1 from '../assets/img1.webp';
+import pic2 from '../assets/img2.webp';
+import pic3 from '../assets/img3.webp';
+import pic4 from '../assets/img4.jpg';
+import subvisual from '../assets/subvisual2.jpg';
+import Notice from '../components/Board/Notice';
+import NoticeWrite from '../components/Board/NoticeWrite';
+import Box from '../components/Box';
+import Heading from '../components/Heading';
+import HotelFavorite from '../components/Hotel/HotelFavorite';
+import HotelGallery from '../components/Hotel/HotelGallery';
+import HotelLocation from '../components/Hotel/HotelLocation';
+import HotelPrice from '../components/Hotel/HotelPrice';
+import HotelRules from '../components/Hotel/HotelRules';
+import RoomList from '../components/Hotel/RoomList';
+import ServiceList from '../components/Hotel/ServiceList';
+import ReservationFirst from '../components/Reservation/ReservationFirst';
+import Text from '../components/Text';
+import { digit3 } from '../store/digit3';
+import { useHotelStore } from '../store/hotelStore';
+import { useVisualStore } from '../store/visualStore';
 
 const pictures = [{ src: pic1 }, { src: pic2 }, { src: pic3 }, { src: pic4 }];
 
@@ -38,10 +42,10 @@ const HotelDetail = () => {
   useEffect(() => {
     fetchHotel(hotelId);
   }, []);
-  console.log(thisHotel);
+
   useEffect(() => {
     setTitle(thisHotel.name, subvisual);
-  }, [setTitle]);
+  }, []);
   const onDelete = () => {};
   return (
     <div className="main mb-24">
@@ -49,10 +53,10 @@ const HotelDetail = () => {
         <div className="hotel-detail mt-10">
           <div className="hotel-detail__header">
             <div>
-              <HotelLocation className={"xl"} location={"Los Angeles"} />
+              <HotelLocation className={"xl"} location={thisHotel.location} />
             </div>
             <div>
-              <HotelPrice price={"500,000"} />
+              <HotelPrice price={digit3(thisHotel.price)} />
               <HotelFavorite />
               <button className="btn-blue -mr-2">수정</button>
               <button onClick={onDelete} className="btn-red">

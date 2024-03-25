@@ -547,6 +547,18 @@ const HotelWrite = () => {
                         피트니스 시설
                       </Checkbox>
                     </li>
+                    <li>
+                      <Checkbox
+                        color="blue"
+                        id="check3_18"
+                        name="electric_kettle"
+                        value="전기주전자"
+                        checked={hotelInfo.options.electric_kettle}
+                        onChange={handleCheckbox}
+                      >
+                        전기주전자
+                      </Checkbox>
+                    </li>
                   </ul>
                 </Box>
               </div>
