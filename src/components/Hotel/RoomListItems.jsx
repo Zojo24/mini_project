@@ -19,7 +19,6 @@ const RoomListItems = ({ edit, ...props }) => {
           {!edit ? (
             <div className="flex gap-2">
               <button className="btn-blue-outline">{show.able ? "Sold Out" : "예약하기"}</button>
-              <button className="btn-green-outline">장바구니</button>
             </div>
           ) : (
             <div className="flex gap-2">
@@ -38,7 +37,6 @@ const RoomListItems = ({ edit, ...props }) => {
           {!edit ? (
             <div className="flex gap-2">
               <button className="btn-blue-outline">예약하기</button>
-              <button className="btn-green-outline">장바구니</button>
             </div>
           ) : (
             <div className="flex gap-2">
@@ -57,7 +55,6 @@ const RoomListItems = ({ edit, ...props }) => {
           {!edit ? (
             <div className="flex gap-2">
               <button className="btn-blue-outline">예약하기</button>
-              <button className="btn-green-outline">장바구니</button>
             </div>
           ) : (
             <div className="flex gap-2">
@@ -76,7 +73,6 @@ const RoomListItems = ({ edit, ...props }) => {
           {!edit ? (
             <div className="flex gap-2">
               <button className="btn-blue-outline">예약하기</button>
-              <button className="btn-green-outline">장바구니</button>
             </div>
           ) : (
             <div className="flex gap-2">
