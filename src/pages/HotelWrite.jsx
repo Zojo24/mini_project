@@ -349,17 +349,19 @@ const HotelWrite = () => {
                         id="check3_1"
                         name="swimming_pool" // name을 추가하여 핸들러에서 참조할 수 있게 합니다.
                         value="수영장"
-                        checked={hotelInfo.options.swimming_pool} // 오타 수정: swmming_pool -> swimming_pool
+                        checked={hotelInfo.options.swimming_pool}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        수영장
+                      </Checkbox>
                     </li>
                     <li>
                       <Checkbox
                         color="blue"
                         id="check3_2"
-                        name="breakfast" // `name` 속성을 이용하여 options 내의 해당 키를 업데이트합니다.
+                        name="breakfast"
                         value="조식뷔페"
-                        checked={hotelInfo.options.breakfast} // 올바른 경로를 사용합니다.
+                        checked={hotelInfo.options.breakfast}
                         onChange={handleCheckbox}
                       />
                     </li>
