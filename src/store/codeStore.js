@@ -71,11 +71,27 @@ e.preventDefault();
 };
 
 <form onSubmit={handleSubmitCheckbox} className="check-group">
-  <Checkbox color={"blue"} id={"check2_1"} value={"checkbox"} />
-  <Checkbox id="check2_2" color={"blue"} checked={true} value={"checkbox"} />
-  <Checkbox id="check2_4" color={"blue"} checked={true} disabled value={"disabled"} />
+  <Checkbox color={"blue"} id={"check2_1"}>
+    체크상자1
+  </Checkbox>
+  <Checkbox id="check2_2" color={"blue"} checked={true}>
+    체크상자2
+  </Checkbox>
+  <Checkbox id="check2_4" color={"blue"} checked={true} disabled>
+    체크상자3 disabled
+  </Checkbox>
 
-  <button type="submit" className="btn-blue">
+  <Checkbox color={"blue"} id={"check3_1"} checked={true}>
+    체크상자5
+  </Checkbox>
+  <Checkbox color={"red"} id={"check3_2"} checked={true}>
+    체크상자6
+  </Checkbox>
+  <Checkbox color={"gray"} id={"check3_3"} checked={true}>
+    체크상자7
+  </Checkbox>
+  
+  <button type="submit" className="btn-blue mt-2">
     체크된 상자 확인
   </button>
 </form>
