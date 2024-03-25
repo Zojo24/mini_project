@@ -18,6 +18,7 @@ import HotelFavorite from '../components/Hotel/HotelFavorite';
 import HotelGallery from '../components/Hotel/HotelGallery';
 import HotelLocation from '../components/Hotel/HotelLocation';
 import HotelPrice from '../components/Hotel/HotelPrice';
+import HotelRules from '../components/Hotel/HotelRules';
 import RoomList from '../components/Hotel/RoomList';
 import ServiceList from '../components/Hotel/ServiceList';
 import ReservationFirst from '../components/Reservation/ReservationFirst';
@@ -41,10 +42,10 @@ const HotelDetail = () => {
   useEffect(() => {
     fetchHotel(hotelId);
   }, []);
-  console.log(thisHotel);
+
   useEffect(() => {
     setTitle(thisHotel.name, subvisual);
-  }, [setTitle]);
+  }, []);
   const onDelete = () => {};
   return (
     <div className="main mb-24">
@@ -98,7 +99,7 @@ const HotelDetail = () => {
             </Box>
             <Box>
               <Heading tag={"h3"} text={"호텔 객실 규칙"} className={"base"} />
-              {/* <HotelRules className={"mt-5"} /> */}
+              <HotelRules className={"mt-5"} />
             </Box>
             <Box>
               <Heading
