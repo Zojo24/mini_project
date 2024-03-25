@@ -9,7 +9,7 @@ import Toast from "../components/Toast";
 
 const Login = ({ close, ...props }) => {
   const setLogin = useLoginStore((state) => state.setLogin);
-  const setRegister = useRegisterStore((state) => state.setRegister);
+  const { setUser } = useRegisterStore();
   const navigate = useNavigate();
 
   // 로그인 상태
@@ -120,35 +120,45 @@ const Login = ({ close, ...props }) => {
       setRegisterToast(true);
       return;
     }
-    const requestData = {
-      name,
+    //   const requestData = {
+    //     name,
+    //     email: registerEmail,
+    //     birth: `${birthYear}${birthMonth}${birthDay}`,
+    //     password: registerPassword,
+    //   };
+
+    //   try {
+    //     //TODO: 추후 URL 확인 필요
+    //     const response = await axios.post("/api/register", requestData);
+    //     setRegister(true);
+    //     navigate("/");
+    //     resetRegisterForm();
+    //   } catch (error) {
+    //     if (error.response) {
+    //       switch (error.response.status) {
+    //         default:
+    //           setRegisterError("회원가입 중 예기치 않은 오류가 발생했습니다.");
+    //       }
+    //     } else {
+    //       setRegisterError(
+    //         "서버에 접속할 수 없습니다. 네트워크 상태를 확인해 주세요."
+    //       );
+    //     }
+    //     setRegisterToast(true);
+    //     console.log("Register failed", error);
+    //   }
+    // };
+    setUser({
+      name: name,
       email: registerEmail,
-      dateOfBirth: `${birthYear}/${birthMonth}/${birthDay}`,
+      birth: `${birthYear}${birthMonth}${birthDay}`,
       password: registerPassword,
-    };
+    });
 
-    try {
-      //TODO: 추후 URL 확인 필요
-      const response = await axios.post("/api/register", requestData);
-      setRegister(true);
-      navigate("/");
-      resetRegisterForm();
-    } catch (error) {
-      if (error.response) {
-        switch (error.response.status) {
-          default:
-            setRegisterError("회원가입 중 예기치 않은 오류가 발생했습니다.");
-        }
-      } else {
-        setRegisterError(
-          "서버에 접속할 수 없습니다. 네트워크 상태를 확인해 주세요."
-        );
-      }
-      setRegisterToast(true);
-      console.log("Register failed", error);
-    }
+    resetRegisterForm();
+    setRegisterToast(true);
+    navigate("/");
   };
-
   const resetRegisterForm = () => {
     setName("");
     setRegisterEmail("");

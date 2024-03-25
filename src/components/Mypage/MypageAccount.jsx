@@ -3,8 +3,15 @@ import Input from "../Input";
 import "../../styles/pages/mypage.css";
 import Heading from "../Heading";
 import Avatar from "../Avatar";
+import { useRegisterStore } from "../../store/RegisterStore";
 
 const MypageAccount = () => {
+  const { user } = useRegisterStore((state) => state);
+  const { name, email, birth, password } = user;
+  const birthYear = birth.slice(0, 4);
+  const birthMonth = birth.slice(4, 6);
+  const birthDay = birth.slice(6, 8);
+
   return (
     <div className="grid grid-cols-[20rem_1fr] gap-5">
       <div className="bg-white rounded-xl whitespace-nowrap p-10 self-start text-center">
@@ -12,12 +19,14 @@ const MypageAccount = () => {
         {/* <Avatar /> */}
         <Avatar add />
         <div className="mb-5 mt-1">
-          <b>하하하하</b>님
+          <b>{name}</b>님
           <br /> 반갑습니다.
         </div>
         잔여캐시
         <br />
-        <strong className="text-2xl mr-1 text-blue-700 tracking-tight">1,000,000</strong>
+        <strong className="text-2xl mr-1 text-blue-700 tracking-tight">
+          1,000,000
+        </strong>
         <span>원</span>
       </div>
       <form className="bg-white rounded-xl  p-10">
@@ -25,27 +34,27 @@ const MypageAccount = () => {
         <div className="grid grid-cols-3 mypage-account mt-5">
           <div>
             이름
-            <Input type={"text"} disabled defaultValue="하하하하" />
+            <Input type={"text"} disabled defaultValue={name} />
           </div>
           <div>
             이메일
-            <Input type={"email"} disabled defaultValue="123@123.com" />
+            <Input type={"email"} disabled defaultValue={email} />
           </div>
           <div>
             생년월일
             <div className="birth">
-              <Input type="number" defaultValue="2018" disabled />년
-              <Input type="number" defaultValue="05" disabled />월
-              <Input type="number" defaultValue="21" disabled />일
+              <Input type="number" defaultValue={birthYear} disabled />년
+              <Input type="number" defaultValue={birthMonth} disabled />월
+              <Input type="number" defaultValue={birthDay} disabled />일
             </div>
           </div>
           <div>
             비밀번호
-            <Input type={"password"} defaultValue="123456" />
+            <Input type={"password"} defaultValue={password} />
           </div>
           <div>
             비밀번호 확인
-            <Input type={"password"} defaultValue="123456" />
+            <Input type={"password"} defaultValue={password} />
           </div>
         </div>
         <hr className="mt-10" />
