@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import HotelList from "../components/Hotel/HotelList";
-import { useVisualStore } from "../store/visualStore";
-import { TbRotateClockwise2 } from "react-icons/tb";
+
 import { FaArrowDownShortWide } from "react-icons/fa6";
-import Heading from "../components/Heading";
-import Destinations from "../components/Destinations";
-import SearchDetail from "../components/Search/SearchDetail";
+import { TbRotateClockwise2 } from "react-icons/tb";
+
 import subvisual from "../assets/subvisual1.jpg";
+import Destinations from "../components/Destinations";
+import Heading from "../components/Heading";
+import HotelList from "../components/Hotel/HotelList";
+import SearchDetail from "../components/Search/SearchDetail";
+import { useVisualStore } from "../store/visualStore";
 
 const HotelAllList = () => {
   const { setTitle } = useVisualStore();

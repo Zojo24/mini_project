@@ -1,5 +1,6 @@
-import React from "react";
-import { PiImageLight } from "react-icons/pi";
+import React from 'react';
+
+import { PiImageLight } from 'react-icons/pi';
 
 const Noimage = ({ props, className }) => {
   return (
