@@ -8,7 +8,8 @@ import { useRegisterStore } from "../store/RegisterStore";
 import Toast from "../components/Toast";
 
 const Login = ({ close, ...props }) => {
-  const setLogin = useLoginStore((state) => state.setLogin);
+  // const setLogin = useLoginStore((state) => state.setLogin);
+  const { setLogin } = useLoginStore();
   const { setUser } = useRegisterStore();
   const navigate = useNavigate();
 
@@ -89,6 +90,8 @@ const Login = ({ close, ...props }) => {
       if (response.data.success && jwtToken) {
         localStorage.setItem("token", jwtToken);
         setLogin(true);
+        setUser(response.data.user);
+        close();
       }
     } catch (error) {
       if (error.response) {
@@ -149,15 +152,17 @@ const Login = ({ close, ...props }) => {
     //   }
     // };
     setUser({
-      name: name,
+      name,
       email: registerEmail,
       birth: `${birthYear}${birthMonth}${birthDay}`,
       password: registerPassword,
     });
 
+    setLogin(true);
+    navigate("/");
     resetRegisterForm();
     setRegisterToast(true);
-    navigate("/");
+    close();
   };
   const resetRegisterForm = () => {
     setName("");
