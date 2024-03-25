@@ -8,37 +8,31 @@ import ReservationRule from "../ReservationRule";
 import { useReservationStore } from "../../store/reservationStore";
 import Loading from "../Loading";
 
-const userInfo = {
-  name: "가나다",
-  email: "123@123.com",
-  address: "주소가 불러와집니다.",
-  city: "도시이름이 불러와집니다.",
-  country: "",
-  postcode: "우편번호가 불러와집니다.",
-};
-
-const ReservationPersonInfo = () => {
+const ReservationPersonInfo = ({ userInfo }) => {
   const navigate = useNavigate();
-  const { addAdditionalInfo, totalInfos, reservationInfos } = useReservationStore();
+  const { addAdditionalInfo, totalInfos, paymentInfos } = useReservationStore();
+  const { role, credit, profile_image, name, email, address, city, nation, zip_code } = userInfo;
+
   const [isuserInfo, setUserInfo] = useState(userInfo);
   const [isRule, setIsRule] = useState(false);
-  const [isAddress, setIsAddress] = useState(isuserInfo.address);
-  const [isCountry, setIsCountry] = useState(isuserInfo.country);
-  const [isCity, setIsCity] = useState(isuserInfo.city);
-  const [isPostCode, setIsPostCode] = useState(isuserInfo.postcode);
+  const [isAddress, setIsAddress] = useState(address);
+  const [isCountry, setIsCountry] = useState(nation);
+  const [isCity, setIsCity] = useState(city);
+  const [isPostCode, setIsPostCode] = useState(zip_code);
   const [isRequestText, setIsRequestText] = useState("");
   const [isPopup, setIsPopup] = useState(false);
   const [errrorMessage, setErrrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [persnalInfo, setPersnalInfo] = useState({
-    name: isuserInfo.name,
-    email: isuserInfo.email,
-    address: isuserInfo.address,
-    city: isuserInfo.city,
-    country: isuserInfo.country,
-    postcode: isuserInfo.postcode,
+    name: name,
+    email: email,
+    address: address,
+    city: city,
+    nation: nation,
+    zip_code: zip_code,
     text: "",
     agreement: false,
+    credit: credit,
   });
 
   const handleAddress = (address) => {
@@ -49,13 +43,13 @@ const ReservationPersonInfo = () => {
     setIsCity(city);
     setPersnalInfo({ ...persnalInfo, city });
   };
-  const handleCountry = (country) => {
-    setIsCountry(country);
-    setPersnalInfo({ ...persnalInfo, country });
+  const handleCountry = (nation) => {
+    setIsCountry(nation);
+    setPersnalInfo({ ...persnalInfo, nation });
   };
-  const handlePostCode = (postcode) => {
-    setIsPostCode(postcode);
-    setPersnalInfo({ ...persnalInfo, postcode });
+  const handlePostCode = (zip_code) => {
+    setIsPostCode(zip_code);
+    setPersnalInfo({ ...persnalInfo, zip_code });
   };
   const handleRequest = (text) => {
     setIsRequestText(text);
@@ -71,8 +65,8 @@ const ReservationPersonInfo = () => {
       ...prevUserInfo,
       address: isAddress,
       city: isCity,
-      country: isCountry,
-      postcode: isPostCode,
+      nation: isCountry,
+      zip_code: isPostCode,
     }));
   }, [isAddress, isCity, isCountry, isPostCode]);
 
@@ -86,11 +80,11 @@ const ReservationPersonInfo = () => {
       setIsPopup(true);
       setErrrorMessage("도시를 입력해 주세요.");
       isValid = false;
-    } else if (!persnalInfo.country) {
+    } else if (!persnalInfo.nation) {
       setIsPopup(true);
       setErrrorMessage("국가를 입력해 주세요.");
       isValid = false;
-    } else if (!persnalInfo.postcode) {
+    } else if (!persnalInfo.zip_code) {
       setIsPopup(true);
       setErrrorMessage("우편번호를 입력해 주세요.");
       isValid = false;
@@ -119,7 +113,7 @@ const ReservationPersonInfo = () => {
       if (isValidCheck) {
         const updatedPersonalInfo = { ...persnalInfo, agreement }; // 업데이트된 상태를 먼저 생성
         setPersnalInfo(updatedPersonalInfo);
-        addAdditionalInfo({ ...persnalInfo, reservationInfos });
+        addAdditionalInfo({ ...persnalInfo, paymentInfos });
         setIsLoading(true);
         setTimeout(() => {
           setIsLoading(false);

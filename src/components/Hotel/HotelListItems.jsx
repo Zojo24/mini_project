@@ -4,6 +4,8 @@ import axios from "axios";
 
 import hotel1 from "../../assets/hotel1.jpg";
 import { HotelistsData } from "../../data/hotelLists";
+import { newHotelsData } from "../../mocks/handlers";
+import { digit3 } from "../../store/digit3";
 import Badge from "../Badge";
 import HotelBooking from "./HotelBooking";
 import HotelFavorite from "./HotelFavorite";
@@ -23,7 +25,7 @@ const HotelListItems = ({ modify, ...props }) => {
       console.log("불러온값", response.data[0]);
     });
   }, []);
-
+  console.log("메인", hotels);
   return (
     <>
       <li>
@@ -35,7 +37,7 @@ const HotelListItems = ({ modify, ...props }) => {
             link={"/hoteldetail"}
             title={"Signature Hitanial Hotel"}
           />
-          <HotelPrice price={"1,000,000"} />
+          <HotelPrice price={"500,000"} />
           <HotelBooking text={"HotelBooking"} />
         </div>
       </li>
@@ -60,6 +62,18 @@ const HotelListItems = ({ modify, ...props }) => {
         </div>
       </li>
       {HotelistsData.map((hotel) => (
+        <li key={hotel.name}>
+          <HotelPicture link={`/hoteldetail/${hotel.id}`} image={hotel1} />
+          <div className="hotel__info">
+            <HotelLocation location={hotel.location} />
+            <HotelFavorite checked={modify} />
+            <HotelTitle link={"/hoteldetail"} title={hotel.name} />
+            <HotelPrice price={digit3(hotel.price)} />
+            <HotelBooking text={"HotelBooking"} />
+          </div>
+        </li>
+      ))}
+      {newHotelsData.map((hotel) => (
         <li key={hotel.name}>
           <HotelPicture link={`/hoteldetail/${hotel.id}`} image={hotel1} />
           <div className="hotel__info">

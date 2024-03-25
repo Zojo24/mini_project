@@ -1,17 +1,14 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from "react";
 
-import { FaArrowDownShortWide } from 'react-icons/fa6';
-import { TbRotateClockwise2 } from 'react-icons/tb';
+import { FaArrowDownShortWide } from "react-icons/fa6";
+import { TbRotateClockwise2 } from "react-icons/tb";
 
-import subvisual from '../assets/subvisual1.jpg';
-import Destinations from '../components/Destinations';
-import Heading from '../components/Heading';
-import HotelList from '../components/Hotel/HotelList';
-import SearchDetail from '../components/Search';
-import { useVisualStore } from '../store/visualStore';
+import subvisual from "../assets/subvisual1.jpg";
+import Destinations from "../components/Destinations";
+import Heading from "../components/Heading";
+import HotelList from "../components/Hotel/HotelList";
+import SearchDetail from "../components/Search/SearchDetail";
+import { useVisualStore } from "../store/visualStore";
 
 const HotelAllList = () => {
   const { setTitle } = useVisualStore();
@@ -43,11 +40,7 @@ const HotelAllList = () => {
         <HotelList />
         <div className="text-center mt-10">
           <button className="btn-blue xl" onClick={handleMore}>
-            {isLoading ? (
-              <TbRotateClockwise2 className="animate-spin" />
-            ) : (
-              <FaArrowDownShortWide />
-            )}
+            {isLoading ? <TbRotateClockwise2 className="animate-spin" /> : <FaArrowDownShortWide />}
             {isLoading ? "Loading..." : "호텔 더보기"}
           </button>
         </div>

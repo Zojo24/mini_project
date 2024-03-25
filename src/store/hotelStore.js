@@ -7,7 +7,7 @@ export const useHotelStore = create(
     (set) => ({
       thisHotel: {},
       fetchHotel: async (id) => {
-        axios.get("/hotels/1").then((response) => {
+        axios.get(`/hotels/${id}`).then((response) => {
           set({ thisHotel: response.data });
         });
       },

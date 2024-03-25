@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Toast from "./Toast";
 
 const cut3Digit = /\B(?=(\d{3})+(?!\d))/g;
 const allowedFileTypes = ["image/jpeg", "image/png", "image/webp"];
