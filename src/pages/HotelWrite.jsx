@@ -363,17 +363,21 @@ const HotelWrite = () => {
                         value="조식뷔페"
                         checked={hotelInfo.options.breakfast}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        조식뷔페
+                      </Checkbox>
                     </li>
                     <li>
                       <Checkbox
                         color="blue"
                         id="check3_3"
-                        name="wireless_internet" // 각 체크박스의 `name` 속성은 `options` 객체 내의 키와 일치해야 합니다.
+                        name="wireless_internet"
                         value="무선 인터넷"
-                        checked={hotelInfo.options.wireless_internet} // `hotelInfo.options` 내의 값을 참조합니다.
+                        checked={hotelInfo.options.wireless_internet}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        무선 인터넷
+                      </Checkbox>
                     </li>
                     <li>
                       <Checkbox
@@ -383,7 +387,9 @@ const HotelWrite = () => {
                         value="드라이클리닝"
                         checked={hotelInfo.options.dry_cleaning}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        드라이클리닝
+                      </Checkbox>
                     </li>
                     <li>
                       <Checkbox
@@ -393,7 +399,9 @@ const HotelWrite = () => {
                         value="여행가방 보관 서비스"
                         checked={hotelInfo.options.storage_service}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        여행가방 보관 서비스
+                      </Checkbox>
                     </li>
                     <li>
                       <Checkbox
@@ -403,7 +411,9 @@ const HotelWrite = () => {
                         value="편의점"
                         checked={hotelInfo.options.convenience_store}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        편의점
+                      </Checkbox>
                     </li>
                     <li>
                       <Checkbox
@@ -413,7 +423,9 @@ const HotelWrite = () => {
                         value="다림질도구"
                         checked={hotelInfo.options.ironing_tools}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        다림질도구
+                      </Checkbox>
                     </li>
                     <li>
                       <Checkbox
@@ -423,7 +435,9 @@ const HotelWrite = () => {
                         value="모닝콜"
                         checked={hotelInfo.options.wakeup_call}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        모닝콜
+                      </Checkbox>
                     </li>
                     <li>
                       <Checkbox
@@ -433,7 +447,9 @@ const HotelWrite = () => {
                         value="미니바"
                         checked={hotelInfo.options.mini_bar}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        미니바
+                      </Checkbox>
                     </li>
                     <li>
                       <Checkbox
@@ -443,7 +459,9 @@ const HotelWrite = () => {
                         value="샤워실"
                         checked={hotelInfo.options.shower_room}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        샤워실
+                      </Checkbox>
                     </li>
                     <li>
                       <Checkbox
@@ -453,7 +471,9 @@ const HotelWrite = () => {
                         value="에어컨"
                         checked={hotelInfo.options.air_conditioner}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        에어컨
+                      </Checkbox>
                     </li>
                     <li>
                       <Checkbox
@@ -463,7 +483,9 @@ const HotelWrite = () => {
                         value="책상"
                         checked={hotelInfo.options.table}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        책상
+                      </Checkbox>
                     </li>
                     <li>
                       <Checkbox
@@ -473,7 +495,9 @@ const HotelWrite = () => {
                         value="TV"
                         checked={hotelInfo.options.tv}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        TV
+                      </Checkbox>
                     </li>
                     <li>
                       <Checkbox
@@ -483,7 +507,9 @@ const HotelWrite = () => {
                         value="안전금고"
                         checked={hotelInfo.options.safety_deposit_box}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        안전금고
+                      </Checkbox>
                     </li>
                     <li>
                       <Checkbox
@@ -493,7 +519,9 @@ const HotelWrite = () => {
                         value="웰컴 드링크"
                         checked={hotelInfo.options.welcome_drink}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        웰컴 드링크
+                      </Checkbox>
                     </li>
                     <li>
                       <Checkbox
@@ -503,7 +531,9 @@ const HotelWrite = () => {
                         value="무료 주차"
                         checked={hotelInfo.options.free_parking}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        무료 주차
+                      </Checkbox>
                     </li>
                     <li>
                       <Checkbox
@@ -513,7 +543,9 @@ const HotelWrite = () => {
                         value="피트니스 시설"
                         checked={hotelInfo.options.fitness}
                         onChange={handleCheckbox}
-                      />
+                      >
+                        피트니스 시설
+                      </Checkbox>
                     </li>
                   </ul>
                 </Box>
