@@ -3,27 +3,17 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import RoomPicture from "../Hotel/RoomPicture";
 import { Link } from "react-router-dom";
 import { digit3 } from "../../store/digit3";
+import { useReservationStore } from "../../store/reservationStore";
 
 const MypageCartItem = ({ items }) => {
-  const {
-    adult,
-    adult_fare,
-    bed_type,
-    child_fare,
-    children,
-    childrenPay,
-    end,
-    file,
-    hotel_name,
-    start,
-    totalPay,
-    type,
-  } = items;
+  const { adult_count, child_count, check_out, file, hotel_name, check_in, total_price, type, id } = items;
+  const { deleteCart } = useReservationStore();
+
   return (
     <>
       <tr className="group">
         <td className="self-start justify-self-end text-lg text-gray-500">
-          <button>
+          <button onClick={() => deleteCart(id)}>
             <RiDeleteBinLine />
           </button>
         </td>
@@ -39,13 +29,13 @@ const MypageCartItem = ({ items }) => {
               <div className="text-sm flex mt-2 leading-6">
                 <b className="font-semibold">예약일</b>
                 <div>
-                  : {start} ~ {end}
+                  : {check_in} ~ {check_out}
                 </div>
               </div>
               <div className="text-sm flex leading-6">
                 <b className="font-semibold">인원수</b>
                 <div>
-                  : 성인 {adult}, 어린이 {children}
+                  : 성인 {adult_count}, 어린이 {child_count}
                 </div>
               </div>
             </div>
@@ -53,7 +43,7 @@ const MypageCartItem = ({ items }) => {
         </td>
         <td>{type}</td>
         <td className="pr-3 text-right">
-          총 <b>{digit3(totalPay)}</b> 원
+          총 <b>{digit3(total_price)}</b> 원
         </td>
         <td>
           <Link to="/reservation" className="btn-blue">

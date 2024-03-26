@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { digit3 } from "../../store/digit3";
 
 const ReservationHotelInfoItems = (item) => {
-  const { adult, adult_fare, children, child_fare, end, start, totalPay, hotel_name, file } = item;
+  const { adult_count, child_count, check_out, check_in, total_price, hotel_name, file } = item;
 
-  const formattedPrice = digit3(totalPay);
+  const formattedPrice = digit3(total_price);
 
   return (
     <>
@@ -22,13 +22,13 @@ const ReservationHotelInfoItems = (item) => {
             <div className="text-sm flex mt-2 leading-6">
               <b className="font-semibold">예약일</b>
               <div>
-                : {start} ~ {end}
+                : {check_in} ~ {check_out}
               </div>
             </div>
             <div className="text-sm flex leading-6">
               <b className="font-semibold">인원수</b>
               <div>
-                : 성인 {adult}, 어린이 {children}
+                : 성인 {adult_count}, 어린이 {child_count}
               </div>
             </div>
             <div className="text-sm flex leading-6">
