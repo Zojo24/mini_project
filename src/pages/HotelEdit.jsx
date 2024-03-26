@@ -4,7 +4,10 @@ import React, {
 } from 'react';
 
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import {
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 
 import subvisual from '../assets/subvisual3.jpg';
 import Badge from '../components/Badge';
@@ -70,11 +73,15 @@ const checkOption = [
   { value: "select25", text: "23:00" },
   { value: "select2", text: "24:00" },
 ];
-const HotelWrite = () => {
+const HotelEdit = () => {
   const { setTitle } = useVisualStore();
+  let { hotelId } = useParams();
   const navigate = useNavigate();
+  const { totalHotels, saveEditHotel } = usehotelListStore();
   const [isImage, setIsImage] = useState("");
+  const thisHotel = totalHotels.find((hotel) => hotel.id === Number(hotelId));
 
+  console.log("edit", thisHotel);
   useEffect(() => {
     setTitle("Hotel Registration", subvisual);
   }, [setTitle]);
@@ -89,19 +96,20 @@ const HotelWrite = () => {
   const [isToggle, setIsToggle] = useState(false);
   const [locationText, setLocationText] = useState("");
   const [price, setPrice] = useState("");
+
   const [hotelInfo, setHotelInfo] = useState({
-    name: "",
-    location: "태국",
-    price: "",
+    name: thisHotel.name,
+    location: thisHotel.location,
+    price: thisHotel.price,
     available: true,
-    content: "",
+    content: thisHotel.content,
     facilities: [],
-    checkIn: "",
-    checkOut: "",
+    checkIn: thisHotel.checkIn,
+    checkOut: thisHotel.checkOut,
     notSmoking: true,
     noPet: true,
-    swimmingpool_open: "",
-    swimmingpool_closed: "",
+    swimmingpool_open: thisHotel.swimmingpool_open,
+    swimmingpool_closed: thisHotel.swimmingpool_closed,
     options: {
       swimming_pool: false,
       break_fast: false,
@@ -123,6 +131,7 @@ const HotelWrite = () => {
       electric_kettle: false,
     },
   });
+
   const addHotel = usehotelListStore((state) => state.addHotel);
   //호텔이름
   const handleName = (value) => {
@@ -143,7 +152,7 @@ const HotelWrite = () => {
   const handlePrice = (value) => {
     setHotelInfo({ ...hotelInfo, price: value });
   };
-  console.log(hotelInfo);
+
   //예약가능
   const handleRadioChange = (value) => {
     setHotelInfo({ ...hotelInfo, available: value === "예약가능" });
@@ -226,13 +235,23 @@ const HotelWrite = () => {
       console.error("Error sending POST request:", error);
     }
     addHotel(hotelInfo);
+  };
+  //수정저장
+  const saveHotel = () => {
+    console.log("", hotelInfo);
+    const index = totalHotels.findIndex((hotel) => hotel.id === thisHotel.id);
+    console.log("index", index);
+    totalHotels[0] = { ...hotelInfo };
+    console.log(totalHotels);
+    saveEditHotel(totalHotels);
     navigate("/");
   };
+
   return (
     <>
       <div className="main">
         <div className="container mb-32">
-          <Heading tag={"h3"} text={"호텔 등록"} className={"xl my-5"} />
+          <Heading tag={"h3"} text={"호텔 수정"} className={"xl my-5"} />
           <Box>
             <Heading
               tag={"h3"}
@@ -670,10 +689,9 @@ const HotelWrite = () => {
           <div className="flex justify-between mt-10">
             <button className="btn-gray xl">이전</button>
             <div className="flex  gap-3">
-              <button onClick={onSendClick} className="btn-blue xl">
-                호텔 등록
+              <button className="btn-green xl" onClick={saveHotel}>
+                호텔 수정
               </button>
-              <button className="btn-green xl">호텔 수정</button>
             </div>
           </div>
         </div>
@@ -682,4 +700,4 @@ const HotelWrite = () => {
   );
 };
 
-export default HotelWrite;
+export default HotelEdit;

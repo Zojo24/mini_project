@@ -4,7 +4,7 @@ import { useHotelStore } from '../../store/hotelStore';
 
 const HotelRules = ({ className }) => {
   const { thisHotel } = useHotelStore();
-  console.log("rules", thisHotel);
+
   function getTimePeriod(time) {
     const [hours, minutes] = time.split(":").map(Number);
     const totalMinutes = hours * 60 + minutes;

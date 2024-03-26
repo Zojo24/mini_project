@@ -3,7 +3,10 @@ import React, {
   useState,
 } from 'react';
 
-import { useParams } from 'react-router-dom';
+import {
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 
 import pic1 from '../assets/img1.webp';
 import pic2 from '../assets/img2.webp';
@@ -24,29 +27,37 @@ import ServiceList from '../components/Hotel/ServiceList';
 import ReservationFirst from '../components/Reservation/ReservationFirst';
 import Text from '../components/Text';
 import { digit3 } from '../store/digit3';
-import { useHotelStore } from '../store/hotelStore';
+import { usehotelListStore } from '../store/hotelListStore';
 import { useVisualStore } from '../store/visualStore';
 
 const pictures = [{ src: pic1 }, { src: pic2 }, { src: pic3 }, { src: pic4 }];
 
 const HotelDetail = () => {
+  const navigate = useNavigate();
   let { hotelId } = useParams();
   const { setTitle } = useVisualStore();
-  const { deleteHotel } = useHotelStore();
+
   const [isWrite, setIsWrite] = useState(false);
   const [hotelInfo, setHotelInfo] = useState();
   const handleWrite = () => {
     setIsWrite(!isWrite);
   };
-  const { thisHotel, fetchHotel } = useHotelStore();
-  useEffect(() => {
-    fetchHotel(hotelId);
-  }, []);
+  const { totalHotels, deleteHotel } = usehotelListStore();
 
+  const thisHotel = totalHotels.find((hotel) => hotel.id === Number(hotelId));
+  // console.log("detail", thisHotel);
   useEffect(() => {
     setTitle(thisHotel.name, subvisual);
   }, []);
-  const onDelete = () => {};
+  const onDelete = () => {
+    deleteHotel(hotelId);
+
+    navigate("/");
+  };
+
+  const toEdit = () => {
+    navigate(`/hoteledit/${hotelId}`);
+  };
   return (
     <div className="main mb-24">
       <div className="container">
@@ -58,7 +69,9 @@ const HotelDetail = () => {
             <div>
               <HotelPrice price={digit3(thisHotel.price)} />
               <HotelFavorite />
-              <button className="btn-blue -mr-2">수정</button>
+              <button className="btn-blue -mr-2" onClick={toEdit}>
+                수정
+              </button>
               <button onClick={onDelete} className="btn-red">
                 삭제
               </button>

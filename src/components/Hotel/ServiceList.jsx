@@ -32,8 +32,6 @@ import { useHotelStore } from '../../store/hotelStore';
 const ServiceList = ({ className, ...props }) => {
   const { thisHotel } = useHotelStore();
 
-  console.log("service", thisHotel);
-
   const options = thisHotel?.options;
   return (
     <ul className={"service-list " + className}>
