@@ -6,7 +6,7 @@ import React, {
 import axios from 'axios';
 
 import hotel1 from '../../assets/hotel1.jpg';
-import { HotelistsData } from '../../data/hotelLists';
+import { HotelListsData } from '../../data/hotelLists';
 import { digit3 } from '../../store/digit3';
 import { usehotelListStore } from '../../store/hotelListStore';
 import Badge from '../Badge';
@@ -27,7 +27,8 @@ const HotelListItems = ({ modify, ...props }) => {
       // console.log("불러온값", response.data[0]);
     });
   }, []);
-  const { totalHotels } = usehotelListStore();
+  const totalHotels = usehotelListStore((state) => state.totalHotels);
+
   console.log(totalHotels);
   return (
     <>
@@ -64,7 +65,7 @@ const HotelListItems = ({ modify, ...props }) => {
           )}
         </div>
       </li>
-      {HotelistsData.map((hotel) => (
+      {HotelListsData.map((hotel) => (
         <li key={hotel.name}>
           <HotelPicture link={`/hoteldetail/${hotel.id}`} image={hotel1} />
           <div className="hotel__info">
@@ -77,14 +78,21 @@ const HotelListItems = ({ modify, ...props }) => {
         </li>
       ))}
       {totalHotels.map((hotel) => (
-        <li key={hotel.name}>
+        <li key={hotel.name} className={hotel.available ? "" : "disabled"}>
           <HotelPicture link={`/hoteldetail/${hotel.id}`} image={hotel1} />
           <div className="hotel__info">
             <HotelLocation location={hotel.location} />
             <HotelFavorite checked={modify} />
             <HotelTitle link={`/hoteldetail/${hotel.id}`} title={hotel.name} />
             <HotelPrice price={hotel.price} />
-            <HotelBooking text={"HotelBooking"} />
+            {hotel.available ? (
+              <HotelBooking text={"HotelBooking"} />
+            ) : (
+              <>
+                <HotelBooking disabled text={"Sold Out"} />
+                <Badge color={"red"}>Sold Out</Badge>
+              </>
+            )}
           </div>
         </li>
       ))}

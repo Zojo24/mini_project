@@ -1,14 +1,14 @@
-export let HotelistsData = [
+export let HotelListsData = [
   {
     id: 1642,
     name: "오카다 마닐라 (Okada Manila)",
     location: "태국",
-    price: "295000",
+    price: "295,000",
     available: true,
     content:
       "주차 및 Wi-Fi가 항상 무료로 제공되므로 언제든지 차량을 입출차할 수 있으며 연락을 취하실 수 있습니다. 마닐라의 마닐라 베이에 위치한 본 숙소는 관광 명소 및 흥미로운 레스토랑과 가깝습니다. 떠나기 전 유명한 인트라무로스을/를 방문해 보세요. 별 5개를 받은 본 고급 숙소는 투숙객에게 숙소 내 레스토랑, 피트니스 센터 및 실외 수영장을/를 제공합니다.",
     options: {
-      swimming_pool: false,
+      swimming_pool: true,
       break_fast: true,
       wireless_internet: true,
       dry_cleaning: true,

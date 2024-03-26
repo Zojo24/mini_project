@@ -24,6 +24,7 @@ import HotelPrice from '../components/Hotel/HotelPrice';
 import HotelRules from '../components/Hotel/HotelRules';
 import RoomList from '../components/Hotel/RoomList';
 import ServiceList from '../components/Hotel/ServiceList';
+import Loading from '../components/Loading';
 import ReservationFirst from '../components/Reservation/ReservationFirst';
 import Text from '../components/Text';
 import { digit3 } from '../store/digit3';
@@ -39,6 +40,7 @@ const HotelDetail = () => {
 
   const [isWrite, setIsWrite] = useState(false);
   const [hotelInfo, setHotelInfo] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const handleWrite = () => {
     setIsWrite(!isWrite);
   };
@@ -50,9 +52,13 @@ const HotelDetail = () => {
     setTitle(thisHotel.name, subvisual);
   }, []);
   const onDelete = () => {
+    setIsLoading(true);
     deleteHotel(hotelId);
-
     navigate("/");
+    // setTimeout(() => {
+    //   setIsLoading(false);
+
+    // }, 1500);
   };
 
   const toEdit = () => {
@@ -130,6 +136,7 @@ const HotelDetail = () => {
           </div>
         </div>
       </div>
+      {isLoading && <Loading />}
     </div>
   );
 };

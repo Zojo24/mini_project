@@ -17,6 +17,7 @@ import Heading from '../components/Heading';
 import RoomList from '../components/Hotel/RoomList';
 import RoomWrite from '../components/Hotel/RoomWrite';
 import Input from '../components/Input';
+import Loading from '../components/Loading';
 import Noimage from '../components/Noimage';
 import Radio from '../components/Radio';
 import Select from '../components/Select';
@@ -96,7 +97,7 @@ const HotelEdit = () => {
   const [price, setPrice] = useState("");
   const [isPopup, setIsPopup] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
   const options = thisHotel.options;
   const [hotelInfo, setHotelInfo] = useState({
     id: thisHotel.id,
@@ -266,7 +267,11 @@ const HotelEdit = () => {
     totalHotels[index] = { ...hotelInfo };
     console.log(totalHotels);
     saveEditHotel(totalHotels);
-    navigate("/");
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      navigate("/");
+    }, 1500);
   };
 
   return (
@@ -739,6 +744,7 @@ const HotelEdit = () => {
           </button>
         </div>
       </Dialog>
+      {isLoading && <Loading />}
     </>
   );
 };

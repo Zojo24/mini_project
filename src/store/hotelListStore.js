@@ -5,7 +5,7 @@ import {
 } from 'zustand/middleware';
 
 let hotelListStore = (set) => ({
-  totalHotels: [],
+  totalHotels: [{ name: "호텔" }],
 
   //호텔등록
   addHotel: (hotelInfo) =>

@@ -1,13 +1,16 @@
-import { http, HttpResponse } from "msw";
+import {
+  http,
+  HttpResponse,
+} from 'msw';
 
-import { HotelistsData } from "../data/hotelLists";
+import { HotelListsData } from '../data/hotelLists';
 
 export let newHotelsData = [];
 
 export const handlers = [
   // 호텔목록
   http.get("/hotels", (resolver) => {
-    return HttpResponse.json([HotelistsData]);
+    return HttpResponse.json([HotelListsData]);
   }),
 
   http.get("/hotels/:hotelId", ({ request, params }) => {
@@ -16,7 +19,7 @@ export const handlers = [
 
     console.log(id);
 
-    const thisHotel = HotelistsData.find((it) => it.id.toString() === id);
+    const thisHotel = HotelListsData.find((it) => it.id.toString() === id);
     console.log("thisHotel", thisHotel);
     return HttpResponse.json(thisHotel);
   }),

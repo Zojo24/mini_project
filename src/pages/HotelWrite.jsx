@@ -15,10 +15,10 @@ import Heading from '../components/Heading';
 import RoomList from '../components/Hotel/RoomList';
 import RoomWrite from '../components/Hotel/RoomWrite';
 import Input from '../components/Input';
+import Loading from '../components/Loading';
 import Noimage from '../components/Noimage';
 import Radio from '../components/Radio';
 import Select from '../components/Select';
-import { HotelistsData } from '../data/hotelLists';
 import { usehotelListStore } from '../store/hotelListStore';
 import { useVisualStore } from '../store/visualStore';
 
@@ -92,14 +92,15 @@ const HotelWrite = () => {
   const [price, setPrice] = useState("");
   const [isPopup, setIsPopup] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [hotelInfo, setHotelInfo] = useState({
     name: "",
-    location: "태국",
+    nation: "태국",
     price: "",
     available: true,
-    content: "",
-    checkIn: "",
-    checkOut: "",
+    description: "",
+    check_in: "",
+    check_out: "",
     notSmoking: true,
     noPet: true,
     swimmingpool_open: "",
@@ -138,7 +139,7 @@ const HotelWrite = () => {
 
     setHotelInfo((prevHotelInfo) => ({
       ...prevHotelInfo,
-      location: selectedText,
+      nation: selectedText,
     }));
   };
   //가격
@@ -153,7 +154,7 @@ const HotelWrite = () => {
   //호텔안내
   const [content, setContent] = useState("");
   const handleContent = (value) => {
-    setHotelInfo({ ...hotelInfo, content: value });
+    setHotelInfo({ ...hotelInfo, description: value });
   };
   //편의시설
   const handleCheckbox = (e) => {
@@ -187,14 +188,14 @@ const HotelWrite = () => {
 
     const selectedText =
       checkOption.find((option) => option.value === selectedValue)?.text || "";
-    setHotelInfo({ ...hotelInfo, checkIn: selectedText });
+    setHotelInfo({ ...hotelInfo, check_in: selectedText });
   };
   const handleCheckOut = (e) => {
     const selectedValue = e.target.value;
 
     const selectedText =
       checkOption.find((option) => option.value === selectedValue)?.text || "";
-    setHotelInfo({ ...hotelInfo, checkOut: selectedText });
+    setHotelInfo({ ...hotelInfo, check_out: selectedText });
   };
   //흡연
   const handleSmoking = (value) => {
@@ -223,14 +224,14 @@ const HotelWrite = () => {
     if (
       hotelInfo.name == "" ||
       hotelInfo.price == "" ||
-      hotelInfo.content == ""
+      hotelInfo.description == ""
     ) {
       setIsPopup(true);
       setErrorMessage("호텔 기본정보를 모두 입력해 주세요.");
       return;
     } else if (
-      hotelInfo.checkIn == "" ||
-      hotelInfo.checkOut == "" ||
+      hotelInfo.check_in == "" ||
+      hotelInfo.check_out == "" ||
       (hotelInfo.options.swimming_pool === true &&
         hotelInfo.options.swimmingpool_open == "") ||
       (hotelInfo.options.swimming_pool == true &&
@@ -243,12 +244,15 @@ const HotelWrite = () => {
     e.preventDefault();
     try {
       const response = await axios.post("/hotels", hotelInfo);
-      console.log(HotelistsData);
     } catch (error) {
       console.error("Error sending POST request:", error);
     }
     addHotel(hotelInfo);
-    navigate("/");
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      navigate("/");
+    }, 2000);
   };
   return (
     <>
@@ -353,7 +357,7 @@ const HotelWrite = () => {
                   <Input
                     type={"textarea"}
                     onChange={handleContent}
-                    value={hotelInfo.content}
+                    value={hotelInfo.description}
                   />
                 </li>
               </ul>
@@ -706,6 +710,7 @@ const HotelWrite = () => {
           </button>
         </div>
       </Dialog>
+      {isLoading && <Loading />}
     </>
   );
 };
