@@ -6,21 +6,7 @@ import { digit3 } from "../../store/digit3";
 import { useReservationStore } from "../../store/reservationStore";
 
 const ReservationHotelInfoItems = ({ close, items }) => {
-  const {
-    adult,
-    adult_fare,
-    bed_type,
-    child_fare,
-    children,
-    childrenPay,
-    end,
-    file,
-    hotel_name,
-    start,
-    totalPay,
-    type,
-    id,
-  } = items;
+  const { adult_count, child_count, check_out, hotel_name, check_in, total_price, id } = items;
 
   const { deleteCart } = useReservationStore();
 
@@ -37,20 +23,20 @@ const ReservationHotelInfoItems = ({ close, items }) => {
           <div className="text-sm flex mt-2 leading-6">
             <b className="font-semibold">예약일</b>
             <div>
-              : {start} ~ {end}
+              : {check_in} ~ {check_out}
             </div>
           </div>
           <div className="text-sm flex leading-6">
             <b className="font-semibold">인원수</b>
             <div>
-              : 성인 {adult}, 어린이 {children}
+              : 성인 {adult_count}, 어린이 {child_count}
             </div>
           </div>
         </div>
         <div className="col-span-2 justify-self-end items-center flex gap-4">
           <div className="text-sm">소계</div>
           <div>
-            <b>{digit3(totalPay)}</b> 원
+            <b>{digit3(total_price)}</b> 원
           </div>
         </div>
         <div className="col-span-2 justify-self-end flex gap-2">
