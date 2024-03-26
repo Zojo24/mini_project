@@ -31,7 +31,9 @@ const FindAccount = () => {
             setResetError("예기치 않은 오류가 발생했습니다.");
         }
       } else {
-        setResetError("서버에 접속할 수 없습니다. 네트워크 상태를 확인해 주세요.");
+        setResetError(
+          "서버에 접속할 수 없습니다. 네트워크 상태를 확인해 주세요."
+        );
       }
       setResetToast(true);
       console.log("Reset failed", error);
@@ -45,7 +47,12 @@ const FindAccount = () => {
           <form onSubmit={handleResetForm}>
             <label htmlFor="email">이메일입력</label>
             <div className="text-center pt-2 pb-10">
-              <Input type={"email"} className={"w-full"} value={email} onChange={handleResetEmail} />
+              <Input
+                type={"email"}
+                className={"w-full"}
+                value={email}
+                onChange={handleResetEmail}
+              />
             </div>
             <div className="flex justify-center gap-2">
               <button type="submit" className="btn-blue xl w-full">
@@ -55,7 +62,11 @@ const FindAccount = () => {
           </form>
         </Box>
       </div>
-      <Toast color={"red"} onOpen={resetToast} onClose={() => setResetToast(false)}>
+      <Toast
+        color={"red"}
+        onOpen={resetToast}
+        onClose={() => setResetToast(false)}
+      >
         {resetError}
       </Toast>
     </div>

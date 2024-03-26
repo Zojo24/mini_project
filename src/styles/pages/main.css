@@ -2,7 +2,7 @@
  @apply min-h-96 pt-24;
 }
 .container {
-  @apply  w-[90rem] mx-auto;
+  @apply   mx-auto;
 }
 
 .bg-blue{

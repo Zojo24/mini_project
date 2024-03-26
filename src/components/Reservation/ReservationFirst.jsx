@@ -37,22 +37,6 @@ const roomInfo = {
   hotel_name: "호텔명이전달됩니다.", //누락됨.
 };
 
-// 호텔정보더미
-// const hotelInfo = {
-//   photo: pic,
-//   hotelName: "호텔명이전달됩니다.",
-//   room: "디럭스",
-//   bed: "더블베드",
-// };
-
-// 인원 가격정보더미
-// const payInfo = {
-//   defaultRoomCount: 4, //가용인원
-//   MaxRoomCount: 6, //최대인원
-//   adult: "50000", // 어른가격
-//   children: "30000", //어린이가격
-// };
-
 const ReservationFirst = () => {
   const [isToast, setIsToast] = useState(false);
   const [isToast2, setIsToast2] = useState(false);
@@ -63,13 +47,16 @@ const ReservationFirst = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading2, setIsLoading2] = useState(false);
   const [isPayInfo, setIsPayInfo] = useState({
-    start: "", //시작일
-    end: "", //종료일
-    adult: 0, //성인
-    children: 0, //어린이
+    id: "",
+    member_id: "",
+    room_id: "",
+    check_in: "", //체크인
+    check_out: "", //체크아웃
+    adult_count: 0, //성인
+    child_count: 0, //어린이
     adult_fare: "", //성인요금
     child_fare: "", //어린이요금
-    totalPay: "", // 총금액
+    total_price: "", // 총금액
     file: roomInfo.file, //호텔사진
     hotel_name: roomInfo.hotel_name, //호텔이름
     type: roomInfo.type, //호텔룸종류
@@ -82,37 +69,36 @@ const ReservationFirst = () => {
     e.preventDefault();
   };
 
-  // 달력 상태제어
-  const handleStart = (start) => {
-    setIsStart(start);
-    setIsPayInfo({ ...isPayInfo, start });
+  const handleStart = (check_in) => {
+    setIsStart(check_in);
+    setIsPayInfo({ ...isPayInfo, check_in });
   };
-  const handleEnd = (end) => {
-    setIsEnd(end);
-    setIsPayInfo({ ...isPayInfo, end });
+  const handleEnd = (check_out) => {
+    setIsEnd(check_out);
+    setIsPayInfo({ ...isPayInfo, check_out });
   };
-  const handleAdult = (adult) => {
-    setIsPayInfo({ ...isPayInfo, adult });
+  const handleAdult = (adult_count) => {
+    setIsPayInfo({ ...isPayInfo, adult_count });
   };
-  const handleChildren = (children) => {
-    setIsPayInfo({ ...isPayInfo, children });
+  const handleChildren = (child_count) => {
+    setIsPayInfo({ ...isPayInfo, child_count });
   };
 
   const CheckEmpty = () => {
     let isValid = true;
-    if (!isPayInfo.start) {
+    if (!isPayInfo.check_in) {
       setIsPopup(true);
       setErrrorMessage("체크인 날짜를 선택해주세요.");
       isValid = false;
-    } else if (!isPayInfo.end) {
+    } else if (!isPayInfo.check_out) {
       setIsPopup(true);
       setErrrorMessage("체크아웃 날짜를 선택해주세요.");
       isValid = false;
-    } else if (isPayInfo.adult + isPayInfo.children > roomInfo.maximum_capacity) {
+    } else if (isPayInfo.adult_count + isPayInfo.child_count > roomInfo.maximum_capacity) {
       setIsPopup(true);
       setErrrorMessage(`해당 객실은 ${roomInfo.maximum_capacity}명까지 수용가능한 객실입니다. 인원수를 조절해주세요.`);
       isValid = false;
-    } else if (isPayInfo.adult + isPayInfo.children === 0) {
+    } else if (isPayInfo.adult_count + isPayInfo.child_count === 0) {
       setIsPopup(true);
       setErrrorMessage(`최소 1명이상 예약해 주세요.`);
       isValid = false;
@@ -122,26 +108,26 @@ const ReservationFirst = () => {
 
   useEffect(() => {
     const handleCalculate = () => {
-      const countMember = parseInt(isPayInfo.adult) + parseInt(isPayInfo.children);
-      const adult_fare = parseInt(isPayInfo.adult) * roomInfo.adult_fare;
-      const childrenPay = parseInt(isPayInfo.children) * roomInfo.child_fare;
-      const totalPay = adult_fare + childrenPay;
+      const countMember = parseInt(isPayInfo.adult_count) + parseInt(isPayInfo.child_count);
+      const adult_fare = parseInt(isPayInfo.adult_count) * roomInfo.adult_fare;
+      const childrenPay = parseInt(isPayInfo.child_count) * roomInfo.child_fare;
+      const total_price = adult_fare + childrenPay;
 
       if (roomInfo.maximum_capacity < countMember) {
         setIsToast(true);
-        setIsPayInfo({ ...isPayInfo, adult_fare, childrenPay, totalPay });
+        setIsPayInfo({ ...isPayInfo, adult_fare, childrenPay, total_price });
       } else if (roomInfo.standard_capacity < countMember && roomInfo.maximum_capacity >= countMember) {
         setIsToast2(true);
-        setIsPayInfo({ ...isPayInfo, adult_fare, childrenPay, totalPay });
+        setIsPayInfo({ ...isPayInfo, adult_fare, childrenPay, total_price });
       } else {
         setIsToast(false);
         setIsToast2(false);
-        setIsPayInfo({ ...isPayInfo, adult_fare, childrenPay, totalPay });
+        setIsPayInfo({ ...isPayInfo, adult_fare, childrenPay, total_price });
       }
     };
 
     return handleCalculate();
-  }, [isPayInfo.adult, isPayInfo.children]);
+  }, [isPayInfo.adult_count, isPayInfo.child_count]);
 
   // 결제완료 넘기기
   const handleReservation = async () => {
@@ -195,18 +181,20 @@ const ReservationFirst = () => {
               <GuestCounter kids iscount={handleChildren} max={roomInfo.maximum_capacity} />
             </li>
             <li className="!grid grid-cols-2">
-              <strong className="--title">성인 ⨉ {isPayInfo.adult ? isPayInfo.adult : 0}</strong>{" "}
+              <strong className="--title">성인 ⨉ {isPayInfo.adult_count ? isPayInfo.adult_count : 0}</strong>
               <span className="--total justify-self-end">
                 ₩ {isPayInfo.adult_fare ? digit3(isPayInfo.adult_fare) : 0}
               </span>
-              <strong className="--title">어린이 ⨉ {isPayInfo.children ? isPayInfo.children : 0}</strong>{" "}
+              <strong className="--title">어린이 ⨉ {isPayInfo.child_count ? isPayInfo.child_count : 0}</strong>
               <span className="--total justify-self-end">
                 ₩ {isPayInfo.child_fare ? digit3(isPayInfo.child_fare) : "0"}
               </span>
             </li>
             <li>
               <strong className="--title !text-lg">총 금액</strong>{" "}
-              <span className="--total justify-self-end">₩ {isPayInfo.totalPay ? digit3(isPayInfo.totalPay) : 0}</span>
+              <span className="--total justify-self-end">
+                ₩ {isPayInfo.total_price ? digit3(isPayInfo.total_price) : 0}
+              </span>
             </li>
           </ul>
           <div className="grid grid-cols-[1.7fr_1fr] gap-3">
