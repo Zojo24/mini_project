@@ -2,11 +2,14 @@ import { create } from "zustand";
 import { persist, devtools } from "zustand/middleware";
 
 let registerStore = (set) => ({
-  register: false,
-  setRegister: (value) => set({ register: value }),
+  user: { name: "", email: "", birth: "", password: "" },
+  setUser: (user) => set({ user }),
 });
 
 registerStore = devtools(registerStore);
-registerStore = persist(registerStore, { name: "user" });
+registerStore = persist(registerStore, {
+  name: "user",
+  getStorage: () => localStorage,
+});
 
 export const useRegisterStore = create(registerStore);
