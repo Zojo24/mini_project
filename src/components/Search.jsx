@@ -122,6 +122,11 @@ const Today = (nextDay = 0) => {
 const Search = () => {
   const [isStart, setIsStart] = useState(Today());
   const [isEnd, setIsEnd] = useState(Today(1));
+  const [location, setLocation] = useState("");
+  const [roomType, setRoomType] = useState("");
+  const [viewType, setViewType] = useState("");
+  const [priceRange, setPriceRange] = useState("");
+  const [guestNumber, setGuestNumber] = useState("");
 
   const handleStart = (value) => {
     console.log(value);
@@ -136,8 +141,34 @@ const Search = () => {
   // console.log(`isStart ${isStart}`);
   // console.log(`isEnd ${isEnd}`);
 
+  const handleLocation = (e) => {
+    setLocation(e.target.value);
+  };
+
+  const handleRoomType = (e) => {
+    setRoomType(e.target.value);
+  };
+
+  const handleViewType = (e) => {
+    setViewType(e.target.value);
+  };
+
+  const handlePriceRange = (e) => {
+    setPriceRange(e.target.value);
+  };
+  const handleGuestNumber = (e) => {
+    setGuestNumber(e.target.value);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    console.log(
+      `지역: ${location}, 객실 종류: ${roomType}, 뷰 종류: ${viewType}, 가격 범위: ${priceRange}, 인원 수: ${guestNumber}, 시작일: ${isStart}, 종료일: ${isEnd}`
+    );
+  };
+
   return (
-    <form className="search">
+    <form className="search" onSubmit={handleSearch}>
       <div>
         <div className="search__title">
           <span>
@@ -145,7 +176,7 @@ const Search = () => {
           </span>
           <b>지역</b>
         </div>
-        <Select options={where} />
+        <Select options={where} onChange={handleLocation} />
       </div>
       <div>
         <div className="search__title">
@@ -154,7 +185,7 @@ const Search = () => {
           </span>
           <b>객실 종류</b>
         </div>
-        <Select options={viewKind} />
+        <Select options={viewKind} onChange={handleRoomType} />
       </div>
       <div>
         <div className="search__title">
@@ -163,7 +194,7 @@ const Search = () => {
           </span>
           <b>뷰 종류</b>
         </div>
-        <Select options={viewOption} />
+        <Select options={viewOption} onChange={handleViewType} />
       </div>
       <div>
         <div className="search__title">
@@ -172,7 +203,7 @@ const Search = () => {
           </span>
           <b>1박당 요금</b>
         </div>
-        <Select options={priceOption} />
+        <Select options={priceOption} onChange={handlePriceRange} />
       </div>
       <div>
         <div className="search__title">
@@ -181,9 +212,9 @@ const Search = () => {
           </span>
           <b>인원 수</b>
         </div>
-        <Guest />
+        <Guest onChange={handleGuestNumber} />
       </div>
-      <button className="btn-blue xl">
+      <button type="submit" className="btn-blue xl">
         <LuSearch />
         Search
       </button>
