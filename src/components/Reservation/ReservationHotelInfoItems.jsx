@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { digit3 } from "../../store/digit3";
 
 const ReservationHotelInfoItems = (item) => {
-  const { adult, adultpay, children, childrenPay, end, start, totalPay, hotelName, photo } = item;
+  const { adult, adult_fare, children, child_fare, end, start, totalPay, hotel_name, file } = item;
 
   const formattedPrice = digit3(totalPay);
 
@@ -12,12 +12,12 @@ const ReservationHotelInfoItems = (item) => {
     <>
       <li className="grid group items-center gap-3 grid-cols-[min-content_1fr_min-content] grid-rows-[repeat(auto-fill,minmax(0,auto))] border-b border-b-gray-300 border-dashed py-3">
         <Link to="/hoteldetail">
-          <RoomPicture image={photo} className={"md"} />
+          <RoomPicture image={file} className={"md"} />
         </Link>
         <div>
           <div>
             <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2 font-bold">
-              {hotelName}
+              {hotel_name}
             </Link>
             <div className="text-sm flex mt-2 leading-6">
               <b className="font-semibold">예약일</b>

@@ -5,10 +5,10 @@ import ReservationHotelInfoItems from "./ReservationHotelInfoItems";
 import { useReservationStore } from "../../store/reservationStore";
 import { digit3 } from "../../store/digit3";
 
-const ReservationHotelInfo = () => {
-  const { reservationInfos } = useReservationStore();
-
-  const totalPayment = reservationInfos.reduce((acc, curr) => acc + curr.totalPay, 0);
+const ReservationHotelInfo = ({ userInfo }) => {
+  const { paymentInfos } = useReservationStore();
+  const { credit } = userInfo;
+  const totalPayment = paymentInfos.reduce((acc, curr) => acc + curr.totalPay, 0);
   const formattedTotalPayment = digit3(totalPayment);
 
   return (
@@ -16,7 +16,7 @@ const ReservationHotelInfo = () => {
       <Heading tag={"h3"} text={"호텔 예약정보"} />
       <div>
         <ul className="reservation__hotel-info__list">
-          {reservationInfos.map((item, index) => (
+          {paymentInfos.map((item, index) => (
             <ReservationHotelInfoItems key={index} {...item} />
           ))}
         </ul>
@@ -24,7 +24,16 @@ const ReservationHotelInfo = () => {
           <span className="text-sm pr-2">보유 금액</span>
           <div>
             <span className="text-2xl font-extrabold text-blue-700" style={{ fontFamily: "var(--eng1)" }}>
-              1,000,000
+              {digit3(credit)}
+            </span>
+            <span className="text-lg pl-1">원</span>
+          </div>
+        </div>
+        <div className="flex justify-between items-baseline pb-4">
+          <span className="text-sm pr-2">결제후 보유 금액</span>
+          <div>
+            <span className="text-xl font-extrabold text-gray-700" style={{ fontFamily: "var(--eng1)" }}>
+              {digit3(credit - totalPayment)}
             </span>
             <span className="text-lg pl-1">원</span>
           </div>
