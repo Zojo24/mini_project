@@ -13,77 +13,77 @@ import "../styles/components/search.css";
 
 const where = [
   {
-    value: "select1",
+    value: "NATION",
     text: "어디에 머물고 싶으세요?",
   },
   {
-    value: "select2",
+    value: "THAILAND",
     text: "태국",
   },
   {
-    value: "select3",
+    value: "VIETNAM",
     text: "베트남",
   },
   {
-    value: "select4",
+    value: "PHILIPPINES",
     text: "필리핀",
   },
   {
-    value: "select5",
+    value: "MALAYSIA",
     text: "말레이시아",
   },
   {
-    value: "select6",
+    value: "TAIWAN",
     text: "대만",
   },
 ];
 const viewKind = [
   {
-    value: "select1",
+    value: "STANDARD",
     text: "스탠다드 룸",
   },
   {
-    value: "select2",
+    value: "DELUXE",
     text: "디럭스 룸",
   },
   {
-    value: "select3",
+    value: "TWIN",
     text: "트윈 룸",
   },
   {
-    value: "select4",
+    value: "SWEET",
     text: "스위트 룸",
   },
 ];
 const viewOption = [
   {
-    value: "select1",
+    value: "OCEAN",
     text: "오션뷰",
   },
   {
-    value: "select2",
+    value: "CITY",
     text: "시티뷰",
   },
   {
-    value: "select3",
+    value: "GARDEN",
     text: "가든뷰",
   },
   {
-    value: "select4",
+    value: "RIVER",
     text: "리버뷰",
   },
   {
-    value: "select5",
+    value: "MOUNTAIN",
     text: "마운틴뷰",
   },
   {
-    value: "select6",
+    value: "NONE",
     text: "뷰없음",
   },
 ];
 const priceOption = [
   {
-    value: "select6",
+    value: "ALL",
     text: "모든 가격",
   },
   {
