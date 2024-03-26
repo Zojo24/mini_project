@@ -1,6 +1,6 @@
 export let HotelistsData = [
   {
-    id: 1,
+    id: 1642,
     name: "오카다 마닐라 (Okada Manila)",
     location: "태국",
     price: "295000",
@@ -35,7 +35,7 @@ export let HotelistsData = [
     swimmingpool_closed: "22:00",
   },
   {
-    id: 2,
+    id: 224,
     name: "킹스포드 호텔(Kingsford Hotel)",
     location: "태국",
     price: "91000",

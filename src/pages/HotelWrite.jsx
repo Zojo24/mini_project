@@ -10,6 +10,7 @@ import subvisual from '../assets/subvisual3.jpg';
 import Badge from '../components/Badge';
 import Box from '../components/Box';
 import Checkbox from '../components/Checkbox';
+import Dialog from '../components/Dialog';
 import Heading from '../components/Heading';
 import RoomList from '../components/Hotel/RoomList';
 import RoomWrite from '../components/Hotel/RoomWrite';
@@ -89,13 +90,14 @@ const HotelWrite = () => {
   const [isToggle, setIsToggle] = useState(false);
   const [locationText, setLocationText] = useState("");
   const [price, setPrice] = useState("");
+  const [isPopup, setIsPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [hotelInfo, setHotelInfo] = useState({
     name: "",
     location: "태국",
     price: "",
     available: true,
     content: "",
-    facilities: [],
     checkIn: "",
     checkOut: "",
     notSmoking: true,
@@ -218,6 +220,26 @@ const HotelWrite = () => {
   };
   //호텔등록
   const onSendClick = async (e) => {
+    if (
+      hotelInfo.name == "" ||
+      hotelInfo.price == "" ||
+      hotelInfo.content == ""
+    ) {
+      setIsPopup(true);
+      setErrorMessage("호텔 기본정보를 모두 입력해 주세요.");
+      return;
+    } else if (
+      hotelInfo.checkIn == "" ||
+      hotelInfo.checkOut == "" ||
+      (hotelInfo.options.swimming_pool === true &&
+        hotelInfo.options.swimmingpool_open == "") ||
+      (hotelInfo.options.swimming_pool == true &&
+        hotelInfo.options.swimmingpool_closed == "")
+    ) {
+      setIsPopup(true);
+      setErrorMessage("호텔 규칙을 모두 입력해 주세요.");
+      return;
+    }
     e.preventDefault();
     try {
       const response = await axios.post("/hotels", hotelInfo);
@@ -283,11 +305,7 @@ const HotelWrite = () => {
               <ul className="grid grid-cols-3 gap-5">
                 <li className="grid gap-3">
                   호텔 위치
-                  <Select
-                    options={where}
-                    value={locationText}
-                    onChange={handleLocationChange}
-                  />
+                  <Select options={where} onChange={handleLocationChange} />
                 </li>
                 <li className="grid gap-3">
                   호텔 이름
@@ -635,20 +653,22 @@ const HotelWrite = () => {
                         </Badge>
                       </div>
                     </li>
-                    <li className="grid grid-cols-[8rem_1fr] items-center">
-                      <strong>수영장 이용시간</strong>
-                      <div className="grid grid-cols-[1fr_2rem_1fr] items-center">
-                        <Select
-                          options={checkOption}
-                          onChange={handlePoolOpen}
-                        />
-                        <span className="justify-self-center">~</span>
-                        <Select
-                          options={checkOption}
-                          onChange={handlePoolClose}
-                        />
-                      </div>
-                    </li>
+                    {hotelInfo.options.swimming_pool && (
+                      <li className="grid grid-cols-[8rem_1fr] items-center">
+                        <strong>수영장 이용시간</strong>
+                        <div className="grid grid-cols-[1fr_2rem_1fr] items-center">
+                          <Select
+                            options={checkOption}
+                            onChange={handlePoolOpen}
+                          />
+                          <span className="justify-self-center">~</span>
+                          <Select
+                            options={checkOption}
+                            onChange={handlePoolClose}
+                          />
+                        </div>
+                      </li>
+                    )}
                   </ul>
                 </Box>
               </div>
@@ -678,6 +698,14 @@ const HotelWrite = () => {
           </div>
         </div>
       </div>
+      <Dialog open={isPopup} close={() => setIsPopup(false)}>
+        <div className="text-center">
+          <div className="text-center pb-3">{errorMessage}</div>
+          <button className="btn-blue" onClick={() => setIsPopup(false)}>
+            확인
+          </button>
+        </div>
+      </Dialog>
     </>
   );
 };

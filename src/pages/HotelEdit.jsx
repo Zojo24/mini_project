@@ -3,7 +3,6 @@ import React, {
   useState,
 } from 'react';
 
-import axios from 'axios';
 import {
   useNavigate,
   useParams,
@@ -13,6 +12,7 @@ import subvisual from '../assets/subvisual3.jpg';
 import Badge from '../components/Badge';
 import Box from '../components/Box';
 import Checkbox from '../components/Checkbox';
+import Dialog from '../components/Dialog';
 import Heading from '../components/Heading';
 import RoomList from '../components/Hotel/RoomList';
 import RoomWrite from '../components/Hotel/RoomWrite';
@@ -20,7 +20,6 @@ import Input from '../components/Input';
 import Noimage from '../components/Noimage';
 import Radio from '../components/Radio';
 import Select from '../components/Select';
-import { HotelistsData } from '../data/hotelLists';
 import { usehotelListStore } from '../store/hotelListStore';
 import { useVisualStore } from '../store/visualStore';
 
@@ -81,7 +80,6 @@ const HotelEdit = () => {
   const [isImage, setIsImage] = useState("");
   const thisHotel = totalHotels.find((hotel) => hotel.id === Number(hotelId));
 
-  console.log("edit", thisHotel);
   useEffect(() => {
     setTitle("Hotel Registration", subvisual);
   }, [setTitle]);
@@ -96,8 +94,12 @@ const HotelEdit = () => {
   const [isToggle, setIsToggle] = useState(false);
   const [locationText, setLocationText] = useState("");
   const [price, setPrice] = useState("");
+  const [isPopup, setIsPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
+  const options = thisHotel.options;
   const [hotelInfo, setHotelInfo] = useState({
+    id: thisHotel.id,
     name: thisHotel.name,
     location: thisHotel.location,
     price: thisHotel.price,
@@ -106,32 +108,32 @@ const HotelEdit = () => {
     facilities: [],
     checkIn: thisHotel.checkIn,
     checkOut: thisHotel.checkOut,
-    notSmoking: true,
-    noPet: true,
+    notSmoking: thisHotel.notSmoking,
+    noPet: thisHotel.noPet,
     swimmingpool_open: thisHotel.swimmingpool_open,
     swimmingpool_closed: thisHotel.swimmingpool_closed,
     options: {
-      swimming_pool: false,
-      break_fast: false,
-      wireless_internet: false,
-      dry_cleaning: false,
-      storage_service: false,
-      convenience_store: false,
-      ironing_tools: false,
-      wakeup_call: false,
-      mini_bar: false,
-      shower_room: false,
-      air_conditioner: false,
-      table: false,
-      tv: false,
-      safety_deposit_box: false,
-      welcome_drink: false,
-      free_parking: false,
-      fitness: false,
-      electric_kettle: false,
+      swimming_pool: options.swimming_pool,
+      break_fast: options.break_fast,
+      wireless_internet: options.wireless_internet,
+      dry_cleaning: options.dry_cleaning,
+      storage_service: options.storage_service,
+      convenience_store: options.convenience_store,
+      ironing_tools: options.ironing_tools,
+      wakeup_call: options.wakeup_call,
+      mini_bar: options.mini_bar,
+      shower_room: options.shower_room,
+      air_conditioner: options.air_conditioner,
+      table: options.table,
+      tv: options.tv,
+      safety_deposit_box: options.safety_deposit_box,
+      welcome_drink: options.welcome_drink,
+      free_parking: options.free_parking,
+      fitness: options.fitness,
+      electric_kettle: options.electric_kettle,
     },
   });
-
+  console.log("edit", hotelInfo);
   const addHotel = usehotelListStore((state) => state.addHotel);
   //호텔이름
   const handleName = (value) => {
@@ -148,9 +150,23 @@ const HotelEdit = () => {
       location: selectedText,
     }));
   };
+  const getLocationValue = (location) => {
+    const option = where.find((option) => option.text === location);
+    return option ? option.value : undefined;
+  };
+
+  const locationValue = getLocationValue(thisHotel.location);
   //가격
+  const cut3Digit = /\B(?=(\d{3})+(?!\d))/g;
+  const formatPrice = (value) => {
+    return value.replace(cut3Digit, ",");
+  };
+
   const handlePrice = (value) => {
-    setHotelInfo({ ...hotelInfo, price: value });
+    const inputValue = value.replace(/\D/g, "");
+    const formattedPrice = formatPrice(inputValue);
+
+    setHotelInfo({ ...hotelInfo, price: formattedPrice });
   };
 
   //예약가능
@@ -164,9 +180,8 @@ const HotelEdit = () => {
   };
   //편의시설
   const handleCheckbox = (e) => {
-    const { name, checked } = e.target; // 체크박스의 name과 checked 상태를 가져옵니다.
+    const { name, checked } = e.target;
 
-    // options 상태를 업데이트합니다. 해당하는 option의 값을 checked 값으로 설정합니다.
     setHotelInfo((prev) => ({
       ...prev,
       options: {
@@ -175,19 +190,17 @@ const HotelEdit = () => {
       },
     }));
   };
-  const handleCheckboxChange = (checked, value) => {
-    setHotelInfo((prevHotelInfo) => {
-      const newFacilities = checked
-        ? [...prevHotelInfo.facilities, value] // 체크된 경우 facilities 배열에 항목 추가
-        : prevHotelInfo.facilities.filter((item) => item !== value); // 언체크된 경우 facilities 배열에서 해당 항목 제거
 
-      return {
-        ...prevHotelInfo,
-        facilities: newFacilities,
-      };
-    });
-  };
   //체크인
+  const getTimeValue = (time) => {
+    const option = checkOption.find((option) => option.text === time);
+    return option ? option.value : undefined;
+  };
+
+  const checkInValue = getTimeValue(thisHotel.checkIn);
+  const checkOutValue = getTimeValue(thisHotel.checkOut);
+  const poolOpenValue = getTimeValue(thisHotel.swimmingpool_open);
+  const poolClosedValue = getTimeValue(thisHotel.swimmingpool_closed);
 
   const handleCheckIn = (e) => {
     const selectedValue = e.target.value;
@@ -225,23 +238,32 @@ const HotelEdit = () => {
       checkOption.find((option) => option.value === selectedValue)?.text || "";
     setHotelInfo({ ...hotelInfo, swimmingpool_closed: selectedText });
   };
-  //호텔등록
-  const onSendClick = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post("/hotels", hotelInfo);
-      console.log(HotelistsData);
-    } catch (error) {
-      console.error("Error sending POST request:", error);
-    }
-    addHotel(hotelInfo);
-  };
+
   //수정저장
   const saveHotel = () => {
-    console.log("", hotelInfo);
+    if (
+      hotelInfo.name == "" ||
+      hotelInfo.price == "" ||
+      hotelInfo.content == ""
+    ) {
+      setIsPopup(true);
+      setErrorMessage("호텔 기본정보를 모두 입력해 주세요.");
+      return;
+    } else if (
+      hotelInfo.checkIn == "" ||
+      hotelInfo.checkOut == "" ||
+      (hotelInfo.options.swimming_pool === true &&
+        hotelInfo.options.swimmingpool_open == "") ||
+      (hotelInfo.options.swimming_pool == true &&
+        hotelInfo.options.swimmingpool_closed == "")
+    ) {
+      setIsPopup(true);
+      setErrorMessage("호텔 규칙을 모두 입력해 주세요.");
+      return;
+    }
     const index = totalHotels.findIndex((hotel) => hotel.id === thisHotel.id);
-    console.log("index", index);
-    totalHotels[0] = { ...hotelInfo };
+    console.log(index);
+    totalHotels[index] = { ...hotelInfo };
     console.log(totalHotels);
     saveEditHotel(totalHotels);
     navigate("/");
@@ -303,8 +325,8 @@ const HotelEdit = () => {
                 <li className="grid gap-3">
                   호텔 위치
                   <Select
+                    selectValue={locationValue}
                     options={where}
-                    value={locationText}
                     onChange={handleLocationChange}
                   />
                 </li>
@@ -321,9 +343,8 @@ const HotelEdit = () => {
                   <div className="grid grid-cols-[1fr_min-content] items-center gap-2">
                     <Input
                       onChange={handlePrice}
-                      value={price}
+                      value={hotelInfo.price}
                       type={"text"}
-                      price={true}
                     />{" "}
                     원
                   </div>
@@ -600,11 +621,19 @@ const HotelEdit = () => {
                   <ul className="grid gap-5">
                     <li className="grid grid-cols-[8rem_1fr] items-center">
                       <strong>체크인</strong>
-                      <Select options={checkOption} onChange={handleCheckIn} />
+                      <Select
+                        selectValue={checkInValue}
+                        options={checkOption}
+                        onChange={handleCheckIn}
+                      />
                     </li>
                     <li className="grid grid-cols-[8rem_1fr] items-center">
                       <strong>체크아웃</strong>
-                      <Select options={checkOption} onChange={handleCheckOut} />
+                      <Select
+                        selectValue={checkOutValue}
+                        options={checkOption}
+                        onChange={handleCheckOut}
+                      />
                     </li>
                     <li className="grid grid-cols-[8rem_1fr] items-center">
                       <strong>흡연</strong>
@@ -654,20 +683,24 @@ const HotelEdit = () => {
                         </Badge>
                       </div>
                     </li>
-                    <li className="grid grid-cols-[8rem_1fr] items-center">
-                      <strong>수영장 이용시간</strong>
-                      <div className="grid grid-cols-[1fr_2rem_1fr] items-center">
-                        <Select
-                          options={checkOption}
-                          onChange={handlePoolOpen}
-                        />
-                        <span className="justify-self-center">~</span>
-                        <Select
-                          options={checkOption}
-                          onChange={handlePoolClose}
-                        />
-                      </div>
-                    </li>
+                    {hotelInfo.options.swimming_pool && (
+                      <li className="grid grid-cols-[8rem_1fr] items-center">
+                        <strong>수영장 이용시간</strong>
+                        <div className="grid grid-cols-[1fr_2rem_1fr] items-center">
+                          <Select
+                            selectValue={poolOpenValue}
+                            options={checkOption}
+                            onChange={handlePoolOpen}
+                          />
+                          <span className="justify-self-center">~</span>
+                          <Select
+                            selectValue={poolClosedValue}
+                            options={checkOption}
+                            onChange={handlePoolClose}
+                          />
+                        </div>
+                      </li>
+                    )}
                   </ul>
                 </Box>
               </div>
@@ -687,7 +720,9 @@ const HotelEdit = () => {
             {isToggle ? <RoomWrite /> : <RoomList edit={true} />}
           </Box>
           <div className="flex justify-between mt-10">
-            <button className="btn-gray xl">이전</button>
+            <button onClick={() => {}} className="btn-gray xl">
+              이전
+            </button>
             <div className="flex  gap-3">
               <button className="btn-green xl" onClick={saveHotel}>
                 호텔 수정
@@ -696,6 +731,14 @@ const HotelEdit = () => {
           </div>
         </div>
       </div>
+      <Dialog open={isPopup} close={() => setIsPopup(false)}>
+        <div className="text-center">
+          <div className="text-center pb-3">{errorMessage}</div>
+          <button className="btn-blue" onClick={() => setIsPopup(false)}>
+            확인
+          </button>
+        </div>
+      </Dialog>
     </>
   );
 };

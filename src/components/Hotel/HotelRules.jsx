@@ -1,9 +1,13 @@
 import React from 'react';
 
-import { useHotelStore } from '../../store/hotelStore';
+import { useParams } from 'react-router-dom';
+
+import { usehotelListStore } from '../../store/hotelListStore';
 
 const HotelRules = ({ className }) => {
-  const { thisHotel } = useHotelStore();
+  let { hotelId } = useParams();
+  const { totalHotels } = usehotelListStore();
+  const thisHotel = totalHotels.find((hotel) => hotel.id === Number(hotelId));
 
   function getTimePeriod(time) {
     const [hours, minutes] = time.split(":").map(Number);
