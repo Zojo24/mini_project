@@ -115,11 +115,11 @@ const HotelDetail = () => {
                 text={"편의시설 및 서비스"}
                 className={"base"}
               />
-              <ServiceList className={"mt-5"} />
+              {/*<ServiceList className={"mt-5"} />*/}
             </Box>
             <Box>
               <Heading tag={"h3"} text={"호텔 객실 규칙"} className={"base"} />
-              <HotelRules className={"mt-5"} />
+              {/*<HotelRules className={"mt-5"} />*/}
             </Box>
             <Box>
               <Heading
