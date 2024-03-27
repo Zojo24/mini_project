@@ -7,7 +7,7 @@ import subvisual from "../assets/subvisual1.jpg";
 import Destinations from "../components/Destinations";
 import Heading from "../components/Heading";
 import HotelList from "../components/Hotel/HotelList";
-import SearchDetail from "../components/Search/SearchDetail";
+import SearchDetail from "../components/search/SearchDetail";
 import { useVisualStore } from "../store/visualStore";
 
 const HotelAllList = () => {
