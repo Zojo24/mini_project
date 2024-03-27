@@ -9,8 +9,8 @@ import Toast from "../components/Toast";
 
 const Login = ({ close, ...props }) => {
   // const setLogin = useLoginStore((state) => state.setLogin);
-  const { setLogin } = useLoginStore();
-  const { setUser } = useRegisterStore();
+  const { setLogin, setUser } = useLoginStore();
+  const { setRegister } = useRegisterStore();
   const navigate = useNavigate();
 
   // 로그인 상태
@@ -151,7 +151,7 @@ const Login = ({ close, ...props }) => {
     //     console.log("Register failed", error);
     //   }
     // };
-    setUser({
+    setRegister({
       name,
       email: registerEmail,
       birth: `${birthYear}${birthMonth}${birthDay}`,
