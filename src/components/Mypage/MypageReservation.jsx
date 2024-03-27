@@ -4,7 +4,7 @@ import { useReservationStore } from "../../store/reservationStore";
 import MypageReservationItems from "./MypageReservationItems";
 
 const MypageReservation = () => {
-  const { paymentInfos } = useReservationStore();
+  const { totalInfos } = useReservationStore();
   return (
     <div>
       <div className="bg-white rounded-xl p-10">
@@ -31,8 +31,8 @@ const MypageReservation = () => {
             </tr>
           </thead>
           <tbody>
-            {paymentInfos.length > 0 ? (
-              paymentInfos.map((item, index) => <MypageReservationItems key={index} {...item} />)
+            {totalInfos.length > 0 ? (
+              totalInfos.map((items, index) => <MypageReservationItems key={index} items={items} />)
             ) : (
               <tr>
                 <td colSpan={7} className="!py-10">

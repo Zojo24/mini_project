@@ -8,7 +8,7 @@ import { digit3 } from "../../store/digit3";
 const ReservationHotelInfo = ({ userInfo }) => {
   const { paymentInfos } = useReservationStore();
   const { credit } = userInfo;
-  const totalPayment = paymentInfos.reduce((acc, curr) => acc + curr.total_price, 0);
+  const totalPayment = paymentInfos?.reduce((acc, curr) => acc + curr.total_price, 0);
   const formattedTotalPayment = digit3(totalPayment);
 
   return (

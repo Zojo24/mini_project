@@ -3,7 +3,8 @@ import RoomPicture from "../Hotel/RoomPicture";
 import { Link } from "react-router-dom";
 import { digit3 } from "../../store/digit3";
 
-const MypageReservationItems = (item) => {
+const MypageReservationItems = ({ items }) => {
+  const item = items.paymentInfos[0];
   const { file, hotel_name, type, adult_count, child_count, check_in, check_out, total_price } = item;
 
   return (

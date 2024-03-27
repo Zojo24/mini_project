@@ -1,14 +1,21 @@
 import React from "react";
 import RoomPicture from "../Hotel/RoomPicture";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import room from "../../assets/hotelroom3.jpeg";
 import { digit3 } from "../../store/digit3";
 import { useReservationStore } from "../../store/reservationStore";
 
-const ReservationHotelInfoItems = ({ close, items }) => {
-  const { adult_count, child_count, check_out, hotel_name, check_in, total_price, id } = items;
+const CartItems = ({ close, items }) => {
+  const { adult_count, child_count, check_out, hotel_name, check_in, total_price, cart_id } = items;
 
-  const { deleteCart } = useReservationStore();
+  const { deleteCart, addInfo } = useReservationStore();
+  const navigate = useNavigate();
+
+  const handleOnClick = () => {
+    addInfo(items);
+    navigate("/reservation");
+    close();
+  };
 
   return (
     <>
@@ -40,16 +47,16 @@ const ReservationHotelInfoItems = ({ close, items }) => {
           </div>
         </div>
         <div className="col-span-2 justify-self-end flex gap-2">
-          <Link to="/reservation" onClick={close} className="btn-blue-outline sm">
+          <button onClick={handleOnClick} className="btn-blue-outline sm">
             결제
-          </Link>
-          <Link to="/reservation" className="btn-red-outline sm" onClick={() => deleteCart(id)}>
+          </button>
+          <button className="btn-red-outline sm" onClick={() => deleteCart(cart_id)}>
             삭제
-          </Link>
+          </button>
         </div>
       </li>
     </>
   );
 };
 
-export default ReservationHotelInfoItems;
+export default CartItems;
