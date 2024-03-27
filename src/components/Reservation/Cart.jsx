@@ -16,7 +16,6 @@ const Cart = ({ mypage, close }) => {
     close();
   };
 
-  console.log(cartInfos);
   const cartTotalPrice = digit3(cartInfos.reduce((acc, curr) => acc + curr.total_price, 0));
 
   return (
