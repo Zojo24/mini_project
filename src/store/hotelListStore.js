@@ -1,19 +1,13 @@
-import { create } from 'zustand';
-import {
-  devtools,
-  persist,
-} from 'zustand/middleware';
+import { create } from "zustand";
+import { devtools, persist } from "zustand/middleware";
 
 let hotelListStore = (set) => ({
-  totalHotels: [{ name: "호텔" }],
+  totalHotels: [],
 
   //호텔등록
   addHotel: (hotelInfo) =>
     set((state) => ({
-      totalHotels: [
-        ...state.totalHotels,
-        { ...hotelInfo, id: getRandomInteger(1, 5000) },
-      ],
+      totalHotels: [...state.totalHotels, { ...hotelInfo, id: getRandomInteger(1, 5000) }],
     })),
 
   //호텔수정하기
@@ -38,9 +32,7 @@ let hotelListStore = (set) => ({
   //   }),
   deleteHotel: (hotelId) =>
     set((state) => ({
-      totalHotels: state.totalHotels.filter(
-        (hotel) => hotel.id !== Number(hotelId)
-      ),
+      totalHotels: state.totalHotels.filter((hotel) => hotel.id !== Number(hotelId)),
     })),
 });
 

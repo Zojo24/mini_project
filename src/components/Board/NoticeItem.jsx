@@ -12,7 +12,6 @@ const NoticeItem = ({ index, item, activeIndex, setActiveIndex, onDelete, ...pro
     if (isEditing && index === activeIndex) return;
     setActiveIndex(index === activeIndex ? null : index);
   };
-  
 
   const handleEdit = () => {
     setIsEditing(true); // 수정 모드로 변경
@@ -40,11 +39,15 @@ const NoticeItem = ({ index, item, activeIndex, setActiveIndex, onDelete, ...pro
   };
 
   return (
-    <li {...props}>
-      <button onClick={() => handleItem(index)} className={index === activeIndex ? "active" : ""}>
+    <li {...props} className="bg-white">
+      <button onClick={() => handleItem(index)} className={index === activeIndex ? "active " : ""}>
         {isEditing ? (
-          <textarea value={editedTitle} onChange={(e) => setEditedTitle(e.target.value)} 
-          className="h-[30px] w-full bg-gray-100 rounded-md" />
+          <Input
+            type={"text"}
+            value={editedTitle}
+            onChange={(value) => setEditedTitle(value)}
+            style={{ width: "calc(100% - 1rem)" }}
+          />
         ) : (
           // 읽기 전용 모드에서는 공지사항 제목을 표시
           item.title
@@ -64,11 +67,19 @@ const NoticeItem = ({ index, item, activeIndex, setActiveIndex, onDelete, ...pro
           {isEditing ? (
             // 수정 모드에서는 입력 폼을 렌더링하고, 저장 및 취소 버튼을 표시
             <div>
-              <textarea value={editedDescription} onChange={(e) => setEditedDescription(e.target.value)} 
-              className="h-[100px] w-full bg-gray-100 rounded-md" />
-              <div className="flex justify-end gap-2">
-                <button className="btn-green-label sm" onClick={handleSave}>저장</button>
-                <button className="btn-gray-label sm" onClick={handleCancel}>취소</button>
+              <Input
+                type={"textarea"}
+                value={editedDescription}
+                onChange={(value) => setEditedDescription(value)}
+                className="!w-full flex"
+              />
+              <div className="flex justify-end gap-2 mt-3">
+                <button className="btn-green-label sm" onClick={handleSave}>
+                  저장
+                </button>
+                <button className="btn-gray-label sm" onClick={handleCancel}>
+                  취소
+                </button>
               </div>
             </div>
           ) : (
@@ -76,8 +87,12 @@ const NoticeItem = ({ index, item, activeIndex, setActiveIndex, onDelete, ...pro
             <div>
               {item.description}
               <div className="flex justify-end gap-2">
-                <button className="btn-blue-label sm" onClick={handleEdit}>수정</button>
-                <button className="btn-red-label sm" onClick={handleDelete}>삭제</button>
+                <button className="btn-blue-label sm" onClick={handleEdit}>
+                  수정
+                </button>
+                <button className="btn-red-label sm" onClick={handleDelete}>
+                  삭제
+                </button>
               </div>
             </div>
           )}
