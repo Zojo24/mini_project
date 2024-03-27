@@ -1,8 +1,8 @@
 .main {
- @apply min-h-96 pt-24;
+ @apply tablet:min-h-96 mobile:pt-14 tablet:pt-24;
 }
 .container {
-  @apply   mx-auto;
+  @apply mobile:px-10 mobile:max-w-full  tablet:mx-auto box-border;
 }
 
 .bg-blue{

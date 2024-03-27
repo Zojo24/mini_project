@@ -32,21 +32,27 @@ const Utillity = ({ ...props }) => {
       {isLogin ? (
         <>
           <Link to="/mypage" className="flex items-center gap-1 mr-2 avatar-name">
-            <Avatar className={"!w-10 !h-10"} /> <strong>하하하</strong>님
+            <Avatar className={"!w-10 !h-10"} /> <strong className="whitespace-nowrap">하하하</strong>님
           </Link>
-          <button className="btn-blue" onClick={() => setIsLogin(false)}>
+          <button
+            className="btn-blue whitespace-nowrap mobile:hidden  tablet:inline-flex  tablet:h-10 tablet:px-3"
+            onClick={() => setIsLogin(false)}
+          >
             <IoIosLogOut />
-            Log Out
+            <span className="mobile:hidden tablet:inline-block">Log Out</span>
           </button>
-          <Link to="/hotelwrite" className="btn-red">
+          <Link
+            to="/hotelwrite"
+            className="btn-red whitespace-nowrap  mobile:hidden tablet:inline-flex tablet:h-10 tablet:px-3"
+          >
             <GoPencil />
-            호텔 등록
+            <span className="mobile:hidden tablet:inline-block">호텔 등록</span>
           </Link>
         </>
       ) : (
-        <button className="btn-blue" onClick={handleLogin}>
+        <button className="btn-blue mobile:h-10 mobile:px-3" onClick={handleLogin}>
           <GoPerson />
-          Log In
+          <span className="mobile:hidden desktop:inline-block">Log In</span>
         </button>
       )}
 

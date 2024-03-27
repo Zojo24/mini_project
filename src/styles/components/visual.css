@@ -1,11 +1,11 @@
 .visual {
-  @apply overflow-hidden;
+  @apply overflow-hidden  relative z-0 mobile:h-[20rem] tablet:h-[50rem];
   &::after {
     content: "";
     @apply absolute left-0 right-0 top-0 bottom-0 bg-blue-800 opacity-35 z-30;
   }
   .youtube {
-    @apply relative overflow-hidden w-full aspect-video pointer-events-none;
+    @apply relative overflow-hidden w-full mobile:aspect-square desktop:aspect-video pointer-events-none;
     z-index: -1;
     iframe {
       @apply w-[300%] h-full -ml-[100%];

@@ -1,5 +1,5 @@
 .destinations {
-  @apply grid grid-cols-5 gap-5 mt-10;
+  @apply grid mobile:grid-cols-2 tablet:grid-cols-5 gap-5 mt-10;
 
   a {
     @apply grid;
@@ -18,7 +18,7 @@
     }
   }
   img {
-    @apply aspect-square object-cover w-full scale-100 transition-all duration-300;
+    @apply mobile:aspect-video tablet:aspect-square object-cover w-full scale-100 transition-all duration-300;
   }
   &__info {
     @apply p-4 relative grid gap-1;

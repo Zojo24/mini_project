@@ -20,7 +20,7 @@ const Main = () => {
         <Search data-aos="fade-up" />
       </Visual>
       <div className="main">
-        <div className="container pb-20">
+        <div className="container mobile:pb-10 tablet:pb-20">
           <Heading tag={"h2"} className="xl" text={"Top Destinations"} data-aos="fade-up" />
           <Text type="1" className="text-center" data-aos="fade-up" data-aos-delay="200">
             최고의 목적지를 보고 다음 여행을 위한 완벽한 숙소를 발견하세요.

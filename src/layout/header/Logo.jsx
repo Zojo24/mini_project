@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 
 const Logo = ({ ...props }) => {
   return (
-    <h1 className="text-white text-2xl logo" {...props}>
+    <h1 className="text-white desktop:text-2xl tablet:text-xl mobile:text-base logo" {...props}>
       <Link to={"/"} className="inline-flex items-center gap-2 gap">
         <svg
-          className="fill-white"
+          className="fill-white mobile:w-10 tablet:w-12 desktop:w-14"
           viewBox="174.976 195.83 54.457 40.843"
-          width="54.457"
-          height="40.843"
+          // width="54.457"
+          // height="40.843"
           fill=""
           xmlns="http://www.w3.org/2000/svg"
         >
