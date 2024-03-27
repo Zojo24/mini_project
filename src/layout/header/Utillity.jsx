@@ -11,7 +11,8 @@ import { IoIosLogOut } from "react-icons/io";
 import Avatar from "../../components/Avatar";
 import Toast from "../../components/Toast";
 import Loading2 from "../../components/Loading";
-import axios from "axios";
+import { useSearchStore } from "../../store/searchStore";
+import useFetchHotels from "../../hooks/useFetchHotels";
 
 const Utillity = () => {
   const [isPopup, setIsPopup] = useState(false);
@@ -19,33 +20,19 @@ const Utillity = () => {
   const [isPopup3, setIsPopup3] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
 
-  const [searchResults, setSearchResults] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showToast, setShowToast] = useState(false);
+  const { setSearchTerm, setSearchResults } = useSearchStore();
+  const { isLoading, fetchHotels } = useFetchHotels();
 
   const handleLogin = () => {
     setIsPopup(true);
     setIsLogin(true);
   };
 
-  const handleSearch = async (searchTerm) => {
-    console.log("검색어:", searchTerm);
-    setIsLoading(true);
-    setError(null);
-    setShowToast(false);
-    try {
-      const response = await axios.get(
-        `/api/hotels/name/{name}?query=${searchTerm}`
-      );
-      setSearchResults(response.data.result?.content || []);
-    } catch (error) {
-      setError("검색 중 문제가 발생했습니다.");
-      setShowToast(true);
-      console.error("Search failed:", error);
-    } finally {
-      setIsLoading(false);
-    }
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+    fetchHotels();
   };
 
   return (

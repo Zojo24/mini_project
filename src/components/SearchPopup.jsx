@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { IoCloseOutline } from "react-icons/io5";
+import { useSearchStore } from "../store/searchStore";
 
 const SearchPopup = ({ open, close, onSearch, ...props }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const ref = useRef();
   const body = document.body;
+  const setSearchTermStore = useSearchStore((state) => state.setSearchTerm);
 
   useEffect(() => {
     if (open) {
@@ -19,6 +21,8 @@ const SearchPopup = ({ open, close, onSearch, ...props }) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    setSearchTermStore(searchTerm);
+    localStorage.setItem("lastSearch", searchTerm);
     onSearch(searchTerm);
     ref.current.close();
     console.log(searchTerm);
