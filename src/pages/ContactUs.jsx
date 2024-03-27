@@ -1,23 +1,32 @@
 import React, { useEffect } from "react";
-import Heading from "../components/Heading";
 import { useVisualStore } from "../store/visualStore";
 import { RiTwitterXLine } from "react-icons/ri";
 import { RiFacebookFill } from "react-icons/ri";
 import { RiLinkedinFill } from "react-icons/ri";
 import { RiInstagramLine } from "react-icons/ri";
-// import subvisual from "../assets/subvisual1.jpg";
-
+import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
+import logo from "../assets/logo.svg";
 const ContactUs = () => {
   const { setTitle } = useVisualStore();
 
   useEffect(() => {
     setTitle("Contact Us");
   }, [setTitle]);
+
+  const containerStyle = {
+    width: "100%",
+    height: "40rem",
+  };
+
+  const center = {
+    lat: 37.525,
+    lng: 126.9259,
+  };
   return (
     <>
       <div className="main">
-        <div className="container my-10 grid gap-14 grid-cols-2">
-          <div className="bg-black/5">map image</div>
+        <div className="container mt-10 mb-28 grid gap-14 grid-cols-2">
+          <div className="bg-black/5"></div>
           <div className="grid gap-5">
             <div className="flex gap-2 items-center text-2xl">
               <div className="text-white text-2xl logo">
@@ -89,6 +98,11 @@ const ContactUs = () => {
           </div>
         </div>
       </div>
+      <LoadScript googleMapsApiKey="AIzaSyBgbjUKBLKM0uzPOzgUGM1-HVxK36g_ENk">
+        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={14}>
+          <MarkerF position={center} icon={logo}></MarkerF>
+        </GoogleMap>
+      </LoadScript>
     </>
   );
 };

@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
 import Avatar from "../../components/Avatar";
 
-const Utillity = () => {
+const Utillity = ({ ...props }) => {
   const [isPopup, setIsPopup] = useState(false);
   const [isPopup2, setIsPopup2] = useState(false);
   const [isPopup3, setIsPopup3] = useState(false);
@@ -22,7 +22,7 @@ const Utillity = () => {
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 justify-self-end" {...props}>
       <button className="btn-lightgray-circle" onClick={() => setIsPopup2(true)}>
         <CiSearch />
       </button>
@@ -31,7 +31,7 @@ const Utillity = () => {
       </button>
       {isLogin ? (
         <>
-          <Link to="/mypage" className="flex items-center gap-1 mr-2">
+          <Link to="/mypage" className="flex items-center gap-1 mr-2 avatar-name">
             <Avatar className={"!w-10 !h-10"} /> <strong>하하하</strong>님
           </Link>
           <button className="btn-blue" onClick={() => setIsLogin(false)}>

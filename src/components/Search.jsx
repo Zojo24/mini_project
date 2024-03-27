@@ -119,7 +119,7 @@ const Today = (nextDay = 0) => {
   return `${year}-${month}-${day}`;
 };
 
-const Search = () => {
+const Search = ({ ...props }) => {
   const [isStart, setIsStart] = useState(Today());
   const [isEnd, setIsEnd] = useState(Today(1));
   const [location, setLocation] = useState("");
@@ -168,7 +168,7 @@ const Search = () => {
   };
 
   return (
-    <form className="search" onSubmit={handleSearch}>
+    <form className="search" onSubmit={handleSearch} {...props}>
       <div>
         <div className="search__title">
           <span>

@@ -1,7 +1,7 @@
 @import "../var.css";
 
 .gnb {
-  @apply absolute left-2/4 -translate-x-2/4;
+  @apply justify-self-center;
   ul {
     @apply flex gap-10;
   }

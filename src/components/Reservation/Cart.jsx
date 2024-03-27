@@ -19,7 +19,7 @@ const Cart = ({ mypage, close }) => {
   const cartTotalPrice = digit3(cartInfos.reduce((acc, curr) => acc + curr.total_price, 0));
 
   return (
-    <>
+    <div className="w-[22rem]">
       {!mypage && (
         <header className="border border-b-gray-200 border-solid leading-[4] px-5">
           <h2 className="font-bold flex gap-1 items-center">
@@ -58,7 +58,7 @@ const Cart = ({ mypage, close }) => {
           </div>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 
