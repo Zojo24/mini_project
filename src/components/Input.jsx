@@ -48,7 +48,7 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
   return (
     <>
       {type === "textarea" ? (
-        <textarea rows={10} className="textarea" value={value} onChange={handleonChange}></textarea>
+        <textarea rows={10} className={"textarea " + className} value={value} onChange={handleonChange}></textarea>
       ) : price ? (
         <input
           type={type}

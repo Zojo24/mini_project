@@ -1,28 +1,22 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from "react";
 
-import {
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
 
-import subvisual from '../assets/subvisual3.jpg';
-import Badge from '../components/Badge';
-import Box from '../components/Box';
-import Checkbox from '../components/Checkbox';
-import Dialog from '../components/Dialog';
-import Heading from '../components/Heading';
-import RoomList from '../components/Hotel/RoomList';
-import RoomWrite from '../components/Hotel/RoomWrite';
-import Input from '../components/Input';
-import Loading from '../components/Loading';
-import Noimage from '../components/Noimage';
-import Radio from '../components/Radio';
-import Select from '../components/Select';
-import { usehotelListStore } from '../store/hotelListStore';
-import { useVisualStore } from '../store/visualStore';
+import subvisual from "../assets/subvisual3.jpg";
+import Badge from "../components/Badge";
+import Box from "../components/Box";
+import Checkbox from "../components/Checkbox";
+import Dialog from "../components/Dialog";
+import Heading from "../components/Heading";
+import RoomList from "../components/Hotel/RoomList";
+import RoomWrite from "../components/Hotel/RoomWrite";
+import Input from "../components/Input";
+import Loading from "../components/Loading";
+import Noimage from "../components/Noimage";
+import Radio from "../components/Radio";
+import Select from "../components/Select";
+import { usehotelListStore } from "../store/hotelListStore";
+import { useVisualStore } from "../store/visualStore";
 
 const where = [
   {
@@ -105,7 +99,7 @@ const HotelEdit = () => {
     location: thisHotel.location,
     price: thisHotel.price,
     available: true,
-    content: thisHotel.content,
+    description: thisHotel.description,
     facilities: [],
     checkIn: thisHotel.checkIn,
     checkOut: thisHotel.checkOut,
@@ -143,8 +137,7 @@ const HotelEdit = () => {
   //호텔위치
   const handleLocationChange = (event) => {
     const selectedValue = event.target.value;
-    const selectedText =
-      where.find((option) => option.value === selectedValue)?.text || "";
+    const selectedText = where.find((option) => option.value === selectedValue)?.text || "";
 
     setHotelInfo((prevHotelInfo) => ({
       ...prevHotelInfo,
@@ -177,7 +170,7 @@ const HotelEdit = () => {
   //호텔안내
   const [content, setContent] = useState("");
   const handleContent = (value) => {
-    setHotelInfo({ ...hotelInfo, content: value });
+    setHotelInfo({ ...hotelInfo, description: value });
   };
   //편의시설
   const handleCheckbox = (e) => {
@@ -206,15 +199,13 @@ const HotelEdit = () => {
   const handleCheckIn = (e) => {
     const selectedValue = e.target.value;
 
-    const selectedText =
-      checkOption.find((option) => option.value === selectedValue)?.text || "";
+    const selectedText = checkOption.find((option) => option.value === selectedValue)?.text || "";
     setHotelInfo({ ...hotelInfo, checkIn: selectedText });
   };
   const handleCheckOut = (e) => {
     const selectedValue = e.target.value;
 
-    const selectedText =
-      checkOption.find((option) => option.value === selectedValue)?.text || "";
+    const selectedText = checkOption.find((option) => option.value === selectedValue)?.text || "";
     setHotelInfo({ ...hotelInfo, checkOut: selectedText });
   };
   //흡연
@@ -228,35 +219,27 @@ const HotelEdit = () => {
   const handlePoolOpen = (e) => {
     const selectedValue = e.target.value;
     // 'where' 대신 'checkOption' 배열을 사용합니다.
-    const selectedText =
-      checkOption.find((option) => option.value === selectedValue)?.text || "";
+    const selectedText = checkOption.find((option) => option.value === selectedValue)?.text || "";
     setHotelInfo({ ...hotelInfo, swimmingpool_open: selectedText });
   };
   const handlePoolClose = (e) => {
     const selectedValue = e.target.value;
 
-    const selectedText =
-      checkOption.find((option) => option.value === selectedValue)?.text || "";
+    const selectedText = checkOption.find((option) => option.value === selectedValue)?.text || "";
     setHotelInfo({ ...hotelInfo, swimmingpool_closed: selectedText });
   };
 
   //수정저장
   const saveHotel = () => {
-    if (
-      hotelInfo.name == "" ||
-      hotelInfo.price == "" ||
-      hotelInfo.content == ""
-    ) {
+    if (hotelInfo.name == "" || hotelInfo.price == "" || hotelInfo.description == "") {
       setIsPopup(true);
       setErrorMessage("호텔 기본정보를 모두 입력해 주세요.");
       return;
     } else if (
       hotelInfo.checkIn == "" ||
       hotelInfo.checkOut == "" ||
-      (hotelInfo.options.swimming_pool === true &&
-        hotelInfo.options.swimmingpool_open == "") ||
-      (hotelInfo.options.swimming_pool == true &&
-        hotelInfo.options.swimmingpool_closed == "")
+      (hotelInfo.options.swimming_pool === true && hotelInfo.options.swimmingpool_open == "") ||
+      (hotelInfo.options.swimming_pool == true && hotelInfo.options.swimmingpool_closed == "")
     ) {
       setIsPopup(true);
       setErrorMessage("호텔 규칙을 모두 입력해 주세요.");
@@ -280,39 +263,23 @@ const HotelEdit = () => {
         <div className="container mb-32">
           <Heading tag={"h3"} text={"호텔 수정"} className={"xl my-5"} />
           <Box>
-            <Heading
-              tag={"h3"}
-              text={"호텔 대표이미지"}
-              className={"base mb-5"}
-            />
+            <Heading tag={"h3"} text={"호텔 대표이미지"} className={"base mb-5"} />
             <Box className={"white"}>
               <ul className="grid grid-cols-4 gap-5">
                 <li>
-                  <Noimage
-                    props={{ image: isImage }}
-                    className={"mb-3 bg-gray-50"}
-                  />
+                  <Noimage props={{ image: isImage }} className={"mb-3 bg-gray-50"} />
                   <Input type={"file"} onChange={handleonChange} />
                 </li>
                 <li>
-                  <Noimage
-                    props={{ image: isImage }}
-                    className={"mb-3 bg-gray-50"}
-                  />
+                  <Noimage props={{ image: isImage }} className={"mb-3 bg-gray-50"} />
                   <Input type={"file"} onChange={handleonChange} />
                 </li>
                 <li>
-                  <Noimage
-                    props={{ image: isImage }}
-                    className={"mb-3 bg-gray-50"}
-                  />
+                  <Noimage props={{ image: isImage }} className={"mb-3 bg-gray-50"} />
                   <Input type={"file"} onChange={handleonChange} />
                 </li>
                 <li>
-                  <Noimage
-                    props={{ image: isImage }}
-                    className={"mb-3 bg-gray-50"}
-                  />
+                  <Noimage props={{ image: isImage }} className={"mb-3 bg-gray-50"} />
                   <Input type={"file"} onChange={handleonChange} />
                 </li>
               </ul>
@@ -320,38 +287,21 @@ const HotelEdit = () => {
           </Box>
 
           <Box className={"mt-10"}>
-            <Heading
-              tag={"h3"}
-              text={"호텔 기본정보"}
-              className={"base mb-5"}
-            />
+            <Heading tag={"h3"} text={"호텔 기본정보"} className={"base mb-5"} />
             <Box className={"white"}>
               <ul className="grid grid-cols-3 gap-5">
                 <li className="grid gap-3">
                   호텔 위치
-                  <Select
-                    selectValue={locationValue}
-                    options={where}
-                    onChange={handleLocationChange}
-                  />
+                  <Select selectValue={locationValue} options={where} onChange={handleLocationChange} />
                 </li>
                 <li className="grid gap-3">
                   호텔 이름
-                  <Input
-                    type={"text"}
-                    value={hotelInfo.name}
-                    onChange={handleName}
-                  />
+                  <Input type={"text"} value={hotelInfo.name} onChange={handleName} />
                 </li>
                 <li className="grid gap-3">
                   호텔 가격
                   <div className="grid grid-cols-[1fr_min-content] items-center gap-2">
-                    <Input
-                      onChange={handlePrice}
-                      value={hotelInfo.price}
-                      type={"text"}
-                    />{" "}
-                    원
+                    <Input onChange={handlePrice} value={hotelInfo.price} type={"text"} /> 원
                   </div>
                 </li>
                 <li className="grid gap-3">
@@ -377,11 +327,7 @@ const HotelEdit = () => {
                 </li>
                 <li className="grid gap-3 col-span-3">
                   호텔 안내
-                  <Input
-                    type={"textarea"}
-                    onChange={handleContent}
-                    value={hotelInfo.content}
-                  />
+                  <Input type={"textarea"} onChange={handleContent} value={hotelInfo.description} />
                 </li>
               </ul>
             </Box>
@@ -390,11 +336,7 @@ const HotelEdit = () => {
           <Box className={"mt-10"}>
             <div className="grid gap-5 md:grid-cols-1 2xl:grid-cols-2 ">
               <div>
-                <Heading
-                  tag={"h3"}
-                  text={"호텔 편의 시설"}
-                  className={"base mb-5"}
-                />
+                <Heading tag={"h3"} text={"호텔 편의 시설"} className={"base mb-5"} />
                 <Box className={"white"}>
                   <ul className="grid grid-cols-3 gap-4">
                     <li>
@@ -617,28 +559,16 @@ const HotelEdit = () => {
                 </Box>
               </div>
               <div>
-                <Heading
-                  tag={"h3"}
-                  text={"호텔 규칙"}
-                  className={"base mb-5"}
-                />
+                <Heading tag={"h3"} text={"호텔 규칙"} className={"base mb-5"} />
                 <Box className={"white"}>
                   <ul className="grid gap-5">
                     <li className="grid grid-cols-[8rem_1fr] items-center">
                       <strong>체크인</strong>
-                      <Select
-                        selectValue={checkInValue}
-                        options={checkOption}
-                        onChange={handleCheckIn}
-                      />
+                      <Select selectValue={checkInValue} options={checkOption} onChange={handleCheckIn} />
                     </li>
                     <li className="grid grid-cols-[8rem_1fr] items-center">
                       <strong>체크아웃</strong>
-                      <Select
-                        selectValue={checkOutValue}
-                        options={checkOption}
-                        onChange={handleCheckOut}
-                      />
+                      <Select selectValue={checkOutValue} options={checkOption} onChange={handleCheckOut} />
                     </li>
                     <li className="grid grid-cols-[8rem_1fr] items-center">
                       <strong>흡연</strong>
@@ -659,9 +589,7 @@ const HotelEdit = () => {
                           name={"rag2"}
                           onChange={() => handleSmoking("일부객실 가능")}
                         />{" "}
-                        <Badge color={"red ml-2"}>
-                          일부객실 선택시 현장에서 방을 배정합니다.
-                        </Badge>
+                        <Badge color={"red ml-2"}>일부객실 선택시 현장에서 방을 배정합니다.</Badge>
                       </div>
                     </li>
                     <li className="grid grid-cols-[8rem_1fr] items-center">
@@ -683,26 +611,16 @@ const HotelEdit = () => {
                           name={"rag3"}
                           onChange={() => handlePet("일부객실 가능")}
                         />{" "}
-                        <Badge color={"red ml-2"}>
-                          일부객실 선택시 현장에서 방을 배정합니다.
-                        </Badge>
+                        <Badge color={"red ml-2"}>일부객실 선택시 현장에서 방을 배정합니다.</Badge>
                       </div>
                     </li>
                     {hotelInfo.options.swimming_pool && (
                       <li className="grid grid-cols-[8rem_1fr] items-center">
                         <strong>수영장 이용시간</strong>
                         <div className="grid grid-cols-[1fr_2rem_1fr] items-center">
-                          <Select
-                            selectValue={poolOpenValue}
-                            options={checkOption}
-                            onChange={handlePoolOpen}
-                          />
+                          <Select selectValue={poolOpenValue} options={checkOption} onChange={handlePoolOpen} />
                           <span className="justify-self-center">~</span>
-                          <Select
-                            selectValue={poolClosedValue}
-                            options={checkOption}
-                            onChange={handlePoolClose}
-                          />
+                          <Select selectValue={poolClosedValue} options={checkOption} onChange={handlePoolClose} />
                         </div>
                       </li>
                     )}
@@ -715,10 +633,7 @@ const HotelEdit = () => {
           <Box className={"mt-10 room-write"}>
             <div className="flex justify-between items-center">
               <Heading tag={"h3"} text={"객실관리"} className={"base"} />
-              <button
-                className="btn-blue"
-                onClick={() => setIsToggle(!isToggle)}
-              >
+              <button className="btn-blue" onClick={() => setIsToggle(!isToggle)}>
                 객실등록
               </button>
             </div>
