@@ -28,11 +28,11 @@ const HotelRules = ({ className }) => {
       <ul className="hotel-rules">
         <li>
           <strong>체크인</strong>
-          <span>{thisHotel.checkIn}</span>
+          <span>{thisHotel.check_in}</span>
         </li>
         <li>
           <strong>체크아웃</strong>
-          <span>{thisHotel.checkOut}</span>
+          <span>{thisHotel.check_out}</span>
         </li>
         <li>
           <strong>
@@ -48,10 +48,12 @@ const HotelRules = ({ className }) => {
         </li>
         <li>
           <strong>수영장 이용시간</strong>
-          <span>
-            오전 {thisHotel.swimmingpool_open} ~ 오후{" "}
-            {thisHotel.swimmingpool_closed}
-          </span>
+          {thisHotel.options.swimming_pool && (
+            <span>
+              오전 {thisHotel.swimmingpool_open} ~ 오후{" "}
+              {thisHotel.swimmingpool_closed}
+            </span>
+          )}
         </li>
       </ul>
     </div>

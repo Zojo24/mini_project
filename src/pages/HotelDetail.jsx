@@ -64,13 +64,14 @@ const HotelDetail = () => {
   const toEdit = () => {
     navigate(`/hoteledit/${hotelId}`);
   };
+  console.log(thisHotel);
   return (
     <div className="main mb-24">
       <div className="container">
         <div className="hotel-detail mt-10">
           <div className="hotel-detail__header">
             <div>
-              <HotelLocation className={"xl"} location={thisHotel.location} />
+              <HotelLocation className={"xl"} location={thisHotel.nation} />
             </div>
             <div>
               <HotelPrice price={digit3(thisHotel.price)} />
@@ -92,7 +93,7 @@ const HotelDetail = () => {
             <Box>
               <Heading tag={"h3"} text={"호텔 안내"} className={"base"} />
               <Text className={"mt-5"} type={1}>
-                {thisHotel.content}
+                {thisHotel.description}
               </Text>
             </Box>
             <Box>
