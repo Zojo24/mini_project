@@ -32,7 +32,7 @@ const MypageReservation = () => {
           </thead>
           <tbody>
             {totalInfos.length > 0 ? (
-              totalInfos.map((item, index) => <MypageReservationItems key={index} {...item} />)
+              totalInfos.map((items, index) => <MypageReservationItems key={index} items={items} />)
             ) : (
               <tr>
                 <td colSpan={7} className="!py-10">

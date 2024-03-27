@@ -1,19 +1,25 @@
 import React from "react";
 import { RiDeleteBinLine } from "react-icons/ri";
 import RoomPicture from "../Hotel/RoomPicture";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { digit3 } from "../../store/digit3";
 import { useReservationStore } from "../../store/reservationStore";
 
 const MypageCartItem = ({ items }) => {
-  const { adult_count, child_count, check_out, file, hotel_name, check_in, total_price, type, id } = items;
-  const { deleteCart } = useReservationStore();
+  const { adult_count, child_count, check_out, file, hotel_name, check_in, total_price, type, cart_id } = items;
+  const { deleteCart, addInfo } = useReservationStore();
+  const navigate = useNavigate();
+
+  const handleOnClick = () => {
+    addInfo(items);
+    navigate("/reservation");
+  };
 
   return (
     <>
       <tr className="group">
         <td className="self-start justify-self-end text-lg text-gray-500">
-          <button onClick={() => deleteCart(id)}>
+          <button onClick={() => deleteCart(cart_id)}>
             <RiDeleteBinLine />
           </button>
         </td>
@@ -46,9 +52,9 @@ const MypageCartItem = ({ items }) => {
           총 <b>{digit3(total_price)}</b> 원
         </td>
         <td>
-          <Link to="/reservation" className="btn-blue">
+          <button onClick={handleOnClick} className="btn-blue">
             결제
-          </Link>
+          </button>
         </td>
       </tr>
     </>

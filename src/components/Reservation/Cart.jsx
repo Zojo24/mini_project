@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/components/cart.css";
-import ReservationCartItems from "./ReservationCartItems";
+import CartItems from "./CartItems";
 import Badge from "../Badge";
 import { useReservationStore } from "../../store/reservationStore";
 import { digit3 } from "../../store/digit3";
@@ -34,7 +34,7 @@ const Cart = ({ mypage, close }) => {
       <form onSubmit={handleSubmit}>
         <ul className="cart__list">
           {cartInfos.map((items, index) => (
-            <ReservationCartItems close={handleCart} key={index} items={items} />
+            <CartItems close={handleCart} key={index} items={items} />
           ))}
         </ul>
         <div className="cart-price">

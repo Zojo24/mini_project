@@ -10,8 +10,9 @@ import Loading from "../Loading";
 
 const ReservationPersonInfo = ({ userInfo }) => {
   const navigate = useNavigate();
-  const { addAdditionalInfo, totalInfos, paymentInfos } = useReservationStore();
+  const { addAdditionalInfo, totalInfos, paymentInfos, deleteCart } = useReservationStore();
   const { role, credit, profile_image, name, email, address, city, nation, zip_code } = userInfo;
+  const { cart_id } = paymentInfos[0];
 
   const [isuserInfo, setUserInfo] = useState(userInfo);
   const [isRule, setIsRule] = useState(false);
@@ -114,6 +115,7 @@ const ReservationPersonInfo = ({ userInfo }) => {
         const updatedPersonalInfo = { ...persnalInfo, agreement }; // 업데이트된 상태를 먼저 생성
         setPersnalInfo(updatedPersonalInfo);
         addAdditionalInfo({ ...persnalInfo, paymentInfos });
+        deleteCart(cart_id);
         setIsLoading(true);
         setTimeout(() => {
           setIsLoading(false);

@@ -1,8 +1,10 @@
 import React from "react";
 import Heading from "../Heading";
 import MypageAllReservationItems from "./MypageAllReservationItems";
+import { useReservationStore } from "../../store/reservationStore";
 
 const MypageAllReservation = () => {
+  const { totalInfos } = useReservationStore();
   return (
     <div>
       <div className="bg-white rounded-xl p-10">
@@ -31,12 +33,15 @@ const MypageAllReservation = () => {
             </tr>
           </thead>
           <tbody>
-            {<MypageAllReservationItems />}
-            <tr>
-              <td colSpan={8} className="!py-10">
-                예약된 내역이 없습니다.
-              </td>
-            </tr>
+            {totalInfos.length > 0 ? (
+              totalInfos.map((items, index) => <MypageAllReservationItems key={index} items={items} />)
+            ) : (
+              <tr>
+                <td colSpan={8} className="!py-10">
+                  예약된 내역이 없습니다.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

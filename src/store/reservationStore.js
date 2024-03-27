@@ -25,13 +25,13 @@ let reservationStore = (set) => ({
         ...state.cartInfos,
         {
           ...cartState,
-          id: getId(),
+          cart_id: getId(),
         },
       ],
     })),
   deleteCart: (cartId) =>
     set((state) => ({
-      cartInfos: state.cartInfos.filter((cart) => cart.id !== cartId),
+      cartInfos: state.cartInfos.filter((cart) => cart.cart_id !== cartId),
     })),
 });
 
@@ -40,7 +40,7 @@ reservationStore = persist(reservationStore, { name: "reservation" });
 
 export const useReservationStore = create(reservationStore);
 
-let id = 0;
+let cart_id = 0;
 function getId() {
-  return id++;
+  return cart_id++;
 }

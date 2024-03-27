@@ -3,9 +3,9 @@ import RoomPicture from "../Hotel/RoomPicture";
 import { Link } from "react-router-dom";
 import { digit3 } from "../../store/digit3";
 
-const MypageReservationItems = (item) => {
-  const { paymentInfos } = item;
-  const { file, hotel_name, type, adult, children, start, end, totalPay } = paymentInfos[0];
+const MypageReservationItems = ({ items }) => {
+  const item = items.paymentInfos[0];
+  const { file, hotel_name, type, adult_count, child_count, check_in, check_out, total_price } = item;
 
   return (
     <>
@@ -22,13 +22,13 @@ const MypageReservationItems = (item) => {
           </div>
         </td>
         <td>{type}</td>
-        <td>{adult}</td>
-        <td>{children}</td>
+        <td>{adult_count}</td>
+        <td>{child_count}</td>
         <td>
-          {start} ~ {end}
+          {check_in} ~ {check_out}
         </td>
         <td className="text-right">
-          <b>{digit3(totalPay)}</b>
+          <b>{digit3(total_price)}</b> 원
         </td>
       </tr>
     </>
