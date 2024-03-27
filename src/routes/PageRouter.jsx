@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 
-<<<<<<< HEAD
 import ReservationSecond from "../components/Reservation/ReservationSecond";
 import ReservationThird from "../components/Reservation/ReservationThird";
 import Layout from "../layout/Layout";
@@ -15,22 +14,6 @@ import Main from "../pages/Main";
 import Mypage from "../pages/Mypage";
 import NotFound from "../pages/NotFound";
 import Styleguide from "../pages/Styleguide";
-=======
-import ReservationSecond from '../components/Reservation/ReservationSecond';
-import ReservationThird from '../components/Reservation/ReservationThird';
-import Layout from '../layout/Layout';
-import About from '../pages/About';
-import ContactUs from '../pages/ContactUs';
-import FindAccount from '../pages/FindAccount';
-import HotelAllList from '../pages/HotelAllList';
-import HotelDetail from '../pages/HotelDetail';
-import HotelEdit from '../pages/HotelEdit';
-import HotelWrite from '../pages/HotelWrite';
-import Main from '../pages/Main';
-import Mypage from '../pages/Mypage';
-import NotFound from '../pages/NotFound';
-import Styleguide from '../pages/Styleguide';
->>>>>>> a2a458e (공지사항)
 
 const router = createBrowserRouter([
   {
