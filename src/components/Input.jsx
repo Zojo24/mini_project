@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const cut3Digit = /\B(?=(\d{3})+(?!\d))/g;
 const allowedFileTypes = ["image/jpeg", "image/png", "image/webp"];

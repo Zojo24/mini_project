@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 
-const Checkbox = ({ id, children, color, checked, onChange, ...props }) => {
+const Checkbox = ({ id, children, color, checked, ...props }) => {
   const [ischecked, setIsChecked] = useState(checked || false);
 
   useEffect(() => {

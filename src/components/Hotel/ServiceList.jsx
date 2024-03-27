@@ -26,13 +26,14 @@ import {
   TbAirConditioning,
   TbIroningSteam,
 } from 'react-icons/tb';
+import { useParams } from 'react-router-dom';
 
-import { useHotelStore } from '../../store/hotelStore';
+import { usehotelListStore } from '../../store/hotelListStore';
 
 const ServiceList = ({ className, ...props }) => {
-  const { thisHotel } = useHotelStore();
-
-  console.log("service", thisHotel);
+  let { hotelId } = useParams();
+  const { totalHotels } = usehotelListStore();
+  const thisHotel = totalHotels.find((hotel) => hotel.id === Number(hotelId));
 
   const options = thisHotel?.options;
   return (

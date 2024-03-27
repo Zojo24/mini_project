@@ -1,27 +1,30 @@
-import { useEffect, useState } from "react";
-import { useVisualStore } from "../store/visualStore";
-import Heading from "../components/Heading";
-import Text from "../components/Text";
-import { RiContrast2Line } from "react-icons/ri";
-import Badge from "../components/Badge";
-import Toast from "../components/Toast";
-import Input from "../components/Input";
-import Checkbox from "../components/Checkbox";
-import Select from "../components/Select";
-import Dialog from "../components/Dialog";
-import Loading from "../components/Loading";
-import Loading2 from "../components/Loading2";
-import Avatar from "../components/Avatar";
-import GuestCounter from "../components/GuestCounter";
-import HotelFavorite from "../components/Hotel/HotelFavorite";
-import HotelLocation from "../components/Hotel/HotelLocation";
-import HotelPrice from "../components/Hotel/HotelPrice";
-import Noimage from "../components/Noimage";
-import img from "../assets/hotel1.jpg";
-import Box from "../components/Box";
-import Radio from "../components/Radio";
-import Details from "../components/Guide/Details";
-import { codes } from "../store/codeStore";
+import {
+  useEffect,
+  useState,
+} from 'react';
+
+import { RiContrast2Line } from 'react-icons/ri';
+
+import Avatar from '../components/Avatar';
+import Badge from '../components/Badge';
+import Box from '../components/Box';
+import Checkbox from '../components/Checkbox';
+import Dialog from '../components/Dialog';
+import GuestCounter from '../components/GuestCounter';
+import Details from '../components/Guide/Details';
+import Heading from '../components/Heading';
+import HotelFavorite from '../components/Hotel/HotelFavorite';
+import HotelLocation from '../components/Hotel/HotelLocation';
+import HotelPrice from '../components/Hotel/HotelPrice';
+import Input from '../components/Input';
+import Loading from '../components/Loading';
+import Loading2 from '../components/Loading2';
+import Radio from '../components/Radio';
+import Select from '../components/Select';
+import Text from '../components/Text';
+import Toast from '../components/Toast';
+import { codes } from '../store/codeStore';
+import { useVisualStore } from '../store/visualStore';
 
 const select = [
   {
@@ -77,16 +80,18 @@ const Styleguide = () => {
   const handleSubmitCheckbox = (e) => {
     e.preventDefault();
     const checkedTexts = [];
-    document.querySelectorAll('.check-group input[type="checkbox"]:checked').forEach((checkbox) => {
-      const label = document.querySelector(`label[for="${checkbox.id}"]`);
-      if (label) {
-        checkedTexts.push({
-          id: checkbox.id,
-          checked: checkbox.checked,
-          label: label.textContent.trim(),
-        });
-      }
-    });
+    document
+      .querySelectorAll('.check-group input[type="checkbox"]:checked')
+      .forEach((checkbox) => {
+        const label = document.querySelector(`label[for="${checkbox.id}"]`);
+        if (label) {
+          checkedTexts.push({
+            id: checkbox.id,
+            checked: checkbox.checked,
+            label: label.textContent.trim(),
+          });
+        }
+      });
     setIsCheckbox(checkedTexts);
     console.log(checkedTexts);
   };
@@ -201,7 +206,11 @@ const Styleguide = () => {
             </button>
           </div>
           <div className="flex gap-3 flex-wrap">
-            <Toast onOpen={isToast} onClose={() => setIsToast(!isToast)} color={"blue"}>
+            <Toast
+              onOpen={isToast}
+              onClose={() => setIsToast(!isToast)}
+              color={"blue"}
+            >
               회원가입이 완료 되었습니다.
             </Toast>
             {/* 토스트 : 아래의 코드는 디자인 예시입니다. 위의 코드를 사용하세요. */}
@@ -275,19 +284,27 @@ const Styleguide = () => {
               <b>color</b> : gray, blue, green, red, mint
             </li>
             <li>
-              <b>onOpen</b> : 열기 함수로 상태저장 변수를 blooan 값으로 지정합니다.
+              <b>onOpen</b> : 열기 함수로 상태저장 변수를 blooan 값으로
+              지정합니다.
             </li>
             <li>
               <b>onClose</b> : 닫기 함수로 false값을 전달합니다.
             </li>
-            <li>특정 상황에 true값이 전달되고, 해당 조건에 따라 Toast를 노출합니다. 애니메이션은 자동 실행됩니다.</li>
+            <li>
+              특정 상황에 true값이 전달되고, 해당 조건에 따라 Toast를
+              노출합니다. 애니메이션은 자동 실행됩니다.
+            </li>
           </ul>
           <hr className="guide-line" />
 
           {/* Form */}
           <Heading tag={"h2"} className={"xl mt-10"} text={"Form"} />
           <div className="grid gap-2 grid-cols-5">
-            <Input type="text" defaultValue="text" onChange={(value) => console.log(value)} />
+            <Input
+              type="text"
+              defaultValue="text"
+              onChange={(value) => console.log(value)}
+            />
             <Input type="password" defaultValue="password" />
             <Input type="email" defaultValue="email" />
             <Input type="search" defaultValue="search" />
@@ -297,14 +314,16 @@ const Styleguide = () => {
           </Details>
           <ul className="guide-list">
             <li>
-              <b>type</b> : date, file, textarea을 제외한 나머지 속성을 지정합니다.
+              <b>type</b> : date, file, textarea을 제외한 나머지 속성을
+              지정합니다.
             </li>
             <li>
               <b>defaultValue</b> : 초기 입력값을 설정합니다.
             </li>
             <li>
-              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니
-              매개변수로 value값만 받으면 됩니다.
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다.
+              e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면
+              됩니다.
             </li>
           </ul>
           <hr className="guide-line" />
@@ -324,14 +343,20 @@ const Styleguide = () => {
               <b>value</b> : 임의 날짜를 지정합니다.
             </li>
             <li>
-              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니
-              매개변수로 value값만 받으면 됩니다.
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다.
+              e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면
+              됩니다.
             </li>
           </ul>
           <hr className="guide-line" />
 
           <div className="grid gap-2 grid-cols-5">
-            <Input type={"text"} price={true} placeholder="3자리마다 쉼표 숫자" onChange={(e) => console.log(e)} />
+            <Input
+              type={"text"}
+              price={true}
+              placeholder="3자리마다 쉼표 숫자"
+              onChange={(e) => console.log(e)}
+            />
           </div>
           <Details title={"Code View"} lang="xml">
             {codes[7].code}
@@ -345,14 +370,18 @@ const Styleguide = () => {
               <b>price</b> : 가격을 정의하기 위해 true값으로 합니다.
             </li>
             <li>
-              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니
-              매개변수로 value값만 받으면 됩니다.
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다.
+              e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면
+              됩니다.
             </li>
           </ul>
           <hr className="guide-line" />
 
           <div className="grid gap-2 grid-cols-5">
-            <Select options={select} onChange={(e) => console.log(e.target.value)} />
+            <Select
+              options={select}
+              onChange={(e) => console.log(e.target.value)}
+            />
           </div>
           <Details title={"Code View"} lang="javascript">
             {codes[8].code}
@@ -362,7 +391,8 @@ const Styleguide = () => {
               <b>option</b> : option값은 객체로 로드합니다.
             </li>
             <li>
-              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target.value로 받아야 합니다.
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다.
+              e.target.value로 받아야 합니다.
             </li>
           </ul>
           <hr className="guide-line" />
@@ -376,8 +406,9 @@ const Styleguide = () => {
               <b>type</b> : 반드시 type을 file로 정의해야합니다.
             </li>
             <li>
-              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니
-              매개변수로 value값만 받으면 됩니다.
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다.
+              e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면
+              됩니다.
             </li>
           </ul>
           <hr className="guide-line" />
@@ -391,8 +422,9 @@ const Styleguide = () => {
               <b>type</b> : 반드시 type을 textarea로 정의해야합니다.
             </li>
             <li>
-              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니
-              매개변수로 value값만 받으면 됩니다.
+              <b>onChange</b> : onChange이벤트로 변화된 value값을 전달받습니다.
+              e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면
+              됩니다.
             </li>
           </ul>
           <hr className="guide-line" />
@@ -465,7 +497,8 @@ const Styleguide = () => {
               <b>value</b> : label요소의 텍스트를 정의합니다.
             </li>
             <li>
-              <b>disabled</b> : 비활성화된 상태를 정의합니다. 속성만 존재하며 값은 없습니다.
+              <b>disabled</b> : 비활성화된 상태를 정의합니다. 속성만 존재하며
+              값은 없습니다.
             </li>
           </ul>
           <hr className="guide-line" />
@@ -506,30 +539,38 @@ const Styleguide = () => {
               <b>id</b> : label의 for속성을 연결하기위해 필수로 입력해야 합니다.
             </li>
             <li>
-              <b>checked</b> : useState를 통한 상태가 true일때 value값과 비교하여 true값을 반환하여 checked를
-              표현합니다.
+              <b>checked</b> : useState를 통한 상태가 true일때 value값과
+              비교하여 true값을 반환하여 checked를 표현합니다.
             </li>
             <li>
               <b>value</b> : label요소의 텍스트를 정의합니다.
             </li>
             <li>
-              <b>disabled</b> : 비활성화된 상태를 정의합니다. 속성만 존재하며 값은 없습니다.
+              <b>disabled</b> : 비활성화된 상태를 정의합니다. 속성만 존재하며
+              값은 없습니다.
             </li>
             <li>
-              <b>name</b> : 라디오 그룹을 정의하기 위한 값으로 관련된 그룹은 모두 name값이 동일해야 합니다.
+              <b>name</b> : 라디오 그룹을 정의하기 위한 값으로 관련된 그룹은
+              모두 name값이 동일해야 합니다.
             </li>
             <li>
-              <b>onChange</b> : 선택된 라디오 버튼의 value를 useState상태로 전달합니다.
+              <b>onChange</b> : 선택된 라디오 버튼의 value를 useState상태로
+              전달합니다.
             </li>
             <li>
-              <b>선택된상태 설정</b> :useState초깃값으로 선택된 상태의 label텍스트를 지정합니다.
+              <b>선택된상태 설정</b> :useState초깃값으로 선택된 상태의
+              label텍스트를 지정합니다.
             </li>
           </ul>
           <hr className="guide-line" />
           <div className="flex gap-2 pt-5">
             <GuestCounter iscount={handleGuest} />
             <GuestCounter className={"sm"} kids iscount={handleGuest} />
-            <GuestCounter className={"sm"} defaultValue={2} iscount={handleGuest} />
+            <GuestCounter
+              className={"sm"}
+              defaultValue={2}
+              iscount={handleGuest}
+            />
           </div>
           <Details title={"Code View"} lang="javascript">
             {codes[13].code}
@@ -537,14 +578,16 @@ const Styleguide = () => {
           <ul className="guide-list">
             <li>인원수 체크를 위한 컴퍼넌트입니다.</li>
             <li>
-              <b>iscount</b> : onChange이벤트로 변화된 value값을 전달받습니다. e.target을 이미 전달하고 있으니
-              매개변수로 value값만 받으면 됩니다.
+              <b>iscount</b> : onChange이벤트로 변화된 value값을 전달받습니다.
+              e.target을 이미 전달하고 있으니 매개변수로 value값만 받으면
+              됩니다.
             </li>
             <li>
               <b>className</b> : 크기를 정합니다. ( sm )
             </li>
             <li>
-              <b>kids</b> : 어린이용 카운터로 기본값이 0으로 값을 전달해도 경고가 없습니다.
+              <b>kids</b> : 어린이용 카운터로 기본값이 0으로 값을 전달해도
+              경고가 없습니다.
             </li>
             <li>
               <b>defaultValue</b> : 기본값을 전달합니다.
@@ -569,7 +612,10 @@ const Styleguide = () => {
             {codes[14].code}
           </Details>
           <ul className="guide-list">
-            <li>useState를 이용한 상태변화를 통해 팝업을 제어합니다. 반드시 useState를 생성하세요.</li>
+            <li>
+              useState를 이용한 상태변화를 통해 팝업을 제어합니다. 반드시
+              useState를 생성하세요.
+            </li>
             <li>false : 닫힘, true : 열림</li>
             <li>팝업내용은 컴퍼넌트 열림 닫힘태그 사이에 직접 마크업합니다.</li>
             <li>
@@ -579,7 +625,8 @@ const Styleguide = () => {
               <b>close</b> : false값을 useState의 set에 전달합니다.
             </li>
             <li>
-              <b>팝업 열기버튼</b> : 버튼에 onClick이벤트를 추가하여 상태를 변화시킵니다.
+              <b>팝업 열기버튼</b> : 버튼에 onClick이벤트를 추가하여 상태를
+              변화시킵니다.
             </li>
           </ul>
           <hr className="guide-line" />
@@ -601,13 +648,16 @@ const Styleguide = () => {
             {codes[15].code}
           </Details>
           <ul className="guide-list">
-            <li>useState를 이용한 상태변화를 통해 로딩을 제어합니다. 반드시 useState를 생성하세요.</li>
+            <li>
+              useState를 이용한 상태변화를 통해 로딩을 제어합니다. 반드시
+              useState를 생성하세요.
+            </li>
             <li>
               <b>&lt;Loading /&gt;</b> : 컴퍼넌트는 페이지 이동간에 사용됩니다.
             </li>
             <li>
-              <b>&lt;Loading2 /&gt;</b> : 컴퍼넌트는 특정 컴퍼넌트 내의 로딩을 표현합니다. 소속된 컴퍼넌트는 반드시
-              relative 클래스명을 넣습니다.
+              <b>&lt;Loading2 /&gt;</b> : 컴퍼넌트는 특정 컴퍼넌트 내의 로딩을
+              표현합니다. 소속된 컴퍼넌트는 반드시 relative 클래스명을 넣습니다.
             </li>
           </ul>
           <hr className="guide-line" />
@@ -634,20 +684,24 @@ const Styleguide = () => {
           </Details>
           <ul className="guide-list">
             <li>
-              <b>&lt;Avatar /&gt;</b> : 프로필 사진 add속성을 추가하면 편집모드로 됩니다.
+              <b>&lt;Avatar /&gt;</b> : 프로필 사진 add속성을 추가하면
+              편집모드로 됩니다.
             </li>
             <li>
-              <b>&lt;HotelFavorite /&gt;</b> : 즐겨찾기 토글버튼 checked속성을 추가하면 체크된 상태로 됩니다.
+              <b>&lt;HotelFavorite /&gt;</b> : 즐겨찾기 토글버튼 checked속성을
+              추가하면 체크된 상태로 됩니다.
             </li>
             <li>
-              <b>&lt;HotelPrice /&gt;</b> : 가격 안내 컴퍼넌트 price 속성을 추가하면 숫자가 넣어집니다.
+              <b>&lt;HotelPrice /&gt;</b> : 가격 안내 컴퍼넌트 price 속성을
+              추가하면 숫자가 넣어집니다.
             </li>
             <li>
-              <b>&lt;HotelLocation /&gt;</b> : 호텔카테고리 지역 컴퍼넌트 location 속성을 추가하면 지역텍스트가
-              삽입됩니다. 크기 ( xl )
+              <b>&lt;HotelLocation /&gt;</b> : 호텔카테고리 지역 컴퍼넌트
+              location 속성을 추가하면 지역텍스트가 삽입됩니다. 크기 ( xl )
             </li>
             <li>
-              <b>&lt;Box /&gt;</b> : 기본 회색박으로 표현합니다. 색상종류 ( white )
+              <b>&lt;Box /&gt;</b> : 기본 회색박으로 표현합니다. 색상종류 (
+              white )
             </li>
           </ul>
           <hr className="guide-line" />
