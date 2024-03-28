@@ -16,7 +16,7 @@ const About = () => {
       <div className="main">
         <div className="container my-10">
           <Heading tag={"h3"} text={"Project Member"} className={"xl"} />
-          <ul className="grid grid-cols-4 gap-10">
+          <ul className="grid mobile:grid-cols-1 tablet:grid-cols-4 gap-10">
             {membersData.map((member, index) => (
               <MemberItems key={index} member={member} />
             ))}

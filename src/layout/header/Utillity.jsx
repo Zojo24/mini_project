@@ -56,7 +56,7 @@ const Utillity = ({ ...props }) => {
           </button>
           <Link
             to="/hotelwrite"
-            className="btn-red whitespace-nowrap  mobile:hidden tablet:inline-flex tablet:h-10 tablet:px-3"
+            className="btn-red whitespace-nowrap mobile:w-8 mobile:px-0 tablet:w-auto tablet:inline-flex tablet:h-10 tablet:px-3"
           >
             <GoPencil />
             <span className="mobile:hidden tablet:inline-block">호텔 등록</span>
