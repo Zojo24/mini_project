@@ -1,28 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 
-import axios from "axios";
-
-import hotel1 from "../../assets/hotel1.jpg";
-import { HotelListsData } from "../../data/hotelLists";
-import { digit3 } from "../../store/digit3";
-import { usehotelListStore } from "../../store/hotelListStore";
-import Badge from "../Badge";
-import HotelBooking from "./HotelBooking";
-import HotelFavorite from "./HotelFavorite";
-import HotelLocation from "./HotelLocation";
-import HotelPicture from "./HotelPicture";
-import HotelPrice from "./HotelPrice";
-import HotelTitle from "./HotelTitle";
+import hotel1 from '../../assets/hotel1.jpg';
+import { usehotelListStore } from '../../store/hotelListStore';
+import Badge from '../Badge';
+import HotelBooking from './HotelBooking';
+import HotelFavorite from './HotelFavorite';
+import HotelLocation from './HotelLocation';
+import HotelPicture from './HotelPicture';
+import HotelPrice from './HotelPrice';
+import HotelTitle from './HotelTitle';
 
 const HotelListItems = ({ modify, ...props }) => {
   const data = { state: "disabled" };
 
   const [hotels, setHotels] = useState([]);
   useEffect(() => {
-    axios.get("/hotels").then((response) => {
-      setHotels(response.data[0]);
-      // console.log("불러온값", response.data[0]);
-    });
+    // axios.get("http://52.78.12.252:8080/api/hotels").then((response) => {
+    // axios
+    //   .get("https://jsonplaceholder.typicode.com/users/")
+    //   .then((response) => {
+    //     console.log(response.data);
+    //   });
   }, []);
   const totalHotels = usehotelListStore((state) => state.totalHotels);
 
@@ -78,7 +79,7 @@ const HotelListItems = ({ modify, ...props }) => {
         <li key={hotel.name} className={hotel.available ? "" : "disabled"}>
           <HotelPicture link={`/hoteldetail/${hotel.id}`} image={hotel1} />
           <div className="hotel__info">
-            <HotelLocation location={hotel.location} />
+            <HotelLocation location={hotel.nation} />
             <HotelFavorite checked={modify} />
             <HotelTitle link={`/hoteldetail/${hotel.id}`} title={hotel.name} />
             <HotelPrice price={hotel.price} />

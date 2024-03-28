@@ -1,5 +1,6 @@
-import React from "react";
-import { CgFormatSlash } from "react-icons/cg";
+import React from 'react';
+
+import { CgFormatSlash } from 'react-icons/cg';
 
 const HotelPrice = ({ price }) => {
   return (

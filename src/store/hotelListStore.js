@@ -1,5 +1,8 @@
-import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
+import { create } from 'zustand';
+import {
+  devtools,
+  persist,
+} from 'zustand/middleware';
 
 let hotelListStore = (set) => ({
   totalHotels: [],
@@ -7,7 +10,10 @@ let hotelListStore = (set) => ({
   //호텔등록
   addHotel: (hotelInfo) =>
     set((state) => ({
-      totalHotels: [...state.totalHotels, { ...hotelInfo, id: getRandomInteger(1, 5000) }],
+      totalHotels: [
+        ...state.totalHotels,
+        { ...hotelInfo, id: getRandomInteger(1, 5000) },
+      ],
     })),
 
   //호텔수정하기
@@ -15,24 +21,12 @@ let hotelListStore = (set) => ({
     set((state) => ({
       totalHotels: [...newHotelInfo],
     })),
-  // saveEditHotel: (newHotelInfo) =>
-  //   set((state) => {
-  //     const index = state.totalHotels.findIndex(
-  //       (hotel) => hotel.id === newHotelInfo.id
-  //     );
 
-  //     if (index !== -1) {
-  //       const updatedHotels = [...state.totalHotels];
-  //       updatedHotels[index] = { ...newHotelInfo };
-
-  //       return { totalHotels: updatedHotels };
-  //     } else {
-  //       return state;
-  //     }
-  //   }),
   deleteHotel: (hotelId) =>
     set((state) => ({
-      totalHotels: state.totalHotels.filter((hotel) => hotel.id !== Number(hotelId)),
+      totalHotels: state.totalHotels.filter(
+        (hotel) => hotel.id !== Number(hotelId)
+      ),
     })),
 });
 
