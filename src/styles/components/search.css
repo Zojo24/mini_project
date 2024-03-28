@@ -30,6 +30,11 @@
       animation: slideDown 1 .5s both cubic-bezier(0.77, 0, 0.175, 1);
     }
   }
+  &.hide {
+    > div {
+      animation: slideDownReverse 1 .5s both cubic-bezier(0.77, 0, 0.175, 1);
+    }
+  }
 
   &__wrap {
     @apply mobile:w-[80%] tablet:w-full max-w-6xl relative;
@@ -53,5 +58,14 @@
   }
   100% {
     @apply h-full overflow-hidden bg-black/70;
+  }
+}
+
+@keyframes slideDownReverse{
+  0% {
+    @apply h-full overflow-hidden bg-black/70;
+  }
+  100% {
+    @apply h-0 overflow-hidden bg-black/0;
   }
 }

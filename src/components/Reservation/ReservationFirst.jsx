@@ -10,7 +10,8 @@ import Loading from "../Loading";
 import { digit3 } from "../../store/digit3";
 import pic from "../../assets/hotel2.jpg";
 import Loading2 from "../Loading2";
-import axios from "axios";
+import request from "../../api/request";
+import axios from "../../api/axios";
 
 // 달력 현재날짜 고정
 const Today = (nextDay = 0) => {
@@ -24,19 +25,19 @@ const Today = (nextDay = 0) => {
   return `${year}-${month}-${day}`;
 };
 
-const roomInfo = {
-  type: "디럭스",
-  active_status: "ACTIVE",
-  bed_type: "더블베드",
-  standard_capacity: 3,
-  maximum_capacity: 5,
-  view_type: "OCEAN",
-  standard_price: 70000, // 필요할까??
-  adult_fare: 30000,
-  child_fare: 18000,
-  file: pic,
-  hotel_name: "호텔명이전달됩니다.", //누락됨.
-};
+// const roomInfo = {
+//   type: "디럭스",
+//   active_status: "ACTIVE",
+//   bed_type: "더블베드",
+//   standard_capacity: 3,
+//   maximum_capacity: 5,
+//   view_type: "OCEAN",
+//   standard_price: 70000, // 필요할까??
+//   adult_fare: 30000,
+//   child_fare: 18000,
+//   file: pic,
+//   hotel_name: "호텔명이전달됩니다.", //누락됨.
+// };
 
 const ReservationFirst = () => {
   const [isToast, setIsToast] = useState(false);
@@ -47,6 +48,7 @@ const ReservationFirst = () => {
   const [isPopup, setIsPopup] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading2, setIsLoading2] = useState(false);
+  const [roomInfo, setRoomInfo] = useState({});
   const [isPayInfo, setIsPayInfo] = useState({
     id: "",
     member_id: "",
@@ -129,11 +131,18 @@ const ReservationFirst = () => {
 
     const fetchData = async () => {
       try {
-        const response = await axios({
-          url: "http://52.78.12.252:8080/api/hotels",
+        const responseRoom = await axios({
+          url: request.fetchHotels,
           method: "get",
         });
-        console.log(response);
+        const responseOrder = await axios({
+          url: request.fetchOrders,
+          method: "get",
+        });
+        const { rooms } = responseRoom.data.result.content[0];
+        console.log(rooms[0].thumbnails[0].img_url);
+        // setRoomInfo((prevRoomInfo) => ({ ...prevRoomInfo, ...rooms[0], file: rooms[0].thumbnails[0].img_url }));
+        setRoomInfo(rooms[0]);
       } catch (error) {
         console.log(error);
       } finally {
@@ -141,6 +150,7 @@ const ReservationFirst = () => {
       }
     };
     fetchData();
+
     return handleCalculate();
   }, [isPayInfo.adult_count, isPayInfo.child_count]);
 
@@ -170,6 +180,8 @@ const ReservationFirst = () => {
       }, 1500);
     }
   };
+  console.log(roomInfo.file);
+
   return (
     <>
       <div className="relative">

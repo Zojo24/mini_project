@@ -5,6 +5,9 @@
   &[open] { 
     animation: toLeft 1 .5s both  cubic-bezier(0.645, 0.045, 0.355, 1) !important;
   }
+  &.hide { 
+    animation: toLeftReverse 1 .5s both  cubic-bezier(0.645, 0.045, 0.355, 1) !important;
+  }
 
 
   &__list {
@@ -54,4 +57,8 @@
 @keyframes toLeft {
   0% { @apply w-0}
   100% { @apply w-[22rem]}
+}
+@keyframes toLeftReverse {
+  0% { @apply w-[22rem]}
+  100% { @apply w-0}
 }

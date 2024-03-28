@@ -7,7 +7,7 @@ const ReservationHotelInfoItems = (item) => {
   const { adult_count, child_count, check_out, check_in, total_price, hotel_name, file } = item;
 
   const formattedPrice = digit3(total_price);
-
+  console.log(item);
   return (
     <>
       <li className="grid group items-center gap-3 grid-cols-[min-content_1fr_min-content] grid-rows-[repeat(auto-fill,minmax(0,auto))] border-b border-b-gray-300 border-dashed py-3">
