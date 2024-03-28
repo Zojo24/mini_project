@@ -5,27 +5,27 @@ import { IoSearch } from "react-icons/io5";
 
 const where = [
   {
-    value: "select1",
+    value: "NATION",
     text: "어디에 머물고 싶으세요?",
   },
   {
-    value: "select2",
+    value: "THAILAND",
     text: "태국",
   },
   {
-    value: "select3",
+    value: "VIETNAM",
     text: "베트남",
   },
   {
-    value: "select4",
+    value: "PHILIPPINES",
     text: "필리핀",
   },
   {
-    value: "select5",
+    value: "MALAYSIA",
     text: "말레이시아",
   },
   {
-    value: "select6",
+    value: "TAIWAN",
     text: "대만",
   },
 ];
