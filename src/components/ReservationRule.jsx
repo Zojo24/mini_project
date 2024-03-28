@@ -5,8 +5,12 @@ import "../styles/components/memberRule.css";
 const ReservationRule = () => {
   return (
     <>
-      <Heading tag={"h2"} text={"개인정보 이용약관"} className={"sm text-center pb-5"} />
-      <ul className="overflow-auto max-h-[40rem] member-rule">
+      <Heading
+        tag={"h2"}
+        text={"개인정보 이용약관"}
+        className={"sm text-center pb-5 whitespace-nowrap mobile:min-w-80 tablet:min-w-[50rem]"}
+      />
+      <ul className="overflow-auto max-h-[40rem] member-rule mobile:text-sm tablet:text-base">
         <li>
           1.1 트립호텔 플랫폼을 이용하는 데 필요한 정보. 당사는 회원님이 트립호텔 플랫폼을 이용할 때 회원님의 개인정보를
           수집합니다. 그렇지 않은 경우, 트립호텔은 요청하신 서비스를 회원님께 제공하지 못할 수 있습니다. 이러한 정보에는

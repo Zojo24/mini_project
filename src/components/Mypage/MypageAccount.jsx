@@ -60,7 +60,7 @@ const MypageAccount = () => {
     localStorage.setItem("nation", nation);
   };
   return (
-    <div className="grid grid-cols-[20rem_1fr] gap-5">
+    <div className="grid mobile:grid-cols-1 tablet:grid-cols-[20rem_1fr] gap-5">
       <div className="bg-white rounded-xl whitespace-nowrap p-10 self-start text-center">
         <Heading tag={"h4"} className={"sm mb-5"} text={"개인정보"} />
         {/* <Avatar /> */}
@@ -71,14 +71,12 @@ const MypageAccount = () => {
         </div>
         잔여캐시
         <br />
-        <strong className="text-2xl mr-1 text-blue-700 tracking-tight">
-          1,000,000
-        </strong>
+        <strong className="text-2xl mr-1 text-blue-700 tracking-tight">1,000,000</strong>
         <span>원</span>
       </div>
       <form type="onSubmit" className="bg-white rounded-xl  p-10">
         <Heading tag={"h4"} className={"sm"} text={"기본정보"} />
-        <div className="grid grid-cols-3 mypage-account mt-5">
+        <div className="grid mobile:grid-cols-1 tablet:grid-cols-3 mypage-account mt-5">
           <div>
             이름
             <Input type={"text"} disabled defaultValue={name} />

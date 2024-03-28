@@ -1,5 +1,5 @@
 .text {
   &.type1 {
-    @apply text-gray-500 text-base;
+    @apply text-gray-500 mobile:text-sm tablet:text-base;
   }
 }

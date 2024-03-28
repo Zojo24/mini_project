@@ -1,5 +1,5 @@
 .dialog {
-  @apply left-2/4 top-2/4 -translate-x-1/2 -translate-y-1/2 p-16 rounded-xl;
+  @apply left-2/4 top-2/4 -translate-x-1/2 -translate-y-1/2 mobile:p-10 tablet:p-16 rounded-xl;
   &::-webkit-scrollbar {
     @apply w-2 bg-transparent;
   }

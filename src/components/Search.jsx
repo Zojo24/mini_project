@@ -176,7 +176,7 @@ const Search = ({ ...props }) => {
           </span>
           <b>지역</b>
         </div>
-        <Select options={where} onChange={handleLocation} />
+        <Select options={where} onChange={handleLocation} className={"mobile:!w-full tablet:!w-auto"} />
       </div>
       <div>
         <div className="search__title">
@@ -185,7 +185,7 @@ const Search = ({ ...props }) => {
           </span>
           <b>객실 종류</b>
         </div>
-        <Select options={viewKind} onChange={handleRoomType} />
+        <Select options={viewKind} onChange={handleRoomType} className={"mobile:!w-full tablet:!w-auto"} />
       </div>
       <div>
         <div className="search__title">
@@ -194,7 +194,7 @@ const Search = ({ ...props }) => {
           </span>
           <b>뷰 종류</b>
         </div>
-        <Select options={viewOption} onChange={handleViewType} />
+        <Select options={viewOption} onChange={handleViewType} className={"mobile:!w-full tablet:!w-auto"} />
       </div>
       <div>
         <div className="search__title">
@@ -203,7 +203,7 @@ const Search = ({ ...props }) => {
           </span>
           <b>1박당 요금</b>
         </div>
-        <Select options={priceOption} onChange={handlePriceRange} />
+        <Select options={priceOption} onChange={handlePriceRange} className={"mobile:!w-full tablet:!w-auto"} />
       </div>
       <div>
         <div className="search__title">
@@ -214,7 +214,7 @@ const Search = ({ ...props }) => {
         </div>
         <Guest onChange={handleGuestNumber} />
       </div>
-      <button type="submit" className="btn-blue xl">
+      <button type="submit" className="btn-blue xl mobile:col-span-2">
         <LuSearch />
         Search
       </button>

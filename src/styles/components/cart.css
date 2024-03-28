@@ -3,8 +3,9 @@
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
   &[open] { 
-    animation: toLeft 1 .5s both  cubic-bezier(0.645, 0.045, 0.355, 1);
+    animation: toLeft 1 .5s both  cubic-bezier(0.645, 0.045, 0.355, 1) !important;
   }
+
 
   &__list {
     @apply p-5;

@@ -1,5 +1,5 @@
 .box {
-  @apply bg-slate-100 p-10 rounded-xl;
+  @apply bg-slate-100 mobile:p-5 tablet:p-10 rounded-xl;
   &.white {
     @apply bg-white;
   }
