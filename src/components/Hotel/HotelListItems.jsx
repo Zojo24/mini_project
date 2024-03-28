@@ -3,8 +3,6 @@ import React, {
   useState,
 } from 'react';
 
-import axios from 'axios';
-
 import hotel1 from '../../assets/hotel1.jpg';
 import { usehotelListStore } from '../../store/hotelListStore';
 import Badge from '../Badge';
@@ -21,11 +19,11 @@ const HotelListItems = ({ modify, ...props }) => {
   const [hotels, setHotels] = useState([]);
   useEffect(() => {
     // axios.get("http://52.78.12.252:8080/api/hotels").then((response) => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/users/")
-      .then((response) => {
-        console.log(response.data);
-      });
+    // axios
+    //   .get("https://jsonplaceholder.typicode.com/users/")
+    //   .then((response) => {
+    //     console.log(response.data);
+    //   });
   }, []);
   const totalHotels = usehotelListStore((state) => state.totalHotels);
 
