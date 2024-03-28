@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "../Input";
 import Select from "../Select";
 import { IoSearch } from "react-icons/io5";
+import Loading2 from "../Loading";
+import useFetchHotels from "../../hooks/useFetchHotels";
 
 const where = [
   {
@@ -31,14 +33,37 @@ const where = [
 ];
 
 const SearchDetail = () => {
+  const [selectedWhere, setSelectedWhere] = useState("");
+  const [hotelName, setHotelName] = useState("");
+  const { isLoading2, fetchHotels } = useFetchHotels();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(selectedWhere, hotelName);
+    await fetchHotels(selectedWhere, hotelName);
+  };
+
+  const handleType = (value) => {
+    setHotelName(value);
+  };
+
   return (
-    <form>
-      <div className="flex gap-2">
-        <Select options={where} />
-        <Input type={"text"} placeholder="호텔명을 입력하세요." />
-        <button className="btn-blue xl">
+    <form onSubmit={handleSubmit}>
+      <div className="flex gap-2 relative">
+        <Select
+          options={where}
+          onChange={(e) => setSelectedWhere(e.target.value)}
+        />
+        <Input
+          type={"text"}
+          placeholder="호텔명을 입력하세요."
+          value={hotelName}
+          onChange={handleType}
+        />
+        <button type="submit" className="btn-blue xl">
           <IoSearch />
         </button>
+        {isLoading2 && <Loading2 />}
       </div>
     </form>
   );
