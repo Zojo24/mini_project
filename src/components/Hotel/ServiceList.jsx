@@ -34,7 +34,7 @@ const ServiceList = ({ className, ...props }) => {
   let { hotelId } = useParams();
   const { totalHotels } = usehotelListStore();
   const thisHotel = totalHotels.find((hotel) => hotel.id === Number(hotelId));
-
+  // console.log("thishotel", thisHotel);
   const options = thisHotel?.options;
   return (
     <ul className={"service-list " + className}>

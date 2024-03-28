@@ -9,20 +9,6 @@ const HotelRules = ({ className }) => {
   const { totalHotels } = usehotelListStore();
   const thisHotel = totalHotels.find((hotel) => hotel.id === Number(hotelId));
 
-  function getTimePeriod(time) {
-    const [hours, minutes] = time.split(":").map(Number);
-    const totalMinutes = hours * 60 + minutes;
-    const morningStart = 6 * 60;
-    const morningEnd = 11 * 60;
-    const afternoonStart = 12 * 60;
-    const afternoonEnd = 22 * 60;
-    if (totalMinutes >= morningStart && totalMinutes <= morningEnd) {
-      return "오전";
-    } else if (totalMinutes >= afternoonStart && totalMinutes <= afternoonEnd) {
-      return "오후";
-    }
-  }
-
   return (
     <div className={className}>
       <ul className="hotel-rules">
@@ -46,15 +32,16 @@ const HotelRules = ({ className }) => {
               : "일부객실 애완동물 가능"}
           </strong>
         </li>
-        <li>
-          <strong>수영장 이용시간</strong>
-          {thisHotel.options.swimming_pool && (
+
+        {thisHotel.options.swimming_pool && (
+          <li>
+            <strong>수영장 이용시간</strong>
             <span>
               오전 {thisHotel.swimmingpool_open} ~ 오후{" "}
               {thisHotel.swimmingpool_closed}
-            </span>
-          )}
-        </li>
+            </span>{" "}
+          </li>
+        )}
       </ul>
     </div>
   );

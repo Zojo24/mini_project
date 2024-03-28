@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const cut3Digit = /\B(?=(\d{3})+(?!\d))/g;
 const allowedFileTypes = ["image/jpeg", "image/png", "image/webp"];
@@ -48,7 +48,12 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
   return (
     <>
       {type === "textarea" ? (
-        <textarea rows={10} className={"textarea " + className} value={value} onChange={handleonChange}></textarea>
+        <textarea
+          rows={10}
+          className={"textarea " + className}
+          value={value}
+          onChange={handleonChange}
+        ></textarea>
       ) : price ? (
         <input
           type={type}
@@ -66,7 +71,13 @@ const Input = ({ type, className, onChange, price, value, ...props }) => {
           accept=".jpg,.jpeg,.png,.webp"
         />
       ) : (
-        <input type={type} {...props} value={value} onChange={handleonChange} className={`input ${className}`} />
+        <input
+          type={type}
+          {...props}
+          value={value}
+          onChange={handleonChange}
+          className={`input ${className}`}
+        />
       )}
       {/* <Toast color={"red"} onOpen={isToast} onClose={() => setIsToast(!isToast)}>
         올바른 파일 형식이 아닙니다. jpg, png, webp 등 이미지만 허용됩니다.

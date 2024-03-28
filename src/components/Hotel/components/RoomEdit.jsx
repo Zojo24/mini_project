@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { usehotelListStore } from '../../store/hotelListStore';
-import { useRoomStore } from '../../store/roomStore';
-import Box from '../Box';
-import Input from '../Input';
-import Radio from '../Radio';
-import Select from '../Select';
+import { usehotelListStore } from '../../../store/hotelListStore';
+import { useRoomStore } from '../../../store/roomStore';
+import Box from '../../Box';
+import Input from '../../Input';
+import Radio from '../../Radio';
+import Select from '../../Select';
 
 const viewOption = [
   {
@@ -71,22 +71,24 @@ const viewKind = [
     text: "스위트 룸",
   },
 ];
-const RoomWrite = () => {
+const RoomEdit = ({ roomId, setIsEdit }) => {
   const { hotelId } = useParams();
   const { totalHotels, addHotel } = usehotelListStore();
-  const { rooms, addRoom } = useRoomStore();
+  const { rooms, addRoom, saveEditedRoom } = useRoomStore();
   const [isRadio, setIsRadio] = useState(false);
+  const thisRoom = rooms.find((it) => it.roomId === roomId);
+  console.log(thisRoom);
   const [roomInfo, setRoomInfo] = useState({
-    type: "스탠다드 룸",
-    active_status: true,
-    bed_type: "싱글/트윈 베드",
-    standard_capacity: null,
-    maximum_capacity: null,
-    view_type: "오션뷰",
-    standard_price: null,
-    adult_fare: "",
-    child_fare: "",
-    roomId: "",
+    type: thisRoom.type,
+    active_status: thisRoom.active_status,
+    bed_type: thisRoom.bed_type,
+    standard_capacity: thisRoom.standard_capacity,
+    maximum_capacity: thisRoom.maximum_capacity,
+    view_type: thisRoom.view_type,
+    standard_price: thisRoom.standard_price,
+    adult_fare: thisRoom.adult_fare,
+    child_fare: thisRoom.child_fare,
+    roomId: thisRoom.roomId,
   });
   const handleRoomType = (e) => {
     setRoomInfo((prevInfo) => ({
@@ -122,8 +124,12 @@ const RoomWrite = () => {
     addRoom(roomInfo);
   };
   const thisHotel = totalHotels.find((hotel) => hotel.id === Number(hotelId));
-
-  // console.log(roomInfo);
+  const onSave = () => {
+    const index = rooms.findIndex((it) => it.roomId === roomId);
+    rooms[index] = { ...roomInfo };
+    saveEditedRoom(rooms);
+    setIsEdit(false);
+  };
   return (
     <>
       <Box className={"white mt-5"}>
@@ -131,15 +137,27 @@ const RoomWrite = () => {
           <ul className="grid mobile:grid-cols-1 tablet:grid-cols-3 gap-10">
             <li className="grid gap-3 self-start">
               객실 종류
-              <Select options={viewKind} onChange={handleRoomType} />
+              <Select
+                selectValue={roomInfo.type}
+                options={viewKind}
+                onChange={handleRoomType}
+              />
             </li>
             <li className="grid gap-3 self-start">
               객실 침대 정보
-              <Select options={bedOption} onChange={handleBed} />
+              <Select
+                selectValue={roomInfo.bed_type}
+                options={bedOption}
+                onChange={handleBed}
+              />
             </li>
             <li className="grid gap-3">
               객실 뷰 종류
-              <Select options={viewOption} onChange={handleView} />
+              <Select
+                selectValue={roomInfo.view_type}
+                options={viewOption}
+                onChange={handleView}
+              />
             </li>
             <li className="grid gap-3 self-start">
               객실 1박 가격
@@ -170,14 +188,23 @@ const RoomWrite = () => {
             <li className="grid gap-3 self-start">
               객실 기준인원
               <div className="grid grid-cols-[1fr_min-content] items-center gap-1">
-                <Input type={"text"} price={true} onChange={handleCapacity} />{" "}
+                <Input
+                  type={"number"}
+                  value={roomInfo.standard_capacity}
+                  onChange={handleCapacity}
+                />{" "}
                 명
               </div>
             </li>
             <li className="grid gap-3 self-start">
               객실 최대인원
               <div className="grid grid-cols-[1fr_min-content] items-center gap-1">
-                <Input type={"text"} price={true} onChange={handleMax} /> 명
+                <Input
+                  value={roomInfo.maximum_capacity}
+                  type={"text"}
+                  onChange={handleMax}
+                />{" "}
+                명
               </div>
             </li>
             <li className="grid gap-3">
@@ -212,14 +239,13 @@ const RoomWrite = () => {
         </form>
       </Box>
       <div className="flex gap-3 justify-center mt-5">
-        <button className="btn-blue" onClick={onSubmit}>
-          객실 등록
+        <button onClick={onSave} className="btn-green">
+          객실 수정
         </button>
-        <button className="btn-green">객실 수정</button>
         <button className="btn-gray">취소</button>
       </div>
     </>
   );
 };
 
-export default RoomWrite;
+export default RoomEdit;
