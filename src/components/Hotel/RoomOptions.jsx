@@ -1,9 +1,9 @@
-import React from "react";
-import { LuBed } from "react-icons/lu";
-import { GoPeople } from "react-icons/go";
-import { BsFillPeopleFill } from "react-icons/bs";
-import { GrOverview } from "react-icons/gr";
-import { MdOutlineHotel } from "react-icons/md";
+import React from 'react';
+
+import { BsFillPeopleFill } from 'react-icons/bs';
+import { GoPeople } from 'react-icons/go';
+import { GrOverview } from 'react-icons/gr';
+import { LuBed } from 'react-icons/lu';
 
 const RoomOptions = () => {
   return (

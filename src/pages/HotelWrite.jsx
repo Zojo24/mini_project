@@ -99,12 +99,13 @@ const HotelWrite = () => {
     price: "",
     available: true,
     description: "",
-    check_in: "",
-    check_out: "",
+    check_in: "1:00",
+    check_out: "1:00",
     notSmoking: true,
     noPet: true,
     swimmingpool_open: "",
     swimmingpool_closed: "",
+    rooms: [],
     options: {
       swimming_pool: false,
       break_fast: false,
@@ -139,7 +140,7 @@ const HotelWrite = () => {
 
     setHotelInfo((prevHotelInfo) => ({
       ...prevHotelInfo,
-      nation: selectedText,
+      nation: selectedValue,
     }));
   };
   //가격
@@ -188,14 +189,14 @@ const HotelWrite = () => {
 
     const selectedText =
       checkOption.find((option) => option.value === selectedValue)?.text || "";
-    setHotelInfo({ ...hotelInfo, check_in: selectedText });
+    setHotelInfo({ ...hotelInfo, check_in: selectedValue });
   };
   const handleCheckOut = (e) => {
     const selectedValue = e.target.value;
 
     const selectedText =
       checkOption.find((option) => option.value === selectedValue)?.text || "";
-    setHotelInfo({ ...hotelInfo, check_out: selectedText });
+    setHotelInfo({ ...hotelInfo, check_out: selectedValue });
   };
   //흡연
   const handleSmoking = (value) => {
@@ -228,17 +229,6 @@ const HotelWrite = () => {
     ) {
       setIsPopup(true);
       setErrorMessage("호텔 기본정보를 모두 입력해 주세요.");
-      return;
-    } else if (
-      hotelInfo.check_in == "" ||
-      hotelInfo.check_out == "" ||
-      (hotelInfo.options.swimming_pool === true &&
-        hotelInfo.options.swimmingpool_open == "") ||
-      (hotelInfo.options.swimming_pool == true &&
-        hotelInfo.options.swimmingpool_closed == "")
-    ) {
-      setIsPopup(true);
-      setErrorMessage("호텔 규칙을 모두 입력해 주세요.");
       return;
     }
     e.preventDefault();
