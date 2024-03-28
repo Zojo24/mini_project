@@ -32,8 +32,8 @@ const where = [
 
 const SearchDetail = () => {
   return (
-    <form>
-      <div className="flex gap-2">
+    <form className=" mobile:w-full tablet:w-auto">
+      <div className="mobile:grid mobile:grid-cols-1 tablet:flex gap-2">
         <Select options={where} />
         <Input type={"text"} placeholder="호텔명을 입력하세요." />
         <button className="btn-blue xl">

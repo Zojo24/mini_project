@@ -1,8 +1,8 @@
 import React from "react";
 
-const Advertisement = () => {
+const Advertisement = ({ ...props }) => {
   return (
-    <div className="advertisement">
+    <div className="advertisement" {...props}>
       <div className="container">
         TripHotel은 최고의 여행이 될 수 있도록
         <br />

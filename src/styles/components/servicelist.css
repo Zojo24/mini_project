@@ -1,5 +1,5 @@
 .service-list {
-  @apply grid  grid-cols-3 gap-4;
+  @apply grid mobile:grid-cols-2 tablet:grid-cols-3 mobile:gap-3 tablet:gap-4;
   li {
     @apply border border-gray-200 p-3 rounded-md flex items-center gap-2 bg-white;
     svg {

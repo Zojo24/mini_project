@@ -1,8 +1,8 @@
 .main {
- @apply min-h-96 pt-24;
+ @apply tablet:min-h-96 mobile:pt-14 tablet:pt-24;
 }
 .container {
-  @apply   mx-auto;
+  @apply mobile:px-3 mobile:max-w-full  tablet:mx-auto box-border;
 }
 
 .bg-blue{
@@ -10,7 +10,7 @@
 }
 
 .advertisement {
-  @apply py-24 bg-blue-700 text-white text-center font-bold text-3xl leading-relaxed;
+  @apply mobile:py-10 tablet:py-24 bg-blue-700 text-white text-center mobile:font-normal tablet:font-bold mobile:text-base tablet:text-3xl leading-relaxed;
   background-image:url('../../assets/add_bg.png');
 
 }

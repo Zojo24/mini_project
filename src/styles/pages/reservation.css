@@ -1,7 +1,6 @@
 /* 결재 */
 .reservation {
-  @apply grid gap-10;
-  grid-template-columns: 1fr 2.2fr;
+  @apply grid gap-10 mobile:grid-cols-1 tablet:grid-cols-[1fr_2.2fr];
   &__hotel-info {
     @apply self-start;
     &__list {
@@ -21,12 +20,9 @@
 
 /* 예약 입력 */
 .reservation-form {
- display: grid;
- grid-template-columns: 1fr 1fr;
- gap:1.5rem;
+  @apply grid gap-6 mobile:block tablet:grid-cols-2;
  > div {
-  display: grid;
-  gap:.4rem;
+  @apply grid gap-2 mobile:mt-5 tablet:mt-0;
  }
 }
 

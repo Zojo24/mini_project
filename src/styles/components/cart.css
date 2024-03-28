@@ -1,7 +1,12 @@
 .cart {
-  @apply h-screen max-h-screen w-[22rem] m-0 !p-0 rounded-none !left-[inherit] right-0 !top-0 bg-white !transform-none;
+  @apply h-screen max-h-screen overflow-hidden w-0 m-0 !p-0 rounded-none !left-[inherit] right-0 !top-0 bg-white !transform-none;
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
+  &[open] { 
+    animation: toLeft 1 .5s both  cubic-bezier(0.645, 0.045, 0.355, 1) !important;
+  }
+
+
   &__list {
     @apply p-5;
     height: calc(100vh - 157px - 66px); overflow: auto;
@@ -44,4 +49,9 @@
   li {
     @apply flex justify-between;
   }
+}
+
+@keyframes toLeft {
+  0% { @apply w-0}
+  100% { @apply w-[22rem]}
 }

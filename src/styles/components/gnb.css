@@ -1,12 +1,12 @@
 @import "../var.css";
 
 .gnb {
-  @apply absolute left-2/4 -translate-x-2/4;
+  @apply justify-self-center mobile:hidden tablet:flex desktop:flex tablet:pl-5 desktop:pl-0;
   ul {
     @apply flex gap-10;
   }
   a {
-    @apply text-lg font-medium text-white block py-3;
+    @apply text-lg font-medium text-white block py-3 whitespace-nowrap;
     font-family: var(--eng1);
     
     .sub & {

@@ -196,7 +196,7 @@ const HotelWrite = () => {
 
     const selectedText =
       checkOption.find((option) => option.value === selectedValue)?.text || "";
-    setHotelInfo({ ...hotelInfo, check_out: selectedValue });
+    setHotelInfo({ ...hotelInfo, check_out: selectedText });
   };
   //흡연
   const handleSmoking = (value) => {
@@ -230,6 +230,17 @@ const HotelWrite = () => {
       setIsPopup(true);
       setErrorMessage("호텔 기본정보를 모두 입력해 주세요.");
       return;
+    } else if (
+      hotelInfo.check_in == "" ||
+      hotelInfo.check_out == "" ||
+      (hotelInfo.options.swimming_pool === true &&
+        hotelInfo.options.swimmingpool_open == "") ||
+      (hotelInfo.options.swimming_pool == true &&
+        hotelInfo.options.swimmingpool_closed == "")
+    ) {
+      setIsPopup(true);
+      setErrorMessage("호텔 규칙을 모두 입력해 주세요.");
+      return;
     }
     e.preventDefault();
     try {
@@ -256,34 +267,50 @@ const HotelWrite = () => {
               className={"base mb-5"}
             />
             <Box className={"white"}>
-              <ul className="grid grid-cols-4 gap-5">
+              <ul className="grid mobile:grid-cols-1 tablet:grid-cols-4 gap-5">
                 <li>
                   <Noimage
                     props={{ image: isImage }}
                     className={"mb-3 bg-gray-50"}
                   />
-                  <Input type={"file"} onChange={handleonChange} />
+                  <Input
+                    type={"file"}
+                    onChange={handleonChange}
+                    className={"mobile:!w-full"}
+                  />
                 </li>
                 <li>
                   <Noimage
                     props={{ image: isImage }}
                     className={"mb-3 bg-gray-50"}
                   />
-                  <Input type={"file"} onChange={handleonChange} />
+                  <Input
+                    type={"file"}
+                    onChange={handleonChange}
+                    className={"mobile:!w-full"}
+                  />
                 </li>
                 <li>
                   <Noimage
                     props={{ image: isImage }}
                     className={"mb-3 bg-gray-50"}
                   />
-                  <Input type={"file"} onChange={handleonChange} />
+                  <Input
+                    type={"file"}
+                    onChange={handleonChange}
+                    className={"mobile:!w-full"}
+                  />
                 </li>
                 <li>
                   <Noimage
                     props={{ image: isImage }}
                     className={"mb-3 bg-gray-50"}
                   />
-                  <Input type={"file"} onChange={handleonChange} />
+                  <Input
+                    type={"file"}
+                    onChange={handleonChange}
+                    className={"mobile:!w-full"}
+                  />
                 </li>
               </ul>
             </Box>
@@ -296,7 +323,7 @@ const HotelWrite = () => {
               className={"base mb-5"}
             />
             <Box className={"white"}>
-              <ul className="grid grid-cols-3 gap-5">
+              <ul className="grid mobile:grid-cols-1 tablet:grid-cols-3 gap-5">
                 <li className="grid gap-3">
                   호텔 위치
                   <Select options={where} onChange={handleLocationChange} />
@@ -342,7 +369,7 @@ const HotelWrite = () => {
                     />
                   </div>
                 </li>
-                <li className="grid gap-3 col-span-3">
+                <li className="grid gap-3 tablet:col-span-3">
                   호텔 안내
                   <Input
                     type={"textarea"}
@@ -363,7 +390,7 @@ const HotelWrite = () => {
                   className={"base mb-5"}
                 />
                 <Box className={"white"}>
-                  <ul className="grid grid-cols-3 gap-4">
+                  <ul className="grid mobile:grid-cols-2 tablet:grid-cols-3 gap-4">
                     <li>
                       <Checkbox
                         color="blue"
@@ -591,17 +618,17 @@ const HotelWrite = () => {
                 />
                 <Box className={"white"}>
                   <ul className="grid gap-5">
-                    <li className="grid grid-cols-[8rem_1fr] items-center">
+                    <li className=" grid mobile:grid-cols-1 tablet:grid-cols-[8rem_1fr] mobile:gap-2 tablet:gap-0 items-center">
                       <strong>체크인</strong>
                       <Select options={checkOption} onChange={handleCheckIn} />
                     </li>
-                    <li className="grid grid-cols-[8rem_1fr] items-center">
+                    <li className="grid mobile:grid-cols-1 tablet:grid-cols-[8rem_1fr] mobile:gap-2 tablet:gap-0 items-center">
                       <strong>체크아웃</strong>
                       <Select options={checkOption} onChange={handleCheckOut} />
                     </li>
-                    <li className="grid grid-cols-[8rem_1fr] items-center">
+                    <li className="grid mobile:grid-cols-1 tablet:grid-cols-[8rem_1fr] mobile:gap-2 tablet:gap-0 items-center">
                       <strong>흡연</strong>
-                      <div className="flex justify-start">
+                      <div className="flex justify-start mobile:whitespace-nowrap mobile:flex-wrap tablet:flex-nowrap">
                         <Radio
                           color={"red"}
                           checked={hotelInfo.notSmoking === true}
@@ -618,14 +645,18 @@ const HotelWrite = () => {
                           name={"rag2"}
                           onChange={() => handleSmoking("일부객실 가능")}
                         />{" "}
-                        <Badge color={"red ml-2"}>
+                        <Badge
+                          color={
+                            "red mobile:ml-0 tablet:ml-2 mobile:mt-2 tablet:mt-0"
+                          }
+                        >
                           일부객실 선택시 현장에서 방을 배정합니다.
                         </Badge>
                       </div>
                     </li>
-                    <li className="grid grid-cols-[8rem_1fr] items-center">
+                    <li className="grid mobile:grid-cols-1 tablet:grid-cols-[8rem_1fr] mobile:gap-2 tablet:gap-0 items-center">
                       <strong>애완동물</strong>
-                      <div className="flex">
+                      <div className="flex justify-start mobile:whitespace-nowrap mobile:flex-wrap tablet:flex-nowrap">
                         <Radio
                           color={"red"}
                           checked={hotelInfo.noPet === true}
@@ -642,7 +673,11 @@ const HotelWrite = () => {
                           name={"rag3"}
                           onChange={() => handlePet("일부객실 가능")}
                         />{" "}
-                        <Badge color={"red ml-2"}>
+                        <Badge
+                          color={
+                            "red  mobile:ml-0 tablet:ml-2 mobile:mt-2 tablet:mt-0"
+                          }
+                        >
                           일부객실 선택시 현장에서 방을 배정합니다.
                         </Badge>
                       </div>

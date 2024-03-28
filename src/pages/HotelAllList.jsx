@@ -30,8 +30,8 @@ const HotelAllList = () => {
       <div className="container">
         <Destinations className="sub" />
         <Heading tag={"h3"} text={"TripHotel 목록"} className={"xl mt-10"} />
-        <div className="flex justify-between items-center mt-10 mb-5">
-          <div className="text-2xl">
+        <div className="flex mobile:flex-col tablet:flex-row justify-between items-center mt-10 mb-5">
+          <div className="text-2xl mobile:mb-3 tablet:mb-0">
             <strong className="">50개</strong>
             <span className="font-light">의 호텔이 있습니다.</span>
           </div>

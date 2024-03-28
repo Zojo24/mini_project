@@ -21,7 +21,7 @@ const Footer = () => {
 
   return (
     <>
-      <div className="footer px-24 bg-gray-950 pt-24 pb-16 grid grid-cols-2">
+      <div className="footer mobile:px-10 tablet:px-24 bg-gray-950 mobile:pt-10 tablet:pt-24 mobile:pb-10 tablet:pb-16 grid mobile:grid-cols-1 tablet:grid-cols-2">
         <div className="grid gap-5 text-gray-300 justify-self-start">
           <Logo />
           <div>
@@ -34,7 +34,7 @@ const Footer = () => {
             <span className=" text-xl ">+820212341234</span>
           </div>
         </div>
-        <div className="sns text-white self-end justify-self-end">
+        <div className="sns text-white self-end mobile:justify-self-start tablet:justify-self-end mobile:mt-5 tablet:mt-0">
           <Link to="/" className="bg-blue-900">
             <ImFacebook />
           </Link>
@@ -49,8 +49,10 @@ const Footer = () => {
           </Link>
         </div>
       </div>
-      <div className="px-24 py-7 text-gray-300 col-span-2 bg-black flex justify-between">
-        <div>&copy; {thisYear} triphotel. All Rights Reserved by FEBE Team4</div>
+      <div className=" mobile:px-10 tablet:px-24 py-7 text-gray-300 col-span-2 bg-black mobile:block tablet:flex justify-between">
+        <div className="mobile:text-sm mobile:mb-4 tablet:mb-0 tablet:text-base">
+          &copy; {thisYear} triphotel. All Rights Reserved by FEBE Team4
+        </div>
         <div className="flex gap-5">
           <button onClick={handleRule} className="w-auto h-auto text-white">
             개인정보이용약관
