@@ -4,12 +4,10 @@ import { useNavigate } from "react-router-dom";
 import "../styles/pages/login.css";
 import axios from "axios";
 import { useLoginStore } from "../store/loginStore";
-import { useRegisterStore } from "../store/RegisterStore";
 import Toast from "../components/Toast";
 
 const Login = ({ close, ...props }) => {
-  const { setLogin, setUser } = useLoginStore();
-  const { setRegister } = useRegisterStore();
+  const { setLogin, setUser, isLoggedIn } = useLoginStore();
   const navigate = useNavigate();
 
   // 로그인 상태
@@ -72,6 +70,11 @@ const Login = ({ close, ...props }) => {
   const handleConfirmPassword = (value) => {
     setConfirmPassword(value);
   };
+
+  if (isLoggedIn) {
+    navigate("/");
+    return null;
+  }
 
   // 로그인 로직
   const handleLogin = async (e) => {
@@ -138,7 +141,8 @@ const Login = ({ close, ...props }) => {
         "http://52.78.12.252:8080/api/members/join",
         requestData
       );
-      setRegister(true);
+      setLogin(true);
+      setUser(response.data.user);
       navigate("/");
       resetRegisterForm();
     } catch (error) {
