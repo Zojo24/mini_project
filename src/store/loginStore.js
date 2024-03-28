@@ -4,8 +4,9 @@ import { persist, devtools } from "zustand/middleware";
 let loginStore = (set) => ({
   login: false,
   user: {},
+  accessToken: "",
   setLogin: (value) => set({ login: value }),
-  setUser: (userInfo) => set({ user: userInfo }),
+  setUser: (userInfo, accessToken) => set({ user: userInfo, accessToken }),
 });
 
 loginStore = devtools(loginStore);

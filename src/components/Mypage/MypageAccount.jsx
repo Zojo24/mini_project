@@ -6,11 +6,13 @@ import Avatar from "../Avatar";
 import { useLoginStore } from "../../store/loginStore";
 
 const MypageAccount = () => {
-  const { user, setUser } = useLoginStore();
+  const { user } = useLoginStore((state) => state);
   const { name, email, birth, password } = user;
-  const birthYear = birth.slice(0, 4);
-  const birthMonth = birth.slice(4, 6);
-  const birthDay = birth.slice(6, 8);
+  const birthYear = birth?.slice(0, 4);
+  const birthMonth = birth?.slice(4, 6);
+  const birthDay = birth?.slice(6, 8);
+
+  const { setUser } = useLoginStore();
 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");

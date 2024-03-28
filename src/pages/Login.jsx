@@ -89,13 +89,11 @@ const Login = ({ close, ...props }) => {
         }
       );
 
-      //header jwt 토큰 정보 받아오기
-      let jwtToken = response.headers["Authorization"];
-      //TODO: 추후 헤더 이름 확인 필요
-      if (response.data.success && jwtToken) {
-        localStorage.setItem("token", jwtToken);
+      const { result, access_token } = response.data;
+      if (result && access_token) {
+        localStorage.setItem("token", access_token);
         setLogin(true);
-        setUser(response.data.user);
+        setUser(result, access_token);
         close();
       }
     } catch (error) {
@@ -141,10 +139,9 @@ const Login = ({ close, ...props }) => {
         "http://52.78.12.252:8080/api/members/join",
         requestData
       );
-      setLogin(true);
-      setUser(response.data.user);
       navigate("/");
       resetRegisterForm();
+      close();
     } catch (error) {
       if (error.response) {
         switch (error.response.status) {
