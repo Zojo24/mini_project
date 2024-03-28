@@ -5,33 +5,43 @@ import { GoPeople } from 'react-icons/go';
 import { GrOverview } from 'react-icons/gr';
 import { LuBed } from 'react-icons/lu';
 
-const RoomOptions = () => {
+import { useRoomStore } from '../../store/roomStore';
+
+const RoomOptions = ({
+  bedtype,
+  capacity,
+  maximum,
+  view,
+  adult_fare,
+  child_fare,
+}) => {
+  const { rooms } = useRoomStore();
   return (
     <div className="room-option">
       <ul>
         <li>
           <LuBed />
-          더블베드
+          {bedtype}
         </li>
         <li>
           <GoPeople />
-          객실 기준인원 4
+          {capacity}
         </li>
         <li>
           <BsFillPeopleFill />
-          객실 최대인원 5
+          {maximum}
         </li>
         <li>
           <GrOverview />
-          가든뷰
+          {view}
         </li>
       </ul>
       <ul className="room-option__price">
         <li>
-          <span>성인 1인 숙박</span> : 1,000원
+          <span>성인 1인 숙박</span> : {adult_fare} ₩
         </li>
         <li>
-          <span>어린이 1인 숙박</span> : 1,000원
+          <span>어린이 1인 숙박</span> : {child_fare} ₩
         </li>
       </ul>
     </div>

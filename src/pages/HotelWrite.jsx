@@ -20,6 +20,7 @@ import Noimage from '../components/Noimage';
 import Radio from '../components/Radio';
 import Select from '../components/Select';
 import { usehotelListStore } from '../store/hotelListStore';
+import { useRoomStore } from '../store/roomStore';
 import { useVisualStore } from '../store/visualStore';
 
 const where = [
@@ -75,7 +76,7 @@ const HotelWrite = () => {
   const { setTitle } = useVisualStore();
   const navigate = useNavigate();
   const [isImage, setIsImage] = useState("");
-
+  const { rooms, resetRooms } = useRoomStore();
   useEffect(() => {
     setTitle("Hotel Registration", subvisual);
   }, [setTitle]);
@@ -248,7 +249,8 @@ const HotelWrite = () => {
     } catch (error) {
       console.error("Error sending POST request:", error);
     }
-    addHotel(hotelInfo);
+    addHotel({ ...hotelInfo, rooms: [...rooms] });
+    // resetRooms()
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);

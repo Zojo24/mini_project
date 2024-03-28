@@ -20,10 +20,12 @@ const HotelListItems = ({ modify, ...props }) => {
 
   const [hotels, setHotels] = useState([]);
   useEffect(() => {
-    axios.get("/hotels").then((response) => {
-      setHotels(response.data[0]);
-      // console.log("불러온값", response.data[0]);
-    });
+    // axios.get("http://52.78.12.252:8080/api/hotels").then((response) => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/users/")
+      .then((response) => {
+        console.log(response.data);
+      });
   }, []);
   const totalHotels = usehotelListStore((state) => state.totalHotels);
 

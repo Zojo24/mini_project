@@ -14,6 +14,9 @@ let roomStore = (set) => ({
     set((state) => ({
       rooms: state.rooms.filter((room) => room.roomId !== roomId),
     })),
+  resetRooms: () => set({ rooms: [] }),
+  saveEditedRoom: (newRoomInfo) =>
+    set((state) => ({ rooms: [...newRoomInfo] })),
 });
 const generateRoomId = () => {
   return Math.random().toString(36).substring(7);
