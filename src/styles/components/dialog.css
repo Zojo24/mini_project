@@ -15,6 +15,12 @@
   &[open]:not(&.cart){
     animation: goDown 1  0.5s both cubic-bezier(0.645, 0.045, 0.355, 1);
   }
+  &.hide:not(&.cart){
+    animation: goUp 1  0.5s both cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  &.hide::backdrop{
+    animation: fadeOut 1  0.5s both reverse;
+  }
   &[open]::backdrop{
     @apply bg-black/35;
     animation: fadeIn 1  0.5s both;
@@ -27,7 +33,15 @@
   0% { @apply  !bg-black/0;}
   100% { @apply  !bg-black/35;}
 }
+@keyframes fadeOut {
+  0% { @apply  !bg-black/35;}
+  100% { @apply  !bg-black/0;}
+}
 @keyframes goDown {
   0% { @apply  -mt-10 opacity-0;}
   100% { @apply -mt-0 opacity-100;}
+}
+@keyframes goUp {
+  0% { @apply  -mt-0 opacity-100;}
+  100% { @apply -mt-10 opacity-0;}
 }
