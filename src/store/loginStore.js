@@ -3,10 +3,26 @@ import { persist, devtools } from "zustand/middleware";
 
 let loginStore = (set) => ({
   login: false,
-  user: {},
   accessToken: "",
+  userId: null,
+  userName: "",
+  userEmail: "",
+  userBirth: "",
+  userCredit: 0,
+  userRole: "",
+
   setLogin: (value) => set({ login: value }),
-  setUser: (userInfo, accessToken) => set({ user: userInfo, accessToken }),
+  setAccessToken: (token) => set({ accessToken: token }),
+  setUserInfo: (userInfo, token) =>
+    set({
+      userId: userInfo.id,
+      userName: userInfo.name,
+      userEmail: userInfo.email,
+      userBirth: userInfo.birth,
+      userCredit: userInfo.credit,
+      userRole: userInfo.role,
+      accessToken: token,
+    }),
 });
 
 loginStore = devtools(loginStore);

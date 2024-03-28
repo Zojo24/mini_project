@@ -7,7 +7,7 @@ import { useLoginStore } from "../store/loginStore";
 import Toast from "../components/Toast";
 
 const Login = ({ close, ...props }) => {
-  const { setLogin, setUser, isLoggedIn } = useLoginStore();
+  const { setLogin, setUserInfo } = useLoginStore();
   const navigate = useNavigate();
 
   // 로그인 상태
@@ -71,11 +71,6 @@ const Login = ({ close, ...props }) => {
     setConfirmPassword(value);
   };
 
-  if (isLoggedIn) {
-    navigate("/");
-    return null;
-  }
-
   // 로그인 로직
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -89,11 +84,14 @@ const Login = ({ close, ...props }) => {
         }
       );
 
-      const { result, access_token } = response.data;
-      if (result && access_token) {
-        localStorage.setItem("token", access_token);
+      const result = response.data.result;
+      const accessToken = result.access_token;
+
+      if (result && accessToken) {
+        localStorage.setItem("token", accessToken);
         setLogin(true);
-        setUser(result, access_token);
+        setUserInfo(result, accessToken);
+        navigate("/");
         close();
       }
     } catch (error) {
