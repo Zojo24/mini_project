@@ -1,5 +1,14 @@
 .tab {
-  @apply min-w-[480px] flex border-b-2 border-b-gray-300 gap-5;
+  @apply mobile:min-w-full mobile:overflow-x-auto mobile:overflow-y-hidden tablet:overflow-visible tablet:min-w-[480px] flex border-b-2 border-b-gray-300 gap-5 whitespace-nowrap;
+  &::-webkit-scrollbar {
+    @apply h-0 bg-transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    @apply h-0 bg-gray-300 rounded-xl;
+  }
+  &::-webkit-scrollbar-track {
+      @apply bg-transparent;
+    }
   button {
     @apply font-semibold pb-5;
     &.--active {
@@ -11,6 +20,7 @@
     }
   }
 }
+
 .login-form {
   @apply grid gap-7 pt-8;
   div {

@@ -7,6 +7,11 @@ export default {
         sans: ["Noto Sans KR", "sans-serif"],
       },
     },
+    screens: {
+      mobile: "0",
+      tablet: "1024px",
+      desktop: "1500px",
+    },
   },
   plugins: [],
 };

@@ -1,16 +1,11 @@
-import '../styles/components/form.css';
+import "../styles/components/form.css";
 
-import React from 'react';
+import React from "react";
 
-const Select = ({ selectValue, options, onChange, ...props }) => {
+const Select = ({ selectValue, options, className, onChange, ...props }) => {
   return (
     <>
-      <select
-        value={selectValue}
-        {...props}
-        className="select"
-        onChange={onChange}
-      >
+      <select value={selectValue} {...props} className={"select " + className} onChange={onChange}>
         {options.map(({ value, text }) => (
           <option key={value} value={value}>
             {text}

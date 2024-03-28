@@ -48,8 +48,8 @@ const SearchDetail = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="flex gap-2 relative">
+    <form className=" mobile:w-full tablet:w-auto" onSubmit={handleSubmit}>
+      <div className="mobile:grid mobile:grid-cols-1 tablet:flex gap-2">
         <Select
           options={where}
           onChange={(e) => setSelectedWhere(e.target.value)}

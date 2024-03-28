@@ -18,12 +18,12 @@ const MypageCartItem = ({ items }) => {
   return (
     <>
       <tr className="group">
-        <td className="self-start justify-self-end text-lg text-gray-500">
+        <td className=" mobile:justify-start tablet:justify-self-end text-lg text-gray-500 mobile:col-start-1 mobile:col-end-4 mobile:row-start-1 mobile:row-end-2 mobile:self-center tablet:self-start mobile:p-3 tablet:p-0 ">
           <button onClick={() => deleteCart(cart_id)}>
             <RiDeleteBinLine />
           </button>
         </td>
-        <td>
+        <td className="mobile:col-start-1 mobile:col-end-4 mobile:row-start-2 mobile:row-end-3">
           <div className="grid items-center grid-cols-[min-content_1fr] gap-5 text-left">
             <Link to="/hoteldetail">
               <RoomPicture image={file} className="sm" />
@@ -47,12 +47,12 @@ const MypageCartItem = ({ items }) => {
             </div>
           </div>
         </td>
-        <td>{type}</td>
-        <td className="pr-3 text-right">
+        <td className="mobile:justify-self-end mobile:whitespace-nowrap">{type}</td>
+        <td className=" mobile:pr-0 tablet:pr-3 text-right whitespace-nowrap">
           총 <b>{digit3(total_price)}</b> 원
         </td>
-        <td>
-          <button onClick={handleOnClick} className="btn-blue">
+        <td className="mobile:justify-self-end">
+          <button onClick={handleOnClick} className="btn-blue whitespace-nowrap">
             결제
           </button>
         </td>

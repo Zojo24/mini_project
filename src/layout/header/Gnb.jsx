@@ -1,13 +1,16 @@
 import { Link, useLocation } from "react-router-dom";
 import "../../styles/components/gnb.css";
 
-const Gnb = () => {
+const Gnb = ({ ...props }) => {
   const location = useLocation();
   return (
-    <nav className="gnb">
+    <nav className="gnb" {...props}>
       <ul>
         <li>
-          <Link to="/hotel" className={location.pathname === "/hotel" ? "active" : ""}>
+          <Link
+            to="/hotel"
+            className={location.pathname === "/hotel" || location.pathname === "/hoteldetail" ? "active" : ""}
+          >
             Hotels
           </Link>
         </li>

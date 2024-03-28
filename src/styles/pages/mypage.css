@@ -10,14 +10,21 @@
 .mypage-cart {
   &__table {
     @apply text-center;
+    thead {
+      @apply mobile:hidden tablet:table-header-group;
+    }
+    colgroup {
+      @apply mobile:hidden tablet:table-column-group;
+    }
     tr {
-      @apply border-t border-solid border-t-gray-200;
+      @apply border-t border-solid border-t-gray-200 mobile:grid mobile:gap-2 mobile:grid-cols-[min-content_1fr_min-content] tablet:table-row mobile:py-3 tablet:py-0 items-center;
     }
     th {
       @apply font-normal py-2 ;
     }
     td {
-      @apply py-3;
+      @apply mobile:py-0 tablet:py-3 mobile:block tablet:table-cell mobile:text-left tablet:text-center;
+      
     }
 
   }

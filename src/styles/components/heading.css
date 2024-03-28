@@ -4,17 +4,14 @@
   &.sm {
     @apply  text-2xl;
   }
-  &.sm {
-    @apply  text-2xl;
-  }
   &.base {
-    @apply  text-3xl;
+    @apply mobile:text-xl tablet:text-3xl;
   }
   &.xl {
-    @apply  text-4xl text-center relative;
+    @apply mobile:text-3xl tablet:text-4xl text-center relative;
     &:after {
       content: "";
-      @apply m-auto w-11 h-[0.4rem] bg-blue-700 block mt-4 mb-10;
+      @apply m-auto w-11 h-[0.4rem] bg-blue-700 block mt-4 mobile:mb-5 tablet:mb-10;
     }
   }
 }

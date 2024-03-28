@@ -80,7 +80,7 @@ const HotelDetail = () => {
         <HotelGallery pictures={pictures} className="mt-10" />
         {/* 무조건 4개 삽입  */}
 
-        <div className="flex relative gap-8 pt-8">
+        <div className="mobile:block tablet:flex relative gap-8 pt-8">
           <div className="min-h-lvh flex-1 flex gap-8  flex-col">
             <Box>
               <Heading tag={"h3"} text={"호텔 안내"} className={"base"} />
@@ -110,7 +110,7 @@ const HotelDetail = () => {
               <RoomList className={"mt-5"} />
             </Box>
           </div>
-          <div className="sticky top-28 self-start w-[30rem]">
+          <div className="mobile:static tablet:sticky top-28 self-start mobile:w-full tablet:w-[25rem] desktop:w-[30rem] mobile:mt-5 tablet:mt-0">
             <Box>
               <ReservationFirst />
             </Box>

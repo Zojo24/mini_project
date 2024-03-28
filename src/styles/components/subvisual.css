@@ -1,5 +1,5 @@
 .sub-visual {
-  @apply py-[9rem] grid justify-center bg-no-repeat bg-cover bg-center relative mt-24;
+  @apply mobile:py-0 mobile:h-[10rem] tablet:h-auto tablet:py-[9rem] grid justify-center bg-no-repeat bg-cover bg-center relative mobile:mt-20 tablet:mt-24;
   &::after{
     content:'';
     @apply left-0 right-0 top-0 bottom-0 absolute bg-blue-900/70;
@@ -10,7 +10,8 @@
     }
   }
   > h2 {
-    @apply relative z-30 text-white text-5xl font-semibold;
+    @apply text-center relative z-30 text-white font-semibold
+    mobile:mt-0 mobile:absolute mobile:top-2/4 mobile:-translate-y-2/4 mobile:w-full mobile:text-2xl tablet:text-5xl;
     font-family: var(--eng1);
   }
 }

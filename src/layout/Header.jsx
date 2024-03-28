@@ -1,19 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Gnb from "./header/Gnb";
 import Logo from "./header/Logo";
 import Utillity from "./header/Utillity";
 import "../styles/layout/header.css";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const Header = ({ subpage }) => {
+  const ref = useRef();
   useEffect(() => {
-    const header = document.querySelector(".header");
+    Aos.init();
+    const header = ref.current;
 
     const headerScroll = () => {
       let scroll = window.scrollY;
       if (scroll > 100 && !subpage) {
-        header.style.backgroundColor = "rgba(0,0,0,1)";
+        header.classList.add("active");
       } else {
-        header.style.backgroundColor = "rgba(0,0,0,0)";
+        header.classList.remove("active");
       }
     };
     headerScroll();
@@ -21,7 +25,7 @@ const Header = ({ subpage }) => {
 
     const cleanEvent = () => {
       window.removeEventListener("scroll", headerScroll);
-      header.removeAttribute("style");
+      header.classList.remove("active");
     };
 
     return () => {
@@ -30,10 +34,10 @@ const Header = ({ subpage }) => {
   }, [subpage]);
 
   return (
-    <header className={`header ${subpage ? "sub" : ""}`}>
-      <Logo />
-      <Gnb />
-      <Utillity />
+    <header ref={ref} className={`header ${subpage ? "sub" : ""}`}>
+      <Logo data-aos="fade-right" />
+      <Gnb data-aos="fade-down" data-aos-delay="200" />
+      <Utillity data-aos="fade-left" data-aos-delay="400" />
     </header>
   );
 };

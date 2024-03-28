@@ -74,7 +74,7 @@ const RoomWrite = () => {
     <>
       <Box className={"white mt-5"}>
         <form>
-          <ul className="grid grid-cols-3 gap-10">
+          <ul className="grid mobile:grid-cols-1 tablet:grid-cols-3 gap-10">
             <li className="grid gap-3 self-start">
               객실 종류
               <Select options={viewKind} />
@@ -137,7 +137,7 @@ const RoomWrite = () => {
                 />
               </div>
             </li>
-            <li className="grid gap-3 col-span-3">
+            <li className="grid gap-3 mobile:col-span-1 tablet:col-span-3">
               객실 사진
               <Input type={"file"} />
               <Input type={"file"} />
