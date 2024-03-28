@@ -9,7 +9,10 @@ import { GoPencil } from "react-icons/go";
 import { Link } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
 import { RiMenu3Fill } from "react-icons/ri";
-
+import { useSearchStore } from "../../store/searchStore";
+import useFetchHotels from "../../hooks/useFetchHotels";
+import Loading2 from "../../components/Loading2";
+import Toast from "../../components/Toast";
 import Avatar from "../../components/Avatar";
 import MobileGnb from "./MobileGnb";
 

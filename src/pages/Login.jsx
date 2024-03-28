@@ -8,7 +8,6 @@ import { useRegisterStore } from "../store/RegisterStore";
 import Toast from "../components/Toast";
 
 const Login = ({ close, ...props }) => {
-  // const setLogin = useLoginStore((state) => state.setLogin);
   const { setLogin, setUser } = useLoginStore();
   const { setRegister } = useRegisterStore();
   const navigate = useNavigate();
@@ -79,10 +78,13 @@ const Login = ({ close, ...props }) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/api/members/login", {
-        email: loginEmail,
-        password: loginPassword,
-      });
+      const response = await axios.post(
+        "http://52.78.12.252:8080/api/members/login",
+        {
+          email: loginEmail,
+          password: loginPassword,
+        }
+      );
 
       //header jwt 토큰 정보 받아오기
       let jwtToken = response.headers["Authorization"];
@@ -123,47 +125,38 @@ const Login = ({ close, ...props }) => {
       setRegisterToast(true);
       return;
     }
-    //   const requestData = {
-    //     name,
-    //     email: registerEmail,
-    //     birth: `${birthYear}${birthMonth}${birthDay}`,
-    //     password: registerPassword,
-    //   };
-
-    //   try {
-    //     //TODO: 추후 URL 확인 필요
-    //     const response = await axios.post("/api/register", requestData);
-    //     setRegister(true);
-    //     navigate("/");
-    //     resetRegisterForm();
-    //   } catch (error) {
-    //     if (error.response) {
-    //       switch (error.response.status) {
-    //         default:
-    //           setRegisterError("회원가입 중 예기치 않은 오류가 발생했습니다.");
-    //       }
-    //     } else {
-    //       setRegisterError(
-    //         "서버에 접속할 수 없습니다. 네트워크 상태를 확인해 주세요."
-    //       );
-    //     }
-    //     setRegisterToast(true);
-    //     console.log("Register failed", error);
-    //   }
-    // };
-    setRegister({
+    const requestData = {
       name,
       email: registerEmail,
       birth: `${birthYear}${birthMonth}${birthDay}`,
       password: registerPassword,
-    });
+    };
 
-    setLogin(true);
-    navigate("/");
-    resetRegisterForm();
-    setRegisterToast(true);
-    close();
+    try {
+      //TODO: 추후 URL 확인 필요
+      const response = await axios.post(
+        "http://52.78.12.252:8080/api/members/join",
+        requestData
+      );
+      setRegister(true);
+      navigate("/");
+      resetRegisterForm();
+    } catch (error) {
+      if (error.response) {
+        switch (error.response.status) {
+          default:
+            setRegisterError("회원가입 중 예기치 않은 오류가 발생했습니다.");
+        }
+      } else {
+        setRegisterError(
+          "서버에 접속할 수 없습니다. 네트워크 상태를 확인해 주세요."
+        );
+      }
+      setRegisterToast(true);
+      console.log("Register failed", error);
+    }
   };
+
   const resetRegisterForm = () => {
     setName("");
     setRegisterEmail("");
