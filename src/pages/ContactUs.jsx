@@ -25,7 +25,7 @@ const ContactUs = () => {
   return (
     <>
       <div className="main">
-        <div className="container mt-10 mb-28 grid gap-14 grid-cols-2">
+        <div className="container mt-10 mobile:mb-14 tablet:mb-28 grid gap-14 mobile:grid-cols-1 tablet:grid-cols-2">
           <div className="bg-black/5"></div>
           <div className="grid gap-5">
             <div className="flex gap-2 items-center text-2xl">

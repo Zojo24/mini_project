@@ -17,6 +17,16 @@ const Dialog = ({ open, close, className, children, ...props }) => {
   }, [open]);
 
   const handleClose = () => {
+    // ref.current.classList.add("hide");
+    // ref.current.addEventListener(
+    //   "animationend",
+    //   () => {
+    //     ref.current.classList.remove("hide");
+    //     ref.current.removeEventListener("animationend", handleClose);
+    //     close();
+    //   }
+    //   false
+    //   );
     close();
   };
 

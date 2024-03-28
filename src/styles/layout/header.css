@@ -1,5 +1,5 @@
 .header {
-  @apply  transition-all duration-500 mobile:h-20 tablet:h-24 grid desktop:grid-cols-[2fr_1fr_2fr] tablet:grid-cols-[min-content_1fr_2fr]  mobile:grid-cols-[min-content_1fr] fixed left-0 right-0 top-0 items-center z-[1000] desktop:px-24 mobile:px-10 ;
+  @apply  transition-all duration-500 mobile:h-20 tablet:h-24 grid desktop:grid-cols-[2fr_1fr_2fr] tablet:grid-cols-[min-content_1fr_2fr]  mobile:grid-cols-[min-content_1fr] fixed left-0 right-0 top-0 items-center z-[1000] mobile:px-3 desktop:px-24 ;
   &.active {
     @apply bg-black;
     .avatar-name { 
