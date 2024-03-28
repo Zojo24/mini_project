@@ -3,16 +3,14 @@ import Input from "../Input";
 import "../../styles/pages/mypage.css";
 import Heading from "../Heading";
 import Avatar from "../Avatar";
-import { useRegisterStore } from "../../store/RegisterStore";
+import { useLoginStore } from "../../store/loginStore";
 
 const MypageAccount = () => {
-  const { user } = useRegisterStore((state) => state);
+  const { user, setUser } = useLoginStore();
   const { name, email, birth, password } = user;
   const birthYear = birth.slice(0, 4);
   const birthMonth = birth.slice(4, 6);
   const birthDay = birth.slice(6, 8);
-
-  const { setUser } = useRegisterStore();
 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -71,7 +69,9 @@ const MypageAccount = () => {
         </div>
         잔여캐시
         <br />
-        <strong className="text-2xl mr-1 text-blue-700 tracking-tight">1,000,000</strong>
+        <strong className="text-2xl mr-1 text-blue-700 tracking-tight">
+          1,000,000
+        </strong>
         <span>원</span>
       </div>
       <form type="onSubmit" className="bg-white rounded-xl  p-10">
