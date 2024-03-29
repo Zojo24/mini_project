@@ -1,35 +1,29 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from "react";
 
-import {
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
 
-import pic1 from '../assets/img1.webp';
-import pic2 from '../assets/img2.webp';
-import pic3 from '../assets/img3.webp';
-import pic4 from '../assets/img4.jpg';
-import subvisual from '../assets/subvisual2.jpg';
-import Notice from '../components/Board/Notice';
-import NoticeWrite from '../components/Board/NoticeWrite';
-import Box from '../components/Box';
-import Heading from '../components/Heading';
-import RoomListToRead from '../components/Hotel/components/RoomListToRead';
-import HotelFavorite from '../components/Hotel/HotelFavorite';
-import HotelGallery from '../components/Hotel/HotelGallery';
-import HotelLocation from '../components/Hotel/HotelLocation';
-import HotelPrice from '../components/Hotel/HotelPrice';
-import HotelRules from '../components/Hotel/HotelRules';
-import ServiceList from '../components/Hotel/ServiceList';
-import Loading from '../components/Loading';
-import ReservationFirst from '../components/Reservation/ReservationFirst';
-import Text from '../components/Text';
-import { digit3 } from '../store/digit3';
-import { usehotelListStore } from '../store/hotelListStore';
-import { useVisualStore } from '../store/visualStore';
+import pic1 from "../assets/img1.webp";
+import pic2 from "../assets/img2.webp";
+import pic3 from "../assets/img3.webp";
+import pic4 from "../assets/img4.jpg";
+import subvisual from "../assets/subvisual2.jpg";
+import Notice from "../components/Board/Notice";
+import NoticeWrite from "../components/Board/NoticeWrite";
+import Box from "../components/Box";
+import Heading from "../components/Heading";
+import RoomListToRead from "../components/Hotel/components/RoomListToRead";
+import HotelFavorite from "../components/Hotel/HotelFavorite";
+import HotelGallery from "../components/Hotel/HotelGallery";
+import HotelLocation from "../components/Hotel/HotelLocation";
+import HotelPrice from "../components/Hotel/HotelPrice";
+import HotelRules from "../components/Hotel/HotelRules";
+import ServiceList from "../components/Hotel/ServiceList";
+import Loading from "../components/Loading";
+import ReservationFirst from "../components/Reservation/ReservationFirst";
+import Text from "../components/Text";
+import { digit3 } from "../store/digit3";
+import { usehotelListStore } from "../store/hotelListStore";
+import { useVisualStore } from "../store/visualStore";
 
 const pictures = [{ src: pic1 }, { src: pic2 }, { src: pic3 }, { src: pic4 }];
 
@@ -103,18 +97,10 @@ const HotelDetail = () => {
                   공지 올리기
                 </button>
               </div>
-              {!isWrite ? (
-                <Notice className={"mt-5"} />
-              ) : (
-                <NoticeWrite className={"mt-5"} />
-              )}
+              {!isWrite ? <Notice className={"mt-5"} /> : <NoticeWrite className={"mt-5"} />}
             </Box>
             <Box>
-              <Heading
-                tag={"h3"}
-                text={"편의시설 및 서비스"}
-                className={"base"}
-              />
+              <Heading tag={"h3"} text={"편의시설 및 서비스"} className={"base"} />
               <ServiceList className={"mt-5"} />
             </Box>
             <Box>
@@ -122,16 +108,14 @@ const HotelDetail = () => {
               <HotelRules className={"mt-5"} />
             </Box>
             <Box>
-              <Heading
-                tag={"h3"}
-                text={"예약 가능한 객실"}
-                className={"base"}
-              />
+              <Heading tag={"h3"} text={"예약 가능한 객실"} className={"base"} />
               <RoomListToRead className={"mt-5"} />
             </Box>
           </div>
-          <div className="mobile:fixed mobile:top-[inherit] mobile:bottom-0 z-50 mobile:left-0 tablet:left-[inherit] tablet:bottom-[inherit] tablet:sticky tablet:top-28 self-start mobile:w-full tablet:w-[25rem] desktop:w-[30rem] mobile:mt-0 tablet:mt-0">
-            <Box className={"mobile:!rounded-[.75rem_.75rem_0_0] tablet:!rounded-xl mobile:!p-3 tablet:!p-5"}>
+          <div className="mobile:shadow-[0_-0.3rem_1rem_#0003] tablet:shadow-none mobile:fixed mobile:top-[inherit] mobile:bottom-0 z-50 mobile:left-0 tablet:left-[inherit] tablet:bottom-[inherit] tablet:sticky tablet:top-28 self-start mobile:w-full tablet:w-[25rem] desktop:w-[30rem] mobile:mt-0 tablet:mt-0">
+            <Box
+              className={"mobile:!rounded-[.75rem_.75rem_0_0] tablet:!rounded-xl mobile:!p-3 mobile:!pt-5 tablet:!p-5"}
+            >
               <ReservationFirst />
             </Box>
           </div>

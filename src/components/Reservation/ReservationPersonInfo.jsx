@@ -7,12 +7,13 @@ import Dialog from "../Dialog";
 import ReservationRule from "../ReservationRule";
 import { useReservationStore } from "../../store/reservationStore";
 import Loading from "../Loading";
+import { useLoginStore } from "../../store/loginStore";
 
 const ReservationPersonInfo = ({ userInfo }) => {
   const navigate = useNavigate();
-  const { addAdditionalInfo, totalInfos, paymentInfos, deleteCart } = useReservationStore();
-  const { role, credit, profile_image, name, email, address, city, nation, zip_code } = userInfo;
-  const { cart_id } = paymentInfos[0];
+  const { addAdditionalInfo, deleteCart } = useReservationStore();
+  const { userName, userCredit, userId, userEmail, address, city, nation, zip_code, profile_image } = useLoginStore();
+  const { role, total_price, cart_id } = userInfo;
 
   const [isuserInfo, setUserInfo] = useState(userInfo);
   const [isRule, setIsRule] = useState(false);
@@ -25,15 +26,15 @@ const ReservationPersonInfo = ({ userInfo }) => {
   const [errrorMessage, setErrrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [persnalInfo, setPersnalInfo] = useState({
-    name: name,
-    email: email,
+    name: userName,
+    email: userEmail,
     address: address,
     city: city,
     nation: nation,
     zip_code: zip_code,
     text: "",
     agreement: false,
-    credit: credit,
+    credit: 1000,
   });
 
   const handleAddress = (address) => {
@@ -89,6 +90,10 @@ const ReservationPersonInfo = ({ userInfo }) => {
       setIsPopup(true);
       setErrrorMessage("우편번호를 입력해 주세요.");
       isValid = false;
+    } else if (userCredit < total_price) {
+      setIsPopup(true);
+      setErrrorMessage("보유금액이 결제금액보다 적습니다. 크래딧을 충전해주세요.");
+      isValid = false;
     }
     return isValid;
   };
@@ -114,7 +119,7 @@ const ReservationPersonInfo = ({ userInfo }) => {
       if (isValidCheck) {
         const updatedPersonalInfo = { ...persnalInfo, agreement }; // 업데이트된 상태를 먼저 생성
         setPersnalInfo(updatedPersonalInfo);
-        addAdditionalInfo({ ...persnalInfo, paymentInfos });
+        addAdditionalInfo({ ...persnalInfo, userInfo });
         deleteCart(cart_id);
         setIsLoading(true);
         setTimeout(() => {
@@ -135,11 +140,11 @@ const ReservationPersonInfo = ({ userInfo }) => {
         <div className="reservation-form mt-5">
           <div>
             이름
-            <Input type={"text"} disabled defaultValue={userInfo.name} />
+            <Input type={"text"} disabled defaultValue={userName} />
           </div>
           <div>
             이메일
-            <Input type={"email"} disabled defaultValue={userInfo.email} />
+            <Input type={"email"} disabled defaultValue={userEmail} />
           </div>
           <div>
             주소
