@@ -140,7 +140,6 @@ const ReservationFirst = () => {
           method: "get",
         });
         const { rooms } = responseRoom.data.result.content[0];
-        console.log(rooms[0].thumbnails[0].img_url);
         // setRoomInfo((prevRoomInfo) => ({ ...prevRoomInfo, ...rooms[0], file: rooms[0].thumbnails[0].img_url }));
         setRoomInfo(rooms[0]);
       } catch (error) {
@@ -180,7 +179,6 @@ const ReservationFirst = () => {
       }, 1500);
     }
   };
-  console.log(roomInfo.file);
 
   return (
     <>
