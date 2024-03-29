@@ -3,7 +3,8 @@ import Input from "../Input";
 import Select from "../Select";
 import { IoSearch } from "react-icons/io5";
 import Loading2 from "../Loading";
-import useFetchHotels from "../../hooks/useFetchHotels";
+import { useSearchStore } from "../../store/searchStore";
+import axios from "axios";
 
 const where = [
   {
@@ -35,12 +36,24 @@ const where = [
 const SearchDetail = () => {
   const [selectedWhere, setSelectedWhere] = useState("");
   const [hotelName, setHotelName] = useState("");
-  const { isLoading2, fetchHotels } = useFetchHotels();
+  const [isLoading2, setIsLoading2] = useState(false);
+  const setSearchResults = useSearchStore((state) => state.setSearchResults);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(selectedWhere, hotelName);
-    await fetchHotels(selectedWhere, hotelName);
+    setIsLoading2(true);
+    try {
+      const response = await axios.get(
+        `http://52.78.12.252:8080/api/hotels/name/${hotelName}`
+      );
+      setSearchResults(response.data.hotels);
+      console.log(hotelName);
+    } catch (error) {
+      console.error("호텔 검색에 실패했습니다:", error);
+      setSearchResults([]);
+    } finally {
+      setIsLoading2(false);
+    }
   };
 
   const handleType = (value) => {
