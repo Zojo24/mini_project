@@ -3,6 +3,7 @@ import React, {
   useState,
 } from 'react';
 
+import axios from 'axios';
 import {
   useNavigate,
   useParams,
@@ -12,7 +13,6 @@ import pic1 from '../assets/img1.webp';
 import pic2 from '../assets/img2.webp';
 import pic3 from '../assets/img3.webp';
 import pic4 from '../assets/img4.jpg';
-import subvisual from '../assets/subvisual2.jpg';
 import Notice from '../components/Board/Notice';
 import NoticeWrite from '../components/Board/NoticeWrite';
 import Box from '../components/Box';
@@ -21,13 +21,11 @@ import RoomListToRead from '../components/Hotel/components/RoomListToRead';
 import HotelFavorite from '../components/Hotel/HotelFavorite';
 import HotelGallery from '../components/Hotel/HotelGallery';
 import HotelLocation from '../components/Hotel/HotelLocation';
-import HotelPrice from '../components/Hotel/HotelPrice';
-import HotelRules from '../components/Hotel/HotelRules';
 import ServiceList from '../components/Hotel/ServiceList';
 import Loading from '../components/Loading';
 import ReservationFirst from '../components/Reservation/ReservationFirst';
+import SubVisual from '../components/SubVisual';
 import Text from '../components/Text';
-import { digit3 } from '../store/digit3';
 import { usehotelListStore } from '../store/hotelListStore';
 import { useVisualStore } from '../store/visualStore';
 
@@ -39,18 +37,23 @@ const HotelDetail = () => {
   const { setTitle } = useVisualStore();
 
   const [isWrite, setIsWrite] = useState(false);
-  const [hotelInfo, setHotelInfo] = useState();
+  const [hotelInfo, setHotelInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const handleWrite = () => {
     setIsWrite(!isWrite);
   };
   const { totalHotels, deleteHotel } = usehotelListStore();
 
-  const thisHotel = totalHotels.find((hotel) => hotel.id === Number(hotelId));
+  const thisHotel = totalHotels.find((hotel) => hotel.id === 4595);
   // console.log("detail", thisHotel);
   useEffect(() => {
-    setTitle(thisHotel.name, subvisual);
+    axios.get("http://52.78.12.252:8080/api/hotels/1").then((response) => {
+      setHotelInfo(response.data.result);
+      console.log(response.data.result);
+    });
+    setTitle(hotelInfo.name, SubVisual);
   }, []);
+  console.log(hotelInfo.rooms);
   const onDelete = () => {
     setIsLoading(true);
     deleteHotel(hotelId);
@@ -64,17 +67,18 @@ const HotelDetail = () => {
   const toEdit = () => {
     navigate(`/hoteledit/${hotelId}`);
   };
-  console.log(thisHotel);
+  // console.log(thisHotel);
+
   return (
     <div className="main mb-24">
       <div className="container">
         <div className="hotel-detail mt-10">
           <div className="hotel-detail__header">
             <div>
-              <HotelLocation className={"xl"} location={thisHotel.nation} />
+              <HotelLocation className={"xl"} location={hotelInfo.nation} />
             </div>
             <div>
-              <HotelPrice price={digit3(thisHotel.price)} />
+              {/* <HotelPrice price={digit3(hotelInfo?.rooms[0].standard_price)} /> */}
               <HotelFavorite />
               <button className="btn-blue -mr-2" onClick={toEdit}>
                 수정
@@ -93,7 +97,7 @@ const HotelDetail = () => {
             <Box>
               <Heading tag={"h3"} text={"호텔 안내"} className={"base"} />
               <Text className={"mt-5"} type={1}>
-                {thisHotel.description}
+                {hotelInfo.description}
               </Text>
             </Box>
             <Box>
@@ -119,7 +123,7 @@ const HotelDetail = () => {
             </Box>
             <Box>
               <Heading tag={"h3"} text={"호텔 객실 규칙"} className={"base"} />
-              <HotelRules className={"mt-5"} />
+              {/* <HotelRules thisHotel={hotelInfo} className={"mt-5"} /> */}
             </Box>
             <Box>
               <Heading
@@ -127,11 +131,15 @@ const HotelDetail = () => {
                 text={"예약 가능한 객실"}
                 className={"base"}
               />
-              <RoomListToRead className={"mt-5"} />
+              <RoomListToRead roomLists={hotelInfo?.rooms} className={"mt-5"} />
             </Box>
           </div>
           <div className="mobile:fixed mobile:top-[inherit] mobile:bottom-0 z-50 mobile:left-0 tablet:left-[inherit] tablet:bottom-[inherit] tablet:sticky tablet:top-28 self-start mobile:w-full tablet:w-[25rem] desktop:w-[30rem] mobile:mt-0 tablet:mt-0">
-            <Box className={"mobile:!rounded-[.75rem_.75rem_0_0] tablet:!rounded-xl mobile:!p-3 tablet:!p-5"}>
+            <Box
+              className={
+                "mobile:!rounded-[.75rem_.75rem_0_0] tablet:!rounded-xl mobile:!p-3 tablet:!p-5"
+              }
+            >
               <ReservationFirst />
             </Box>
           </div>

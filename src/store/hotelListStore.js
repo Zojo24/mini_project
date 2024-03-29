@@ -21,7 +21,10 @@ let hotelListStore = (set) => ({
     set((state) => ({
       totalHotels: [...newHotelInfo],
     })),
-
+  saveEditedRoom: (newRooms) =>
+    set((state) => ({
+      totlaHotels: [{ roos: newRooms }],
+    })),
   deleteHotel: (hotelId) =>
     set((state) => ({
       totalHotels: state.totalHotels.filter(

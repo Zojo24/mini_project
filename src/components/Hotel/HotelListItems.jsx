@@ -3,6 +3,8 @@ import React, {
   useState,
 } from 'react';
 
+import axios from 'axios';
+
 import hotel1 from '../../assets/hotel1.jpg';
 import { usehotelListStore } from '../../store/hotelListStore';
 import Badge from '../Badge';
@@ -18,63 +20,35 @@ const HotelListItems = ({ modify, ...props }) => {
 
   const [hotels, setHotels] = useState([]);
   useEffect(() => {
-    // axios.get("http://52.78.12.252:8080/api/hotels").then((response) => {
-    // axios
-    //   .get("https://jsonplaceholder.typicode.com/users/")
-    //   .then((response) => {
-    //     console.log(response.data);
-    //   });
+    axios.get("http://52.78.12.252:8080/api/hotels").then((response) => {
+      console.log(response.data.result.content);
+      setHotels(response.data.result.content);
+    });
   }, []);
   const totalHotels = usehotelListStore((state) => state.totalHotels);
 
   console.log(totalHotels);
   return (
     <>
-      {/* <li>
-        <HotelPicture link={"/hoteldetail"} image={hotel1} />
-        <div className="hotel__info">
-          <HotelLocation location={"Japan"} />
-          <HotelFavorite checked={modify} />
-          <HotelTitle
-            link={"/hoteldetail"}
-            title={"Signature Hitanial Hotel"}
-          />
-          <HotelPrice price={"500,000"} />
-          <HotelBooking text={"HotelBooking"} />
-        </div>
-      </li>
-      <li className={data.state}>
-        <HotelPicture link={"/hoteldetail"} image={hotel1} />
-        <div className="hotel__info">
-          <HotelLocation location={"Japan"} />
-          <HotelFavorite checked={modify} />
-          <HotelTitle
-            link={"/hoteldetail"}
-            title={"Signature Hitanial Hotel"}
-          />
-          <HotelPrice price={"1,000,000"} />
-          {data.state ? (
-            <>
-              <HotelBooking disabled text={"Sold Out"} />
-              <Badge color={"red"}>Sold Out</Badge>
-            </>
-          ) : (
-            <HotelBooking text={"HotelBooking"} />
-          )}
-        </div>
-      </li> */}
-      {/* {HotelListsData.map((hotel) => (
-        <li key={hotel.name}>
+      {hotels.map((hotel) => (
+        <li key={hotel.name} className={hotel.active_status ? "" : "disabled"}>
           <HotelPicture link={`/hoteldetail/${hotel.id}`} image={hotel1} />
           <div className="hotel__info">
-            <HotelLocation location={hotel.location} />
+            <HotelLocation location={hotel.nation} />
             <HotelFavorite checked={modify} />
-            <HotelTitle link={"/hoteldetail"} title={hotel.name} />
-            <HotelPrice price={digit3(hotel.price)} />
-            <HotelBooking text={"HotelBooking"} />
+            <HotelTitle link={`/hoteldetail/${hotel.id}`} title={hotel.name} />
+            <HotelPrice price={hotel.price} />
+            {hotel.active_status === "ACTIVE" ? (
+              <HotelBooking text={"HotelBooking"} />
+            ) : (
+              <>
+                <HotelBooking disabled text={"Sold Out"} />
+                <Badge color={"red"}>Sold Out</Badge>
+              </>
+            )}
           </div>
         </li>
-      ))} */}
+      ))}
       {totalHotels.map((hotel) => (
         <li key={hotel.name} className={hotel.available ? "" : "disabled"}>
           <HotelPicture link={`/hoteldetail/${hotel.id}`} image={hotel1} />

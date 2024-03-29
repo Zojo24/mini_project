@@ -12,7 +12,8 @@ import Box from '../components/Box';
 import Checkbox from '../components/Checkbox';
 import Dialog from '../components/Dialog';
 import Heading from '../components/Heading';
-import RoomList from '../components/Hotel/RoomList';
+import RoomListFromRegister
+  from '../components/Hotel/components/RoomListsFromRegister';
 import RoomWrite from '../components/Hotel/RoomWrite';
 import Input from '../components/Input';
 import Loading from '../components/Loading';
@@ -245,12 +246,17 @@ const HotelWrite = () => {
     }
     e.preventDefault();
     try {
-      const response = await axios.post("/hotels", hotelInfo);
+      const response = await axios.post(
+        "http://52.78.12.252:8080/api/hotels/",
+        hotelInfo
+      );
+      console.log(response.data);
     } catch (error) {
       console.error("Error sending POST request:", error);
     }
-    addHotel({ ...hotelInfo, rooms: [...rooms] });
-    // resetRooms()
+
+    // addHotel({ ...hotelInfo, rooms: [...rooms] });
+    resetRooms();
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
@@ -716,7 +722,11 @@ const HotelWrite = () => {
                 객실등록
               </button>
             </div>
-            {isToggle ? <RoomWrite /> : <RoomList edit={true} />}
+            {isToggle ? (
+              <RoomWrite />
+            ) : (
+              <RoomListFromRegister edit={true} roomLists={rooms} />
+            )}
           </Box>
           <div className="flex justify-between mt-10">
             <button className="btn-gray xl">이전</button>

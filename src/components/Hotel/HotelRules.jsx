@@ -2,12 +2,10 @@ import React from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { usehotelListStore } from '../../store/hotelListStore';
-
-const HotelRules = ({ className }) => {
+const HotelRules = ({ thisHotel, className }) => {
   let { hotelId } = useParams();
-  const { totalHotels } = usehotelListStore();
-  const thisHotel = totalHotels.find((hotel) => hotel.id === Number(hotelId));
+  // const { totalHotels } = usehotelListStore();
+  // const thisHotel = totalHotels.find((hotel) => hotel.id === Number(hotelId));
 
   return (
     <div className={className}>

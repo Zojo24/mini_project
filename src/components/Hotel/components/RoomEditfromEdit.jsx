@@ -71,14 +71,15 @@ const viewKind = [
     text: "스위트 룸",
   },
 ];
-const RoomEdit = ({ roomData, roomId, setIsEdit }) => {
+const RoomEditfromEdit = ({ roomData, roomId, setIsEdit }) => {
   const { hotelId } = useParams();
-  const { totalHotels, addHotel } = usehotelListStore();
+  const { totalHotels, addHotel, saveEditHotel } = usehotelListStore();
   const { rooms, addRoom, saveEditedRoom } = useRoomStore();
   const [isRadio, setIsRadio] = useState(false);
-  // const thisRoom = rooms.find((it) => it.roomId === roomId);
-  // console.log(thisRoom);
+  const thisRoom = rooms.find((it) => it.roomId === roomId);
+  console.log(roomData);
   const [roomInfo, setRoomInfo] = useState({
+    roomId: roomData.roomId,
     type: roomData.type,
     active_status: roomData.active_status,
     bed_type: roomData.bed_type,
@@ -88,7 +89,6 @@ const RoomEdit = ({ roomData, roomId, setIsEdit }) => {
     standard_price: roomData.standard_price,
     adult_fare: roomData.adult_fare,
     child_fare: roomData.child_fare,
-    roomId: roomData.roomId,
   });
   const handleRoomType = (e) => {
     setRoomInfo((prevInfo) => ({
@@ -124,10 +124,15 @@ const RoomEdit = ({ roomData, roomId, setIsEdit }) => {
     addRoom(roomInfo);
   };
   const thisHotel = totalHotels.find((hotel) => hotel.id === Number(hotelId));
+  const roomLists = thisHotel.rooms;
+  console.log(roomLists);
   const onSave = () => {
-    const index = rooms.findIndex((it) => it.roomId === roomId);
-    rooms[index] = { ...roomInfo };
-    saveEditedRoom(rooms);
+    const index = roomLists.findIndex((it) => it.roomId === roomData.roomId);
+    console.log(index);
+    roomLists[index] = { ...roomInfo };
+    // saveEditHotel({ rooms: roomLists });
+    saveEditedRoom(roomLists);
+    console.log(roomLists);
     setIsEdit(false);
   };
   return (
@@ -165,7 +170,6 @@ const RoomEdit = ({ roomData, roomId, setIsEdit }) => {
                 <Input
                   type={"text"}
                   value={roomInfo.standard_price}
-                  price={true}
                   onChange={handlePrice}
                 />{" "}
                 원
@@ -174,14 +178,22 @@ const RoomEdit = ({ roomData, roomId, setIsEdit }) => {
             <li className="grid gap-3 self-start">
               성인 1명당 1박 가격
               <div className="grid grid-cols-[1fr_min-content] items-center gap-1">
-                <Input type={"text"} price={true} onChange={handleAdultFare} />{" "}
+                <Input
+                  type={"text"}
+                  value={roomInfo.adult_fare}
+                  onChange={handleAdultFare}
+                />{" "}
                 원
               </div>
             </li>
             <li className="grid gap-3 self-start">
               어린이 1명당 1박 가격
               <div className="grid grid-cols-[1fr_min-content] items-center gap-1">
-                <Input type={"text"} price={true} onChange={handleChildFare} />{" "}
+                <Input
+                  type={"text"}
+                  value={roomInfo.child_fare}
+                  onChange={handleChildFare}
+                />{" "}
                 원
               </div>
             </li>
@@ -248,4 +260,4 @@ const RoomEdit = ({ roomData, roomId, setIsEdit }) => {
   );
 };
 
-export default RoomEdit;
+export default RoomEditfromEdit;
