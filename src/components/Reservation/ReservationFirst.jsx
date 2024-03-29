@@ -8,7 +8,6 @@ import { useReservationStore } from "../../store/reservationStore";
 import Dialog from "../Dialog";
 import Loading from "../Loading";
 import { digit3 } from "../../store/digit3";
-import pic from "../../assets/hotel2.jpg";
 import Loading2 from "../Loading2";
 import request from "../../api/request";
 import axios from "../../api/axios";
