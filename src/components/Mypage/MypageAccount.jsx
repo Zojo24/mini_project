@@ -36,7 +36,8 @@ const MypageAccount = () => {
     setEmail(userEmail || "");
     setPassword(userPassword || "");
     setBirth(userBirth || "");
-  }, [userName, userEmail, userPassword, userBirth]);
+    setId(userId || "");
+  }, [userName, userEmail, userPassword, userBirth, userId]);
 
   const handleAddress = (value) => {
     setAddress(value);
