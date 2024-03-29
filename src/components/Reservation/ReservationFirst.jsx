@@ -13,6 +13,7 @@ import request from "../../api/request";
 import axios from "../../api/axios";
 import { useLoginStore } from "../../store/loginStore";
 import { MdKeyboardDoubleArrowUp } from "react-icons/md";
+import instance from "../../api/axios";
 
 // 달력 현재날짜 고정
 const Today = (nextDay = 0) => {
@@ -41,6 +42,8 @@ const Today = (nextDay = 0) => {
 // };
 
 const ReservationFirst = () => {
+  const token = localStorage.getItem("token");
+  const { fetchHotels, fetchOrders } = request; // 필요한 요청 URL을 추출
   const navigate = useNavigate();
   const { addInfo, addCartInfo } = useReservationStore();
   const { id, userName, userEmail, userBirth, userPassword, userCredit } = useLoginStore();
@@ -71,9 +74,13 @@ const ReservationFirst = () => {
     hotel_name: roomInfo.hotel_name, //호텔이름
     type: roomInfo.type, //호텔룸종류
     bed_type: roomInfo.bed_type, //호텔침대종류
-    reservation_day: Today,
     userCredit: userCredit,
   });
+
+  const isLoggedIn = () => {
+    const token = localStorage.getItem("token");
+    return !!token;
+  };
 
   const handleStart = (check_in) => {
     setIsStart(check_in);
@@ -153,26 +160,30 @@ const ReservationFirst = () => {
       }
     };
 
+    //호텔 정보 가지고오기
     const fetchData = async () => {
       try {
-        const responseRoom = await axios({
-          url: request.fetchHotels,
-          method: "get",
+        const responseRoom = await instance.get(`${fetchHotels}/3`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
-        const responseOrder = await axios({
-          url: request.fetchOrders,
-          method: "get",
-        });
-        const { rooms } = responseRoom.data.result.content[0];
-        // setRoomInfo((prevRoomInfo) => ({ ...prevRoomInfo, ...rooms[0], file: rooms[0].thumbnails[0].img_url }));
+        const responseRoomData = responseRoom.data.result;
+        const { rooms, name, active_status } = responseRoomData;
+        const myRoom = rooms.filter((id) => id);
+
         setRoomInfo(rooms[0]);
+        console.log(responseRoomData);
+
         setIsPayInfo((prevRoomInfo) => ({
           ...prevRoomInfo,
           file: rooms[0].thumbnails[0].img_url,
-          room_id: rooms[0].room_id,
+          room_id: rooms[0].id,
           bed_type: rooms[0].bed_type,
           type: rooms[0].type,
-          hotel_name: rooms[0].hotel_id,
+          hotel_name: responseRoomData.name,
+          member_id: id,
+          id: responseRoomData.id,
         }));
       } catch (error) {
         console.log(error);
@@ -191,16 +202,32 @@ const ReservationFirst = () => {
     e.preventDefault();
     const isValidCheck = CheckEmpty();
 
-    if (!isValidCheck || !userName) return;
+    if (!isLoggedIn()) {
+      setIsPopup(true);
+      setErrrorMessage(`예약하기 위해선 로그인이 필요합니다.`);
+      return;
+    } else if (!isValidCheck) return;
+
+    console.log(isPayInfo);
 
     try {
+      setIsLoading2(true);
+      const responseOrder = await instance.post(fetchOrders, isPayInfo, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const responseData = responseOrder.data;
+      console.log(responseData);
+
       setIsLoading(true);
-      addInfo(isPayInfo);
+      // addInfo(isPayInfo); // 전역상태로 넘기기
     } catch (error) {
       console.log(`submitReservation :`, error);
     } finally {
       setTimeout(() => {
         setIsLoading(false);
+        setIsLoading2(false);
         navigate("/reservation");
       }, 1500);
     }
@@ -284,7 +311,7 @@ const ReservationFirst = () => {
               예약하기
             </button>
             <button
-              className="btn-green-outline xl2 mobile:h-12 tablet:h-auto mobile:!text-base tablet:!text-xl justify-center"
+              className="btn-green-outline xl2 mobile:h-12 tablet:h-auto mobile:!text-base tablet:!text-xl justify-center whitespace-nowrap"
               onClick={handleCart}
             >
               장바구니

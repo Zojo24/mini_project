@@ -58,7 +58,7 @@ const HotelDetail = () => {
   const toEdit = () => {
     navigate(`/hoteledit/${hotelId}`);
   };
-  console.log(thisHotel);
+
   return (
     <div className="main mb-24">
       <div className="container">

@@ -19,9 +19,10 @@ const RoomListItemsToRead = ({ edit, ...props }) => {
   const thisHotel = totalHotels.find((hotel) => hotel.id === Number(hotelId));
   const onDelete = (roomId) => {
     deleteRoom(roomId);
-    console.log(roomId);
+    console.log("룸" + roomId);
   };
-  console.log("룸", thisHotel);
+  // console.log("룸", thisHotel);
+
   return (
     <>
       {thisHotel.rooms.map((it) => (
@@ -33,7 +34,7 @@ const RoomListItemsToRead = ({ edit, ...props }) => {
             <RoomOptions />
             {!edit ? (
               <div className="flex gap-2">
-                <button className="btn-blue-outline">예약하기</button>
+                <button className="btn-blue-outline">선택</button>
               </div>
             ) : (
               <div className="flex gap-2">
@@ -60,7 +61,7 @@ const RoomListItemsToRead = ({ edit, ...props }) => {
           {!edit ? (
             <div className="flex gap-2">
               <button className="btn-blue-outline mobile:flex-1 tablet:flex-none justify-center">
-                {show.able ? "Sold Out" : "예약하기"}
+                {show.able ? "Sold Out" : "선택"}
               </button>
             </div>
           ) : (
@@ -79,7 +80,7 @@ const RoomListItemsToRead = ({ edit, ...props }) => {
           <RoomOptions />
           {!edit ? (
             <div className="flex gap-2">
-              <button className="btn-blue-outline mobile:flex-1 tablet:flex-none justify-center">예약하기</button>
+              <button className="btn-blue-outline mobile:flex-1 tablet:flex-none justify-center">선택</button>
             </div>
           ) : (
             <div className="flex gap-2">
@@ -97,7 +98,7 @@ const RoomListItemsToRead = ({ edit, ...props }) => {
           <RoomOptions />
           {!edit ? (
             <div className="flex gap-2">
-              <button className="btn-blue-outline mobile:flex-1 tablet:flex-none justify-center">예약하기</button>
+              <button className="btn-blue-outline mobile:flex-1 tablet:flex-none justify-center">선택</button>
             </div>
           ) : (
             <div className="flex gap-2">
@@ -115,7 +116,7 @@ const RoomListItemsToRead = ({ edit, ...props }) => {
           <RoomOptions />
           {!edit ? (
             <div className="flex gap-2">
-              <button className="btn-blue-outline mobile:flex-1 tablet:flex-none justify-center">예약하기</button>
+              <button className="btn-blue-outline mobile:flex-1 tablet:flex-none justify-center">선택</button>
             </div>
           ) : (
             <div className="flex gap-2">
