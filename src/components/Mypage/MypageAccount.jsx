@@ -8,7 +8,7 @@ import { useLoginStore } from "../../store/loginStore";
 
 const MypageAccount = () => {
   const {
-    id,
+    userId,
     userName,
     userEmail,
     userBirth,
@@ -20,6 +20,7 @@ const MypageAccount = () => {
   const birthMonth = userBirth?.slice(4, 6);
   const birthDay = userBirth?.slice(6, 8);
 
+  const [id, setId] = useState(userId || "");
   const [name, setName] = useState(userName || "");
   const [email, setEmail] = useState(userEmail || "");
   const [password, setPassword] = useState(userPassword || "");
