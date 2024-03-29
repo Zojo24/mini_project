@@ -52,6 +52,8 @@ const MypageAccount = () => {
 
   const handleChange = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("token");
+
     try {
       const response = await axios.patch(
         "http://52.78.12.252:8080/api/members/my-info",
@@ -61,6 +63,11 @@ const MypageAccount = () => {
           city,
           nation,
           zip_code: zipCode,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       const updatedUser = {
