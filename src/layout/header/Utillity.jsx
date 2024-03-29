@@ -16,6 +16,7 @@ import Loading2 from "../../components/Loading2";
 import Toast from "../../components/Toast";
 import Avatar from "../../components/Avatar";
 import MobileGnb from "./MobileGnb";
+import { useNavigate } from "react-router-dom";
 
 const Utillity = ({ ...props }) => {
   const [isPopup, setIsPopup] = useState(false);
@@ -29,6 +30,8 @@ const Utillity = ({ ...props }) => {
   const { setSearchTerm, setSearchResults } = useSearchStore();
   const { isLoading, fetchHotels } = useFetchHotels();
 
+  const navigate = useNavigate();
+  const logout = useLoginStore((state) => state.logout);
   const { login, userName } = useLoginStore((state) => ({
     login: state.login,
     userName: state.userName,
@@ -41,6 +44,11 @@ const Utillity = ({ ...props }) => {
   const handleSearch = (term) => {
     setSearchTerm(term);
     fetchHotels();
+  };
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    logout();
+    navigate("/");
   };
 
   return (
@@ -57,7 +65,7 @@ const Utillity = ({ ...props }) => {
       >
         <CiShoppingCart />
       </button>
-      {Login ? (
+      {login ? (
         <>
           <Link
             to="/mypage"
@@ -72,7 +80,7 @@ const Utillity = ({ ...props }) => {
           </Link>
           <button
             className="btn-blue whitespace-nowrap mobile:hidden  tablet:inline-flex  tablet:h-10 tablet:px-3"
-            onClick={() => setIsLogin(false)}
+            onClick={handleLogout}
           >
             <IoIosLogOut />
             <span className="mobile:hidden tablet:inline-block">Log Out</span>
