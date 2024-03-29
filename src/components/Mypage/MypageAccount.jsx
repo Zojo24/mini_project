@@ -5,8 +5,23 @@ import "../../styles/pages/mypage.css";
 import Heading from "../Heading";
 import Avatar from "../Avatar";
 import { useLoginStore } from "../../store/loginStore";
+import { useNavigate } from "react-router-dom";
+
+const isLoggedIn = () => {
+  const token = localStorage.getItem("token"); // localStorage에서 토큰 가져오기
+  return !!token; // token이 있으면 true, 없으면 false 반환
+};
 
 const MypageAccount = () => {
+  const navigate = useNavigate();
+
+  // 사용자가 로그인하지 않았다면 메인 페이지로 리다이렉트
+  useEffect(() => {
+    if (!isLoggedIn()) {
+      navigate("/");
+    }
+  }, [navigate]);
+
   const {
     userId,
     userName,
