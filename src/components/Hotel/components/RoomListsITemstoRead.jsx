@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-import room from '../../../assets/hotelroom1.jpeg';
-import room2 from '../../../assets/hotelroom2.jpeg';
-import { usehotelListStore } from '../../../store/hotelListStore';
-import { useRoomStore } from '../../../store/roomStore';
-import HotelPrice from '../HotelPrice';
-import HotelTitle from '../HotelTitle';
-import RoomOptions from '../RoomOptions';
-import RoomPicture from '../RoomPicture';
+import room from "../../../assets/hotelroom1.jpeg";
+import room2 from "../../../assets/hotelroom2.jpeg";
+import { usehotelListStore } from "../../../store/hotelListStore";
+import { useRoomStore } from "../../../store/roomStore";
+import HotelPrice from "../HotelPrice";
+import HotelTitle from "../HotelTitle";
+import RoomOptions from "../RoomOptions";
+import RoomPicture from "../RoomPicture";
 
 const RoomListItemsToRead = ({ edit, ...props }) => {
   const show = { able: "disabled" };
@@ -79,9 +79,7 @@ const RoomListItemsToRead = ({ edit, ...props }) => {
           <RoomOptions />
           {!edit ? (
             <div className="flex gap-2">
-              <button className="btn-blue-outline mobile:flex-1 tablet:flex-none justify-center">
-                예약하기
-              </button>
+              <button className="btn-blue-outline mobile:flex-1 tablet:flex-none justify-center">예약하기</button>
             </div>
           ) : (
             <div className="flex gap-2">
@@ -99,9 +97,7 @@ const RoomListItemsToRead = ({ edit, ...props }) => {
           <RoomOptions />
           {!edit ? (
             <div className="flex gap-2">
-              <button className="btn-blue-outline mobile:flex-1 tablet:flex-none justify-center">
-                예약하기
-              </button>
+              <button className="btn-blue-outline mobile:flex-1 tablet:flex-none justify-center">예약하기</button>
             </div>
           ) : (
             <div className="flex gap-2">
@@ -119,9 +115,7 @@ const RoomListItemsToRead = ({ edit, ...props }) => {
           <RoomOptions />
           {!edit ? (
             <div className="flex gap-2">
-              <button className="btn-blue-outline mobile:flex-1 tablet:flex-none justify-center">
-                예약하기
-              </button>
+              <button className="btn-blue-outline mobile:flex-1 tablet:flex-none justify-center">예약하기</button>
             </div>
           ) : (
             <div className="flex gap-2">
