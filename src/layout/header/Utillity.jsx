@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
 import { RiMenu3Fill } from "react-icons/ri";
 import { useSearchStore } from "../../store/searchStore";
+import { useLoginStore } from "../../store/loginStore";
 import useFetchHotels from "../../hooks/useFetchHotels";
 import Loading2 from "../../components/Loading2";
 import Toast from "../../components/Toast";
@@ -28,9 +29,13 @@ const Utillity = ({ ...props }) => {
   const { setSearchTerm, setSearchResults } = useSearchStore();
   const { isLoading, fetchHotels } = useFetchHotels();
 
+  const { login, userName } = useLoginStore((state) => ({
+    login: state.login,
+    userName: state.userName,
+  }));
+
   const handleLogin = () => {
     setIsPopup(true);
-    setIsLogin(true);
   };
 
   const handleSearch = (term) => {
@@ -52,7 +57,7 @@ const Utillity = ({ ...props }) => {
       >
         <CiShoppingCart />
       </button>
-      {isLogin ? (
+      {Login ? (
         <>
           <Link
             to="/mypage"
@@ -62,7 +67,7 @@ const Utillity = ({ ...props }) => {
               className={"mobile:w-8 mobile:h-8 tablet:w-10 tablet:h-10"}
             />
             <div className="mobile:hidden tablet:block">
-              <strong className="whitespace-nowrap">하하하</strong>님
+              <strong className="whitespace-nowrap">{userName}</strong>님
             </div>
           </Link>
           <button
