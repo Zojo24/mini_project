@@ -5,10 +5,12 @@ import "../styles/pages/login.css";
 import axios from "axios";
 import { useLoginStore } from "../store/loginStore";
 import Toast from "../components/Toast";
+import Loading2 from "../components/Loading2";
 
 const Login = ({ close, ...props }) => {
   const { setLogin, setUserInfo } = useLoginStore();
   const navigate = useNavigate();
+  const [isLoading2, setIsLoading2] = useState(false);
 
   // 로그인 상태
   const [isTab, setIsTab] = useState("login");
@@ -74,7 +76,7 @@ const Login = ({ close, ...props }) => {
   // 로그인 로직
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    setIsLoading2(true);
     try {
       const response = await axios.post(
         "http://52.78.12.252:8080/api/members/login",
@@ -112,16 +114,19 @@ const Login = ({ close, ...props }) => {
       }
       setLoginToast(true);
       console.log("Login failed", error);
+    } finally {
+      setIsLoading2(false);
     }
   };
 
   // 회원가입 로직
   const handleRegister = async (e) => {
     e.preventDefault();
-
+    setIsLoading2(true);
     if (registerPassword !== confirmPassword) {
       setRegisterError("비밀번호가 일치하지 않습니다.");
       setRegisterToast(true);
+      setIsLoading2(false);
       return;
     }
     const requestData = {
@@ -153,6 +158,8 @@ const Login = ({ close, ...props }) => {
       }
       setRegisterToast(true);
       console.log("Register failed", error);
+    } finally {
+      setIsLoading2(false);
     }
   };
 
@@ -190,7 +197,8 @@ const Login = ({ close, ...props }) => {
       </nav>
       {isTab === "login" && (
         <>
-          <form className="login-form" onSubmit={handleLogin}>
+          <form className="login-form relative" onSubmit={handleLogin}>
+            {isLoading2 && <Loading2 />}
             <div>
               이메일
               <Input
@@ -229,7 +237,8 @@ const Login = ({ close, ...props }) => {
       )}
       {isTab === "register" && (
         <>
-          <form className="login-form" onSubmit={handleRegister}>
+          <form className="login-form relative" onSubmit={handleRegister}>
+            {isLoading2 && <Loading2 />}
             <div>
               이름
               <Input type="text" required value={name} onChange={handleName} />
