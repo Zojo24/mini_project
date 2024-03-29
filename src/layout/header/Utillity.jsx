@@ -10,11 +10,13 @@ import { Link } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
 import { RiMenu3Fill } from "react-icons/ri";
 import { useSearchStore } from "../../store/searchStore";
+import { useLoginStore } from "../../store/loginStore";
 import useFetchHotels from "../../hooks/useFetchHotels";
 import Loading2 from "../../components/Loading2";
 import Toast from "../../components/Toast";
 import Avatar from "../../components/Avatar";
 import MobileGnb from "./MobileGnb";
+import { useNavigate } from "react-router-dom";
 
 const Utillity = ({ ...props }) => {
   const [isPopup, setIsPopup] = useState(false);
@@ -28,14 +30,25 @@ const Utillity = ({ ...props }) => {
   const { setSearchTerm, setSearchResults } = useSearchStore();
   const { isLoading, fetchHotels } = useFetchHotels();
 
+  const navigate = useNavigate();
+  const logout = useLoginStore((state) => state.logout);
+  const { login, userName } = useLoginStore((state) => ({
+    login: state.login,
+    userName: state.userName,
+  }));
+
   const handleLogin = () => {
     setIsPopup(true);
-    setIsLogin(true);
   };
 
   const handleSearch = (term) => {
     setSearchTerm(term);
     fetchHotels();
+  };
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    logout();
+    navigate("/");
   };
 
   return (
@@ -52,7 +65,7 @@ const Utillity = ({ ...props }) => {
       >
         <CiShoppingCart />
       </button>
-      {isLogin ? (
+      {login ? (
         <>
           <Link
             to="/mypage"
@@ -62,12 +75,12 @@ const Utillity = ({ ...props }) => {
               className={"mobile:w-8 mobile:h-8 tablet:w-10 tablet:h-10"}
             />
             <div className="mobile:hidden tablet:block">
-              <strong className="whitespace-nowrap">하하하</strong>님
+              <strong className="whitespace-nowrap">{userName}</strong>님
             </div>
           </Link>
           <button
             className="btn-blue whitespace-nowrap mobile:hidden  tablet:inline-flex  tablet:h-10 tablet:px-3"
-            onClick={() => setIsLogin(false)}
+            onClick={handleLogout}
           >
             <IoIosLogOut />
             <span className="mobile:hidden tablet:inline-block">Log Out</span>

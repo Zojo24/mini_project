@@ -6,6 +6,7 @@ import axios from "axios";
 import { useLoginStore } from "../store/loginStore";
 import Toast from "../components/Toast";
 import Loading2 from "../components/Loading2";
+import Dialog from "../components/Dialog";
 
 const Login = ({ close, ...props }) => {
   const { setLogin, setUserInfo } = useLoginStore();
@@ -29,6 +30,7 @@ const Login = ({ close, ...props }) => {
   const [birthYear, setBirthYear] = useState("");
   const [birthMonth, setBirthMonth] = useState("");
   const [birthDay, setBirthDay] = useState("");
+  const [isPopup, setIsPopup] = useState(false);
 
   const handleTab = (tab) => {
     setIsTab(tab);
@@ -137,14 +139,12 @@ const Login = ({ close, ...props }) => {
     };
 
     try {
-      //TODO: 추후 URL 확인 필요
       const response = await axios.post(
         "http://52.78.12.252:8080/api/members/join",
         requestData
       );
-      navigate("/");
       resetRegisterForm();
-      close();
+      setIsPopup(true);
     } catch (error) {
       if (error.response) {
         switch (error.response.status) {
@@ -303,6 +303,18 @@ const Login = ({ close, ...props }) => {
               Sign Up
             </button>
           </form>
+          <Dialog open={isPopup} close={() => setIsPopup(false)}>
+            이메일로 인증 링크를 보냈습니다. <br />
+            링크를 클릭해 회원가입을 완료해 주세요.{" "}
+            <div className="flex justify-center gap-2 mt-5">
+              <button className="btn-blue" onClick={() => setIsPopup(false)}>
+                확인
+              </button>
+              <button className="btn-gray" onClick={() => setIsPopup(false)}>
+                취소
+              </button>
+            </div>
+          </Dialog>
           <Toast
             color={"red"}
             onOpen={registerToast}

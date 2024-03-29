@@ -23,6 +23,17 @@ let loginStore = (set) => ({
       userRole: userInfo.role,
       accessToken: token,
     }),
+  logout: () =>
+    set({
+      login: false,
+      accessToken: "",
+      userId: null,
+      userName: "",
+      userEmail: "",
+      userBirth: "",
+      userCredit: 0,
+      userRole: "",
+    }),
 });
 
 loginStore = devtools(loginStore);
