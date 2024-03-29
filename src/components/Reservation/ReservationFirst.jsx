@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../styles/pages/reservation.css";
 import Input from "../Input";
 import GuestCounter from "../GuestCounter";
@@ -12,6 +12,8 @@ import pic from "../../assets/hotel2.jpg";
 import Loading2 from "../Loading2";
 import request from "../../api/request";
 import axios from "../../api/axios";
+import { useLoginStore } from "../../store/loginStore";
+import { MdKeyboardDoubleArrowUp } from "react-icons/md";
 
 // 달력 현재날짜 고정
 const Today = (nextDay = 0) => {
@@ -40,6 +42,12 @@ const Today = (nextDay = 0) => {
 // };
 
 const ReservationFirst = () => {
+  const navigate = useNavigate();
+  const { addInfo, addCartInfo } = useReservationStore();
+  const { id, userName, userEmail, userBirth, userPassword, userCredit } = useLoginStore();
+  const [isWidth, setIsWidth] = useState(window.innerWidth);
+  const ref = useRef();
+  const [isToggle, setIsToggle] = useState(false);
   const [isToast, setIsToast] = useState(false);
   const [isToast2, setIsToast2] = useState(false);
   const [isStart, setIsStart] = useState(Today());
@@ -50,9 +58,9 @@ const ReservationFirst = () => {
   const [isLoading2, setIsLoading2] = useState(false);
   const [roomInfo, setRoomInfo] = useState({});
   const [isPayInfo, setIsPayInfo] = useState({
-    id: "",
-    member_id: "",
-    room_id: "",
+    id: id,
+    member_id: id,
+    room_id: roomInfo.id,
     check_in: "", //체크인
     check_out: "", //체크아웃
     adult_count: 0, //성인
@@ -64,13 +72,12 @@ const ReservationFirst = () => {
     hotel_name: roomInfo.hotel_name, //호텔이름
     type: roomInfo.type, //호텔룸종류
     bed_type: roomInfo.bed_type, //호텔침대종류
+    reservation_day: Today,
+    userCredit: userCredit,
   });
-  const navigate = useNavigate();
-  const { addInfo, addCartInfo } = useReservationStore();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  console.log(isPayInfo.bed_type);
+  console.log(roomInfo.bed_type);
 
   const handleStart = (check_in) => {
     setIsStart(check_in);
@@ -85,6 +92,19 @@ const ReservationFirst = () => {
   };
   const handleChildren = (child_count) => {
     setIsPayInfo({ ...isPayInfo, child_count });
+  };
+
+  const handleToggle = (e) => {
+    e.preventDefault();
+
+    setIsToggle(!isToggle);
+    if (isToggle) {
+      ref.current.style.height = "27rem";
+      setIsToggle(false);
+    } else {
+      ref.current.style.height = "0";
+      setIsToggle(true);
+    }
   };
 
   const CheckEmpty = () => {
@@ -110,6 +130,14 @@ const ReservationFirst = () => {
   };
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsWidth(window.innerWidth);
+      if (isWidth > 1024) {
+        ref.current.removeAttribute("style");
+        setIsToggle(true);
+      }
+    };
+
     const handleCalculate = () => {
       const countMember = parseInt(isPayInfo.adult_count) + parseInt(isPayInfo.child_count);
       const adult_fare = parseInt(isPayInfo.adult_count) * roomInfo.adult_fare;
@@ -144,22 +172,26 @@ const ReservationFirst = () => {
         setRoomInfo(rooms[0]);
       } catch (error) {
         console.log(error);
-      } finally {
-        console.log("ok");
       }
     };
     fetchData();
-
-    return handleCalculate();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize), handleCalculate();
   }, [isPayInfo.adult_count, isPayInfo.child_count]);
 
   // 결제완료 넘기기
-  const handleReservation = async () => {
+  const handleReservation = async (e) => {
+    e.preventDefault();
     const isValidCheck = CheckEmpty();
-    if (isValidCheck) {
+
+    if (!isValidCheck || !userName) return;
+
+    try {
       setIsLoading(true);
       addInfo(isPayInfo);
-
+    } catch (error) {
+      console.log(`submitReservation :`, error);
+    } finally {
       setTimeout(() => {
         setIsLoading(false);
         navigate("/reservation");
@@ -168,7 +200,8 @@ const ReservationFirst = () => {
   };
 
   // 장바구니 넘기기
-  const handleCart = async () => {
+  const handleCart = async (e) => {
+    e.preventDefault();
     const isValidCheck = CheckEmpty();
     if (isValidCheck) {
       setIsLoading2(true);
@@ -183,8 +216,11 @@ const ReservationFirst = () => {
   return (
     <>
       <div className="relative">
-        <form className="reservation-write" onSubmit={handleSubmit}>
-          <ul className="mobile:overflow-hidden mobile:h-0 tablet:overflow-visible tablet:h-[auto]">
+        <form className="reservation-write">
+          <ul
+            ref={ref}
+            className="mobile:overflow-hidden mobile:h-0 tablet:overflow-visible tablet:h-[auto] transition-all duration-300"
+          >
             <li>
               <label htmlFor="reser1" className="--title">
                 체크인
@@ -223,6 +259,14 @@ const ReservationFirst = () => {
             </li>
           </ul>
           <div className="grid grid-cols-[1.7fr_1fr] gap-3">
+            {isWidth < 1024 && (
+              <button
+                onClick={handleToggle}
+                className="absolute left-2/4 -top-9 -translate-x-2/4 w-12 h-10 bg-gray-100 rounded-full flex justify-center pt-[0.3rem] text-2xl"
+              >
+                <MdKeyboardDoubleArrowUp className={`ico-toggle ${!isToggle ? "active" : ""}`} />
+              </button>
+            )}
             <button
               className="btn-blue xl2 mobile:h-12 tablet:h-auto mobile:!text-base tablet:!text-xl justify-center"
               onClick={handleReservation}
