@@ -46,8 +46,8 @@ const SearchDetail = () => {
       const response = await axios.get(
         `http://52.78.12.252:8080/api/hotels/name/${hotelName}`
       );
-      setSearchResults(response.data.hotels);
-      console.log(hotelName);
+      setSearchResults(response.data.result.content);
+      console.log(response.data.result.content);
     } catch (error) {
       console.error("호텔 검색에 실패했습니다:", error);
       setSearchResults([]);

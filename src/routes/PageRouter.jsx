@@ -14,6 +14,7 @@ import Main from "../pages/Main";
 import Mypage from "../pages/Mypage";
 import NotFound from "../pages/NotFound";
 import Styleguide from "../pages/Styleguide";
+import SearchResult from "../pages/SearchResult";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: "/findaccount",
         element: <FindAccount />,
+      },
+      {
+        path: "/search/result",
+        element: <SearchResult />,
       },
     ],
   },
