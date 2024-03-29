@@ -21,7 +21,6 @@ import { useReservationStore } from "../../store/reservationStore";
 const ReservationSecond = () => {
   const { setTitle } = useVisualStore();
   const { paymentInfos } = useReservationStore();
-  console.log(paymentInfos);
 
   useEffect(() => {
     setTitle("Reservation Hotels", subvisual);

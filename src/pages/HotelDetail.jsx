@@ -112,7 +112,7 @@ const HotelDetail = () => {
               <RoomListToRead className={"mt-5"} />
             </Box>
           </div>
-          <div className="mobile:shadow-[0_-0.3rem_1rem_#0003] mobile:fixed mobile:top-[inherit] mobile:bottom-0 z-50 mobile:left-0 tablet:left-[inherit] tablet:bottom-[inherit] tablet:sticky tablet:top-28 self-start mobile:w-full tablet:w-[25rem] desktop:w-[30rem] mobile:mt-0 tablet:mt-0">
+          <div className="mobile:shadow-[0_-0.3rem_1rem_#0003] tablet:shadow-none mobile:fixed mobile:top-[inherit] mobile:bottom-0 z-50 mobile:left-0 tablet:left-[inherit] tablet:bottom-[inherit] tablet:sticky tablet:top-28 self-start mobile:w-full tablet:w-[25rem] desktop:w-[30rem] mobile:mt-0 tablet:mt-0">
             <Box
               className={"mobile:!rounded-[.75rem_.75rem_0_0] tablet:!rounded-xl mobile:!p-3 mobile:!pt-5 tablet:!p-5"}
             >

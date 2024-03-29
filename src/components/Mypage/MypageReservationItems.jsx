@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import { digit3 } from "../../store/digit3";
 
 const MypageReservationItems = ({ items }) => {
-  const item = items.paymentInfos[0];
-  const { file, hotel_name, type, adult_count, child_count, check_in, check_out, total_price } = item;
+  // const item = items[0];
+  const { file, hotel_name, type, adult_count, child_count, check_in, check_out, total_price } = items.userInfo[0];
 
+  console.log(items.userInfo);
   return (
     <>
       <tr className="group mobile:!grid-cols-1">

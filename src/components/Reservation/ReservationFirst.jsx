@@ -76,9 +76,6 @@ const ReservationFirst = () => {
     userCredit: userCredit,
   });
 
-  console.log(isPayInfo.bed_type);
-  console.log(roomInfo.bed_type);
-
   const handleStart = (check_in) => {
     setIsStart(check_in);
     setIsPayInfo({ ...isPayInfo, check_in });
@@ -132,7 +129,7 @@ const ReservationFirst = () => {
   useEffect(() => {
     const handleResize = () => {
       setIsWidth(window.innerWidth);
-      if (isWidth > 1024) {
+      if (ref.current && window.innerWidth > 1024) {
         ref.current.removeAttribute("style");
         setIsToggle(true);
       }
@@ -170,13 +167,24 @@ const ReservationFirst = () => {
         const { rooms } = responseRoom.data.result.content[0];
         // setRoomInfo((prevRoomInfo) => ({ ...prevRoomInfo, ...rooms[0], file: rooms[0].thumbnails[0].img_url }));
         setRoomInfo(rooms[0]);
+        setIsPayInfo((prevRoomInfo) => ({
+          ...prevRoomInfo,
+          file: rooms[0].thumbnails[0].img_url,
+          room_id: rooms[0].room_id,
+          bed_type: rooms[0].bed_type,
+          type: rooms[0].type,
+          hotel_name: rooms[0].hotel_id,
+        }));
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize), handleCalculate();
+    handleCalculate();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [isPayInfo.adult_count, isPayInfo.child_count]);
 
   // 결제완료 넘기기
@@ -213,10 +221,13 @@ const ReservationFirst = () => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <>
       <div className="relative">
-        <form className="reservation-write">
+        <form className="reservation-write" onSubmit={handleSubmit}>
           <ul
             ref={ref}
             className="mobile:overflow-hidden mobile:h-0 tablet:overflow-visible tablet:h-[auto] transition-all duration-300"
