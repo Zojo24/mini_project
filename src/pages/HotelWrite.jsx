@@ -390,7 +390,7 @@ const HotelWrite = () => {
           </Box>
 
           <Box className={"mt-10"}>
-            <div className="grid gap-5 md:grid-cols-1 2xl:grid-cols-2 ">
+            <div className="grid gap-5 mobile:grid-cols-1 desktop:grid-cols-2 ">
               <div>
                 <Heading
                   tag={"h3"}

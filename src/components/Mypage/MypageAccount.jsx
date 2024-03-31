@@ -1,18 +1,45 @@
 import React, { useState, useEffect } from "react";
 import Input from "../Input";
+import axios from "axios";
 import "../../styles/pages/mypage.css";
 import Heading from "../Heading";
 import Avatar from "../Avatar";
-import { useRegisterStore } from "../../store/RegisterStore";
+import { useLoginStore } from "../../store/loginStore";
+import { useNavigate } from "react-router-dom";
+
+const isLoggedIn = () => {
+  const token = localStorage.getItem("token"); // localStorage에서 토큰 가져오기
+  return !!token; // token이 있으면 true, 없으면 false 반환
+};
 
 const MypageAccount = () => {
-  const { user } = useRegisterStore((state) => state);
-  const { name, email, birth, password } = user;
-  const birthYear = birth.slice(0, 4);
-  const birthMonth = birth.slice(4, 6);
-  const birthDay = birth.slice(6, 8);
+  const navigate = useNavigate();
 
-  const { setUser } = useRegisterStore();
+  // 사용자가 로그인하지 않았다면 메인 페이지로 리다이렉트
+  useEffect(() => {
+    if (!isLoggedIn()) {
+      navigate("/");
+    }
+  }, [navigate]);
+
+  const {
+    userId,
+    userName,
+    userEmail,
+    userBirth,
+    userPassword,
+    userCredit,
+    setUserInfo,
+  } = useLoginStore();
+  const birthYear = userBirth?.slice(0, 4);
+  const birthMonth = userBirth?.slice(4, 6);
+  const birthDay = userBirth?.slice(6, 8);
+
+  const [id, setId] = useState(userId || "");
+  const [name, setName] = useState(userName || "");
+  const [email, setEmail] = useState(userEmail || "");
+  const [password, setPassword] = useState(userPassword || "");
+  const [birth, setBirth] = useState(userBirth || "");
 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -20,16 +47,12 @@ const MypageAccount = () => {
   const [nation, setNation] = useState("");
 
   useEffect(() => {
-    const storedAddress = localStorage.getItem("address");
-    const storedCity = localStorage.getItem("city");
-    const storedZipCode = localStorage.getItem("zip_code");
-    const storedNation = localStorage.getItem("nation");
-
-    if (storedAddress) setAddress(storedAddress);
-    if (storedCity) setCity(storedCity);
-    if (storedZipCode) setZipCode(storedZipCode);
-    if (storedNation) setNation(storedNation);
-  }, []);
+    setName(userName || "");
+    setEmail(userEmail || "");
+    setPassword(userPassword || "");
+    setBirth(userBirth || "");
+    setId(userId || "");
+  }, [userName, userEmail, userPassword, userBirth, userId]);
 
   const handleAddress = (value) => {
     setAddress(value);
@@ -43,22 +66,44 @@ const MypageAccount = () => {
   const handleNation = (value) => {
     setNation(value);
   };
-  const handleChange = (e) => {
-    e.preventDefault();
-    const updatedUser = {
-      ...user,
-      address,
-      city,
-      zip_code: zipCode,
-      nation,
-    };
-    setUser(updatedUser);
 
-    localStorage.setItem("address", address);
-    localStorage.setItem("city", city);
-    localStorage.setItem("zip_code", zipCode);
-    localStorage.setItem("nation", nation);
+  const handleChange = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await axios.patch(
+        "http://52.78.12.252:8080/api/members/my-info",
+        {
+          password,
+          address,
+          city,
+          nation,
+          zip_code: zipCode,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const updatedUser = {
+        id,
+        name,
+        email,
+        birth,
+        password,
+        address,
+        city,
+        nation,
+        zip_code: zipCode,
+      };
+      setUserInfo(updatedUser);
+    } catch (error) {
+      console.error("Error updating user information:", error);
+    }
   };
+
   return (
     <div className="grid mobile:grid-cols-1 tablet:grid-cols-[20rem_1fr] gap-5">
       <div className="bg-white rounded-xl whitespace-nowrap p-10 self-start text-center">
@@ -71,7 +116,9 @@ const MypageAccount = () => {
         </div>
         잔여캐시
         <br />
-        <strong className="text-2xl mr-1 text-blue-700 tracking-tight">1,000,000</strong>
+        <strong className="text-2xl mr-1 text-blue-700 tracking-tight">
+          1,000,000
+        </strong>
         <span>원</span>
       </div>
       <form type="onSubmit" className="bg-white rounded-xl  p-10">

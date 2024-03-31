@@ -40,7 +40,11 @@ const HotelAllList = () => {
         <HotelList />
         <div className="text-center mt-10">
           <button className="btn-blue xl" onClick={handleMore}>
-            {isLoading ? <TbRotateClockwise2 className="animate-spin" /> : <FaArrowDownShortWide />}
+            {isLoading ? (
+              <TbRotateClockwise2 className="animate-spin" />
+            ) : (
+              <FaArrowDownShortWide />
+            )}
             {isLoading ? "Loading..." : "호텔 더보기"}
           </button>
         </div>

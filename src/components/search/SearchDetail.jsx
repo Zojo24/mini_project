@@ -1,44 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "../Input";
 import Select from "../Select";
 import { IoSearch } from "react-icons/io5";
+import Loading2 from "../Loading";
+import useFetchHotels from "../../hooks/useFetchHotels";
 
 const where = [
   {
-    value: "select1",
+    value: "NATION",
     text: "어디에 머물고 싶으세요?",
   },
   {
-    value: "select2",
+    value: "THAILAND",
     text: "태국",
   },
   {
-    value: "select3",
+    value: "VIETNAM",
     text: "베트남",
   },
   {
-    value: "select4",
+    value: "PHILIPPINES",
     text: "필리핀",
   },
   {
-    value: "select5",
+    value: "MALAYSIA",
     text: "말레이시아",
   },
   {
-    value: "select6",
+    value: "TAIWAN",
     text: "대만",
   },
 ];
 
 const SearchDetail = () => {
+  const [selectedWhere, setSelectedWhere] = useState("");
+  const [hotelName, setHotelName] = useState("");
+  const { isLoading2, fetchHotels } = useFetchHotels();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(selectedWhere, hotelName);
+    await fetchHotels(selectedWhere, hotelName);
+  };
+
+  const handleType = (value) => {
+    setHotelName(value);
+  };
+
   return (
-    <form className=" mobile:w-full tablet:w-auto">
+    <form className=" mobile:w-full tablet:w-auto" onSubmit={handleSubmit}>
       <div className="mobile:grid mobile:grid-cols-1 tablet:flex gap-2">
-        <Select options={where} />
-        <Input type={"text"} placeholder="호텔명을 입력하세요." />
-        <button className="btn-blue xl">
+        <Select
+          options={where}
+          onChange={(e) => setSelectedWhere(e.target.value)}
+        />
+        <Input
+          type={"text"}
+          placeholder="호텔명을 입력하세요."
+          value={hotelName}
+          onChange={handleType}
+        />
+        <button type="submit" className="btn-blue xl">
           <IoSearch />
         </button>
+        {isLoading2 && <Loading2 />}
       </div>
     </form>
   );

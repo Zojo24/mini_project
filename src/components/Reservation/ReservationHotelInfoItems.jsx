@@ -4,10 +4,9 @@ import { Link } from "react-router-dom";
 import { digit3 } from "../../store/digit3";
 
 const ReservationHotelInfoItems = (item) => {
-  const { adult_count, child_count, check_out, check_in, total_price, hotel_name, file } = item;
+  const { adult_count, child_count, check_out, check_in, total_price, hotel_name, file, bed_type, type } = item;
 
   const formattedPrice = digit3(total_price);
-
   return (
     <>
       <li className="grid group items-center gap-3 grid-cols-[min-content_1fr_min-content] grid-rows-[repeat(auto-fill,minmax(0,auto))] border-b border-b-gray-300 border-dashed py-3">
@@ -33,7 +32,9 @@ const ReservationHotelInfoItems = (item) => {
             </div>
             <div className="text-sm flex leading-6">
               <b className="font-semibold">룸 정보</b>
-              <div> : 디럭스 / 더블베드</div>
+              <div>
+                : {type} / {bed_type}
+              </div>
             </div>
           </div>
         </div>

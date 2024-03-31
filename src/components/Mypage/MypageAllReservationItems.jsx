@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { digit3 } from "../../store/digit3";
 
 const MypageAllReservationItems = ({ items }) => {
-  const item = items.paymentInfos[0];
-  const { file, hotel_name, type, adult_count, child_count, check_in, check_out, total_price } = item;
+  const { file, hotel_name, type, adult_count, child_count, check_in, check_out, total_price } = items.userInfo[0];
+
   const { name } = items;
 
   return (

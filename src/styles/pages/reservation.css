@@ -1,3 +1,4 @@
+
 /* 결재 */
 .reservation {
   @apply grid gap-10 mobile:grid-cols-1 tablet:grid-cols-[1fr_2.2fr];
@@ -20,11 +21,19 @@
 
 /* 예약 입력 */
 .reservation-form {
-  @apply grid gap-6 mobile:block tablet:grid-cols-2;
+  @apply gap-6 mobile:block tablet:grid-cols-2 tablet:grid ;
  > div {
   @apply grid gap-2 mobile:mt-5 tablet:mt-0;
  }
 }
+.ico-toggle {
+  transition: all .3s cubic-bezier(0.215, 0.610, 0.355, 1);
+  transform: rotateX(0);
+ &.active {
+   transform: rotateX(180deg);
+ }
+}
+
 
 /* 방정보 */
 .reservation-write {

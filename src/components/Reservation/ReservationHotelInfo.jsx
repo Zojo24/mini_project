@@ -6,17 +6,15 @@ import { useReservationStore } from "../../store/reservationStore";
 import { digit3 } from "../../store/digit3";
 
 const ReservationHotelInfo = ({ userInfo }) => {
-  const { paymentInfos } = useReservationStore();
-  const { credit } = userInfo;
-  const totalPayment = paymentInfos?.reduce((acc, curr) => acc + curr.total_price, 0);
+  const credit = userInfo[0].userCredit;
+  const totalPayment = userInfo?.reduce((acc, curr) => acc + curr.total_price, 0);
   const formattedTotalPayment = digit3(totalPayment);
-
   return (
     <Box className="reservation__hotel-info">
       <Heading tag={"h3"} text={"호텔 예약정보"} />
       <div>
         <ul className="reservation__hotel-info__list">
-          {paymentInfos.map((item, index) => (
+          {userInfo.map((item, index) => (
             <ReservationHotelInfoItems key={index} {...item} />
           ))}
         </ul>
@@ -39,7 +37,7 @@ const ReservationHotelInfo = ({ userInfo }) => {
           </div>
         </div>
         <div className="flex justify-between items-baseline pb-4">
-          <span className="text-lg pr-2">총 결재 금액</span>
+          <span className="text-lg pr-2">총 결제 금액</span>
           <div>
             <span className="text-3xl font-extrabold text-rose-600" style={{ fontFamily: "var(--eng1)" }}>
               {formattedTotalPayment}

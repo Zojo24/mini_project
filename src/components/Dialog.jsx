@@ -16,18 +16,15 @@ const Dialog = ({ open, close, className, children, ...props }) => {
     }
   }, [open]);
 
-  const handleClose = () => {
-    // ref.current.classList.add("hide");
-    // ref.current.addEventListener(
-    //   "animationend",
-    //   () => {
-    //     ref.current.classList.remove("hide");
-    //     ref.current.removeEventListener("animationend", handleClose);
-    //     close();
-    //   }
-    //   false
-    //   );
+  const initialClose = () => {
+    ref.current.classList.remove("hide");
     close();
+    ref.current.removeEventListener("animationend", initialClose);
+  };
+
+  const handleClose = () => {
+    ref.current.classList.add("hide");
+    ref.current.addEventListener("animationend", initialClose);
   };
 
   return (
