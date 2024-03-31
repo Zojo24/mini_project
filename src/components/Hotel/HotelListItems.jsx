@@ -6,6 +6,7 @@ import React, {
 import axios from 'axios';
 
 import hotel1 from '../../assets/hotel1.jpg';
+import { digit3 } from '../../store/digit3';
 import { usehotelListStore } from '../../store/hotelListStore';
 import Badge from '../Badge';
 import HotelBooking from './HotelBooking';
@@ -27,7 +28,7 @@ const HotelListItems = ({ modify, ...props }) => {
   }, []);
   const totalHotels = usehotelListStore((state) => state.totalHotels);
 
-  console.log(totalHotels);
+  // console.log(totalHotels);
   return (
     <>
       {hotels.map((hotel) => (
@@ -37,7 +38,7 @@ const HotelListItems = ({ modify, ...props }) => {
             <HotelLocation location={hotel.nation} />
             <HotelFavorite checked={modify} />
             <HotelTitle link={`/hoteldetail/${hotel.id}`} title={hotel.name} />
-            <HotelPrice price={hotel.price} />
+            <HotelPrice price={digit3(hotel.rooms[0]?.standard_price)} />
             {hotel.active_status === "ACTIVE" ? (
               <HotelBooking text={"HotelBooking"} />
             ) : (

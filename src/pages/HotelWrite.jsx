@@ -99,12 +99,12 @@ const HotelWrite = () => {
     name: "",
     nation: "태국",
     price: "",
-    available: true,
+    active_status: "ACTIVE",
     description: "",
     check_in: "1:00",
     check_out: "1:00",
-    notSmoking: true,
-    noPet: true,
+    smoking_rule: "TOTAL_IMPOSSIBLE",
+    pet_rule: "TOTAL_IMPOSSIBLE",
     swimmingpool_open: "",
     swimmingpool_closed: "",
     rooms: [],
@@ -152,7 +152,7 @@ const HotelWrite = () => {
   console.log(hotelInfo);
   //예약가능
   const handleRadioChange = (value) => {
-    setHotelInfo({ ...hotelInfo, available: value === "예약가능" });
+    setHotelInfo({ ...hotelInfo, active_status: value });
   };
   //호텔안내
   const [content, setContent] = useState("");
@@ -202,15 +202,16 @@ const HotelWrite = () => {
   };
   //흡연
   const handleSmoking = (value) => {
-    setHotelInfo({ ...hotelInfo, notSmoking: value === "전객실 불가능" });
+    setHotelInfo({ ...hotelInfo, smoking_rule: value });
   };
+  //애완동물
   const handlePet = (value) => {
-    setHotelInfo({ ...hotelInfo, noPet: value === "전객실 불가능" });
+    setHotelInfo({ ...hotelInfo, pet_rule: value });
   };
   //수영장
   const handlePoolOpen = (e) => {
     const selectedValue = e.target.value;
-    // 'where' 대신 'checkOption' 배열을 사용합니다.
+
     const selectedText =
       checkOption.find((option) => option.value === selectedValue)?.text || "";
     setHotelInfo({ ...hotelInfo, swimmingpool_open: selectedText });
@@ -223,6 +224,7 @@ const HotelWrite = () => {
     setHotelInfo({ ...hotelInfo, swimmingpool_closed: selectedText });
   };
   //호텔등록
+  const token = localStorage.getItem("token");
   const onSendClick = async (e) => {
     if (
       hotelInfo.name == "" ||
@@ -247,8 +249,13 @@ const HotelWrite = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://52.78.12.252:8080/api/hotels/",
-        hotelInfo
+        "http://52.78.12.252:8080/api/hotels",
+        hotelInfo,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       console.log(response.data);
     } catch (error) {
@@ -361,19 +368,19 @@ const HotelWrite = () => {
                   <div className="flex">
                     <Radio
                       color="blue"
-                      checked={hotelInfo.available}
-                      value="예약가능"
+                      checked={hotelInfo.active_status === "ACTIVE"}
+                      value="예약 가능"
                       id="hotel_reser1"
                       name="reservationAvailability"
-                      onChange={() => handleRadioChange("예약가능")}
+                      onChange={() => handleRadioChange("ACTIVE")}
                     />
                     <Radio
                       color="red ml-5"
-                      checked={!hotelInfo.available}
-                      value="예약불가능"
+                      checked={hotelInfo.active_status === "INACTIVE"}
+                      value="예약 불가능"
                       id="hotel_reser2"
                       name="reservationAvailability"
-                      onChange={() => handleRadioChange("예약불가능")}
+                      onChange={() => handleRadioChange("INACTIVE")}
                     />
                   </div>
                 </li>
@@ -639,19 +646,21 @@ const HotelWrite = () => {
                       <div className="flex justify-start mobile:whitespace-nowrap mobile:flex-wrap tablet:flex-nowrap">
                         <Radio
                           color={"red"}
-                          checked={hotelInfo.notSmoking === true}
+                          checked={
+                            hotelInfo.smoking_rule === "TOTAL_IMPOSSIBLE"
+                          }
                           value={"전객실 불가능"}
                           id={"hotel_reser3"}
                           name={"rag2"}
-                          onChange={() => handleSmoking("전객실 불가능")}
+                          onChange={() => handleSmoking("TOTAL_IMPOSSIBLE")}
                         />
                         <Radio
                           color={"green ml-5"}
-                          checked={hotelInfo.notSmoking === false}
+                          checked={hotelInfo.smoking_rule === false}
                           value={"일부객실 가능"}
                           id={"hotel_reser4"}
                           name={"rag2"}
-                          onChange={() => handleSmoking("일부객실 가능")}
+                          onChange={() => handleSmoking("SOME_POSSIBLE")}
                         />{" "}
                         <Badge
                           color={
@@ -667,19 +676,19 @@ const HotelWrite = () => {
                       <div className="flex justify-start mobile:whitespace-nowrap mobile:flex-wrap tablet:flex-nowrap">
                         <Radio
                           color={"red"}
-                          checked={hotelInfo.noPet === true}
+                          checked={hotelInfo.pet_rule === "TOTAL_IMPOSSIBLE"}
                           value={"전객실 불가능"}
                           id={"hotel_reser5"}
                           name={"rag3"}
-                          onChange={() => handlePet("전객실 불가능")}
+                          onChange={() => handlePet("TOTAL_IMPOSSIBLE")}
                         />
                         <Radio
                           color={"green ml-5"}
-                          checked={hotelInfo.noPet === false}
+                          checked={hotelInfo.pet_rule === "SOME_POSSIBLE"}
                           value={"일부객실 가능"}
                           id={"hotel_reser6"}
                           name={"rag3"}
-                          onChange={() => handlePet("일부객실 가능")}
+                          onChange={() => handlePet("SOME_POSSIBLE")}
                         />{" "}
                         <Badge
                           color={

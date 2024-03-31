@@ -21,6 +21,7 @@ import RoomListToRead from '../components/Hotel/components/RoomListToRead';
 import HotelFavorite from '../components/Hotel/HotelFavorite';
 import HotelGallery from '../components/Hotel/HotelGallery';
 import HotelLocation from '../components/Hotel/HotelLocation';
+import HotelRules from '../components/Hotel/HotelRules';
 import ServiceList from '../components/Hotel/ServiceList';
 import Loading from '../components/Loading';
 import ReservationFirst from '../components/Reservation/ReservationFirst';
@@ -47,13 +48,21 @@ const HotelDetail = () => {
   const thisHotel = totalHotels.find((hotel) => hotel.id === 4595);
   // console.log("detail", thisHotel);
   useEffect(() => {
-    axios.get("http://52.78.12.252:8080/api/hotels/1").then((response) => {
-      setHotelInfo(response.data.result);
-      console.log(response.data.result);
-    });
-    setTitle(hotelInfo.name, SubVisual);
+    axios
+      .get(`http://52.78.12.252:8080/api/hotels/${hotelId}`)
+      .then((response) => {
+        setHotelInfo(response.data.result);
+        // console.log(response.data.result);
+      });
+    // setTitle(hotelInfo.name, SubVisual);
   }, []);
-  console.log(hotelInfo.rooms);
+
+  useEffect(() => {
+    if (hotelInfo) {
+      setTitle(hotelInfo.name, SubVisual);
+    }
+  }, [hotelInfo, setTitle]);
+
   const onDelete = () => {
     setIsLoading(true);
     deleteHotel(hotelId);
@@ -78,7 +87,7 @@ const HotelDetail = () => {
               <HotelLocation className={"xl"} location={hotelInfo.nation} />
             </div>
             <div>
-              {/* <HotelPrice price={digit3(hotelInfo?.rooms[0].standard_price)} /> */}
+              {/* <HotelPrice price={digit3(hotelInfo.rooms[0]?.standard_price)} /> */}
               <HotelFavorite />
               <button className="btn-blue -mr-2" onClick={toEdit}>
                 수정
@@ -119,11 +128,14 @@ const HotelDetail = () => {
                 text={"편의시설 및 서비스"}
                 className={"base"}
               />
-              <ServiceList className={"mt-5"} />
+              <ServiceList
+                options={hotelInfo.basic_options}
+                className={"mt-5"}
+              />
             </Box>
             <Box>
               <Heading tag={"h3"} text={"호텔 객실 규칙"} className={"base"} />
-              {/* <HotelRules thisHotel={hotelInfo} className={"mt-5"} /> */}
+              <HotelRules thisHotel={hotelInfo} className={"mt-5"} />
             </Box>
             <Box>
               <Heading

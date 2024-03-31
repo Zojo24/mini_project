@@ -21,7 +21,7 @@ const RoomListItemsToRead = ({ roomLists, edit, ...props }) => {
     deleteRoom(roomId);
     console.log(roomId);
   };
-  console.log("룸", roomLists);
+  // console.log("룸", roomLists);
   return (
     <>
       {roomLists?.map((it) => (
