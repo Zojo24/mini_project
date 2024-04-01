@@ -721,7 +721,11 @@ const HotelEdit = () => {
                 객실등록
               </button>
             </div>
-            {isToggle ? <RoomWrite /> : <RoomList edit={true} />}
+            {isToggle ? (
+              <RoomWrite />
+            ) : (
+              <RoomList edit={true} roomLists={thisHotel.rooms} />
+            )}
           </Box>
           <div className="flex justify-between mt-10">
             <button onClick={() => {}} className="btn-gray xl">

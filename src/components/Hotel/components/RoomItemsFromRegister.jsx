@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 
-import room from '../../assets/hotelroom1.jpeg';
-import room2 from '../../assets/hotelroom2.jpeg';
-import { useRoomStore } from '../../store/roomStore';
-import RoomEditfromEdit from './components/RoomEditfromEdit';
-import HotelPrice from './HotelPrice';
-import HotelTitle from './HotelTitle';
-import RoomOptions from './RoomOptions';
-import RoomPicture from './RoomPicture';
+import room from '../../../assets/hotelroom1.jpeg';
+import room2 from '../../../assets/hotelroom2.jpeg';
+import { useRoomStore } from '../../../store/roomStore';
+import HotelPrice from '../HotelPrice';
+import HotelTitle from '../HotelTitle';
+import RoomOptions from '../RoomOptions';
+import RoomPicture from '../RoomPicture';
+import RoomEdit from './RoomEdit';
 
-const RoomListItems = ({ roomLists, edit, ...props }) => {
+const RoomItemsFromRegister = ({ roomLists, edit, ...props }) => {
   const show = { able: "disabled" };
   const [isEdit, setIsEdit] = useState(false);
   const { rooms, deleteRoom } = useRoomStore();
@@ -26,7 +26,7 @@ const RoomListItems = ({ roomLists, edit, ...props }) => {
       {roomLists.map((it) => (
         <li {...props} key={it.roomId}>
           {isEdit ? (
-            <RoomEditfromEdit roomData={it} setIsEdit={setIsEdit} />
+            <RoomEdit roomData={it} setIsEdit={setIsEdit} />
           ) : (
             <div>
               <RoomPicture image={room2} />
@@ -87,4 +87,4 @@ const RoomListItems = ({ roomLists, edit, ...props }) => {
   );
 };
 
-export default RoomListItems;
+export default RoomItemsFromRegister;

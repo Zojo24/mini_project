@@ -2,20 +2,27 @@ import React, { useEffect, useState } from "react";
 import Heading from "../Heading";
 import Input from "../Input";
 import Checkbox from "../Checkbox";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Dialog from "../Dialog";
 import ReservationRule from "../ReservationRule";
 import { useReservationStore } from "../../store/reservationStore";
 import Loading from "../Loading";
 import { useLoginStore } from "../../store/loginStore";
+import Loading2 from "../Loading2";
+import request from "../../api/request";
+import instance from "../../api/axios";
 
-const ReservationPersonInfo = ({ userInfo }) => {
+const ReservationPersonInfo = () => {
   const navigate = useNavigate();
-  const { addAdditionalInfo, deleteCart } = useReservationStore();
-  const { userName, userCredit, userId, userEmail, address, city, nation, zip_code, profile_image } = useLoginStore();
-  const { role, total_price, cart_id } = userInfo;
+  const { deleteCart } = useReservationStore();
+  const { userName, userCredit, userId, userEmail, address, city, nation, zip_code } = useLoginStore();
+  const token = localStorage.getItem("token");
+  const { fetchOrders } = request; // 필요한 요청 URL을 추출
+  const { paymentInfos } = useReservationStore();
+  const { total_price, id } = paymentInfos.result;
 
-  const [isuserInfo, setUserInfo] = useState(userInfo);
+  console.log(paymentInfos);
+
   const [isRule, setIsRule] = useState(false);
   const [isAddress, setIsAddress] = useState(address);
   const [isCountry, setIsCountry] = useState(nation);
@@ -25,6 +32,7 @@ const ReservationPersonInfo = ({ userInfo }) => {
   const [isPopup, setIsPopup] = useState(false);
   const [errrorMessage, setErrrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
   const [persnalInfo, setPersnalInfo] = useState({
     name: userName,
     email: userEmail,
@@ -32,11 +40,10 @@ const ReservationPersonInfo = ({ userInfo }) => {
     city: city,
     nation: nation,
     zip_code: zip_code,
-    text: "",
+    comment: "",
     agreement: false,
-    credit: 1000,
+    credit: userCredit,
   });
-
   const handleAddress = (address) => {
     setIsAddress(address);
     setPersnalInfo({ ...persnalInfo, address });
@@ -53,88 +60,91 @@ const ReservationPersonInfo = ({ userInfo }) => {
     setIsPostCode(zip_code);
     setPersnalInfo({ ...persnalInfo, zip_code });
   };
-  const handleRequest = (text) => {
-    setIsRequestText(text);
-    setPersnalInfo({ ...persnalInfo, text });
+  const handleRequest = (comment) => {
+    setIsRequestText(comment);
+    setPersnalInfo({ ...persnalInfo, comment });
   };
   const handleRule = (e) => {
     e.preventDefault();
     setIsRule(true);
   };
 
-  useEffect(() => {
-    setUserInfo((prevUserInfo) => ({
-      ...prevUserInfo,
-      address: isAddress,
-      city: isCity,
-      nation: isCountry,
-      zip_code: isPostCode,
-    }));
-  }, [isAddress, isCity, isCountry, isPostCode]);
-
-  const checkEmpty = () => {
-    let isValid = true;
-    if (!persnalInfo.address) {
-      setIsPopup(true);
-      setErrrorMessage("주소를 입력해 주세요.");
-      isValid = false;
-    } else if (!persnalInfo.city) {
-      setIsPopup(true);
-      setErrrorMessage("도시를 입력해 주세요.");
-      isValid = false;
-    } else if (!persnalInfo.nation) {
-      setIsPopup(true);
-      setErrrorMessage("국가를 입력해 주세요.");
-      isValid = false;
-    } else if (!persnalInfo.zip_code) {
-      setIsPopup(true);
-      setErrrorMessage("우편번호를 입력해 주세요.");
-      isValid = false;
-    } else if (userCredit < total_price) {
-      setIsPopup(true);
-      setErrrorMessage("보유금액이 결제금액보다 적습니다. 크래딧을 충전해주세요.");
-      isValid = false;
-    }
-    return isValid;
-  };
-
-  const handleReservation = (e) => {
+  const handleReservation = async (e) => {
     e.preventDefault();
-    const checkedInfo = [];
-    document.querySelectorAll('.check-group input[type="checkbox"]:checked').forEach((checkbox) => {
-      const label = document.querySelector(`label[for="${checkbox.id}"]`);
-      if (label) {
-        checkedInfo.push({
-          id: checkbox.id,
-          checked: checkbox.checked,
-          label: label.textContent.trim(),
-        });
-      }
-    });
 
-    if (checkedInfo.length > 0) {
-      const agreement = checkedInfo[0].checked;
-      const isValidCheck = checkEmpty();
-
-      if (isValidCheck) {
-        const updatedPersonalInfo = { ...persnalInfo, agreement }; // 업데이트된 상태를 먼저 생성
-        setPersnalInfo(updatedPersonalInfo);
-        addAdditionalInfo({ ...persnalInfo, userInfo });
-        deleteCart(cart_id);
-        setIsLoading(true);
-        setTimeout(() => {
-          setIsLoading(false);
-          navigate(`/reservation/done/my-id`);
-        }, 1500);
+    const checkEmpty = () => {
+      let isValid = true;
+      if (!persnalInfo.address) {
+        setIsPopup(true);
+        setErrrorMessage("주소를 입력해 주세요.");
+        isValid = false;
+      } else if (!persnalInfo.city) {
+        setIsPopup(true);
+        setErrrorMessage("도시를 입력해 주세요.");
+        isValid = false;
+      } else if (!persnalInfo.nation) {
+        setIsPopup(true);
+        setErrrorMessage("국가를 입력해 주세요.");
+        isValid = false;
+      } else if (!persnalInfo.zip_code) {
+        setIsPopup(true);
+        setErrrorMessage("우편번호를 입력해 주세요.");
+        isValid = false;
+      } else if (userCredit < total_price) {
+        setIsPopup(true);
+        setErrrorMessage("보유금액이 결제금액보다 적습니다. 크래딧을 충전해주세요.");
+        isValid = false;
+      } else if (!persnalInfo.agreement) {
+        setIsPopup(true);
+        setErrrorMessage("예약 약관에 동의해주세요.");
+        isValid = false;
       }
-    } else {
-      setIsPopup(true);
-      setErrrorMessage("예약 약관에 동의해주세요.");
+      return isValid;
+    };
+
+    const isValidCheck = checkEmpty();
+
+    if (!isValidCheck) return;
+
+    const requestData = {
+      zip_code: persnalInfo.zip_code,
+      nation: persnalInfo.nation,
+      city: persnalInfo.city,
+      address: persnalInfo.address,
+      comment: persnalInfo.comment,
+    };
+
+    // console.log(requestData);
+    try {
+      setIsLoading2(true);
+      const responseOrder = await instance.patch(`${fetchOrders}/${id}`, requestData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const responseData = responseOrder.data;
+      console.log(responseData);
+      responseOrder;
+      // deleteCart(cart_id);
+    } catch (error) {
+      console.log("handleReservation", error);
+      const errorMessage = error.response.data.result;
+      if (errorMessage === "Not found order") {
+        setIsPopup(true);
+        setErrrorMessage("Not found order");
+      }
+    } finally {
+      setIsLoading2(false);
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        navigate(`/reservation/done/${userId}`);
+      }, 1500);
     }
   };
 
   return (
-    <div>
+    <div className="relative">
       <form>
         <Heading tag={"h3"} className={"base"} text={"개인정보 입력"} />
         <div className="reservation-form mt-5">
@@ -160,7 +170,7 @@ const ReservationPersonInfo = ({ userInfo }) => {
           </div>
           <div>
             우편번호
-            <Input type={"text"} value={isPostCode} onChange={handlePostCode} />
+            <Input type={"number"} value={isPostCode} onChange={handlePostCode} />
           </div>
           <div className="col-span-2">
             요청사항
@@ -169,7 +179,12 @@ const ReservationPersonInfo = ({ userInfo }) => {
         </div>
         <div className="mt-10 flex justify-between items-center">
           <div className="check-group">
-            <Checkbox color={"blue"} id={"agree"}>
+            <Checkbox
+              color={"blue"}
+              id={"agree"}
+              checked={persnalInfo.agreement}
+              onChange={(e) => setPersnalInfo({ ...persnalInfo, agreement: e.target.checked })}
+            >
               예약 약관동의
             </Checkbox>
           </div>
@@ -201,6 +216,7 @@ const ReservationPersonInfo = ({ userInfo }) => {
         </div>
       </Dialog>
       {isLoading && <Loading />}
+      {isLoading2 && <Loading2 />}
     </div>
   );
 };

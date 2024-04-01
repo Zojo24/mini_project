@@ -2,12 +2,8 @@ import React from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { usehotelListStore } from '../../store/hotelListStore';
-
-const HotelRules = ({ className }) => {
+const HotelRules = ({ thisHotel, className }) => {
   let { hotelId } = useParams();
-  const { totalHotels } = usehotelListStore();
-  const thisHotel = totalHotels.find((hotel) => hotel.id === Number(hotelId));
 
   return (
     <div className={className}>
@@ -22,23 +18,24 @@ const HotelRules = ({ className }) => {
         </li>
         <li>
           <strong>
-            {thisHotel.notSmoking ? "전객실 금연" : "일부객실 흡연가능"}
+            {thisHotel.smoking_rule === "TOTAL_IMPOSSIBLE"
+              ? "전객실 금연"
+              : "일부객실 흡연가능"}
           </strong>
         </li>
         <li>
           <strong>
-            {thisHotel.noPet
+            {thisHotel.pet_rule === "TOTAL_IMPOSSIBLE"
               ? "전객실 애완동물 금지"
               : "일부객실 애완동물 가능"}
           </strong>
         </li>
 
-        {thisHotel.options.swimming_pool && (
+        {thisHotel.basic_options?.swimming_pool && (
           <li>
             <strong>수영장 이용시간</strong>
             <span>
-              오전 {thisHotel.swimmingpool_open} ~ 오후{" "}
-              {thisHotel.swimmingpool_closed}
+              {thisHotel.pool_opening_time} ~ {thisHotel.pool_closing_time}
             </span>{" "}
           </li>
         )}

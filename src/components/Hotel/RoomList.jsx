@@ -1,11 +1,13 @@
-import React from "react";
-import RoomListItems from "./RoomListItems";
-import "../../styles/components/room.css";
+import '../../styles/components/room.css';
 
-const RoomList = ({ className, edit, ...props }) => {
+import React from 'react';
+
+import RoomListItems from './RoomListItems';
+
+const RoomList = ({ roomLists, className, edit, ...props }) => {
   return (
     <ul className={`room-list ${className}`} {...props}>
-      <RoomListItems edit={edit} />
+      <RoomListItems roomLists={roomLists} edit={edit} />
     </ul>
   );
 };
