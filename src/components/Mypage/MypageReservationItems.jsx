@@ -4,28 +4,27 @@ import { Link } from "react-router-dom";
 import { digit3 } from "../../store/digit3";
 
 const MypageReservationItems = ({ items }) => {
-  // const item = items[0];
-  const { file, hotel_name, type, adult_count, child_count, check_in, check_out, total_price } = items.userInfo[0];
+  const { file, hotel, room, adult_count, child_count, check_in, check_out, total_price, created_at } = items;
+  const reservationDaty = created_at.split(" ")[0];
 
-  console.log(items.userInfo);
   return (
     <>
       <tr className="group mobile:!grid-cols-1">
         <td className="mobile:before:content-['예약일'] tablet:before:hidden mobile:!grid tablet:!table-cell mobile:grid-cols-[6rem_1fr] mobile:before:font-bold">
-          2024-03-15
+          {reservationDaty}
         </td>
         <td className="mobile:before:content-['호텔정보'] tablet:before:hidden mobile:!grid tablet:!table-cell mobile:grid-cols-[6rem_1fr] mobile:before:font-bold">
           <div className="grid items-center grid-cols-[min-content_1fr] gap-1 text-left">
-            <Link to="/hoteldetail">
+            <Link to={`/hoteldetail/${hotel.id}`}>
               <RoomPicture image={file} size={"sm"} />
             </Link>
-            <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2">
-              {hotel_name}
+            <Link to={`/hoteldetail/${hotel.id}`} className=" group-hover:text-blue-700 line-clamp-2">
+              {hotel.name}
             </Link>
           </div>
         </td>
         <td className="mobile:before:content-['룸정보'] tablet:before:hidden mobile:!grid tablet:!table-cell mobile:grid-cols-[6rem_1fr] mobile:before:font-bold">
-          {type}
+          {room.type}
         </td>
         <td className="mobile:before:content-['성인'] tablet:before:hidden mobile:!grid tablet:!table-cell mobile:grid-cols-[6rem_1fr] mobile:before:font-bold">
           {adult_count}
