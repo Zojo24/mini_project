@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SlLocationPin } from "react-icons/sl";
 import { GoPeople } from "react-icons/go";
 import { LuSearch } from "react-icons/lu";
@@ -11,6 +11,7 @@ import Guest from "./Guest";
 import "../styles/components/search.css";
 import Loading2 from "./Loading2";
 import { useSearchStore } from "../store/searchStore";
+import { useNavigate } from "react-router-dom";
 // import { Today } from "../store/todayStore";
 
 const where = [
@@ -131,8 +132,17 @@ const Search = ({ ...props }) => {
   const [guestNumber, setGuestNumber] = useState("");
   const [hotelList, setHotelList] = useState([]);
   const [isLoading2, setIsLoading2] = useState(false);
+  const navigate = useNavigate();
 
   const setSearchResults = useSearchStore((state) => state.setSearchResults);
+
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate, token]);
 
   const handleStart = (value) => {
     console.log(value);
@@ -169,9 +179,23 @@ const Search = ({ ...props }) => {
   // 호텔 검색하기
   const handleSearch = async (e) => {
     e.preventDefault();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
     setIsLoading2(true);
+
     try {
-      const response = await axios.get("http://52.78.12.252:8080/api/hotels");
+      const response = await axios.get(
+        `http://52.78.12.252:8080/api/hotels/${location}/${roomType}/${viewType}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setSearchResults(response.data.hotels);
       console.log(response.data.hotels);
     } catch (error) {

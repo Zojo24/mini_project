@@ -43,7 +43,6 @@ const DestinationsItems = () => {
         onClick={() =>
           handleDestinationClick({ value: "THAILAND", text: "태국" })
         }
-        to="/"
       >
         <div className="destinations__thumbnail">
           <img src={category1} alt="태국" />
@@ -57,7 +56,6 @@ const DestinationsItems = () => {
         onClick={() =>
           handleDestinationClick({ value: "VIETNAM", text: "베트남" })
         }
-        to="/"
       >
         <div className="destinations__thumbnail">
           <img src={category2} alt="베트남" />
@@ -71,7 +69,6 @@ const DestinationsItems = () => {
         onClick={() =>
           handleDestinationClick({ value: "PHILIPPINES", text: "필리핀" })
         }
-        to="/"
       >
         <div className="destinations__thumbnail">
           <img src={category3} alt="필리핀" />
@@ -85,7 +82,6 @@ const DestinationsItems = () => {
         onClick={() =>
           handleDestinationClick({ value: "MALAYSIA", text: "말레이시아" })
         }
-        to="/"
       >
         <div className="destinations__thumbnail">
           <img src={category4} alt="말레이시아" />
@@ -99,7 +95,6 @@ const DestinationsItems = () => {
         onClick={() =>
           handleDestinationClick({ value: "TAIWAN", text: "대만" })
         }
-        to="/"
       >
         <div className="destinations__thumbnail">
           <img src={category5} alt="대만" />
