@@ -12,15 +12,17 @@ import Loading2 from "../Loading2";
 import request from "../../api/request";
 import instance from "../../api/axios";
 
-const ReservationPersonInfo = ({ userInfo }) => {
+const ReservationPersonInfo = () => {
   const navigate = useNavigate();
   const { deleteCart } = useReservationStore();
-  const { userName, userCredit, userId, userEmail, address, city, nation, zip_code, profile_image } = useLoginStore();
-  const { role, total_price, cart_id } = userInfo;
+  const { userName, userCredit, userId, userEmail, address, city, nation, zip_code } = useLoginStore();
   const token = localStorage.getItem("token");
   const { fetchOrders } = request; // 필요한 요청 URL을 추출
+  const { paymentInfos } = useReservationStore();
+  const { total_price, id } = paymentInfos.result;
 
-  const [isuserInfo, setUserInfo] = useState(userInfo);
+  console.log(paymentInfos);
+
   const [isRule, setIsRule] = useState(false);
   const [isAddress, setIsAddress] = useState(address);
   const [isCountry, setIsCountry] = useState(nation);
@@ -67,16 +69,6 @@ const ReservationPersonInfo = ({ userInfo }) => {
     setIsRule(true);
   };
 
-  useEffect(() => {
-    setUserInfo((prevUserInfo) => ({
-      ...prevUserInfo,
-      address: isAddress,
-      city: isCity,
-      nation: isCountry,
-      zip_code: isPostCode,
-    }));
-  }, [isAddress, isCity, isCountry, isPostCode]);
-
   const handleReservation = async (e) => {
     e.preventDefault();
 
@@ -115,67 +107,32 @@ const ReservationPersonInfo = ({ userInfo }) => {
     if (!isValidCheck) return;
 
     const requestData = {
-      id: userInfo[0].id,
-      member_id: userInfo[0].member_id,
-      room_id: userInfo[0].room_id,
-      check_in: userInfo[0].check_in,
-      check_out: userInfo[0].check_out,
-      adult_count: userInfo[0].adult_count,
-      child_count: userInfo[0].child_count,
-      total_price: userInfo[0].total_price,
       zip_code: persnalInfo.zip_code,
-      address: persnalInfo.address,
-      city: persnalInfo.city,
       nation: persnalInfo.nation,
-      name: persnalInfo.name,
+      city: persnalInfo.city,
+      address: persnalInfo.address,
+      comment: persnalInfo.comment,
     };
-    // const requestOrder = {
-    //   room_id: userInfo[0].room_id,
-    //   check_in: userInfo[0].check_in,
-    //   check_out: userInfo[0].check_out,
-    //   adult_count: userInfo[0].adult_count,
-    //   child_count: userInfo[0].child_count,
-    //   total_price: userInfo[0].total_price,
-    // };
-    // const requestPersonal = {
-    //   zip_code: persnalInfo.zip_code,
-    //   address: persnalInfo.address,
-    //   city: persnalInfo.city,
-    //   nation: persnalInfo.nation,
-    //   comment: persnalInfo.comment,
-    // };
+
     // console.log(requestData);
     try {
       setIsLoading2(true);
-      const responseOrder = await instance.post(`${fetchOrders}/${userId}`, requestData, {
+      const responseOrder = await instance.patch(`${fetchOrders}/${id}`, requestData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       const responseData = responseOrder.data;
       console.log(responseData);
-
-      // const responseOrder = await instance.post(fetchOrders, requestOrder, {
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      // });
-      // const dataOrder = responseOrder.data;
-
-      // const responsePersonal = await instance.patch(`${fetchOrders}/${userId}`, requestPersonal, {
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      // });
-      // const dataPersonal = responsePersonal.data;
-
-      // console.log("예약내역", dataOrder, "정보내역", dataPersonal);
-
-      // addAdditionalInfo({ ...persnalInfo, userInfo }); // 전체예약내역 상태저장
-
-      deleteCart(cart_id);
+      responseOrder;
+      // deleteCart(cart_id);
     } catch (error) {
       console.log("handleReservation", error);
+      const errorMessage = error.response.data.result;
+      if (errorMessage === "Not found order") {
+        setIsPopup(true);
+        setErrrorMessage("Not found order");
+      }
     } finally {
       setIsLoading2(false);
       setIsLoading(true);
@@ -213,7 +170,7 @@ const ReservationPersonInfo = ({ userInfo }) => {
           </div>
           <div>
             우편번호
-            <Input type={"text"} value={isPostCode} onChange={handlePostCode} />
+            <Input type={"number"} value={isPostCode} onChange={handlePostCode} />
           </div>
           <div className="col-span-2">
             요청사항

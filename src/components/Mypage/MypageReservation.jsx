@@ -1,30 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Heading from "../Heading";
-import { useReservationStore } from "../../store/reservationStore";
 import MypageReservationItems from "./MypageReservationItems";
 import request from "../../api/request";
 import instance from "../../api/axios";
 import { useLoginStore } from "../../store/loginStore";
 
-const { fetchOrders } = request; // 필요한 요청 URL을 추출
+const { fetchMembersMyOrder } = request; // 필요한 요청 URL을 추출
 
 const MypageReservation = () => {
-  // const { totalInfos } = useReservationStore();
   const { userName, userCredit, userId, userEmail, address, city, nation, zip_code, profile_image } = useLoginStore();
   const token = localStorage.getItem("token");
+  const [isMyOrders, setIsMyOrders] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const responseOrder = await instance.get(`${fetchOrders}/${userId}`, {
+      const responseOrder = await instance.get(`${fetchMembersMyOrder}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      // const data = responseOrder.data;
-      console.log(responseOrder.data);
+      setIsMyOrders(responseOrder.data.result.content);
     };
     fetchData();
   }, []);
+
+  // const myOrders = isMyOrders.find((user) => user.member.id === userId);
+  console.log(isMyOrders);
 
   return (
     <div>
@@ -52,15 +53,15 @@ const MypageReservation = () => {
             </tr>
           </thead>
           <tbody>
-            {/* {totalInfos.length > 0 ? (
-              totalInfos.map((items, index) => <MypageReservationItems key={index} items={items} />)
+            {isMyOrders.length > 0 ? (
+              isMyOrders.map((items, index) => <MypageReservationItems key={index} items={items} />)
             ) : (
               <tr>
                 <td colSpan={7} className="!py-10">
                   예약된 내역이 없습니다.
                 </td>
               </tr>
-            )} */}
+            )}
           </tbody>
         </table>
       </div>
