@@ -5,10 +5,12 @@ import { LuSearch } from "react-icons/lu";
 import { PiBed } from "react-icons/pi";
 import { GrView } from "react-icons/gr";
 import { BiWon } from "react-icons/bi";
-
+import axios from "axios";
 import Select from "./Select";
 import Guest from "./Guest";
 import "../styles/components/search.css";
+import Loading2 from "./Loading2";
+import { useSearchStore } from "../store/searchStore";
 // import { Today } from "../store/todayStore";
 
 const where = [
@@ -127,6 +129,10 @@ const Search = ({ ...props }) => {
   const [viewType, setViewType] = useState("");
   const [priceRange, setPriceRange] = useState("");
   const [guestNumber, setGuestNumber] = useState("");
+  const [hotelList, setHotelList] = useState([]);
+  const [isLoading2, setIsLoading2] = useState(false);
+
+  const setSearchResults = useSearchStore((state) => state.setSearchResults);
 
   const handleStart = (value) => {
     console.log(value);
@@ -160,15 +166,25 @@ const Search = ({ ...props }) => {
     setGuestNumber(e.target.value);
   };
 
-  const handleSearch = (e) => {
+  // 호텔 검색하기
+  const handleSearch = async (e) => {
     e.preventDefault();
-    console.log(
-      `지역: ${location}, 객실 종류: ${roomType}, 뷰 종류: ${viewType}, 가격 범위: ${priceRange}, 인원 수: ${guestNumber}, 시작일: ${isStart}, 종료일: ${isEnd}`
-    );
+    setIsLoading2(true);
+    try {
+      const response = await axios.get("http://52.78.12.252:8080/api/hotels");
+      setSearchResults(response.data.hotels);
+      console.log(response.data.hotels);
+    } catch (error) {
+      console.error("호텔 검색에 실패했습니다:", error);
+      setSearchResults([]);
+    } finally {
+      setIsLoading2(false);
+    }
   };
 
   return (
-    <form className="search" onSubmit={handleSearch} {...props}>
+    <form className="search relative" onSubmit={handleSearch} {...props}>
+      {isLoading2 && <Loading2 />}
       <div>
         <div className="search__title">
           <span>
@@ -176,7 +192,11 @@ const Search = ({ ...props }) => {
           </span>
           <b>지역</b>
         </div>
-        <Select options={where} onChange={handleLocation} className={"mobile:!w-full tablet:!w-auto"} />
+        <Select
+          options={where}
+          onChange={handleLocation}
+          className={"mobile:!w-full tablet:!w-auto"}
+        />
       </div>
       <div>
         <div className="search__title">
@@ -185,7 +205,11 @@ const Search = ({ ...props }) => {
           </span>
           <b>객실 종류</b>
         </div>
-        <Select options={viewKind} onChange={handleRoomType} className={"mobile:!w-full tablet:!w-auto"} />
+        <Select
+          options={viewKind}
+          onChange={handleRoomType}
+          className={"mobile:!w-full tablet:!w-auto"}
+        />
       </div>
       <div>
         <div className="search__title">
@@ -194,7 +218,11 @@ const Search = ({ ...props }) => {
           </span>
           <b>뷰 종류</b>
         </div>
-        <Select options={viewOption} onChange={handleViewType} className={"mobile:!w-full tablet:!w-auto"} />
+        <Select
+          options={viewOption}
+          onChange={handleViewType}
+          className={"mobile:!w-full tablet:!w-auto"}
+        />
       </div>
       <div>
         <div className="search__title">
@@ -203,7 +231,11 @@ const Search = ({ ...props }) => {
           </span>
           <b>1박당 요금</b>
         </div>
-        <Select options={priceOption} onChange={handlePriceRange} className={"mobile:!w-full tablet:!w-auto"} />
+        <Select
+          options={priceOption}
+          onChange={handlePriceRange}
+          className={"mobile:!w-full tablet:!w-auto"}
+        />
       </div>
       <div>
         <div className="search__title">
