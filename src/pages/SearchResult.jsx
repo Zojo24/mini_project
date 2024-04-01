@@ -6,7 +6,7 @@ import { TbRotateClockwise2 } from "react-icons/tb";
 import subvisual from "../assets/subvisual1.jpg";
 import Destinations from "../components/Destinations";
 import Heading from "../components/Heading";
-import HotelList from "../components/Hotel/HotelList";
+import ResultList from "../components/Hotel/ResultList";
 import SearchDetail from "../components/Search/SearchDetail";
 import { useVisualStore } from "../store/visualStore";
 import { useSearchStore } from "../store/searchStore";
@@ -40,7 +40,7 @@ const SearchResult = () => {
           </div>
           <SearchDetail />
         </div>
-        <HotelList hotels={searchResults} />
+        <ResultList hotels={searchResults} />
         <div className="text-center mt-10">
           <button className="btn-blue xl" onClick={handleMore}>
             {isLoading ? (

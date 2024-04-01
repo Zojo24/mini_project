@@ -8,11 +8,13 @@ import category5 from "../assets/category5.jpg";
 import axios from "axios";
 import { useSearchStore } from "../store/searchStore";
 import Loading2 from "../components/Loading2";
+import { useNavigate } from "react-router-dom";
 
 const DestinationsItems = () => {
   const { setSearchTerm } = useSearchStore();
   const [nation, setNation] = useState("");
   const [isLoading2, setIsLoading2] = useState(false);
+  const navigate = useNavigate();
   const setSearchResults = useSearchStore((state) => state.setSearchResults);
 
   const handleDestinationClick = async (destination) => {
@@ -26,6 +28,7 @@ const DestinationsItems = () => {
       );
       setSearchResults(response.data.result.content);
       console.log(response.data.result.content);
+      navigate("/search/result");
     } catch (error) {
       console.error("호텔 검색에 실패했습니다:", error);
       setSearchResults([]);
@@ -35,7 +38,7 @@ const DestinationsItems = () => {
   };
 
   return (
-    <div className="relative">
+    <>
       <Link
         onClick={() =>
           handleDestinationClick({ value: "THAILAND", text: "태국" })
@@ -54,6 +57,7 @@ const DestinationsItems = () => {
         onClick={() =>
           handleDestinationClick({ value: "VIETNAM", text: "베트남" })
         }
+        to="/"
       >
         <div className="destinations__thumbnail">
           <img src={category2} alt="베트남" />
@@ -106,7 +110,7 @@ const DestinationsItems = () => {
         </div>
       </Link>
       {isLoading2 && <Loading2 />}
-    </div>
+    </>
   );
 };
 
