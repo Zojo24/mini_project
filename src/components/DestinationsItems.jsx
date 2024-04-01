@@ -35,7 +35,7 @@ const DestinationsItems = () => {
   };
 
   return (
-    <>
+    <div className="relative">
       <Link
         onClick={() =>
           handleDestinationClick({ value: "THAILAND", text: "태국" })
@@ -106,7 +106,7 @@ const DestinationsItems = () => {
         </div>
       </Link>
       {isLoading2 && <Loading2 />}
-    </>
+    </div>
   );
 };
 
