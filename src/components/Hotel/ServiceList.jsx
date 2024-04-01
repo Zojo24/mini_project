@@ -30,12 +30,12 @@ import { useParams } from 'react-router-dom';
 
 import { usehotelListStore } from '../../store/hotelListStore';
 
-const ServiceList = ({ className, ...props }) => {
+const ServiceList = ({ options, className, ...props }) => {
   let { hotelId } = useParams();
   const { totalHotels } = usehotelListStore();
   const thisHotel = totalHotels.find((hotel) => hotel.id === Number(hotelId));
   // console.log("thishotel", thisHotel);
-  const options = thisHotel?.options;
+  // const options = thisHotel?.options;
   return (
     <ul className={"service-list " + className}>
       {options?.swimming_pool ? (

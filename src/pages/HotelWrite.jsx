@@ -1,24 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-import subvisual from "../assets/subvisual3.jpg";
-import Badge from "../components/Badge";
-import Box from "../components/Box";
-import Checkbox from "../components/Checkbox";
-import Dialog from "../components/Dialog";
-import Heading from "../components/Heading";
-import RoomList from "../components/Hotel/RoomList";
-import RoomWrite from "../components/Hotel/RoomWrite";
-import Input from "../components/Input";
-import Loading from "../components/Loading";
-import Noimage from "../components/Noimage";
-import Radio from "../components/Radio";
-import Select from "../components/Select";
-import { usehotelListStore } from "../store/hotelListStore";
-import { useRoomStore } from "../store/roomStore";
-import { useVisualStore } from "../store/visualStore";
+import subvisual from '../assets/subvisual3.jpg';
+import Badge from '../components/Badge';
+import Box from '../components/Box';
+import Checkbox from '../components/Checkbox';
+import Dialog from '../components/Dialog';
+import Heading from '../components/Heading';
+import RoomListFromRegister
+  from '../components/Hotel/components/RoomListsFromRegister';
+import RoomWrite from '../components/Hotel/RoomWrite';
+import Input from '../components/Input';
+import Loading from '../components/Loading';
+import Noimage from '../components/Noimage';
+import Radio from '../components/Radio';
+import Select from '../components/Select';
+import { usehotelListStore } from '../store/hotelListStore';
+import { useRoomStore } from '../store/roomStore';
+import { useVisualStore } from '../store/visualStore';
 
 const where = [
   {
@@ -95,12 +99,12 @@ const HotelWrite = () => {
     name: "",
     nation: "태국",
     price: "",
-    available: true,
+    active_status: "ACTIVE",
     description: "",
     check_in: "1:00",
     check_out: "1:00",
-    notSmoking: true,
-    noPet: true,
+    smoking_rule: "TOTAL_IMPOSSIBLE",
+    pet_rule: "TOTAL_IMPOSSIBLE",
     swimmingpool_open: "",
     swimmingpool_closed: "",
     rooms: [],
@@ -133,7 +137,8 @@ const HotelWrite = () => {
   //호텔위치
   const handleLocationChange = (event) => {
     const selectedValue = event.target.value;
-    const selectedText = where.find((option) => option.value === selectedValue)?.text || "";
+    const selectedText =
+      where.find((option) => option.value === selectedValue)?.text || "";
 
     setHotelInfo((prevHotelInfo) => ({
       ...prevHotelInfo,
@@ -147,7 +152,7 @@ const HotelWrite = () => {
   console.log(hotelInfo);
   //예약가능
   const handleRadioChange = (value) => {
-    setHotelInfo({ ...hotelInfo, available: value === "예약가능" });
+    setHotelInfo({ ...hotelInfo, active_status: value });
   };
   //호텔안내
   const [content, setContent] = useState("");
@@ -184,46 +189,58 @@ const HotelWrite = () => {
   const handleCheckIn = (e) => {
     const selectedValue = e.target.value;
 
-    const selectedText = checkOption.find((option) => option.value === selectedValue)?.text || "";
+    const selectedText =
+      checkOption.find((option) => option.value === selectedValue)?.text || "";
     setHotelInfo({ ...hotelInfo, check_in: selectedValue });
   };
   const handleCheckOut = (e) => {
     const selectedValue = e.target.value;
 
-    const selectedText = checkOption.find((option) => option.value === selectedValue)?.text || "";
+    const selectedText =
+      checkOption.find((option) => option.value === selectedValue)?.text || "";
     setHotelInfo({ ...hotelInfo, check_out: selectedText });
   };
   //흡연
   const handleSmoking = (value) => {
-    setHotelInfo({ ...hotelInfo, notSmoking: value === "전객실 불가능" });
+    setHotelInfo({ ...hotelInfo, smoking_rule: value });
   };
+  //애완동물
   const handlePet = (value) => {
-    setHotelInfo({ ...hotelInfo, noPet: value === "전객실 불가능" });
+    setHotelInfo({ ...hotelInfo, pet_rule: value });
   };
   //수영장
   const handlePoolOpen = (e) => {
     const selectedValue = e.target.value;
-    // 'where' 대신 'checkOption' 배열을 사용합니다.
-    const selectedText = checkOption.find((option) => option.value === selectedValue)?.text || "";
+
+    const selectedText =
+      checkOption.find((option) => option.value === selectedValue)?.text || "";
     setHotelInfo({ ...hotelInfo, swimmingpool_open: selectedText });
   };
   const handlePoolClose = (e) => {
     const selectedValue = e.target.value;
 
-    const selectedText = checkOption.find((option) => option.value === selectedValue)?.text || "";
+    const selectedText =
+      checkOption.find((option) => option.value === selectedValue)?.text || "";
     setHotelInfo({ ...hotelInfo, swimmingpool_closed: selectedText });
   };
   //호텔등록
+  const token = localStorage.getItem("token");
   const onSendClick = async (e) => {
-    if (hotelInfo.name == "" || hotelInfo.price == "" || hotelInfo.description == "") {
+    if (
+      hotelInfo.name == "" ||
+      hotelInfo.price == "" ||
+      hotelInfo.description == ""
+    ) {
       setIsPopup(true);
       setErrorMessage("호텔 기본정보를 모두 입력해 주세요.");
       return;
     } else if (
       hotelInfo.check_in == "" ||
       hotelInfo.check_out == "" ||
-      (hotelInfo.options.swimming_pool === true && hotelInfo.options.swimmingpool_open == "") ||
-      (hotelInfo.options.swimming_pool == true && hotelInfo.options.swimmingpool_closed == "")
+      (hotelInfo.options.swimming_pool === true &&
+        hotelInfo.options.swimmingpool_open == "") ||
+      (hotelInfo.options.swimming_pool == true &&
+        hotelInfo.options.swimmingpool_closed == "")
     ) {
       setIsPopup(true);
       setErrorMessage("호텔 규칙을 모두 입력해 주세요.");
@@ -231,12 +248,22 @@ const HotelWrite = () => {
     }
     e.preventDefault();
     try {
-      const response = await axios.post("/hotels", hotelInfo);
+      const response = await axios.post(
+        "http://52.78.12.252:8080/api/hotels",
+        hotelInfo,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
     } catch (error) {
       console.error("Error sending POST request:", error);
     }
-    addHotel({ ...hotelInfo, rooms: [...rooms] });
-    // resetRooms()
+
+    // addHotel({ ...hotelInfo, rooms: [...rooms] });
+    resetRooms();
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
@@ -249,31 +276,67 @@ const HotelWrite = () => {
         <div className="container mb-32">
           <Heading tag={"h3"} text={"호텔 등록"} className={"xl my-5"} />
           <Box>
-            <Heading tag={"h3"} text={"호텔 대표이미지"} className={"base mb-5"} />
+            <Heading
+              tag={"h3"}
+              text={"호텔 대표이미지"}
+              className={"base mb-5"}
+            />
             <Box className={"white"}>
               <ul className="grid mobile:grid-cols-1 tablet:grid-cols-4 gap-5">
                 <li>
-                  <Noimage props={{ image: isImage }} className={"mb-3 bg-gray-50"} />
-                  <Input type={"file"} onChange={handleonChange} className={"mobile:!w-full"} />
+                  <Noimage
+                    props={{ image: isImage }}
+                    className={"mb-3 bg-gray-50"}
+                  />
+                  <Input
+                    type={"file"}
+                    onChange={handleonChange}
+                    className={"mobile:!w-full"}
+                  />
                 </li>
                 <li>
-                  <Noimage props={{ image: isImage }} className={"mb-3 bg-gray-50"} />
-                  <Input type={"file"} onChange={handleonChange} className={"mobile:!w-full"} />
+                  <Noimage
+                    props={{ image: isImage }}
+                    className={"mb-3 bg-gray-50"}
+                  />
+                  <Input
+                    type={"file"}
+                    onChange={handleonChange}
+                    className={"mobile:!w-full"}
+                  />
                 </li>
                 <li>
-                  <Noimage props={{ image: isImage }} className={"mb-3 bg-gray-50"} />
-                  <Input type={"file"} onChange={handleonChange} className={"mobile:!w-full"} />
+                  <Noimage
+                    props={{ image: isImage }}
+                    className={"mb-3 bg-gray-50"}
+                  />
+                  <Input
+                    type={"file"}
+                    onChange={handleonChange}
+                    className={"mobile:!w-full"}
+                  />
                 </li>
                 <li>
-                  <Noimage props={{ image: isImage }} className={"mb-3 bg-gray-50"} />
-                  <Input type={"file"} onChange={handleonChange} className={"mobile:!w-full"} />
+                  <Noimage
+                    props={{ image: isImage }}
+                    className={"mb-3 bg-gray-50"}
+                  />
+                  <Input
+                    type={"file"}
+                    onChange={handleonChange}
+                    className={"mobile:!w-full"}
+                  />
                 </li>
               </ul>
             </Box>
           </Box>
 
           <Box className={"mt-10"}>
-            <Heading tag={"h3"} text={"호텔 기본정보"} className={"base mb-5"} />
+            <Heading
+              tag={"h3"}
+              text={"호텔 기본정보"}
+              className={"base mb-5"}
+            />
             <Box className={"white"}>
               <ul className="grid mobile:grid-cols-1 tablet:grid-cols-3 gap-5">
                 <li className="grid gap-3">
@@ -282,12 +345,22 @@ const HotelWrite = () => {
                 </li>
                 <li className="grid gap-3">
                   호텔 이름
-                  <Input type={"text"} value={hotelInfo.name} onChange={handleName} />
+                  <Input
+                    type={"text"}
+                    value={hotelInfo.name}
+                    onChange={handleName}
+                  />
                 </li>
                 <li className="grid gap-3">
                   호텔 가격
                   <div className="grid grid-cols-[1fr_min-content] items-center gap-2">
-                    <Input onChange={handlePrice} value={price} type={"text"} price={true} /> 원
+                    <Input
+                      onChange={handlePrice}
+                      value={price}
+                      type={"text"}
+                      price={true}
+                    />{" "}
+                    원
                   </div>
                 </li>
                 <li className="grid gap-3">
@@ -295,25 +368,29 @@ const HotelWrite = () => {
                   <div className="flex">
                     <Radio
                       color="blue"
-                      checked={hotelInfo.available}
-                      value="예약가능"
+                      checked={hotelInfo.active_status === "ACTIVE"}
+                      value="예약 가능"
                       id="hotel_reser1"
                       name="reservationAvailability"
-                      onChange={() => handleRadioChange("예약가능")}
+                      onChange={() => handleRadioChange("ACTIVE")}
                     />
                     <Radio
                       color="red ml-5"
-                      checked={!hotelInfo.available}
-                      value="예약불가능"
+                      checked={hotelInfo.active_status === "INACTIVE"}
+                      value="예약 불가능"
                       id="hotel_reser2"
                       name="reservationAvailability"
-                      onChange={() => handleRadioChange("예약불가능")}
+                      onChange={() => handleRadioChange("INACTIVE")}
                     />
                   </div>
                 </li>
                 <li className="grid gap-3 tablet:col-span-3">
                   호텔 안내
-                  <Input type={"textarea"} onChange={handleContent} value={hotelInfo.description} />
+                  <Input
+                    type={"textarea"}
+                    onChange={handleContent}
+                    value={hotelInfo.description}
+                  />
                 </li>
               </ul>
             </Box>
@@ -322,7 +399,11 @@ const HotelWrite = () => {
           <Box className={"mt-10"}>
             <div className="grid gap-5 mobile:grid-cols-1 desktop:grid-cols-2 ">
               <div>
-                <Heading tag={"h3"} text={"호텔 편의 시설"} className={"base mb-5"} />
+                <Heading
+                  tag={"h3"}
+                  text={"호텔 편의 시설"}
+                  className={"base mb-5"}
+                />
                 <Box className={"white"}>
                   <ul className="grid mobile:grid-cols-2 tablet:grid-cols-3 gap-4">
                     <li>
@@ -545,7 +626,11 @@ const HotelWrite = () => {
                 </Box>
               </div>
               <div>
-                <Heading tag={"h3"} text={"호텔 규칙"} className={"base mb-5"} />
+                <Heading
+                  tag={"h3"}
+                  text={"호텔 규칙"}
+                  className={"base mb-5"}
+                />
                 <Box className={"white"}>
                   <ul className="grid gap-5">
                     <li className=" grid mobile:grid-cols-1 tablet:grid-cols-[8rem_1fr] mobile:gap-2 tablet:gap-0 items-center">
@@ -561,21 +646,27 @@ const HotelWrite = () => {
                       <div className="flex justify-start mobile:whitespace-nowrap mobile:flex-wrap tablet:flex-nowrap">
                         <Radio
                           color={"red"}
-                          checked={hotelInfo.notSmoking === true}
+                          checked={
+                            hotelInfo.smoking_rule === "TOTAL_IMPOSSIBLE"
+                          }
                           value={"전객실 불가능"}
                           id={"hotel_reser3"}
                           name={"rag2"}
-                          onChange={() => handleSmoking("전객실 불가능")}
+                          onChange={() => handleSmoking("TOTAL_IMPOSSIBLE")}
                         />
                         <Radio
                           color={"green ml-5"}
-                          checked={hotelInfo.notSmoking === false}
+                          checked={hotelInfo.smoking_rule === false}
                           value={"일부객실 가능"}
                           id={"hotel_reser4"}
                           name={"rag2"}
-                          onChange={() => handleSmoking("일부객실 가능")}
+                          onChange={() => handleSmoking("SOME_POSSIBLE")}
                         />{" "}
-                        <Badge color={"red mobile:ml-0 tablet:ml-2 mobile:mt-2 tablet:mt-0"}>
+                        <Badge
+                          color={
+                            "red mobile:ml-0 tablet:ml-2 mobile:mt-2 tablet:mt-0"
+                          }
+                        >
                           일부객실 선택시 현장에서 방을 배정합니다.
                         </Badge>
                       </div>
@@ -585,21 +676,25 @@ const HotelWrite = () => {
                       <div className="flex justify-start mobile:whitespace-nowrap mobile:flex-wrap tablet:flex-nowrap">
                         <Radio
                           color={"red"}
-                          checked={hotelInfo.noPet === true}
+                          checked={hotelInfo.pet_rule === "TOTAL_IMPOSSIBLE"}
                           value={"전객실 불가능"}
                           id={"hotel_reser5"}
                           name={"rag3"}
-                          onChange={() => handlePet("전객실 불가능")}
+                          onChange={() => handlePet("TOTAL_IMPOSSIBLE")}
                         />
                         <Radio
                           color={"green ml-5"}
-                          checked={hotelInfo.noPet === false}
+                          checked={hotelInfo.pet_rule === "SOME_POSSIBLE"}
                           value={"일부객실 가능"}
                           id={"hotel_reser6"}
                           name={"rag3"}
-                          onChange={() => handlePet("일부객실 가능")}
+                          onChange={() => handlePet("SOME_POSSIBLE")}
                         />{" "}
-                        <Badge color={"red  mobile:ml-0 tablet:ml-2 mobile:mt-2 tablet:mt-0"}>
+                        <Badge
+                          color={
+                            "red  mobile:ml-0 tablet:ml-2 mobile:mt-2 tablet:mt-0"
+                          }
+                        >
                           일부객실 선택시 현장에서 방을 배정합니다.
                         </Badge>
                       </div>
@@ -608,9 +703,15 @@ const HotelWrite = () => {
                       <li className="grid grid-cols-[8rem_1fr] items-center">
                         <strong>수영장 이용시간</strong>
                         <div className="grid grid-cols-[1fr_2rem_1fr] items-center">
-                          <Select options={checkOption} onChange={handlePoolOpen} />
+                          <Select
+                            options={checkOption}
+                            onChange={handlePoolOpen}
+                          />
                           <span className="justify-self-center">~</span>
-                          <Select options={checkOption} onChange={handlePoolClose} />
+                          <Select
+                            options={checkOption}
+                            onChange={handlePoolClose}
+                          />
                         </div>
                       </li>
                     )}
@@ -623,11 +724,18 @@ const HotelWrite = () => {
           <Box className={"mt-10 room-write"}>
             <div className="flex justify-between items-center">
               <Heading tag={"h3"} text={"객실관리"} className={"base"} />
-              <button className="btn-blue" onClick={() => setIsToggle(!isToggle)}>
+              <button
+                className="btn-blue"
+                onClick={() => setIsToggle(!isToggle)}
+              >
                 객실등록
               </button>
             </div>
-            {isToggle ? <RoomWrite /> : <RoomList edit={true} />}
+            {isToggle ? (
+              <RoomWrite />
+            ) : (
+              <RoomListFromRegister edit={true} roomLists={rooms} />
+            )}
           </Box>
           <div className="flex justify-between mt-10">
             <button className="btn-gray xl">이전</button>

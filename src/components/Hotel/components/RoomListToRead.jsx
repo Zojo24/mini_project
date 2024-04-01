@@ -4,10 +4,10 @@ import React from 'react';
 
 import RoomListItemsToRead from './RoomListsITemstoRead';
 
-const RoomListToRead = ({ className, edit, ...props }) => {
+const RoomListToRead = ({ roomLists, className, edit, ...props }) => {
   return (
     <ul className={`room-list ${className}`} {...props}>
-      <RoomListItemsToRead edit={edit} />
+      <RoomListItemsToRead roomLists={roomLists} edit={edit} />
     </ul>
   );
 };
