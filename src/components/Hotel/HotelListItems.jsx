@@ -1,20 +1,17 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from "react";
 
-import axios from 'axios';
+import axios from "axios";
 
-import hotel1 from '../../assets/hotel1.jpg';
-import { digit3 } from '../../store/digit3';
-import { usehotelListStore } from '../../store/hotelListStore';
-import Badge from '../Badge';
-import HotelBooking from './HotelBooking';
-import HotelFavorite from './HotelFavorite';
-import HotelLocation from './HotelLocation';
-import HotelPicture from './HotelPicture';
-import HotelPrice from './HotelPrice';
-import HotelTitle from './HotelTitle';
+import hotel1 from "../../assets/hotel1.jpg";
+import { digit3 } from "../../store/digit3";
+import { usehotelListStore } from "../../store/hotelListStore";
+import Badge from "../Badge";
+import HotelBooking from "./HotelBooking";
+import HotelFavorite from "./HotelFavorite";
+import HotelLocation from "./HotelLocation";
+import HotelPicture from "./HotelPicture";
+import HotelPrice from "./HotelPrice";
+import HotelTitle from "./HotelTitle";
 
 const HotelListItems = ({ modify, ...props }) => {
   const data = { state: "disabled" };
@@ -32,7 +29,10 @@ const HotelListItems = ({ modify, ...props }) => {
   return (
     <>
       {hotels.map((hotel) => (
-        <li key={hotel.name} className={hotel.active_status ? "" : "disabled"}>
+        <li
+          key={hotel.name}
+          className={hotel.active_status === "ACTIVE" ? "" : "disabled"}
+        >
           <HotelPicture link={`/hoteldetail/${hotel.id}`} image={hotel1} />
           <div className="hotel__info">
             <HotelLocation location={hotel.nation} />

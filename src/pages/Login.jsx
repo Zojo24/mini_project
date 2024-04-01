@@ -1,12 +1,15 @@
-import React, { useState } from "react";
-import Input from "../components/Input";
-import { useNavigate } from "react-router-dom";
 import "../styles/pages/login.css";
+
+import React, { useState } from "react";
+
 import axios from "axios";
-import { useLoginStore } from "../store/loginStore";
-import Toast from "../components/Toast";
-import Loading2 from "../components/Loading2";
+import { useNavigate } from "react-router-dom";
+
 import Dialog from "../components/Dialog";
+import Input from "../components/Input";
+import Loading2 from "../components/Loading2";
+import Toast from "../components/Toast";
+import { useLoginStore } from "../store/loginStore";
 
 const Login = ({ close, ...props }) => {
   const { setLogin, setUserInfo } = useLoginStore();
