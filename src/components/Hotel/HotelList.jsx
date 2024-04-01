@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import HotelListItems from "./HotelListItems";
 import "../../styles/components/hotel.css";
 

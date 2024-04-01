@@ -2,12 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { IoCloseOutline } from "react-icons/io5";
 import { useSearchStore } from "../store/searchStore";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SearchPopup = ({ open, close, onSearch, ...props }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const ref = useRef();
   const body = document.body;
-  const setSearchTermStore = useSearchStore((state) => state.setSearchTerm);
+  const navigate = useNavigate();
+  const setSearchResults = useSearchStore((state) => state.setSearchResults);
 
   useEffect(() => {
     if (open) {
@@ -19,13 +22,21 @@ const SearchPopup = ({ open, close, onSearch, ...props }) => {
     }
   }, [open]);
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    setSearchTermStore(searchTerm);
-    localStorage.setItem("lastSearch", searchTerm);
-    onSearch(searchTerm);
-    ref.current.close();
-    console.log(searchTerm);
+
+    try {
+      const response = await axios.get(
+        `http://52.78.12.252:8080/api/hotels/name/${searchTerm}`
+      );
+      setSearchResults(response.data.result.content);
+      navigate("/search/result");
+      ref.current.close();
+      setSearchTerm("");
+    } catch (error) {
+      console.error("호텔 검색에 실패했습니다:", error);
+      setSearchResults([]);
+    }
   };
 
   const handleChange = (e) => {
@@ -33,7 +44,6 @@ const SearchPopup = ({ open, close, onSearch, ...props }) => {
   };
 
   const handleClose = (e) => {
-    e.preventDefault();
     ref.current.close();
   };
   return (
