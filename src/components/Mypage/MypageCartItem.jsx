@@ -6,9 +6,10 @@ import { digit3 } from "../../store/digit3";
 import { useReservationStore } from "../../store/reservationStore";
 
 const MypageCartItem = ({ items }) => {
-  const { adult_count, child_count, check_out, file, hotel_name, check_in, total_price, type, cart_id } = items;
+  const { adult_count, child_count, check_out, file, hotel_name, check_in, total_price, type, cart_id, room } = items;
   const { deleteCart, addInfo } = useReservationStore();
   const navigate = useNavigate();
+  const photo = room.thumbnails[0].img_url;
 
   const handleOnClick = () => {
     addInfo(items);
@@ -26,7 +27,7 @@ const MypageCartItem = ({ items }) => {
         <td className="mobile:col-start-1 mobile:col-end-4 mobile:row-start-2 mobile:row-end-3">
           <div className="grid items-center grid-cols-[min-content_1fr] gap-5 text-left">
             <Link to="/hoteldetail">
-              <RoomPicture image={file} className="sm" />
+              <RoomPicture image={photo} className="sm" />
             </Link>
             <div>
               <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2 font-bold">

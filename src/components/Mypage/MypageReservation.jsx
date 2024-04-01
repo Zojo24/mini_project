@@ -21,6 +21,7 @@ const MypageReservation = () => {
         },
       });
       setIsMyOrders(responseOrder.data.result.content);
+      console.log(responseOrder);
     };
     fetchData();
   }, []);

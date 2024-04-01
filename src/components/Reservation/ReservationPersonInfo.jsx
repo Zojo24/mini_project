@@ -14,14 +14,12 @@ import instance from "../../api/axios";
 
 const ReservationPersonInfo = () => {
   const navigate = useNavigate();
-  const { deleteCart } = useReservationStore();
+  const { deleteCart, paymentInfos } = useReservationStore();
   const { userName, userCredit, userId, userEmail, address, city, nation, zip_code } = useLoginStore();
   const token = localStorage.getItem("token");
   const { fetchOrders } = request; // 필요한 요청 URL을 추출
-  const { paymentInfos } = useReservationStore();
-  const { total_price, id } = paymentInfos.result;
-
   console.log(paymentInfos);
+  const { total_price, id } = paymentInfos[0].data.result;
 
   const [isRule, setIsRule] = useState(false);
   const [isAddress, setIsAddress] = useState(address);
@@ -44,6 +42,7 @@ const ReservationPersonInfo = () => {
     agreement: false,
     credit: userCredit,
   });
+
   const handleAddress = (address) => {
     setIsAddress(address);
     setPersnalInfo({ ...persnalInfo, address });
@@ -122,9 +121,7 @@ const ReservationPersonInfo = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      const responseData = responseOrder.data;
-      console.log(responseData);
-      responseOrder;
+      console.log(responseOrder);
       // deleteCart(cart_id);
     } catch (error) {
       console.log("handleReservation", error);

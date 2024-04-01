@@ -1,10 +1,6 @@
-
 import React, { useEffect, useState } from "react";
 
 import axios from "axios";
-
-
-
 
 import { useParams } from "react-router-dom";
 
@@ -30,16 +26,14 @@ const RoomListItemsToRead = ({ roomLists, edit, ...props }) => {
   const [roomsInfo, setRoomsInfo] = useState({});
   const onDelete = (roomId) => {
     deleteRoom(roomId);
-    console.log("룸" + roomId);
+    // console.log("룸" + roomId);
   };
   // console.log("룸", roomLists);
   useEffect(() => {
-    axios
-      .get(`http://52.78.12.252:8080/api/hotels/${hotelId}`)
-      .then((response) => {
-        setRoomsInfo(response.data.result.rooms);
-        console.log(response.data.result.rooms);
-      });
+    axios.get(`http://52.78.12.252:8080/api/hotels/${hotelId}`).then((response) => {
+      setRoomsInfo(response.data.result.rooms);
+      // console.log(response.data.result.rooms);
+    });
     // setTitle(hotelInfo.name, SubVisual);
   }, []);
 
@@ -48,7 +42,7 @@ const RoomListItemsToRead = ({ roomLists, edit, ...props }) => {
 
     addRoom(clickedItem);
   };
-  console.log(reservedRoom);
+  // console.log(reservedRoom);
   return (
     <>
       {roomLists?.map((it) => (
