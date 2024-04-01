@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-import room from '../../../assets/hotelroom1.jpeg';
-import room2 from '../../../assets/hotelroom2.jpeg';
-import { usehotelListStore } from '../../../store/hotelListStore';
-import { useRoomStore } from '../../../store/roomStore';
-import HotelPrice from '../HotelPrice';
-import HotelTitle from '../HotelTitle';
-import RoomOptions from '../RoomOptions';
-import RoomPicture from '../RoomPicture';
+import room from "../../../assets/hotelroom1.jpeg";
+import room2 from "../../../assets/hotelroom2.jpeg";
+import { usehotelListStore } from "../../../store/hotelListStore";
+import { useRoomStore } from "../../../store/roomStore";
+import HotelPrice from "../HotelPrice";
+import HotelTitle from "../HotelTitle";
+import RoomOptions from "../RoomOptions";
+import RoomPicture from "../RoomPicture";
 
 const RoomListItemsToRead = ({ roomLists, edit, ...props }) => {
   const show = { able: "disabled" };
@@ -19,17 +19,13 @@ const RoomListItemsToRead = ({ roomLists, edit, ...props }) => {
   const thisHotel = totalHotels.find((hotel) => hotel.id === Number(hotelId));
   const onDelete = (roomId) => {
     deleteRoom(roomId);
-    console.log(roomId);
+    console.log("룸" + roomId);
   };
   // console.log("룸", roomLists);
   return (
     <>
       {roomLists?.map((it) => (
-        <li
-          className={!it.active_status ? "disabled" : ""}
-          {...props}
-          key={it.id}
-        >
+        <li className={!it.active_status ? "disabled" : ""} {...props} key={it.id}>
           <div>
             <RoomPicture image={room2} />
             <HotelTitle title={it.type} />
@@ -66,7 +62,7 @@ const RoomListItemsToRead = ({ roomLists, edit, ...props }) => {
           {!edit ? (
             <div className="flex gap-2">
               <button className="btn-blue-outline mobile:flex-1 tablet:flex-none justify-center">
-                {show.able ? "Sold Out" : "예약하기"}
+                {show.able ? "Sold Out" : "선택"}
               </button>
             </div>
           ) : (

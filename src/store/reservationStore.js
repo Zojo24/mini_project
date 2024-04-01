@@ -9,7 +9,7 @@ let reservationStore = (set) => ({
   // 결제정보
   addInfo: (paymentState) =>
     set((state) => ({
-      paymentInfos: [paymentState],
+      paymentInfos: paymentState,
     })),
 
   // 결제정보 + 개인정보
@@ -25,7 +25,6 @@ let reservationStore = (set) => ({
         ...state.cartInfos,
         {
           ...cartState,
-          cart_id: getId(),
         },
       ],
     })),
@@ -39,8 +38,3 @@ reservationStore = devtools(reservationStore);
 reservationStore = persist(reservationStore, { name: "reservation" });
 
 export const useReservationStore = create(reservationStore);
-
-let cart_id = 0;
-function getId() {
-  return cart_id++;
-}
