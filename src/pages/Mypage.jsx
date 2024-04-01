@@ -7,10 +7,12 @@ import MypageCart from "../components/Mypage/MypageCart";
 import MypageReservation from "../components/Mypage/MypageReservation";
 import subvisual from "../assets/subvisual4.jpg";
 import MypageAllReservation from "../components/Mypage/MypageAllReservation";
+import { useLoginStore } from "../store/loginStore";
 
 const Mypage = () => {
   const { setTitle } = useVisualStore();
   const [isTab, setIsTab] = useState("account");
+  const { userRole } = useLoginStore();
   const handleTab = (tab) => {
     setIsTab(tab);
   };
@@ -44,14 +46,16 @@ const Mypage = () => {
                 나의 예약내역
               </button>
             </li>
-            <li>
-              <button
-                className={isTab === "allReservation" ? "--active" : ""}
-                onClick={() => handleTab("allReservation")}
-              >
-                회원 예약 신청내역
-              </button>
-            </li>
+            {!userRole === "USER" && (
+              <li>
+                <button
+                  className={isTab === "allReservation" ? "--active" : ""}
+                  onClick={() => handleTab("allReservation")}
+                >
+                  회원 예약 신청내역
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
         <div className="mt-10">
