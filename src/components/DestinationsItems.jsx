@@ -1,31 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import category1 from "../assets/category1.jpg";
 import category2 from "../assets/category2.webp";
 import category3 from "../assets/category3.webp";
 import category4 from "../assets/category4.jpg";
 import category5 from "../assets/category5.jpg";
-import useFetchHotels from "../hooks/useFetchHotels";
+import axios from "axios";
 import { useSearchStore } from "../store/searchStore";
-import Loading from "./Loading";
+import Loading2 from "../components/Loading2";
 
 const DestinationsItems = () => {
-  const { isLoading, fetchHotels, error } = useFetchHotels();
   const { setSearchTerm } = useSearchStore();
+  const [nation, setNation] = useState("");
+  const [isLoading2, setIsLoading2] = useState(false);
+  const setSearchResults = useSearchStore((state) => state.setSearchResults);
 
   const handleDestinationClick = async (destination) => {
+    setNation(destination.value);
     setSearchTerm(destination.value);
-    console.log(destination.value);
+    setIsLoading2(true);
+
     try {
-      await fetchHotels();
-    } catch (err) {
-      console.error("Fetching hotels failed", err);
+      const response = await axios.get(
+        `http://52.78.12.252:8080/api/hotels/nation/${destination.value}`
+      );
+      setSearchResults(response.data.result.content);
+      console.log(response.data.result.content);
+    } catch (error) {
+      console.error("호텔 검색에 실패했습니다:", error);
+      setSearchResults([]);
+    } finally {
+      setIsLoading2(false);
     }
   };
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return (
     <>
@@ -47,7 +54,6 @@ const DestinationsItems = () => {
         onClick={() =>
           handleDestinationClick({ value: "VIETNAM", text: "베트남" })
         }
-        to="/"
       >
         <div className="destinations__thumbnail">
           <img src={category2} alt="베트남" />
@@ -99,6 +105,7 @@ const DestinationsItems = () => {
           <span>1 Hotel</span>
         </div>
       </Link>
+      {isLoading2 && <Loading2 />}
     </>
   );
 };
