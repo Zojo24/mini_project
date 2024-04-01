@@ -6,6 +6,8 @@ import Heading from "../Heading";
 import Avatar from "../Avatar";
 import { useLoginStore } from "../../store/loginStore";
 import { useNavigate } from "react-router-dom";
+import Toast from "../Toast";
+import Loading2 from "../Loading2";
 
 const isLoggedIn = () => {
   const token = localStorage.getItem("token"); // localStorage에서 토큰 가져오기
@@ -27,8 +29,11 @@ const MypageAccount = () => {
     userName,
     userEmail,
     userBirth,
-    userPassword,
     userCredit,
+    userAddress,
+    userCity,
+    userZipCode,
+    userNation,
     setUserInfo,
   } = useLoginStore();
   const birthYear = userBirth?.slice(0, 4);
@@ -38,22 +43,46 @@ const MypageAccount = () => {
   const [id, setId] = useState(userId || "");
   const [name, setName] = useState(userName || "");
   const [email, setEmail] = useState(userEmail || "");
-  const [password, setPassword] = useState(userPassword || "");
   const [birth, setBirth] = useState(userBirth || "");
+
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [nation, setNation] = useState("");
 
+  const [registerError, setRegisterError] = useState("");
+  const [registerToast, setRegisterToast] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
+
   useEffect(() => {
     setName(userName || "");
     setEmail(userEmail || "");
-    setPassword(userPassword || "");
     setBirth(userBirth || "");
     setId(userId || "");
-  }, [userName, userEmail, userPassword, userBirth, userId]);
+    setAddress(userAddress || "");
+    setCity(userCity || "");
+    setZipCode(userZipCode || "");
+    setNation(userNation || "");
+  }, [
+    userName,
+    userEmail,
+    userBirth,
+    userId,
+    userAddress,
+    userCity,
+    userZipCode,
+    userNation,
+  ]);
 
+  const handlePassword = (value) => {
+    setPassword(value);
+  };
+  const handleConfirmPassword = (value) => {
+    setConfirmPassword(value);
+  };
   const handleAddress = (value) => {
     setAddress(value);
   };
@@ -71,6 +100,12 @@ const MypageAccount = () => {
     e.preventDefault();
     const token = localStorage.getItem("token");
 
+    if (password !== confirmPassword) {
+      setRegisterError("비밀번호가 일치하지 않습니다.");
+      setRegisterToast(true);
+      setIsLoading2(false);
+      return;
+    }
     try {
       const response = await axios.patch(
         "http://52.78.12.252:8080/api/members/my-info",
@@ -98,6 +133,7 @@ const MypageAccount = () => {
         nation,
         zip_code: zipCode,
       };
+      console.log(updatedUser);
       setUserInfo(updatedUser);
     } catch (error) {
       console.error("Error updating user information:", error);
@@ -121,7 +157,8 @@ const MypageAccount = () => {
         </strong>
         <span>원</span>
       </div>
-      <form type="onSubmit" className="bg-white rounded-xl  p-10">
+      <form type="onSubmit" className="bg-white rounded-xl  p-10 relative">
+        {isLoading2 && <Loading2 />}
         <Heading tag={"h4"} className={"sm"} text={"기본정보"} />
         <div className="grid mobile:grid-cols-1 tablet:grid-cols-3 mypage-account mt-5">
           <div>
@@ -142,11 +179,19 @@ const MypageAccount = () => {
           </div>
           <div>
             비밀번호
-            <Input type={"password"} defaultValue={password} />
+            <Input
+              type={"password"}
+              defaultValue={password}
+              onChange={handlePassword}
+            />
           </div>
           <div>
             비밀번호 확인
-            <Input type={"password"} defaultValue={password} />
+            <Input
+              type={"password"}
+              defaultValue={confirmPassword}
+              onChange={handleConfirmPassword}
+            />
           </div>
         </div>
         <hr className="mt-10" />
@@ -175,6 +220,13 @@ const MypageAccount = () => {
           </button>
         </div>
       </form>
+      <Toast
+        color={"red"}
+        onOpen={registerToast}
+        onClose={() => setRegisterToast(false)}
+      >
+        {registerError}
+      </Toast>
     </div>
   );
 };
