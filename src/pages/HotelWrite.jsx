@@ -1,28 +1,24 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from "react";
 
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-import subvisual from '../assets/subvisual3.jpg';
-import Badge from '../components/Badge';
-import Box from '../components/Box';
-import Checkbox from '../components/Checkbox';
-import Dialog from '../components/Dialog';
-import Heading from '../components/Heading';
-import RoomListFromRegister
-  from '../components/Hotel/components/RoomListsFromRegister';
-import RoomWrite from '../components/Hotel/RoomWrite';
-import Input from '../components/Input';
-import Loading from '../components/Loading';
-import Noimage from '../components/Noimage';
-import Radio from '../components/Radio';
-import Select from '../components/Select';
-import { usehotelListStore } from '../store/hotelListStore';
-import { useRoomStore } from '../store/roomStore';
-import { useVisualStore } from '../store/visualStore';
+import subvisual from "../assets/subvisual3.jpg";
+import Badge from "../components/Badge";
+import Box from "../components/Box";
+import Checkbox from "../components/Checkbox";
+import Dialog from "../components/Dialog";
+import Heading from "../components/Heading";
+import RoomListFromRegister from "../components/Hotel/components/RoomListsFromRegister";
+import RoomWrite from "../components/Hotel/RoomWrite";
+import Input from "../components/Input";
+import Loading from "../components/Loading";
+import Noimage from "../components/Noimage";
+import Radio from "../components/Radio";
+import Select from "../components/Select";
+import { usehotelListStore } from "../store/hotelListStore";
+import { useRoomStore } from "../store/roomStore";
+import { useVisualStore } from "../store/visualStore";
 
 const where = [
   {
@@ -91,24 +87,23 @@ const HotelWrite = () => {
   const [isRadio3, setIsRadio3] = useState(false);
   const [isToggle, setIsToggle] = useState(false);
   const [locationText, setLocationText] = useState("");
-  const [price, setPrice] = useState("");
+  // const [price, setPrice] = useState("");
   const [isPopup, setIsPopup] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hotelInfo, setHotelInfo] = useState({
     name: "",
-    nation: "태국",
-    price: "",
+    nation: "THAILAND",
     active_status: "ACTIVE",
     description: "",
     check_in: "1:00",
     check_out: "1:00",
     smoking_rule: "TOTAL_IMPOSSIBLE",
     pet_rule: "TOTAL_IMPOSSIBLE",
-    swimmingpool_open: "",
-    swimmingpool_closed: "",
+    pool_opening_time: "",
+    pool_closing_time: "",
     rooms: [],
-    options: {
+    basic_options: {
       swimming_pool: false,
       break_fast: false,
       wireless_internet: false,
@@ -146,9 +141,9 @@ const HotelWrite = () => {
     }));
   };
   //가격
-  const handlePrice = (value) => {
-    setHotelInfo({ ...hotelInfo, price: value });
-  };
+  // const handlePrice = (value) => {
+  //   setHotelInfo({ ...hotelInfo, price: value });
+  // };
   console.log(hotelInfo);
   //예약가능
   const handleRadioChange = (value) => {
@@ -166,8 +161,8 @@ const HotelWrite = () => {
     // options 상태를 업데이트합니다. 해당하는 option의 값을 checked 값으로 설정합니다.
     setHotelInfo((prev) => ({
       ...prev,
-      options: {
-        ...prev.options,
+      basic_options: {
+        ...prev.basic_options,
         [name]: checked, // name을 키로 사용하여 해당 옵션의 값을 업데이트합니다.
       },
     }));
@@ -214,21 +209,22 @@ const HotelWrite = () => {
 
     const selectedText =
       checkOption.find((option) => option.value === selectedValue)?.text || "";
-    setHotelInfo({ ...hotelInfo, swimmingpool_open: selectedText });
+    setHotelInfo({ ...hotelInfo, pool_opening_time: selectedText });
   };
   const handlePoolClose = (e) => {
     const selectedValue = e.target.value;
 
     const selectedText =
       checkOption.find((option) => option.value === selectedValue)?.text || "";
-    setHotelInfo({ ...hotelInfo, swimmingpool_closed: selectedText });
+    setHotelInfo({ ...hotelInfo, pool_closing_time: selectedText });
   };
   //호텔등록
   const token = localStorage.getItem("token");
+  console.log(token);
   const onSendClick = async (e) => {
     if (
       hotelInfo.name == "" ||
-      hotelInfo.price == "" ||
+      // hotelInfo.price == "" ||
       hotelInfo.description == ""
     ) {
       setIsPopup(true);
@@ -237,10 +233,10 @@ const HotelWrite = () => {
     } else if (
       hotelInfo.check_in == "" ||
       hotelInfo.check_out == "" ||
-      (hotelInfo.options.swimming_pool === true &&
-        hotelInfo.options.swimmingpool_open == "") ||
-      (hotelInfo.options.swimming_pool == true &&
-        hotelInfo.options.swimmingpool_closed == "")
+      (hotelInfo.basic_options.swimming_pool === true &&
+        hotelInfo.basic_options.pool_opening_time == "") ||
+      (hotelInfo.basic_options.swimming_pool == true &&
+        hotelInfo.basic_options.pool_closing_time == "")
     ) {
       setIsPopup(true);
       setErrorMessage("호텔 규칙을 모두 입력해 주세요.");
@@ -262,7 +258,7 @@ const HotelWrite = () => {
       console.error("Error sending POST request:", error);
     }
 
-    // addHotel({ ...hotelInfo, rooms: [...rooms] });
+    addHotel({ ...hotelInfo, rooms: [...rooms] });
     resetRooms();
     setIsLoading(true);
     setTimeout(() => {
@@ -354,12 +350,12 @@ const HotelWrite = () => {
                 <li className="grid gap-3">
                   호텔 가격
                   <div className="grid grid-cols-[1fr_min-content] items-center gap-2">
-                    <Input
+                    {/* <Input
                       onChange={handlePrice}
                       value={price}
                       type={"text"}
                       price={true}
-                    />{" "}
+                    />{" "} */}
                     원
                   </div>
                 </li>
@@ -412,7 +408,7 @@ const HotelWrite = () => {
                         id="check3_1"
                         name="swimming_pool" // name을 추가하여 핸들러에서 참조할 수 있게 합니다.
                         value="수영장"
-                        checked={hotelInfo.options.swimming_pool}
+                        checked={hotelInfo.basic_options.swimming_pool}
                         onChange={handleCheckbox}
                       >
                         수영장
@@ -424,7 +420,7 @@ const HotelWrite = () => {
                         id="check3_2"
                         name="breakfast"
                         value="조식뷔페"
-                        checked={hotelInfo.options.breakfast}
+                        checked={hotelInfo.basic_options.breakfast}
                         onChange={handleCheckbox}
                       >
                         조식뷔페
@@ -436,7 +432,7 @@ const HotelWrite = () => {
                         id="check3_3"
                         name="wireless_internet"
                         value="무선 인터넷"
-                        checked={hotelInfo.options.wireless_internet}
+                        checked={hotelInfo.basic_options.wireless_internet}
                         onChange={handleCheckbox}
                       >
                         무선 인터넷
@@ -448,7 +444,7 @@ const HotelWrite = () => {
                         id="check3_4"
                         name="dry_cleaning"
                         value="드라이클리닝"
-                        checked={hotelInfo.options.dry_cleaning}
+                        checked={hotelInfo.basic_options.dry_cleaning}
                         onChange={handleCheckbox}
                       >
                         드라이클리닝
@@ -460,7 +456,7 @@ const HotelWrite = () => {
                         id="check3_5"
                         name="storage_service"
                         value="여행가방 보관 서비스"
-                        checked={hotelInfo.options.storage_service}
+                        checked={hotelInfo.basic_options.storage_service}
                         onChange={handleCheckbox}
                       >
                         여행가방 보관 서비스
@@ -472,7 +468,7 @@ const HotelWrite = () => {
                         id="check3_6"
                         name="convenience_store"
                         value="편의점"
-                        checked={hotelInfo.options.convenience_store}
+                        checked={hotelInfo.basic_options.convenience_store}
                         onChange={handleCheckbox}
                       >
                         편의점
@@ -484,7 +480,7 @@ const HotelWrite = () => {
                         id="check3_7"
                         name="ironing_tools"
                         value="다림질도구"
-                        checked={hotelInfo.options.ironing_tools}
+                        checked={hotelInfo.basic_options.ironing_tools}
                         onChange={handleCheckbox}
                       >
                         다림질도구
@@ -496,7 +492,7 @@ const HotelWrite = () => {
                         id="check3_8"
                         name="wakeup_call"
                         value="모닝콜"
-                        checked={hotelInfo.options.wakeup_call}
+                        checked={hotelInfo.basic_options.wakeup_call}
                         onChange={handleCheckbox}
                       >
                         모닝콜
@@ -508,7 +504,7 @@ const HotelWrite = () => {
                         id="check3_9"
                         name="mini_bar"
                         value="미니바"
-                        checked={hotelInfo.options.mini_bar}
+                        checked={hotelInfo.basic_options.mini_bar}
                         onChange={handleCheckbox}
                       >
                         미니바
@@ -520,7 +516,7 @@ const HotelWrite = () => {
                         id="check3_10"
                         name="shower_room"
                         value="샤워실"
-                        checked={hotelInfo.options.shower_room}
+                        checked={hotelInfo.basic_options.shower_room}
                         onChange={handleCheckbox}
                       >
                         샤워실
@@ -532,7 +528,7 @@ const HotelWrite = () => {
                         id="check3_11"
                         name="air_conditioner"
                         value="에어컨"
-                        checked={hotelInfo.options.air_conditioner}
+                        checked={hotelInfo.basic_options.air_conditioner}
                         onChange={handleCheckbox}
                       >
                         에어컨
@@ -544,7 +540,7 @@ const HotelWrite = () => {
                         id="check3_12"
                         name="table"
                         value="책상"
-                        checked={hotelInfo.options.table}
+                        checked={hotelInfo.basic_options.table}
                         onChange={handleCheckbox}
                       >
                         책상
@@ -556,7 +552,7 @@ const HotelWrite = () => {
                         id="check3_13"
                         name="tv"
                         value="TV"
-                        checked={hotelInfo.options.tv}
+                        checked={hotelInfo.basic_options.tv}
                         onChange={handleCheckbox}
                       >
                         TV
@@ -568,7 +564,7 @@ const HotelWrite = () => {
                         id="check3_14"
                         name="safety_deposit_box"
                         value="안전금고"
-                        checked={hotelInfo.options.safety_deposit_box}
+                        checked={hotelInfo.basic_options.safety_deposit_box}
                         onChange={handleCheckbox}
                       >
                         안전금고
@@ -580,7 +576,7 @@ const HotelWrite = () => {
                         id="check3_15"
                         name="welcome_drink"
                         value="웰컴 드링크"
-                        checked={hotelInfo.options.welcome_drink}
+                        checked={hotelInfo.basic_options.welcome_drink}
                         onChange={handleCheckbox}
                       >
                         웰컴 드링크
@@ -592,7 +588,7 @@ const HotelWrite = () => {
                         id="check3_16"
                         name="free_parking"
                         value="무료 주차"
-                        checked={hotelInfo.options.free_parking}
+                        checked={hotelInfo.basic_options.free_parking}
                         onChange={handleCheckbox}
                       >
                         무료 주차
@@ -604,7 +600,7 @@ const HotelWrite = () => {
                         id="check3_17"
                         name="fitness"
                         value="피트니스 시설"
-                        checked={hotelInfo.options.fitness}
+                        checked={hotelInfo.basic_options.fitness}
                         onChange={handleCheckbox}
                       >
                         피트니스 시설
@@ -616,7 +612,7 @@ const HotelWrite = () => {
                         id="check3_18"
                         name="electric_kettle"
                         value="전기주전자"
-                        checked={hotelInfo.options.electric_kettle}
+                        checked={hotelInfo.basic_options.electric_kettle}
                         onChange={handleCheckbox}
                       >
                         전기주전자
@@ -699,7 +695,7 @@ const HotelWrite = () => {
                         </Badge>
                       </div>
                     </li>
-                    {hotelInfo.options.swimming_pool && (
+                    {hotelInfo.basic_options.swimming_pool && (
                       <li className="grid grid-cols-[8rem_1fr] items-center">
                         <strong>수영장 이용시간</strong>
                         <div className="grid grid-cols-[1fr_2rem_1fr] items-center">
