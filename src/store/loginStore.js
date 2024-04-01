@@ -10,6 +10,10 @@ let loginStore = (set) => ({
   userBirth: "",
   userCredit: 0,
   userRole: "",
+  userAddress: "",
+  userCity: "",
+  userZipCode: "",
+  userNation: "",
 
   setLogin: (value) => set({ login: value }),
   setAccessToken: (token) => set({ accessToken: token }),
@@ -22,6 +26,10 @@ let loginStore = (set) => ({
       userCredit: userInfo.credit,
       userRole: userInfo.role,
       accessToken: token,
+      userAddress: userInfo.address,
+      userCity: userInfo.city,
+      userZipCode: userInfo.zip_code,
+      userNation: userInfo.nation,
     }),
   logout: () =>
     set({
@@ -33,6 +41,10 @@ let loginStore = (set) => ({
       userBirth: "",
       userCredit: 0,
       userRole: "",
+      userAddress: "",
+      userCity: "",
+      userZipCode: "",
+      userNation: "",
     }),
 });
 
