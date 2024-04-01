@@ -42,7 +42,13 @@ const SearchDetail = () => {
   const setSearchResults = useSearchStore((state) => state.setSearchResults);
 
   const handleNation = (e) => {
-    setSelectedNation(e.target.value);
+    const selectedText = e.target.value;
+    const selectedOption = where.find((option) => option.text === selectedText);
+    if (selectedOption) {
+      setSelectedNation(selectedOption.value);
+    } else {
+      console.error("Selected option not found in the where array.");
+    }
   };
 
   const token = localStorage.getItem("token");
@@ -55,6 +61,8 @@ const SearchDetail = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(`Selected Nation: ${selectedNation}`);
+
     if (selectedNation === "NATION" || !hotelName.trim()) {
       alert("국가와 호텔명을 모두 입력해주세요.");
       return;
@@ -63,7 +71,7 @@ const SearchDetail = () => {
     setIsLoading2(true);
     try {
       const response = await axios.get(
-        `http://52.78.12.252:8080/api/hotels/name/${hotelName}/nation/${selectedNation}`,
+        `http://52.78.12.252:8080/api/hotels/?name=${hotelName}&nation=${selectedNation}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
