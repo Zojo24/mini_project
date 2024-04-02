@@ -13,7 +13,6 @@ import Loading2 from "./Loading2";
 import { useSearchStore } from "../store/searchStore";
 import { useNavigate } from "react-router-dom";
 import Toast from "./Toast";
-// import { Today } from "../store/todayStore";
 
 const where = [
   {
@@ -120,54 +119,18 @@ const priceOption = [
   },
 ];
 
-// const Today = (nextDay = 0) => {
-//   const year = new Date().getFullYear();
-//   let month = new Date().getMonth() + 1;
-//   let day = new Date().getDate() + nextDay;
-
-//   month = month < 10 ? "0" + month : month;
-//   day = day < 10 ? "0" + day : day;
-
-//   return `${year}-${month}-${day}`;
-// };
-
 const Search = ({ ...props }) => {
-  // const [isStart, setIsStart] = useState(Today());
-  // const [isEnd, setIsEnd] = useState(Today(1));
   const [location, setLocation] = useState("");
   const [roomType, setRoomType] = useState("");
   const [viewType, setViewType] = useState("");
   const [priceRange, setPriceRange] = useState("");
   const [guestNumber, setGuestNumber] = useState("");
-  const [hotelList, setHotelList] = useState([]);
   const [isLoading2, setIsLoading2] = useState(false);
-
   const [searchError, setSearchError] = useState("");
   const [searchToast, setSearchToast] = useState(false);
   const navigate = useNavigate();
 
   const setSearchResults = useSearchStore((state) => state.setSearchResults);
-
-  const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    if (!token) {
-      navigate("/");
-    }
-  }, [navigate, token]);
-
-  // const handleStart = (value) => {
-  //   console.log(value);
-  //   setIsStart(value);
-  // };
-  // const handleEnd = (value) => {
-  //   console.log(value);
-  //   setIsEnd(value);
-  // };
-
-  // 결과값
-  // console.log(`isStart ${isStart}`);
-  // console.log(`isEnd ${isEnd}`);
 
   const handleLocation = (e) => {
     const selectedLocationText = e.target.value;

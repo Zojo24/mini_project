@@ -47,17 +47,9 @@ const SearchDetail = () => {
     if (selectedOption) {
       setSelectedNation(selectedOption.value);
     } else {
-      console.error("Selected option not found in the where array.");
+      console.error("선택한 옵션을 배열에서 찾을 수 없습니다.");
     }
   };
-
-  const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    if (!token) {
-      navigate("/");
-    }
-  }, [navigate, token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,12 +62,7 @@ const SearchDetail = () => {
     setIsLoading2(true);
     try {
       const response = await axios.get(
-        `http://52.78.12.252:8080/api/hotels/?name=${hotelName}&nation=${selectedNation}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `http://52.78.12.252:8080/api/hotels/?name=${hotelName}&nation=${selectedNation}`
       );
       setSearchResults(response.data.result.content);
       navigate("/search/result");
