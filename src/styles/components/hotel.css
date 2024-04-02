@@ -124,7 +124,17 @@
 .hotel-gallery {
   @apply mobile:flex mobile:flex-nowrap mobile:w-full tablet:w-auto tablet:grid mobile:gap-0 tablet:gap-8 mobile:h-auto tablet:h-[40rem] mobile:grid-cols-1 mobile:overflow-x-auto mobile:overflow-y-hidden tablet:grid-cols-[1fr_2fr_1fr] mobile:whitespace-nowrap tablet:whitespace-normal
   /* mobile:snap-x mobile:snap-mandatory tablet:snap-none */ scroll-smooth
+  mobile:bg-scroll
   ;
+  @media ( width < 1024px ) {
+    &::-webkit-scrollbar {
+      height:0;
+    }
+    &::-webkit-scrollbar-thumb {
+      height:0;
+    }
+  }
+
   div {
     @apply overflow-hidden rounded-xl mobile:inline-block tablet:block mobile:w-[calc(100vw_-_2.5rem)] tablet:w-auto mobile:snap-center tablet:snap-align-none mobile:flex-none;
     &:nth-child(1) {

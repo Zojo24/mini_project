@@ -86,7 +86,6 @@ const HotelDetail = () => {
   const toEdit = () => {
     navigate(`/hoteledit/${hotelId}`);
   };
-  console.log(hotelInfo);
 
   return (
     <div className="main mb-24">

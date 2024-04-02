@@ -2,7 +2,7 @@
  @apply tablet:min-h-96 mobile:pt-14 tablet:pt-24;
 }
 .container {
-  @apply mobile:px-3 mobile:max-w-full tablet:max-w-[1024px] desktop:max-w-[1500px]  tablet:mx-auto box-border;
+  @apply mobile:px-3 mobile:max-w-full tablet:max-w-[calc(100%_-_1rem)] desktop:max-w-[1500px]  tablet:mx-auto box-border;
 }
 body {
   &:has(.hotel-detail) {
