@@ -12,6 +12,7 @@ import "../styles/components/search.css";
 import Loading2 from "./Loading2";
 import { useSearchStore } from "../store/searchStore";
 import { useNavigate } from "react-router-dom";
+import Toast from "./Toast";
 // import { Today } from "../store/todayStore";
 
 const where = [
@@ -140,6 +141,9 @@ const Search = ({ ...props }) => {
   const [guestNumber, setGuestNumber] = useState("");
   const [hotelList, setHotelList] = useState([]);
   const [isLoading2, setIsLoading2] = useState(false);
+
+  const [searchError, setSearchError] = useState("");
+  const [searchToast, setSearchToast] = useState(false);
   const navigate = useNavigate();
 
   const setSearchResults = useSearchStore((state) => state.setSearchResults);
@@ -200,33 +204,32 @@ const Search = ({ ...props }) => {
   const handleSearch = async (e) => {
     e.preventDefault();
 
-    if (
-      !location ||
-      location === "NATION" ||
-      !roomType ||
-      roomType === "select 1" ||
-      !viewType ||
-      viewType === "select 1"
-    ) {
-      alert("모든 필드를 채워주세요.");
+    // 지역 필드 검증
+    if (!location || location === "NATION") {
+      setSearchError("지역을 선택해주세요.");
+      setSearchToast(true);
       return;
     }
 
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
+    // 객실 종류 필드 검증
+    if (!roomType || roomType === "select 1") {
+      setSearchError("객실 종류를 선택해주세요.");
+      setSearchToast(true);
       return;
     }
+
+    // 뷰 종류 필드 검증
+    if (!viewType || viewType === "select 1") {
+      setSearchError("뷰 종류를 선택해주세요.");
+      setSearchToast(true);
+      return;
+    }
+
     setIsLoading2(true);
 
     try {
       const response = await axios.get(
-        `http://52.78.12.252:8080/api/hotels/search/?nation=${location}&roomType=${roomType}&viewType=${viewType}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `http://52.78.12.252:8080/api/hotels/search/?nation=${location}&roomType=${roomType}&viewType=${viewType}`
       );
       if (response.data.result.content.length === 0) {
         alert("검색 결과가 없습니다.");
@@ -311,6 +314,13 @@ const Search = ({ ...props }) => {
         <LuSearch />
         Search
       </button>
+      <Toast
+        color={"red"}
+        onOpen={searchToast}
+        onClose={() => setSearchToast(false)}
+      >
+        {searchError}
+      </Toast>
     </form>
   );
 };
