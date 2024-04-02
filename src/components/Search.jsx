@@ -42,6 +42,10 @@ const where = [
 ];
 const viewKind = [
   {
+    value: "select 1",
+    text: "----",
+  },
+  {
     value: "STANDARD",
     text: "스탠다드 룸",
   },
@@ -59,6 +63,10 @@ const viewKind = [
   },
 ];
 const viewOption = [
+  {
+    value: "select 1",
+    text: "----",
+  },
   {
     value: "OCEAN",
     text: "오션뷰",
@@ -111,20 +119,20 @@ const priceOption = [
   },
 ];
 
-const Today = (nextDay = 0) => {
-  const year = new Date().getFullYear();
-  let month = new Date().getMonth() + 1;
-  let day = new Date().getDate() + nextDay;
+// const Today = (nextDay = 0) => {
+//   const year = new Date().getFullYear();
+//   let month = new Date().getMonth() + 1;
+//   let day = new Date().getDate() + nextDay;
 
-  month = month < 10 ? "0" + month : month;
-  day = day < 10 ? "0" + day : day;
+//   month = month < 10 ? "0" + month : month;
+//   day = day < 10 ? "0" + day : day;
 
-  return `${year}-${month}-${day}`;
-};
+//   return `${year}-${month}-${day}`;
+// };
 
 const Search = ({ ...props }) => {
-  const [isStart, setIsStart] = useState(Today());
-  const [isEnd, setIsEnd] = useState(Today(1));
+  // const [isStart, setIsStart] = useState(Today());
+  // const [isEnd, setIsEnd] = useState(Today(1));
   const [location, setLocation] = useState("");
   const [roomType, setRoomType] = useState("");
   const [viewType, setViewType] = useState("");
@@ -144,29 +152,41 @@ const Search = ({ ...props }) => {
     }
   }, [navigate, token]);
 
-  const handleStart = (value) => {
-    console.log(value);
-    setIsStart(value);
-  };
-  const handleEnd = (value) => {
-    console.log(value);
-    setIsEnd(value);
-  };
+  // const handleStart = (value) => {
+  //   console.log(value);
+  //   setIsStart(value);
+  // };
+  // const handleEnd = (value) => {
+  //   console.log(value);
+  //   setIsEnd(value);
+  // };
 
   // 결과값
   // console.log(`isStart ${isStart}`);
   // console.log(`isEnd ${isEnd}`);
 
   const handleLocation = (e) => {
-    setLocation(e.target.value);
+    const selectedLocationText = e.target.value;
+    const selectedLocationOption = where.find(
+      (option) => option.text === selectedLocationText
+    );
+    setLocation(selectedLocationOption.value);
   };
 
   const handleRoomType = (e) => {
-    setRoomType(e.target.value);
+    const selectedRoomTypeText = e.target.value;
+    const selectedRoomTypeOption = viewKind.find(
+      (option) => option.text === selectedRoomTypeText
+    );
+    setRoomType(selectedRoomTypeOption.value);
   };
 
   const handleViewType = (e) => {
-    setViewType(e.target.value);
+    const selectedViewTypeText = e.target.value;
+    const selectedViewTypeOption = viewOption.find(
+      (option) => option.text === selectedViewTypeText
+    );
+    setViewType(selectedViewTypeOption.value);
   };
 
   const handlePriceRange = (e) => {
@@ -180,6 +200,18 @@ const Search = ({ ...props }) => {
   const handleSearch = async (e) => {
     e.preventDefault();
 
+    if (
+      !location ||
+      location === "NATION" ||
+      !roomType ||
+      roomType === "select 1" ||
+      !viewType ||
+      viewType === "select 1"
+    ) {
+      alert("모든 필드를 채워주세요.");
+      return;
+    }
+
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
@@ -189,15 +221,20 @@ const Search = ({ ...props }) => {
 
     try {
       const response = await axios.get(
-        `http://52.78.12.252:8080/api/hotels/${location}/${roomType}/${viewType}`,
+        `http://52.78.12.252:8080/api/hotels/search/?nation=${location}&roomType=${roomType}&viewType=${viewType}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      setSearchResults(response.data.hotels);
-      console.log(response.data.hotels);
+      if (response.data.result.content.length === 0) {
+        alert("검색 결과가 없습니다.");
+        return;
+      } else {
+        setSearchResults(response.data.result.content);
+        navigate("/search/result");
+      }
     } catch (error) {
       console.error("호텔 검색에 실패했습니다:", error);
       setSearchResults([]);

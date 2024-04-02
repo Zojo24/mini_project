@@ -61,7 +61,6 @@ const SearchDetail = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(`Selected Nation: ${selectedNation}`);
 
     if (selectedNation === "NATION" || !hotelName.trim()) {
       alert("국가와 호텔명을 모두 입력해주세요.");
@@ -78,9 +77,8 @@ const SearchDetail = () => {
           },
         }
       );
-      // setSearchResults(response.data.result.content);
+      setSearchResults(response.data.result.content);
       navigate("/search/result");
-      console.log(response);
     } catch (error) {
       console.error("호텔 검색에 실패했습니다:", error);
       setSearchResults([]);
