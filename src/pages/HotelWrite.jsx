@@ -23,23 +23,23 @@ import { useVisualStore } from "../store/visualStore";
 const where = [
   {
     value: "select2",
-    text: "태국",
+    text: "THAILAND",
   },
   {
     value: "select3",
-    text: "베트남",
+    text: "VIETNAM",
   },
   {
     value: "select4",
-    text: "필리핀",
+    text: "PHILIPPINES",
   },
   {
     value: "select5",
-    text: "말레이시아",
+    text: "MALAYSIA",
   },
   {
     value: "select6",
-    text: "대만",
+    text: "TAIWAN",
   },
 ];
 
@@ -100,8 +100,8 @@ const HotelWrite = () => {
     check_out: "1:00",
     smoking_rule: "TOTAL_IMPOSSIBLE",
     pet_rule: "TOTAL_IMPOSSIBLE",
-    pool_opening_time: "",
-    pool_closing_time: "",
+    pool_opening_time: null,
+    pool_closing_time: null,
     rooms: [],
     basic_options: {
       swimming_pool: false,
@@ -193,7 +193,7 @@ const HotelWrite = () => {
 
     const selectedText =
       checkOption.find((option) => option.value === selectedValue)?.text || "";
-    setHotelInfo({ ...hotelInfo, check_out: selectedText });
+    setHotelInfo({ ...hotelInfo, check_out: selectedValue });
   };
   //흡연
   const handleSmoking = (value) => {
@@ -209,14 +209,14 @@ const HotelWrite = () => {
 
     const selectedText =
       checkOption.find((option) => option.value === selectedValue)?.text || "";
-    setHotelInfo({ ...hotelInfo, pool_opening_time: selectedText });
+    setHotelInfo({ ...hotelInfo, pool_opening_time: selectedValue });
   };
   const handlePoolClose = (e) => {
     const selectedValue = e.target.value;
 
     const selectedText =
       checkOption.find((option) => option.value === selectedValue)?.text || "";
-    setHotelInfo({ ...hotelInfo, pool_closing_time: selectedText });
+    setHotelInfo({ ...hotelInfo, pool_closing_time: selectedValue });
   };
   //호텔등록
   const token = localStorage.getItem("token");
@@ -243,22 +243,28 @@ const HotelWrite = () => {
       return;
     }
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("request", JSON.stringify(hotelInfo)); // hotelInfo 객체를 문자열로 변환하여 추가
+
     try {
       const response = await axios.post(
         "http://52.78.12.252:8080/api/hotels",
-        hotelInfo,
+        formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            // FormData를 사용할 때 'Content-Type': 'multipart/form-data' 헤더는 설정하지 않아도 됩니다.
           },
         }
       );
-      console.log(response.data);
+
+      console.log(response.data); // 응답 데이터 처리
+      alert("호텔 등록 성공!");
     } catch (error) {
       console.error("Error sending POST request:", error);
     }
 
-    addHotel({ ...hotelInfo, rooms: [...rooms] });
+    // addHotel({ ...hotelInfo, rooms: [...rooms] });
     resetRooms();
     setIsLoading(true);
     setTimeout(() => {

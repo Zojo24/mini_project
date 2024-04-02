@@ -1,34 +1,28 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from "react";
 
-import axios from 'axios';
-import {
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
-import pic1 from '../assets/img1.webp';
-import pic2 from '../assets/img2.webp';
-import pic3 from '../assets/img3.webp';
-import pic4 from '../assets/img4.jpg';
-import Notice from '../components/Board/Notice';
-import NoticeWrite from '../components/Board/NoticeWrite';
-import Box from '../components/Box';
-import Heading from '../components/Heading';
-import RoomListToRead from '../components/Hotel/components/RoomListToRead';
-import HotelFavorite from '../components/Hotel/HotelFavorite';
-import HotelGallery from '../components/Hotel/HotelGallery';
-import HotelLocation from '../components/Hotel/HotelLocation';
-import HotelRules from '../components/Hotel/HotelRules';
-import ServiceList from '../components/Hotel/ServiceList';
-import Loading from '../components/Loading';
-import ReservationFirst from '../components/Reservation/ReservationFirst';
-import SubVisual from '../components/SubVisual';
-import Text from '../components/Text';
-import { usehotelListStore } from '../store/hotelListStore';
-import { useVisualStore } from '../store/visualStore';
+import pic1 from "../assets/img1.webp";
+import pic2 from "../assets/img2.webp";
+import pic3 from "../assets/img3.webp";
+import pic4 from "../assets/img4.jpg";
+import Notice from "../components/Board/Notice";
+import NoticeWrite from "../components/Board/NoticeWrite";
+import Box from "../components/Box";
+import Heading from "../components/Heading";
+import RoomListToRead from "../components/Hotel/components/RoomListToRead";
+import HotelFavorite from "../components/Hotel/HotelFavorite";
+import HotelGallery from "../components/Hotel/HotelGallery";
+import HotelLocation from "../components/Hotel/HotelLocation";
+import HotelRules from "../components/Hotel/HotelRules";
+import ServiceList from "../components/Hotel/ServiceList";
+import Loading from "../components/Loading";
+import ReservationFirst from "../components/Reservation/ReservationFirst";
+import SubVisual from "../components/SubVisual";
+import Text from "../components/Text";
+import { usehotelListStore } from "../store/hotelListStore";
+import { useVisualStore } from "../store/visualStore";
 
 const pictures = [{ src: pic1 }, { src: pic2 }, { src: pic3 }, { src: pic4 }];
 
@@ -62,9 +56,25 @@ const HotelDetail = () => {
       setTitle(hotelInfo.name, SubVisual);
     }
   }, [hotelInfo, setTitle]);
-
-  const onDelete = () => {
+  const token = localStorage.getItem("token");
+  const onDelete = async () => {
     setIsLoading(true);
+    try {
+      const response = await axios.delete(
+        `http://52.78.12.252:8080/api/hotels/${hotelId}`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response.data); // 응답 데이터 처리
+      alert("호텔 삭제 성공!");
+    } catch (error) {
+      console.error(error);
+    }
     deleteHotel(hotelId);
     navigate("/");
     // setTimeout(() => {
@@ -76,7 +86,7 @@ const HotelDetail = () => {
   const toEdit = () => {
     navigate(`/hoteledit/${hotelId}`);
   };
-  // console.log(thisHotel);
+  console.log(hotelInfo);
 
   return (
     <div className="main mb-24">
