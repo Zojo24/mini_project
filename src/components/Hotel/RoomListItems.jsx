@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import room from '../../assets/hotelroom1.jpeg';
-import room2 from '../../assets/hotelroom2.jpeg';
-import { useRoomStore } from '../../store/roomStore';
-import RoomEditfromEdit from './components/RoomEditfromEdit';
-import HotelPrice from './HotelPrice';
-import HotelTitle from './HotelTitle';
-import RoomOptions from './RoomOptions';
-import RoomPicture from './RoomPicture';
+import room from "../../assets/hotelroom1.jpeg";
+import room2 from "../../assets/hotelroom2.jpeg";
+import { useRoomStore } from "../../store/roomStore";
+import RoomEditfromEdit from "./components/RoomEditfromEdit";
+import HotelPrice from "./HotelPrice";
+import HotelTitle from "./HotelTitle";
+import RoomOptions from "./RoomOptions";
+import RoomPicture from "./RoomPicture";
 
 const RoomListItems = ({ roomLists, edit, ...props }) => {
   const show = { able: "disabled" };
@@ -23,7 +23,7 @@ const RoomListItems = ({ roomLists, edit, ...props }) => {
   // console.log(roomLists);
   return (
     <>
-      {roomLists.map((it) => (
+      {roomLists?.map((it) => (
         <li {...props} key={it.roomId}>
           {isEdit ? (
             <RoomEditfromEdit roomData={it} setIsEdit={setIsEdit} />

@@ -42,10 +42,12 @@ const HotelDetail = () => {
   const thisHotel = totalHotels.find((hotel) => hotel.id === 4595);
   // console.log("detail", thisHotel);
   useEffect(() => {
-    axios.get(`http://52.78.12.252:8080/api/hotels/${hotelId}`).then((response) => {
-      setHotelInfo(response.data.result);
-      // console.log(response.data.result);
-    });
+    axios
+      .get(`http://52.78.12.252:8080/api/hotels/${hotelId}`)
+      .then((response) => {
+        setHotelInfo(response.data.result);
+        // console.log(response.data.result);
+      });
     // setTitle(hotelInfo.name, SubVisual);
   }, []);
 
@@ -54,9 +56,25 @@ const HotelDetail = () => {
       setTitle(hotelInfo.name, SubVisual);
     }
   }, [hotelInfo, setTitle]);
-
-  const onDelete = () => {
+  const token = localStorage.getItem("token");
+  const onDelete = async () => {
     setIsLoading(true);
+    try {
+      const response = await axios.delete(
+        `http://52.78.12.252:8080/api/hotels/${hotelId}`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response.data); // 응답 데이터 처리
+      alert("호텔 삭제 성공!");
+    } catch (error) {
+      console.error(error);
+    }
     deleteHotel(hotelId);
     navigate("/");
     // setTimeout(() => {
@@ -107,23 +125,42 @@ const HotelDetail = () => {
                   공지 올리기
                 </button>
               </div>
-              {!isWrite ? <Notice className={"mt-5"} /> : <NoticeWrite className={"mt-5"} />}
+              {!isWrite ? (
+                <Notice className={"mt-5"} />
+              ) : (
+                <NoticeWrite className={"mt-5"} />
+              )}
             </Box>
             <Box>
-              <Heading tag={"h3"} text={"편의시설 및 서비스"} className={"base"} />
-              <ServiceList options={hotelInfo.basic_options} className={"mt-5"} />
+              <Heading
+                tag={"h3"}
+                text={"편의시설 및 서비스"}
+                className={"base"}
+              />
+              <ServiceList
+                options={hotelInfo.basic_options}
+                className={"mt-5"}
+              />
             </Box>
             <Box>
               <Heading tag={"h3"} text={"호텔 객실 규칙"} className={"base"} />
               <HotelRules thisHotel={hotelInfo} className={"mt-5"} />
             </Box>
             <Box>
-              <Heading tag={"h3"} text={"예약 가능한 객실"} className={"base"} />
+              <Heading
+                tag={"h3"}
+                text={"예약 가능한 객실"}
+                className={"base"}
+              />
               <RoomListToRead roomLists={hotelInfo?.rooms} className={"mt-5"} />
             </Box>
           </div>
           <div className="mobile:fixed mobile:top-[inherit] mobile:bottom-0 z-50 mobile:left-0 tablet:left-[inherit] tablet:bottom-[inherit] tablet:sticky tablet:top-28 self-start mobile:w-full tablet:w-[25rem] desktop:w-[30rem] mobile:mt-0 tablet:mt-0">
-            <Box className={"mobile:!rounded-[.75rem_.75rem_0_0] tablet:!rounded-xl mobile:!p-3 tablet:!p-5"}>
+            <Box
+              className={
+                "mobile:!rounded-[.75rem_.75rem_0_0] tablet:!rounded-xl mobile:!p-3 tablet:!p-5"
+              }
+            >
               <ReservationFirst />
             </Box>
           </div>
