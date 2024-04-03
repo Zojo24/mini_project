@@ -1,11 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Heading from "../Heading";
 import { useReservationStore } from "../../store/reservationStore";
 import MypageCartItem from "./MypageCartItem";
+import request from "../../api/request";
+import instance from "../../api/axios";
 
 const MypageCart = () => {
   const { cartInfos } = useReservationStore();
+  const token = localStorage.getItem("token");
+  const { fetchMembersMyCart } = request; // 필요한 요청 URL을 추출
+  const [myCart, setMyCart] = useState([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseCart = await instance.get(fetchMembersMyCart, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        // console.log(responseCart);
+        setMyCart(responseCart.data.result.content);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <>
       <div className="mypage-cart">
@@ -29,8 +50,8 @@ const MypageCart = () => {
               </tr>
             </thead>
             <tbody>
-              {cartInfos.length > 0 ? (
-                cartInfos.map((items, index) => <MypageCartItem key={index} items={items} />)
+              {myCart.length > 0 ? (
+                myCart.map((items, index) => <MypageCartItem key={index} items={items} />)
               ) : (
                 <tr>
                   <td colSpan={5} className="!py-10">

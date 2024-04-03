@@ -9,28 +9,19 @@ let reservationStore = (set) => ({
   // 결제정보
   addInfo: (paymentState) =>
     set((state) => ({
-      paymentInfos: paymentState,
+      paymentInfos: [paymentState],
     })),
 
-  // 결제정보 + 개인정보
+  // 결제정보 + 호텔정보
   addAdditionalInfo: (additionalText) =>
     set((state) => ({
       totalInfos: [...state.totalInfos, additionalText],
     })),
 
-  // 장바구니
-  addCartInfo: (cartState) =>
+  // 결재할 장바구니 아이디
+  addCartInfo: (cartId) =>
     set((state) => ({
-      cartInfos: [
-        ...state.cartInfos,
-        {
-          ...cartState,
-        },
-      ],
-    })),
-  deleteCart: (cartId) =>
-    set((state) => ({
-      cartInfos: state.cartInfos.filter((cart) => cart.cart_id !== cartId),
+      cartInfo: cartId,
     })),
 });
 
