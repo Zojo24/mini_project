@@ -43,6 +43,9 @@ const ReservationFirst = () => {
   const [isPopup, setIsPopup] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading2, setIsLoading2] = useState(false);
+  const { reservedRoom } = useReserveRoomStore();
+  // console.log(reservedRoom);
+
   const [myId, setMyId] = useState("");
   const [isPayInfo, setIsPayInfo] = useState({
     adult_count: 0, //성인
@@ -51,13 +54,12 @@ const ReservationFirst = () => {
     child_fare: "", //어린이요금
     total_price: "", // 총금액
   });
-  const { reservedRoom } = useReserveRoomStore();
   const [orderFirst, setOrderFirst] = useState({
     room_id: reservedRoom.id,
     check_in: "",
     check_out: "",
-    adult_count: "2",
-    child_count: "0",
+    adult_count: "",
+    child_count: "",
   });
   const isLoggedIn = () => {
     const token = localStorage.getItem("token");
@@ -184,7 +186,7 @@ const ReservationFirst = () => {
 
       setIsLoading(true);
       orderId = responseOrder.data.result.id;
-      setMyId(orderId);
+      // setMyId(orderId);
       addInfo(responseOrder); // 예약결과전역상태로 넘기기
       console.log(orderId); //post이후 병합데이터
     } catch (error) {
@@ -193,7 +195,7 @@ const ReservationFirst = () => {
       setTimeout(() => {
         setIsLoading2(false);
         setIsLoading(false);
-        navigate(`/reservation/${myId}`);
+        navigate(`/reservation/?${orderId}`);
       }, 1500);
     }
   };
@@ -205,7 +207,7 @@ const ReservationFirst = () => {
     if (isValidCheck) {
       try {
         setIsLoading2(true);
-        const responseCart = await instance.post(fetchOrders, orderFirst, {
+        await instance.post(fetchOrders, orderFirst, {
           headers: {
             Authorization: `bearer ${token}`,
           },
@@ -214,9 +216,7 @@ const ReservationFirst = () => {
       } catch (error) {
         console.log(error);
       } finally {
-        setTimeout(() => {
-          setIsLoading2(false);
-        }, 1500);
+        setIsLoading2(false);
       }
 
       // addCartInfo(isPayInfo);
@@ -262,7 +262,7 @@ const ReservationFirst = () => {
               </span>
               <strong className="--title">어린이 ⨉ {isPayInfo.child_count ? isPayInfo.child_count : 0}</strong>
               <span className="--total justify-self-end">
-                ₩ {isPayInfo.child_fare ? digit3(isPayInfo.child_fare) : "0"}
+                ₩ {isPayInfo.childrenPay ? digit3(isPayInfo.childrenPay) : "0"}
               </span>
             </li>
             <li>

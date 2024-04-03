@@ -54,7 +54,7 @@ const router = createBrowserRouter([
         element: <ReservationThird />,
       },
       {
-        path: "/mypage",
+        path: "/mypage/:mypageId",
         element: <Mypage />,
       },
       {

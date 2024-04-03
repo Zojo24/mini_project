@@ -6,7 +6,7 @@ import { digit3 } from "../../store/digit3";
 import { useReservationStore } from "../../store/reservationStore";
 
 const CartItems = ({ close, items, onDeleteItem, onDelid }) => {
-  const { room, adult_count, child_count, check_out, hotel_name, check_in, total_price, id } = items;
+  const { room, adult_count, child_count, check_out, hotel, check_in, total_price, id } = items;
 
   const navigate = useNavigate();
   const { addInfo } = useReservationStore();
@@ -15,7 +15,7 @@ const CartItems = ({ close, items, onDeleteItem, onDelid }) => {
 
   const handleOnClick = () => {
     // addInfo(items);
-    navigate(`/reservation/${id}`);
+    navigate(`/reservation/?${id}`);
     close();
   };
   return (
@@ -26,7 +26,7 @@ const CartItems = ({ close, items, onDeleteItem, onDelid }) => {
         </Link>
         <div>
           <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2 font-bold">
-            {hotel_name}
+            {hotel.name}
           </Link>
           <div className="text-sm flex mt-2 leading-6">
             <b className="font-semibold">예약일</b>
@@ -49,7 +49,7 @@ const CartItems = ({ close, items, onDeleteItem, onDelid }) => {
         </div>
         <div className="col-span-2 justify-self-end flex gap-2">
           <button onClick={handleOnClick} className="btn-blue-outline sm">
-            결제
+            예약
           </button>
           {/* <button className="btn-red-outline sm" onClick={() => onDeleteItem(id)}> */}
           <button className="btn-red-outline sm" onClick={() => onDelid(id)}>

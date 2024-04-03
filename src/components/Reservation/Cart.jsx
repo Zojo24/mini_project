@@ -8,7 +8,7 @@ import request from "../../api/request";
 import instance from "../../api/axios";
 import { useLoginStore } from "../../store/loginStore";
 
-const Cart = ({ mypage, close }) => {
+const Cart = ({ mypage, close, show }) => {
   const token = localStorage.getItem("token");
   const [isCartItmes, setIsCartItmes] = useState([]);
   const { fetchMembersMyCart } = request;
@@ -21,35 +21,36 @@ const Cart = ({ mypage, close }) => {
   const handleCart = () => {
     close();
   };
-
   const cartTotalPrice = digit3(isCartItmes.reduce((acc, curr) => acc + curr.total_price, 0));
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const responseCart = await instance.get(fetchMembersMyCart, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        // console.log(responseCart);
-        setIsCartItmes(responseCart.data.result.content);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
+    if (show) {
+      const fetchData = async () => {
+        try {
+          const responseCart = await instance.get(fetchMembersMyCart, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setIsCartItmes(responseCart.data.result.content);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchData();
+    }
+  }, [show]);
 
   const handleDelete = async (id) => {
     console.log(id);
     try {
-      const delItem = await instance.delete(`${fetchMembersMyCart}/${id}`, {
+      await instance.patch(`${fetchMembersMyCart}/${id}`, null, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(delItem);
+      const restItems = isCartItmes.filter((item) => item.id !== id);
+      setIsCartItmes(restItems);
     } catch (error) {
       console.log(error);
     }
@@ -69,7 +70,7 @@ const Cart = ({ mypage, close }) => {
         <header className="border border-b-gray-200 border-solid leading-[4] px-5">
           <h2 className="font-bold flex gap-1 items-center">
             장바구니
-            <Badge color={"green"}>
+            <Badge color={"green !font-normal"}>
               총 <b>{isCartItmes.length}개</b>의 숙소가 등록되었습니다.
             </Badge>
           </h2>

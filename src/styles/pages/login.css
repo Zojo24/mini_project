@@ -9,8 +9,9 @@
   &::-webkit-scrollbar-track {
       @apply bg-transparent;
     }
+    a,
   button {
-    @apply font-semibold pb-5;
+    @apply font-semibold pb-5 flex;
     &.--active {
       @apply text-blue-700 relative;
       &::after{
