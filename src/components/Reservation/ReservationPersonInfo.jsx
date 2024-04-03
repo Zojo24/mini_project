@@ -114,7 +114,6 @@ const ReservationPersonInfo = (isitem) => {
       comment: persnalInfo.comment,
     };
 
-    // console.log(requestData);
     try {
       setIsLoading2(true);
       await instance.patch(`${fetchOrders}/${id}`, requestData, {
@@ -122,7 +121,7 @@ const ReservationPersonInfo = (isitem) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      deleteCart(id);
+      // deleteCart(id);
     } catch (error) {
       console.log("handleReservation", error);
       const errorMessage = error.response.data.result;
@@ -131,6 +130,8 @@ const ReservationPersonInfo = (isitem) => {
         setErrrorMessage("Not found order");
       }
     } finally {
+      console.log(requestData);
+      console.log(id);
       setIsLoading2(false);
       setIsLoading(true);
       setTimeout(() => {
