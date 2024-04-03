@@ -11,14 +11,13 @@ import Loading2 from "../Loading2";
 import { digit3 } from "../../store/digit3";
 
 const isLoggedIn = () => {
-  const token = localStorage.getItem("token"); // localStorage에서 토큰 가져오기
-  return !!token; // token이 있으면 true, 없으면 false 반환
+  const token = localStorage.getItem("token");
+  return !!token;
 };
 
 const MypageAccount = () => {
   const navigate = useNavigate();
 
-  // 사용자가 로그인하지 않았다면 메인 페이지로 리다이렉트
   useEffect(() => {
     if (!isLoggedIn()) {
       navigate("/");
@@ -31,17 +30,20 @@ const MypageAccount = () => {
     userEmail,
     userBirth,
     userCredit,
+    userProfileImage,
     userAddress,
     userCity,
     userZipCode,
     userNation,
     setUserInfo,
   } = useLoginStore();
+
   const birthYear = userBirth?.slice(0, 4);
   const birthMonth = userBirth?.slice(4, 6);
   const birthDay = userBirth?.slice(6, 8);
 
   const [id, setId] = useState(userId || "");
+  const [profileImage, setProfileImage] = useState("");
   const [name, setName] = useState(userName || "");
   const [email, setEmail] = useState(userEmail || "");
   const [birth, setBirth] = useState(userBirth || "");
@@ -63,11 +65,42 @@ const MypageAccount = () => {
     setEmail(userEmail || "");
     setBirth(userBirth || "");
     setId(userId || "");
+    setProfileImage(userProfileImage);
     setAddress(userAddress || "");
     setCity(userCity || "");
     setZipCode(userZipCode || "");
     setNation(userNation || "");
-  }, [userName, userEmail, userBirth, userId, userAddress, userCity, userZipCode, userNation]);
+  }, [
+    userName,
+    userEmail,
+    userBirth,
+    userId,
+    userProfileImage,
+    userAddress,
+    userCity,
+    userZipCode,
+    userNation,
+  ]);
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const setUserProfileImage =
+          useLoginStore.getState().setUserProfileImage;
+        setUserProfileImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  useEffect(() => {
+    const input = document.getElementById("avatar");
+    input.addEventListener("change", handleImageUpload);
+
+    return () => input.removeEventListener("change", handleImageUpload);
+  }, []);
 
   const handlePassword = (value) => {
     setPassword(value);
@@ -120,6 +153,8 @@ const MypageAccount = () => {
         email,
         birth,
         password,
+        credit: userCredit,
+        profile_image: profileImage,
         address,
         city,
         nation,
@@ -137,14 +172,20 @@ const MypageAccount = () => {
       <div className="bg-white rounded-xl whitespace-nowrap p-10 self-start text-center">
         <Heading tag={"h4"} className={"sm mb-5"} text={"개인정보"} />
         {/* <Avatar /> */}
-        <Avatar add />
+        <Avatar
+          add
+          profileImage={profileImage}
+          onImageUpload={handleImageUpload}
+        />
         <div className="mb-5 mt-1">
           <b>{name}</b>님
           <br /> 반갑습니다.
         </div>
         잔여캐시
         <br />
-        <strong className="text-2xl mr-1 text-blue-700 tracking-tight">{digit3(userCredit)}</strong>
+        <strong className="text-2xl mr-1 text-blue-700 tracking-tight">
+          {digit3(userCredit)}
+        </strong>
         <span>원</span>
       </div>
       <form type="onSubmit" className="bg-white rounded-xl  p-10 relative">
@@ -169,11 +210,19 @@ const MypageAccount = () => {
           </div>
           <div>
             비밀번호
-            <Input type={"password"} defaultValue={password} onChange={handlePassword} />
+            <Input
+              type={"password"}
+              defaultValue={password}
+              onChange={handlePassword}
+            />
           </div>
           <div>
             비밀번호 확인
-            <Input type={"password"} defaultValue={confirmPassword} onChange={handleConfirmPassword} />
+            <Input
+              type={"password"}
+              defaultValue={confirmPassword}
+              onChange={handleConfirmPassword}
+            />
           </div>
         </div>
         <hr className="mt-10" />
@@ -202,7 +251,11 @@ const MypageAccount = () => {
           </button>
         </div>
       </form>
-      <Toast color={"red"} onOpen={registerToast} onClose={() => setRegisterToast(false)}>
+      <Toast
+        color={"red"}
+        onOpen={registerToast}
+        onClose={() => setRegisterToast(false)}
+      >
         {registerError}
       </Toast>
     </div>

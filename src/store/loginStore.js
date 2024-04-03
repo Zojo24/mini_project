@@ -5,6 +5,7 @@ let loginStore = (set) => ({
   login: false,
   accessToken: "",
   userId: null,
+  userProfileImage: null,
   userName: "",
   userEmail: "",
   userBirth: "",
@@ -15,6 +16,7 @@ let loginStore = (set) => ({
   userZipCode: "",
   userNation: "",
 
+  setUserProfileImage: (image) => set({ userProfileImage: image }),
   setLogin: (value) => set({ login: value }),
   setAccessToken: (token) => set({ accessToken: token }),
   setUserInfo: (userInfo, token) =>
