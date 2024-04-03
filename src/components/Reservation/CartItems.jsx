@@ -1,31 +1,32 @@
 import React from "react";
 import RoomPicture from "../Hotel/RoomPicture";
 import { Link, useNavigate } from "react-router-dom";
-import room from "../../assets/hotelroom3.jpeg";
+// import room from "../../assets/hotelroom3.jpeg";
 import { digit3 } from "../../store/digit3";
 import { useReservationStore } from "../../store/reservationStore";
 
-const CartItems = ({ close, items }) => {
-  const { adult_count, child_count, check_out, hotel_name, check_in, total_price, cart_id } = items;
+const CartItems = ({ close, items, onDeleteItem, onDelid }) => {
+  const { room, adult_count, child_count, check_out, hotel, check_in, total_price, id } = items;
 
-  const { deleteCart, addInfo } = useReservationStore();
   const navigate = useNavigate();
+  const { addInfo } = useReservationStore();
+  const photo = room.thumbnails[0].img_url;
+  // console.log(items);
 
   const handleOnClick = () => {
-    addInfo(items);
-    navigate("/reservation");
+    // addInfo(items);
+    navigate(`/reservation/?${id}`);
     close();
   };
-
   return (
     <>
       <li className="group grid items-center grid-cols-[min-content_1fr] gap-3 text-left border-b border-b-gray-300 border-dashed py-3">
         <Link to="/hoteldetail">
-          <RoomPicture image={room} className="base" />
+          <RoomPicture image={photo} className="base" />
         </Link>
         <div>
           <Link to="/hoteldetail" className=" group-hover:text-blue-700 line-clamp-2 font-bold">
-            {hotel_name}
+            {hotel.name}
           </Link>
           <div className="text-sm flex mt-2 leading-6">
             <b className="font-semibold">예약일</b>
@@ -48,9 +49,10 @@ const CartItems = ({ close, items }) => {
         </div>
         <div className="col-span-2 justify-self-end flex gap-2">
           <button onClick={handleOnClick} className="btn-blue-outline sm">
-            결제
+            예약
           </button>
-          <button className="btn-red-outline sm" onClick={() => deleteCart(cart_id)}>
+          {/* <button className="btn-red-outline sm" onClick={() => onDeleteItem(id)}> */}
+          <button className="btn-red-outline sm" onClick={() => onDelid(id)}>
             삭제
           </button>
         </div>

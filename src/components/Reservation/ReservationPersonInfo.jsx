@@ -12,38 +12,38 @@ import Loading2 from "../Loading2";
 import request from "../../api/request";
 import instance from "../../api/axios";
 
-const ReservationPersonInfo = () => {
+const ReservationPersonInfo = (isitem) => {
   const navigate = useNavigate();
-  const { deleteCart } = useReservationStore();
-  const { userName, userCredit, userId, userEmail, address, city, nation, zip_code } = useLoginStore();
-  const token = localStorage.getItem("token");
-  const { fetchOrders } = request; // 필요한 요청 URL을 추출
-  const { paymentInfos } = useReservationStore();
-  const { total_price, id } = paymentInfos.result;
 
-  console.log(paymentInfos);
+  const { member, total_price, id } = isitem;
+  const { deleteCart } = useReservationStore();
+  // console.log(isitem);
+
+  const token = localStorage.getItem("token");
+  const { fetchOrders } = request;
 
   const [isRule, setIsRule] = useState(false);
-  const [isAddress, setIsAddress] = useState(address);
-  const [isCountry, setIsCountry] = useState(nation);
-  const [isCity, setIsCity] = useState(city);
-  const [isPostCode, setIsPostCode] = useState(zip_code);
+  const [isAddress, setIsAddress] = useState("");
+  const [isCountry, setIsCountry] = useState("");
+  const [isCity, setIsCity] = useState(member?.city);
+  const [isPostCode, setIsPostCode] = useState("");
   const [isRequestText, setIsRequestText] = useState("");
   const [isPopup, setIsPopup] = useState(false);
   const [errrorMessage, setErrrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading2, setIsLoading2] = useState(false);
   const [persnalInfo, setPersnalInfo] = useState({
-    name: userName,
-    email: userEmail,
-    address: address,
-    city: city,
-    nation: nation,
-    zip_code: zip_code,
+    name: "",
+    email: member?.email,
+    address: "",
+    city: member?.city,
+    nation: "",
+    zip_code: "",
     comment: "",
     agreement: false,
-    credit: userCredit,
+    credit: member?.credit,
   });
+
   const handleAddress = (address) => {
     setIsAddress(address);
     setPersnalInfo({ ...persnalInfo, address });
@@ -90,7 +90,7 @@ const ReservationPersonInfo = () => {
         setIsPopup(true);
         setErrrorMessage("우편번호를 입력해 주세요.");
         isValid = false;
-      } else if (userCredit < total_price) {
+      } else if (member?.credit < total_price) {
         setIsPopup(true);
         setErrrorMessage("보유금액이 결제금액보다 적습니다. 크래딧을 충전해주세요.");
         isValid = false;
@@ -114,18 +114,14 @@ const ReservationPersonInfo = () => {
       comment: persnalInfo.comment,
     };
 
-    // console.log(requestData);
     try {
       setIsLoading2(true);
-      const responseOrder = await instance.patch(`${fetchOrders}/${id}`, requestData, {
+      await instance.patch(`${fetchOrders}/${id}`, requestData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      const responseData = responseOrder.data;
-      console.log(responseData);
-      responseOrder;
-      // deleteCart(cart_id);
+      // deleteCart(id);
     } catch (error) {
       console.log("handleReservation", error);
       const errorMessage = error.response.data.result;
@@ -134,11 +130,13 @@ const ReservationPersonInfo = () => {
         setErrrorMessage("Not found order");
       }
     } finally {
+      console.log(requestData);
+      console.log(id);
       setIsLoading2(false);
       setIsLoading(true);
       setTimeout(() => {
         setIsLoading(false);
-        navigate(`/reservation/done/${userId}`);
+        navigate(`/reservation/done/${member.id}`);
       }, 1500);
     }
   };
@@ -150,11 +148,11 @@ const ReservationPersonInfo = () => {
         <div className="reservation-form mt-5">
           <div>
             이름
-            <Input type={"text"} disabled defaultValue={userName} />
+            <Input type={"text"} disabled defaultValue={member?.name} />
           </div>
           <div>
             이메일
-            <Input type={"email"} disabled defaultValue={userEmail} />
+            <Input type={"email"} disabled defaultValue={member?.email} />
           </div>
           <div>
             주소

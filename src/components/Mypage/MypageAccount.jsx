@@ -8,6 +8,7 @@ import { useLoginStore } from "../../store/loginStore";
 import { useNavigate } from "react-router-dom";
 import Toast from "../Toast";
 import Loading2 from "../Loading2";
+import { digit3 } from "../../store/digit3";
 
 const isLoggedIn = () => {
   const token = localStorage.getItem("token"); // localStorage에서 토큰 가져오기
@@ -66,16 +67,7 @@ const MypageAccount = () => {
     setCity(userCity || "");
     setZipCode(userZipCode || "");
     setNation(userNation || "");
-  }, [
-    userName,
-    userEmail,
-    userBirth,
-    userId,
-    userAddress,
-    userCity,
-    userZipCode,
-    userNation,
-  ]);
+  }, [userName, userEmail, userBirth, userId, userAddress, userCity, userZipCode, userNation]);
 
   const handlePassword = (value) => {
     setPassword(value);
@@ -152,9 +144,7 @@ const MypageAccount = () => {
         </div>
         잔여캐시
         <br />
-        <strong className="text-2xl mr-1 text-blue-700 tracking-tight">
-          1,000,000
-        </strong>
+        <strong className="text-2xl mr-1 text-blue-700 tracking-tight">{digit3(userCredit)}</strong>
         <span>원</span>
       </div>
       <form type="onSubmit" className="bg-white rounded-xl  p-10 relative">
@@ -179,19 +169,11 @@ const MypageAccount = () => {
           </div>
           <div>
             비밀번호
-            <Input
-              type={"password"}
-              defaultValue={password}
-              onChange={handlePassword}
-            />
+            <Input type={"password"} defaultValue={password} onChange={handlePassword} />
           </div>
           <div>
             비밀번호 확인
-            <Input
-              type={"password"}
-              defaultValue={confirmPassword}
-              onChange={handleConfirmPassword}
-            />
+            <Input type={"password"} defaultValue={confirmPassword} onChange={handleConfirmPassword} />
           </div>
         </div>
         <hr className="mt-10" />
@@ -220,11 +202,7 @@ const MypageAccount = () => {
           </button>
         </div>
       </form>
-      <Toast
-        color={"red"}
-        onOpen={registerToast}
-        onClose={() => setRegisterToast(false)}
-      >
+      <Toast color={"red"} onOpen={registerToast} onClose={() => setRegisterToast(false)}>
         {registerError}
       </Toast>
     </div>

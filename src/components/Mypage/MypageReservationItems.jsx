@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { digit3 } from "../../store/digit3";
 
 const MypageReservationItems = ({ items }) => {
-  const { file, hotel, room, adult_count, child_count, check_in, check_out, total_price, created_at } = items;
+  const { hotel, room, adult_count, child_count, check_in, check_out, total_price, created_at } = items;
   const reservationDaty = created_at.split(" ")[0];
+  const photo = room.thumbnails[0].img_url;
+  // console.log(items);
 
   return (
     <>
@@ -16,7 +18,7 @@ const MypageReservationItems = ({ items }) => {
         <td className="mobile:before:content-['호텔정보'] tablet:before:hidden mobile:!grid tablet:!table-cell mobile:grid-cols-[6rem_1fr] mobile:before:font-bold">
           <div className="grid items-center grid-cols-[min-content_1fr] gap-1 text-left">
             <Link to={`/hoteldetail/${hotel.id}`}>
-              <RoomPicture image={file} size={"sm"} />
+              <RoomPicture image={photo} size={"sm"} />
             </Link>
             <Link to={`/hoteldetail/${hotel.id}`} className=" group-hover:text-blue-700 line-clamp-2">
               {hotel.name}

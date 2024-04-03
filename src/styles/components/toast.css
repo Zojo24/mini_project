@@ -1,5 +1,5 @@
 .toast {
-  @apply hidden px-4 py-1 z-[900] text-base rounded-full font-semibold fixed left-2/4 bottom-16 -translate-x-2/4  opacity-0 border border-solid shadow-md;
+  @apply hidden px-4 py-1 z-[900] text-base rounded-full font-semibold fixed left-2/4 bottom-16 -translate-x-2/4  opacity-0 border border-solid shadow-md whitespace-nowrap;
   animation:fadeUp 1 both ;
   &.blue {
     @apply bg-blue-50 text-blue-700 border-blue-300;
